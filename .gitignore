@@ -1,0 +1,7 @@
+.env
+projects/
+media/
+output/
+__pycache__/
+*.pyc
+node_modules/

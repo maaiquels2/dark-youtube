@@ -1,0 +1,27 @@
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><title>Dark YouTube</title>
+<style>
+body{font-family:system-ui,sans-serif;background:#111;color:#ddd;margin:0}
+nav{display:flex;gap:4px;background:#000;padding:8px}nav button{background:#222;color:#ccc;border:0;padding:10px 16px;cursor:pointer;border-radius:6px}
+nav button.on{background:#b00020;color:#fff}main{padding:20px;max-width:1000px;margin:auto}
+input,select,textarea{width:100%;background:#1c1c1c;color:#eee;border:1px solid #333;border-radius:6px;padding:8px;box-sizing:border-box}
+label{display:block;margin:10px 0 4px;color:#999}.btn{background:#b00020;color:#fff;border:0;padding:10px 18px;border-radius:6px;cursor:pointer;margin-top:12px}
+.card{background:#1a1a1a;border:1px solid #2a2a2a;border-radius:8px;padding:12px;margin:8px 0}.err{background:#4a0010;color:#fff;padding:12px;border-radius:6px;margin:10px 0}
+.warn{background:#4a3a00;color:#fff;padding:12px;border-radius:6px}.screen{display:none}.screen.on{display:block}.muted{color:#777}
+</style></head><body>
+<nav id="nav"></nav><main>
+<div id="keymsg"></div><div id="msg"></div>
+<section class="screen" id="s-ideia"><h2>1. Ideia</h2>
+<label>Nicho</label><input id="niche" placeholder="ex.: mistérios históricos, true crime, terror real">
+<label>Língua do vídeo</label><select id="language"><option>English</option><option>Español</option><option>Deutsch</option><option>Français</option><option>Português</option></select>
+<label>Tema / ideia</label><textarea id="theme" rows="3" placeholder="ex.: navios fantasmas encontrados à deriva"></textarea>
+<label>Duração alvo (minutos)</label><input id="minutes" type="number" min="8" max="15" value="10">
+<button class="btn" onclick="titles()">Sugerir títulos (ChatGPT)</button><div id="titles"></div>
+<h3>Projetos salvos</h3><div id="projects"></div></section>
+<section class="screen" id="s-roteiro"><h2>2. Roteiro</h2>
+<label>Título escolhido</label><input id="title">
+<button class="btn" onclick="script()">Gerar roteiro completo (ChatGPT)</button>
+<button class="btn" onclick="save()">Salvar projeto</button><span id="stats" class="muted"></span><div id="scenes"></div></section>
+<section class="screen" id="s-cenas"><h2>3. Cenas</h2><p class="warn">Em construção: a geração automática no Grok Imagine (Chrome) ainda não está ligada. Por enquanto, a lista mostra o prompt de cada cena.</p><div id="cenas"></div></section>
+<section class="screen" id="s-montagem"><h2>4. Montagem</h2><p class="warn">Em construção. Plano: narração completa via OpenAI TTS → clipes do Grok ajustados à duração de cada trecho → ffmpeg monta MP4 16:9 com trilha e legendas.</p></section>
+<section class="screen" id="s-publicacao"><h2>5. Publicação</h2><p class="warn">Em construção. Plano: thumbnail, título, descrição e tags na língua do vídeo.</p></section>
+</main><script src="app.js"></script></body></html>
