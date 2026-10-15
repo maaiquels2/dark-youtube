@@ -509,7 +509,7 @@ def yt_daily_loop():
                 for f in PROJECTS.glob("*.json"):
                     try:
                         d = json.loads(f.read_text(encoding="utf-8"))
-                        if d.get("status") == "publicado" and d.get("published_url"):
+                        if d.get("status") in ("publicado", "agendado") and d.get("published_url"):
                             yt_stats(d["id"])
                     except Exception:
                         pass
@@ -543,16 +543,18 @@ def project_stages(d):
         "roteiro": len(sc) > 0,
         "cenas": len(sc) > 0 and all(x.get("file") and (pdir / x["file"]).is_file() for x in sc),
         "montagem": (pdir / "output" / "final.mp4").is_file(),
-        "publicacao": d.get("status") == "publicado" and bool(d.get("published_url")),
+        "publicacao": d.get("status") in ("publicado", "agendado") and bool(d.get("published_url")),
     }
 
 def decorate(d):
+    if d.get("status") == "agendado" and d.get("scheduled_at") and time.strftime("%Y-%m-%d %H:%M") >= d["scheduled_at"]:
+        d["status"] = "publicado"; d.setdefault("published_at", d["scheduled_at"] + ":00")
     d["_stages"] = project_stages(d); d["_cover"] = project_cover(d)
     if isinstance(d.get("logo"), dict):
         d["logo"]["has"] = (PROJECTS / Path(d["id"]).name / (d["logo"].get("file") or "assets/logo.png")).is_file()
     return d
 
-def publish(pid, url, unpublish=False):
+def publish(pid, url, unpublish=False, scheduled_at=None):
     url = (url or "").strip()
     with LOCK:
         d = load_project(pid)
@@ -561,7 +563,10 @@ def publish(pid, url, unpublish=False):
         else:
             if not re.match(r"^https?://", url):
                 raise ApiError("Cole o link completo do vídeo (https://...).")
-            d.update(published_url=url, status="publicado", published_at=time.strftime("%Y-%m-%d %H:%M:%S"))
+            if scheduled_at:
+                d.update(published_url=url, status="agendado", scheduled_at=scheduled_at.replace("T", " ")[:16])
+            else:
+                d.update(published_url=url, status="publicado", published_at=time.strftime("%Y-%m-%d %H:%M:%S"))
         proj_path(pid).write_text(json.dumps(d, ensure_ascii=False, indent=2), encoding="utf-8")
     return decorate(d)
 
@@ -649,7 +654,7 @@ class H(BaseHTTPRequestHandler):
                     d = json.loads(f.read_text(encoding="utf-8"))
                     st = project_stages(d)
                     items.append({"id": d["id"], "title": d.get("title"), "language": d.get("language"), "updated_at": d.get("updated_at"),
-                                  "status": d.get("status"), "published_url": d.get("published_url"), "cover": project_cover(d),
+                                  "status": decorate(dict(d))["status"], "scheduled_at": d.get("scheduled_at"), "published_url": d.get("published_url"), "cover": project_cover(d),
                                   "stages_done": sum(st.values()), "stages": st, "yt": {k: (yt_cached(d["id"]) or {}).get(k) for k in ("views", "likes", "comments", "fetched_at")}})
                 except Exception:
                     pass
@@ -709,7 +714,7 @@ class H(BaseHTTPRequestHandler):
             if self.path == "/api/montage/config":
                 return self._send(200, mont_config(body))
             if self.path == "/api/publish":
-                return self._send(200, publish(body["id"], body.get("url"), body.get("unpublish", False)))
+                return self._send(200, publish(body["id"], body.get("url"), body.get("unpublish", False), body.get("scheduled_at")))
             if self.path == "/api/save":
                 return self._send(200, save_project(body))
         except ApiError as e:
