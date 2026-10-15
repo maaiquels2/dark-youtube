@@ -13,24 +13,24 @@ const I={
  text:'<path d="M4 6h16M4 12h10M4 18h7"/>',hash:'<path d="M5 9h14M5 15h14M10 3L8 21M16 3l-2 18"/>',globe:'<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/>',
  arrow:'<path d="M5 12h14M13 6l6 6-6 6"/>'};
 const svg=k=>`<svg viewBox="0 0 24 24">${I[k]}</svg>`;
-const STEPS=[["ideia","Ideia"],["roteiro","Roteiro"],["cenas","Cenas"],["montagem","Montagem"],["publicacao","Publicação","soon"]];
+const STEPS=[["ideia","Ideia"],["roteiro","Roteiro"],["cenas","Cenas"],["montagem","Montagem"],["publicacao","Publicação"]];
 const $=id=>document.getElementById(id);
 const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const words=t=>(t||"").trim().split(/\s+/).filter(Boolean).length;
 let P={scenes:[]},TITLES=[],VIEW="projetos",HASKEY=true;
 
 function toast(t,kind="ok"){const d=document.createElement("div");d.className="toast "+kind;d.innerHTML=svg(kind=="err"?"alert":"check")+`<div>${esc(t)}</div>`;$("toasts").append(d);setTimeout(()=>d.remove(),kind=="err"?7000:3500);}
-function stepDone(k){return k=="ideia"?!!P.title:k=="roteiro"?P.scenes.length>0:false;}
+function stepDone(k){const st=P._stages||{};if(k=="ideia")return !!P.title;if(k=="roteiro")return P.scenes.length>0;if(k=="cenas")return !!st.cenas||(P.scenes.length>0&&P.scenes.every(s=>s.status=="pronto"&&s.file));if(k=="montagem")return !!st.montagem||!!(MONT&&MONT.final);if(k=="publicacao")return P.status=="publicado"&&!!P.published_url;return false;}
 function renderNav(){
  $("steps").innerHTML=STEPS.map(([k,n,s],i)=>`<button class="nav-item${VIEW==k?" active":""}" onclick="go('${k}')">${svg(k)}<span>${n}</span>${s?'<span class="tag">em breve</span>':`<i class="dot${stepDone(k)?" done":""}"></i>`}</button>`).join("");
  document.querySelector('[data-view=projetos]').classList.toggle("active",VIEW=="projetos");
  const idx=STEPS.findIndex(s=>s[0]==VIEW);const done=STEPS.filter(s=>stepDone(s[0])).length;
- $("progressText").textContent=idx<0?`${done} de 5 etapas concluídas`:`Etapa ${idx+1} de 5 · ${STEPS[idx][1]}`;
+ $("progressText").textContent=idx<0||done==5?`${done} de 5 etapas concluídas${P.status=="publicado"?" · Publicado":""}`:`Etapa ${idx+1} de 5 · ${STEPS[idx][1]}`;
  $("progressBar").style.width=(done/5*100)+"%";
  $("crumbStep").textContent=idx<0?"Projetos":STEPS[idx][1];
  $("crumbProject").textContent=P.title||(P.id?"Projeto sem título":"Novo projeto");
 }
-function go(k){if(k=="montagem")setTimeout(()=>{montRefresh().then(()=>{if(MONT.running)montPoll();});},50);if(k=="cenas"&&VIEW!="cenas"){const u=P.scenes.filter(s=>!s.reviewed).length;if(u&&!confirm(`${u} de ${P.scenes.length} cenas ainda não foram revisadas (fatos e fontes). Ir para Cenas mesmo assim?`))return;}
+function go(k){if(k=="publicacao")setTimeout(renderPub,30);if(k=="montagem")setTimeout(()=>{montRefresh().then(()=>{if(MONT.running)montPoll();});},50);if(k=="cenas"&&VIEW!="cenas"){const u=P.scenes.filter(s=>!s.reviewed).length;if(u&&!confirm(`${u} de ${P.scenes.length} cenas ainda não foram revisadas (fatos e fontes). Ir para Cenas mesmo assim?`))return;}
 VIEW=k;document.querySelectorAll(".view").forEach(v=>v.classList.toggle("on",v.id=="v-"+k));document.body.classList.remove("nav-open");
  if(k=="cenas"){renderCenas();if(P.scenes.some(s=>s.status=="gerando"))startPoll();}if(k=="projetos")loadProjects();renderNav();window.scrollTo(0,0);}
 document.querySelector('[data-view=projetos]').onclick=()=>go("projetos");
@@ -130,12 +130,12 @@ async function upload(i,f){if(!f)return;if(!P.id)await save();try{const r=await 
 function xaiNotice(){$("xaiNotice").innerHTML=HASXAI?"":`<div class="card notice"><span class="ic">${svg("key")}</span><div><b>Chave da xAI não configurada</b><p>Sem ela, só dá para usar o Site do Grok e enviar os arquivos à mão. Para gerar pela API, coloque <code>XAI_API_KEY=</code> no arquivo <code>.env</code> e reinicie o app.</p></div></div>`;}
 function pipe(id,items){$(id).innerHTML=items.map(([ic,t,d],i)=>`<div class="card pstep"><div class="ic">${svg(ic)}</div><small>PASSO ${i+1}</small><b>${t}</b><p>${d}</p></div>`).join("");}
 if($("pipeMontagem"))pipe("pipeMontagem",[["mic","Narração completa","Roteiro inteiro em uma única voz via OpenAI TTS, sem cortes de tom."],["film","Clipes sincronizados","Cada clipe do Grok ajustado à duração do seu trecho de narração."],["music","Trilha sonora","Música ambiente dark mixada abaixo da voz."],["cc","Legendas e export","ffmpeg gera MP4 1920×1080 com legendas embutidas."]]);
-pipe("pipePublicacao",[["img","Thumbnail","Imagem 1280×720 de alto contraste a partir da cena mais forte."],["text","Título e descrição","Na língua do vídeo, com capítulos e gancho no começo."],["hash","Tags","Palavras-chave do nicho para busca e sugeridos."],["globe","Pronto para enviar","Pacote final para subir no YouTube Studio."]]);
+if($("pipePublicacao"))pipe("pipePublicacao",[["img","Thumbnail","Imagem 1280×720 de alto contraste a partir da cena mais forte."],["text","Título e descrição","Na língua do vídeo, com capítulos e gancho no começo."],["hash","Tags","Palavras-chave do nicho para busca e sugeridos."],["globe","Pronto para enviar","Pacote final para subir no YouTube Studio."]]);
 
 async function loadProjects(){$("projects").innerHTML='<div class="skel" style="height:240px"></div>'.repeat(3);
  let l=[];try{l=await (await fetch("/api/projects")).json()}catch{}
  const nw=`<button class="new-proj" onclick="newProject()"><div><div class="ill" style="margin:0 auto 10px;width:44px;height:44px;border-radius:12px;background:var(--card2);display:grid;place-items:center">${svg("spark")}</div><b style="color:var(--text)">Novo projeto</b><div style="font-size:13px">Comece por uma ideia</div></div></button>`;
- $("projects").innerHTML=nw+l.map(p=>`<div class="card proj" onclick="openProj('${esc(p.id)}')"><div class="cover">${svg("film")}</div><div class="body"><b>${esc(p.title||"Sem título")}</b><div class="meta"><span class="chip">${esc(p.language||"—")}</span><span>${esc(p.updated_at||"")}</span></div></div></div>`).join("");}
+ $("projects").innerHTML=nw+l.map(p=>`<div class="card proj" onclick="openProj('${esc(p.id)}')"><div class="cover">${p.cover?`<img src="/files/${encodeURIComponent(p.id)}/cover?v=${encodeURIComponent(p.updated_at||"")}" alt="">`:svg("film")}${p.status=="publicado"?'<span class="chip ok pub-badge">Publicado</span>':""}</div><div class="body"><b>${esc(p.title||"Sem título")}</b><div class="meta"><span class="chip">${esc(p.language||"—")}</span><span class="chip">${p.stages_done||0}/5 etapas</span><span>${esc(p.updated_at||"")}</span></div></div></div>`).join("");}
 async function openProj(id){try{const r=await fetch("/api/projects/"+encodeURIComponent(id));if(!r.ok)throw 0;P=await r.json();P.scenes=P.scenes||[];fill();TITLES=[];renderTitles();renderScenes();$("savebar").classList.add("saved");$("saveState").textContent="Salvo";go("roteiro");}catch{toast("Não foi possível abrir o projeto.","err")}}
 function newProject(){P={scenes:[]};TITLES=[];["theme","title"].forEach(k=>$(k).value="");$("niche").value="Business & Finance Documentary";$("language").value="English";$("minutes").value=10;renderTitles();renderScenes();go("ideia");}
 
@@ -211,3 +211,11 @@ async function montCfg(){await api("/api/montage/config",{voice:$("mVoice").valu
 async function montStart(step,force){try{await api("/api/montage/start",{id:P.id,step,force_tts:!!force});toast("Montagem iniciada.");montPoll();}catch(e){toast(e.message);}}
 async function montStop(){await api("/api/montage/stop",{id:P.id});toast("Parando...");}
 async function montMusic(f){if(!f)return;const r=await fetch(`/api/montage/music?id=${encodeURIComponent(P.id)}&name=${encodeURIComponent(f.name)}`,{method:"POST",body:f});const d=await r.json();if(!r.ok)return toast(d.error);toast("Trilha salva.");montRefresh();}
+
+function renderPub(){const el=$("pubPanel");if(!el||!P)return;const pub=P.status=="publicado"&&P.published_url;
+ el.innerHTML=`<div class="card pub-card">${P._cover?`<img class="pub-thumb" src="/files/${encodeURIComponent(P.id)}/cover?v=${Date.now()}" alt="">`:""}
+ <div class="pub-body"><h3>${pub?"✅ Vídeo publicado":"Publicar no YouTube"}</h3>
+ <p class="muted">${pub?`Publicado em ${esc(P.published_at||"")}`:"Depois de subir o final.mp4 no YouTube Studio, cole aqui o link e marque como publicado. Isso conclui a etapa 5."}</p>
+ <div class="field"><label>Link do vídeo publicado</label><input id="pubUrl" placeholder="https://www.youtube.com/watch?v=..." value="${esc(P.published_url||"")}"></div>
+ <div class="auto-btns"><button class="btn primary" onclick="doPublish()">${pub?"Atualizar link":"Marcar como publicado"}</button>${pub?`<a class="btn ghost" href="${esc(P.published_url)}" target="_blank" rel="noopener">Abrir no YouTube</a><button class="btn ghost" onclick="doPublish(true)">Desmarcar</button>`:""}</div></div></div>`;}
+async function doPublish(un){try{const d=await api("/api/publish",{id:P.id,url:$("pubUrl").value,unpublish:!!un});P.status=d.status;P.published_url=d.published_url;P.published_at=d.published_at;P._stages=d._stages;P._cover=d._cover;toast(un?"Desmarcado.":"Marcado como publicado. 5/5 etapas.");renderPub();go(VIEW);}catch(e){toast(e.message,"err");}}

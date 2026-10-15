@@ -296,6 +296,9 @@ def write_script(p):
            "Set needs_check=true on any scene whose claims (figures, dates, quotes, allegations) must be verified. Reply only in JSON.")
     u = (f"Title: {p.get('title')}\nNiche: {p.get('niche')}\nLanguage of the narration: {p.get('language')}\n"
          f"Target length: {mins} minutes (~{words} words of narration in total).\n"
+         + (f"Angle / editorial brief: {p.get('theme')}\n" if p.get("theme") else "")
+         + (f"Verified facts you may use (with sources). Prefer these; do not contradict them; cite the given URLs in sources:\n{p.get('facts')}\n" if p.get("facts") else "")
+         + 
          "Write a documentary narration split into scenes of 1-3 sentences (6-10 seconds each). "
          "Strong hook in the first 30 seconds, clear story arc, retention beats (open loops, reveals) spread through the video, ending with a call to subscribe. "
          "For each scene: narration in the narration language; visual_prompt IN ENGLISH: a concrete, detailed visual description (subject, setting, camera angle, lighting, mood; 25-50 words) faithful to that scene's narration "
@@ -307,6 +310,8 @@ def write_script(p):
     return chat_json(sys, u, 32000)
 
 def save_project(proj):
+    for k in [k for k in proj if k.startswith("_")]:
+        proj.pop(k, None)
     pid = proj.get("id") or slug(proj.get("title", "projeto"))
     proj["id"] = pid
     proj["updated_at"] = time.strftime("%Y-%m-%d %H:%M:%S")
@@ -439,6 +444,47 @@ def save_music(pid, name, data):
     (d / f"music{ext}").write_bytes(data)
     return {"music": f"music{ext}"}
 
+# ---------- etapas / publicacao ----------
+COVER_CANDIDATES = ("PUBLICAR/3-thumbnail.jpg", "PUBLICAR/thumbnail.jpg", "output/thumbnail.jpg")
+def project_cover(d):
+    pdir = PROJECTS / Path(d["id"]).name
+    for rel in ([d["cover"]] if d.get("cover") else []) + list(COVER_CANDIDATES):
+        if (pdir / rel).is_file():
+            return rel
+    for sc in d.get("scenes") or []:
+        f = sc.get("file") or ""
+        if f.lower().endswith((".jpg", ".jpeg", ".png", ".webp")) and (pdir / f).is_file():
+            return f
+    return None
+
+def project_stages(d):
+    pdir = PROJECTS / Path(d["id"]).name
+    sc = d.get("scenes") or []
+    return {
+        "ideia": bool(d.get("title")),
+        "roteiro": len(sc) > 0,
+        "cenas": len(sc) > 0 and all(x.get("file") and (pdir / x["file"]).is_file() for x in sc),
+        "montagem": (pdir / "output" / "final.mp4").is_file(),
+        "publicacao": d.get("status") == "publicado" and bool(d.get("published_url")),
+    }
+
+def decorate(d):
+    d["_stages"] = project_stages(d); d["_cover"] = project_cover(d)
+    return d
+
+def publish(pid, url, unpublish=False):
+    url = (url or "").strip()
+    with LOCK:
+        d = load_project(pid)
+        if unpublish:
+            d["status"] = "rascunho"
+        else:
+            if not re.match(r"^https?://", url):
+                raise ApiError("Cole o link completo do vídeo (https://...).")
+            d.update(published_url=url, status="publicado", published_at=time.strftime("%Y-%m-%d %H:%M:%S"))
+        proj_path(pid).write_text(json.dumps(d, ensure_ascii=False, indent=2), encoding="utf-8")
+    return decorate(d)
+
 class H(BaseHTTPRequestHandler):
     def _send(self, code, obj=None, raw=None, ctype="application/json; charset=utf-8"):
         b = raw if raw is not None else json.dumps(obj, ensure_ascii=False).encode()
@@ -487,6 +533,13 @@ class H(BaseHTTPRequestHandler):
             return self._send(200, mont_status(q["id"][0]))
         if p.startswith("/files/"):
             parts = [urllib.parse.unquote(x) for x in p.split("/")[2:]]
+            if len(parts) == 2 and parts[1] == "cover":
+                d = json.loads((PROJECTS / f"{Path(parts[0]).name}.json").read_text(encoding="utf-8"))
+                c = project_cover(d)
+                if c:
+                    f = PROJECTS / Path(parts[0]).name / c
+                    ct = {".png": "image/png", ".webp": "image/webp"}.get(f.suffix.lower(), "image/jpeg")
+                    return self._send(200, raw=f.read_bytes(), ctype=ct)
             if len(parts) == 3 and parts[1] in ("output", "audio"):
                 f = PROJECTS / Path(parts[0]).name / parts[1] / Path(parts[2]).name
                 if f.is_file():
@@ -508,13 +561,18 @@ class H(BaseHTTPRequestHandler):
             for f in sorted(PROJECTS.glob("*.json"), key=lambda x: x.stat().st_mtime, reverse=True):
                 try:
                     d = json.loads(f.read_text(encoding="utf-8"))
-                    items.append({"id": d["id"], "title": d.get("title"), "language": d.get("language"), "updated_at": d.get("updated_at")})
+                    st = project_stages(d)
+                    items.append({"id": d["id"], "title": d.get("title"), "language": d.get("language"), "updated_at": d.get("updated_at"),
+                                  "status": d.get("status"), "published_url": d.get("published_url"), "cover": project_cover(d),
+                                  "stages_done": sum(st.values()), "stages": st})
                 except Exception:
                     pass
             return self._send(200, items)
         if p.startswith("/api/projects/"):
             f = PROJECTS / (Path(p).name + ".json")
-            return self._send(200, raw=f.read_bytes()) if f.exists() else self._send(404, {"error": "não encontrado"})
+            if not f.exists():
+                return self._send(404, {"error": "não encontrado"})
+            return self._send(200, decorate(json.loads(f.read_text(encoding="utf-8"))))
         f = STATIC / ("index.html" if p == "/" else p.lstrip("/"))
         if f.is_file() and STATIC in f.resolve().parents:
             ct = {".html": "text/html", ".js": "application/javascript", ".css": "text/css"}.get(f.suffix, "application/octet-stream")
@@ -558,6 +616,8 @@ class H(BaseHTTPRequestHandler):
                 return self._send(200, mont_stop(body["id"]))
             if self.path == "/api/montage/config":
                 return self._send(200, mont_config(body))
+            if self.path == "/api/publish":
+                return self._send(200, publish(body["id"], body.get("url"), body.get("unpublish", False)))
             if self.path == "/api/save":
                 return self._send(200, save_project(body))
         except ApiError as e:

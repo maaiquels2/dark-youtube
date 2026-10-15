@@ -10,3 +10,4 @@ server.err
 server.pid
 .venv/
 browser_profile/
+projects_archive/
