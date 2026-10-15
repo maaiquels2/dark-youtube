@@ -71,6 +71,19 @@ def ff(args, **kw):
     return r
 
 
+def make_plate(src, out, pad_frac=0.18, alpha=0.90, color=(248, 248, 246)):
+    """Placa clara arredondada atras do logo (logo colado sem alteracao)."""
+    from PIL import Image, ImageDraw
+    lg = Image.open(src).convert("RGBA")
+    pad = max(8, round(lg.height * pad_frac))
+    W, H = lg.width + 2 * pad, lg.height + 2 * pad
+    plate = Image.new("RGBA", (W, H), (0, 0, 0, 0))
+    ImageDraw.Draw(plate).rounded_rectangle([0, 0, W - 1, H - 1], radius=round(H * 0.22), fill=color + (round(255 * alpha),))
+    plate.alpha_composite(lg, (pad, pad))
+    Path(out).parent.mkdir(parents=True, exist_ok=True); plate.save(out)
+    return Path(out)
+
+
 def probe_dur(p):
     r = subprocess.run([FFPROBE, "-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", str(p)],
                        capture_output=True, text=True)
@@ -364,10 +377,14 @@ class Job:
             intro = float(lg.get("intro_seconds", 15))
             win = [(0.0, min(intro, total))] + [(starts[k], starts[k] + D[k]) for k, s in enumerate(sc) if s.get("logo") and starts[k] >= intro - 0.01]
             en = "+".join(f"between(t,{a:.2f},{b:.2f})" for a, b in win)
+            op = float(lg.get('opacity', 0.85))
+            if lg.get("plate", True):
+                lfile = make_plate(lfile, self.pdir / "work" / "logo_plate.png")
+                op = 1.0  # placa ja tem 90% de opacidade; logo intacto por cima
             args_logo = ["-loop", "1", "-i", str(lfile)]
             self._logo_args = args_logo
             m = round(0.03 * 1080)
-            pre = (f"[3:v]format=rgba,colorchannelmixer=aa={float(lg.get('opacity', 0.85)):.2f}[lg0];"
+            pre = (f"[3:v]format=rgba,colorchannelmixer=aa={op:.2f}[lg0];"
                    f"[lg0][0:v]scale2ref=w='main_w*{float(lg.get('width_pct', 9))/100:.4f}':h='ow/mdar'[lg][base];"
                    f"[base][lg]overlay=x={m}:y={m}:enable='{en}':shortest=1[ov];")
             vin = "[ov]"
