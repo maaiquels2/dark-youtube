@@ -15,5 +15,6 @@
   "video_max_seconds": 15,
   "video_min_seconds": 1,
   "words_per_minute": 150,
-  "concurrency": 3
+  "concurrency": 3,
+  "grok_auto_concurrency": 2
 }

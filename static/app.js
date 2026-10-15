@@ -98,7 +98,7 @@ function setScene(i,k,v){const s=P.scenes[i];s[k]=v;if(k=="mode")s.model=MODELS[
 let saveT=null;function autoSave(){clearTimeout(saveT);saveT=setTimeout(()=>{if(P.id)api("/api/save",P).then(d=>{P.updated_at=d.updated_at}).catch(e=>toast(e.message,"err"))},500);}
 function preview(s){if(!s.file)return svg(s.mode=="video"?"film":"img");const u=`/media/${encodeURIComponent(P.id)}/${encodeURIComponent(s.file.split("/").pop())}?t=${encodeURIComponent(P.updated_at||"")}${s.gen_seconds||""}`;
  return /\.(mp4|webm|mov)$/i.test(s.file)?`<video src="${u}" muted loop playsinline onmouseenter="this.play()" onmouseleave="this.pause()"></video>`:`<img src="${u}" alt="">`;}
-function renderCenas(){if(!P.scenes.length){$("cost").innerHTML="";$("cenas").innerHTML=`<div class="empty" style="grid-column:1/-1"><div class="ill">${svg("cenas")}</div><b>Nenhuma cena</b><p>Gere ou abra um roteiro para ver aqui um quadro por cena.</p><button class="btn ghost sm" onclick="go('roteiro')">Ir para Roteiro</button></div>`;return;}
+function renderCenas(){renderAuto();if(!P.scenes.length){$("cost").innerHTML="";$("cenas").innerHTML=`<div class="empty" style="grid-column:1/-1"><div class="ill">${svg("cenas")}</div><b>Nenhuma cena</b><p>Gere ou abra um roteiro para ver aqui um quadro por cena.</p><button class="btn ghost sm" onclick="go('roteiro')">Ir para Roteiro</button></div>`;return;}
  if(ensurePlan(false))autoSave();renderCost();
  const done=P.scenes.filter(s=>s.status=="pronto").length,run=P.scenes.filter(s=>s.status=="gerando").length,err=P.scenes.filter(s=>s.status=="erro").length;
  $("genProgress").innerHTML=`<div class="progress"><div style="width:${done/P.scenes.length*100}%"></div></div><span>${done}/${P.scenes.length} prontas${run?` · ${run} gerando`:""}${err?` · ${err} com erro`:""}</span>`;
@@ -106,7 +106,7 @@ function renderCenas(){if(!P.scenes.length){$("cost").innerHTML="";$("cenas").in
  $("cenas").innerHTML=P.scenes.map((s,i)=>{const [lab,cls]=ST[s.status]||ST.pendente;const busy=s.status=="gerando";
  return `<div class="card thumb${SEL.has(i)?" sel":""}"><div class="frame">${preview(s)}<span class="k">Cena ${i+1} · ${Math.round(secs(s))}s</span>${s.beat?'<span class="beat">gancho/retenção</span>':""}
   <input type="checkbox" class="pick" ${SEL.has(i)?"checked":""} onchange="toggleSel(${i},this.checked);this.closest('.thumb').classList.toggle('sel',this.checked)">${busy?'<div class="overlay"><span class="spin"></span></div>':""}</div>
-  <div class="body"><div class="thumb-head"><span class="chip ${cls}">${lab}</span><span class="muted">${s.source=="site"?"US$ 0":usd(estCost(s))}${s.cost_usd!=null&&s.status=="pronto"?` · gasto ${usd(s.cost_usd)}`:""}</span></div>
+  <div class="body"><div class="thumb-head"><span class="chip ${cls}">${lab}</span>${autoChip(i)}<span class="muted">${s.source=="site"?"US$ 0":usd(estCost(s))}${s.cost_usd!=null&&s.status=="pronto"?` · gasto ${usd(s.cost_usd)}`:""}</span></div>
   <div class="mini"><select onchange="setScene(${i},'mode',this.value)" ${busy?"disabled":""}><option value="video"${s.mode=="video"?" selected":""}>Vídeo</option><option value="image"${s.mode=="image"?" selected":""}>Imagem animada</option></select>
   <select onchange="setScene(${i},'source',this.value)" ${busy?"disabled":""}><option value="api"${s.source=="api"?" selected":""}>API xAI</option><option value="site"${s.source=="site"?" selected":""}>Site do Grok</option></select></div>
   ${s.source=="api"?`<select class="model" onchange="setScene(${i},'model',this.value)" ${busy?"disabled":""}>${MODELS[s.mode].map(m=>`<option${m==s.model?" selected":""}>${m}</option>`).join("")}</select>`:""}
@@ -160,3 +160,22 @@ function buildGrokPrompt(s){const narr=(s.narration||"").replace(/\s+/g," ").tri
  else p.push("Format: still image, aspect ratio 16:9, 1920x1080, high resolution, ultra detailed, sharp focus.");
  p.push(GROK_NEG);return p.join(" ");}
 async function copyPrompt(i){const t=buildGrokPrompt(P.scenes[i]);try{await navigator.clipboard.writeText(t);toast("Prompt completo copiado.");}catch{prompt("Copie o prompt:",t);}}
+
+let AUTO={},AUTOPOLL=null;
+const AUTOLAB={starting:"Iniciando",running:"Gerando",paused:"Pausado",needs_user:"Precisa de você",done:"Concluído",stopped:"Parado",error:"Erro"};
+function autoChip(i){const a=(AUTO.scenes||{})[i];if(!a||!AUTO.running&&a.status=="pronto")return"";const c={"gerando":"run","na fila":"","pronto":"ok","erro":"err"}[a.status]||"";return `<span class="chip auto ${c}" title="${esc(a.error||"")}">Grok auto: ${esc(a.status)}</span>`;}
+function renderAuto(){const el=$("autoPanel");if(!el)return;const st=AUTO.state,run=AUTO.running,paused=AUTO.control=="pause";
+ const sc=Object.values(AUTO.scenes||{}),ok=sc.filter(x=>x.status=="pronto").length,er=sc.filter(x=>x.status=="erro").length;
+ el.innerHTML=`<div class="auto-head"><div><h3>Gerar no Grok (automático)</h3><p class="muted">Usa um Chrome só do Dark Studio, logado na sua conta do Grok. Abre até ${AUTO.concurrency||2} abas, cola o prompt completo, gera e baixa cada cena.</p></div>
+ <div class="auto-btns"><button class="btn ghost" onclick="autoLogin()">Abrir Chrome do Grok (login)</button>
+ ${run?`${paused?`<button class="btn primary" onclick="autoCtl('run')">Retomar</button>`:`<button class="btn ghost" onclick="autoCtl('pause')">Pausar</button>`}<button class="btn ghost danger" onclick="autoCtl('stop')">Parar</button>`
+  :`<button class="btn primary" onclick="autoStart()">Gerar no Grok (automático)</button>`}</div></div>
+ ${st?`<div class="auto-state ${st}"><b>${AUTOLAB[st]||st}</b> · ${esc(AUTO.message||"")}${sc.length?` · ${ok}/${sc.length} prontas${er?` · ${er} com erro`:""}`:""}${AUTO.updated_at?` <span class="muted">(${AUTO.updated_at})</span>`:""}</div>`:""}`;}
+async function autoRefresh(){if(!P.id)return;try{AUTO=await (await fetch("/api/grok_auto?id="+encodeURIComponent(P.id))).json();}catch{return;}
+ if(VIEW=="cenas"){await refresh().catch(()=>{});}
+ if(!AUTO.running&&AUTOPOLL){clearInterval(AUTOPOLL);AUTOPOLL=null;}renderAuto();}
+function autoPoll(){if(!AUTOPOLL)AUTOPOLL=setInterval(autoRefresh,4000);autoRefresh();}
+async function autoStart(){if(!P.id)await save();const sel=[...SEL];try{await api("/api/grok_auto/start",{id:P.id,scenes:sel.length?sel:null});toast(sel.length?`Gerando ${sel.length} cenas no Grok.`:"Gerando cenas pendentes no Grok.");autoPoll();}catch(e){toast(e.message);}}
+async function autoCtl(a){try{AUTO=await api("/api/grok_auto/control",{id:P.id,action:a});renderAuto();toast({run:"Retomado.",pause:"Pausado.",stop:"Parando..."}[a]);autoPoll();}catch(e){toast(e.message);}}
+async function autoLogin(){try{await api("/api/grok_auto/login",{});toast("Chrome do Dark Studio aberto no Grok. Faça login uma vez.");}catch(e){toast(e.message);}}
+setTimeout(()=>{if(P&&P.id)autoRefresh().then(()=>{if(AUTO.running)autoPoll();});},1500);

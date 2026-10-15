@@ -8,3 +8,5 @@ node_modules/
 server.log
 server.err
 server.pid
+.venv/
+browser_profile/

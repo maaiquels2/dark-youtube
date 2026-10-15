@@ -329,6 +329,55 @@ def save_project(proj):
         pass
     return proj
 
+# ---------- Gerar no Grok (automatico) - worker em subprocesso ----------
+import subprocess, sys as _sys
+AUTO = {}
+def _venv_py():
+    v = Path(__file__).resolve().parent / ".venv" / "Scripts" / "python.exe"
+    return str(v) if v.is_file() else _sys.executable
+
+def _auto_logs(pid):
+    d = PROJECTS / Path(pid).name / "logs"; d.mkdir(parents=True, exist_ok=True); return d
+
+def auto_status(pid):
+    f = _auto_logs(pid) / "grok_auto.json"
+    st = {}
+    if f.is_file():
+        try: st = json.loads(f.read_text(encoding="utf-8"))
+        except Exception: st = {}
+    pr = AUTO.get(Path(pid).name)
+    st["running"] = bool(pr and pr.poll() is None)
+    try: st["control"] = (_auto_logs(pid) / "grok_control.txt").read_text(encoding="utf-8").strip()
+    except OSError: st["control"] = ""
+    return st
+
+def auto_start(pid, scenes=None, concurrency=None):
+    pid = Path(pid).name
+    pr = AUTO.get(pid)
+    if pr and pr.poll() is None:
+        raise ApiError("A geração automática já está rodando neste projeto.")
+    conc = int(concurrency or pricing().get("grok_auto_concurrency", 2))
+    args = [_venv_py(), str(Path(__file__).resolve().parent / "grok_worker.py"), pid, "--concurrency", str(conc)]
+    if scenes:
+        args += ["--scenes", ",".join(str(int(i)) for i in scenes)]
+    logs = _auto_logs(pid)
+    (logs / "grok_control.txt").write_text("run", encoding="utf-8")
+    out = open(logs / "grok_worker.out", "a", encoding="utf-8")
+    AUTO[pid] = subprocess.Popen(args, stdout=out, stderr=subprocess.STDOUT, cwd=str(Path(__file__).resolve().parent),
+                                 creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0))
+    return {"started": True, "concurrency": conc}
+
+def auto_control(pid, action):
+    if action not in ("run", "pause", "stop"):
+        raise ApiError("Ação inválida.")
+    (_auto_logs(pid) / "grok_control.txt").write_text(action, encoding="utf-8")
+    return auto_status(pid)
+
+def auto_login():
+    subprocess.Popen([_venv_py(), str(Path(__file__).resolve().parent / "grok_worker.py"), "_", "--login"],
+                     cwd=str(Path(__file__).resolve().parent), creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0))
+    return {"opened": True}
+
 class H(BaseHTTPRequestHandler):
     def _send(self, code, obj=None, raw=None, ctype="application/json; charset=utf-8"):
         b = raw if raw is not None else json.dumps(obj, ensure_ascii=False).encode()
@@ -342,6 +391,9 @@ class H(BaseHTTPRequestHandler):
         p = self.path.split("?")[0]
         if p == "/api/status":
             return self._send(200, {"has_key": bool(api_key()), "model": MODEL, "has_xai": bool(xai_key())})
+        if p == "/api/grok_auto":
+            q = urllib.parse.parse_qs(urllib.parse.urlparse(self.path).query)
+            return self._send(200, auto_status(q["id"][0]))
         if p == "/api/pricing":
             return self._send(200, pricing())
         if p.startswith("/media/"):
@@ -390,6 +442,12 @@ class H(BaseHTTPRequestHandler):
                 return self._send(200, suggest_titles(body))
             if self.path == "/api/script":
                 return self._send(200, write_script(body))
+            if self.path == "/api/grok_auto/start":
+                return self._send(200, auto_start(body["id"], body.get("scenes"), body.get("concurrency")))
+            if self.path == "/api/grok_auto/control":
+                return self._send(200, auto_control(body["id"], body["action"]))
+            if self.path == "/api/grok_auto/login":
+                return self._send(200, auto_login())
             if self.path == "/api/save":
                 return self._send(200, save_project(body))
         except ApiError as e:
