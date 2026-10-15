@@ -138,7 +138,7 @@ def build_grok_prompt(sc, cfg=None):
     narr = re.sub(r"\s+", " ", sc.get("narration") or "").strip()
     parts = [f"Subject: {subj}."]
     if narr:
-        parts.append(f"Context (illustrate this narration, do not write it on screen): \"{narr[:240].rstrip(\".\")}\".")
+        parts.append(f"Context (illustrate this narration, do not write it on screen): \"{narr[:240].rstrip('.')}\".")
     parts.append("Composition: wide cinematic framing, strong leading lines, clear focal subject, rule of thirds.")
     parts.append(GROK_STYLE)
     if sc.get("mode") == "video":
