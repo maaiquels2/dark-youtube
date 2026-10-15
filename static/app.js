@@ -149,11 +149,11 @@ function preset(i,el){document.querySelectorAll(".preset").forEach(b=>b.classLis
  $("keyStatus").innerHTML=s.has_key?`<i class="dot done"></i>OpenAI conectada · ${esc(s.model)}`:`<i class="dot" style="background:var(--warn)"></i>Chave OpenAI ausente`;}catch{}
  notice();emptyTitles();renderScenes();const h=location.hash.slice(1);if(h.startsWith("p=")){const [pid,v]=decodeURIComponent(h.slice(2)).split("|");openProj(pid).then(()=>{if(v){if(v=="cenas")VIEW="cenas";go(v)}});return;}go(STEPS.some(s=>s[0]==h)?h:"projetos");})();
 
-const GROK_STYLE="Style: dark cinematic documentary, moody low-key lighting with deep shadows and cold teal-and-amber contrast, volumetric haze, shallow depth of field, anamorphic lens look, subtle film grain, photorealistic, premium Netflix-style business documentary aesthetic.";
-const GROK_NEG="Avoid: no text, no captions, no watermark, no logos or trademarks, no real person likeness, no distorted faces or hands, no extra limbs, no cartoon look, no blur artifacts.";
+const GROK_STYLE="Style: dark cinematic documentary, moody low-key lighting with deep shadows and cold teal-and-amber contrast, volumetric haze, shallow depth of field, no letterbox bars, full-frame edge-to-edge image, subtle film grain, photorealistic, premium Netflix-style business documentary aesthetic.";
+const GROK_NEG="Avoid: no text, no captions, no watermark, no logos or trademarks, no real person likeness, no distorted faces or hands, no extra limbs, no cartoon look, no blur artifacts, no subtitles or quotes on screen, no letterbox or black bars.";
 function cleanSubject(vp){let t=(vp||"").trim().replace(/\b(dark\s+)?cinematic\s+16:9\s*/i,"").trim();t=t.replace(/,?\s*no logos?,?\s*(no text,?)?\s*(no identifiable people\.?)?\s*$/i,"").replace(/^[\s,.]+|[\s,.]+$/g,"");t=t.split(" | ")[0];return t?t[0].toUpperCase()+t.slice(1):"Atmospheric establishing shot that illustrates the narration";}
 function buildGrokPrompt(s){const narr=(s.narration||"").replace(/\s+/g," ").trim();const p=[`Subject: ${cleanSubject(s.visual_prompt)}.`];
- if(narr)p.push(`Context (illustrate this narration, do not write it on screen): "${narr.slice(0,240).replace(/\.+$/,"")}".`);
+ if(narr)p.push("Mood: tense, investigative business documentary atmosphere.");
  p.push("Composition: wide cinematic framing, strong leading lines, clear focal subject, rule of thirds.",GROK_STYLE);
  if(s.mode=="video"){const w=narr?narr.split(" ").length:0;const d=Math.min(15,Math.max(1,Math.ceil(Math.max(1,w/150*60))));
   p.push(`Motion: slow cinematic camera movement (gentle dolly-in or slow parallax pan), subtle atmospheric motion (drifting haze, flickering lights), smooth and stable, no cuts. Duration: about ${d} seconds (max 15s), no audio.`,"Format: video, aspect ratio 16:9, 1920x1080, high resolution, ultra detailed.");}

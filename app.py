@@ -121,10 +121,10 @@ def proj_path(pid):
     return PROJECTS / (Path(pid).name + ".json")
 
 GROK_STYLE = ("Style: dark cinematic documentary, moody low-key lighting with deep shadows and cold teal-and-amber contrast, "
-              "volumetric haze, shallow depth of field, anamorphic lens look, subtle film grain, photorealistic, "
+              "volumetric haze, shallow depth of field, no letterbox bars, full-frame edge-to-edge image, subtle film grain, photorealistic, "
               "premium Netflix-style business documentary aesthetic.")
 GROK_NEG = ("Avoid: no text, no captions, no watermark, no logos or trademarks, no real person likeness, "
-            "no distorted faces or hands, no extra limbs, no cartoon look, no blur artifacts.")
+            "no distorted faces or hands, no extra limbs, no cartoon look, no blur artifacts, no subtitles or quotes on screen, no letterbox or black bars.")
 
 def clean_subject(vp):
     t = (vp or "").strip()
@@ -138,7 +138,7 @@ def build_grok_prompt(sc, cfg=None):
     narr = re.sub(r"\s+", " ", sc.get("narration") or "").strip()
     parts = [f"Subject: {subj}."]
     if narr:
-        parts.append(f"Context (illustrate this narration, do not write it on screen): \"{narr[:240].rstrip('.')}\".")
+        parts.append("Mood: tense, investigative business documentary atmosphere.")
     parts.append("Composition: wide cinematic framing, strong leading lines, clear focal subject, rule of thirds.")
     parts.append(GROK_STYLE)
     if sc.get("mode") == "video":

@@ -21,6 +21,7 @@ URL = "https://grok.com/imagine"
 CHROME_PATHS = [r"C:\Program Files\Google\Chrome\Application\chrome.exe",
                 r"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe",
                 os.path.expandvars(r"%LOCALAPPDATA%\Google\Chrome\Application\chrome.exe")]
+RES_RE = os.environ.get("DS_GROK_RES", r"720p")  # 1080p exige plano maior no Grok
 VIDEO_GAP = 20.0          # ~3 videos/min
 IMAGE_GAP = 4.0
 MAX_RETRIES = 2
@@ -168,7 +169,8 @@ class Worker:
                 continue
             prompt = sc.get("grok_prompt") or sc.get("visual_prompt")
             if prompt:
-                q.append((i, "video" if sc.get("mode") == "video" else "image", prompt))
+                w = len((sc.get("narration") or "").split())
+                q.append((i, "video" if sc.get("mode") == "video" else "image", prompt, max(1, round(w / 150 * 60))))
         return q
 
     async def shot(self, page, name):
@@ -229,27 +231,51 @@ class Worker:
             raise RuntimeError(f"Botao nao encontrado: {names}")
         return False
 
+    async def dismiss_popups(self, page):
+        for n in ("Fechar", "Close"):
+            b = page.get_by_role("button", name=n, exact=True)
+            try:
+                if await b.count() and await b.first.is_visible():
+                    await b.first.click(timeout=2000)
+            except Exception:
+                pass
+
     async def set_mode(self, page, mode):
-        await self.click_named(page, ["V[ií]deo", "Video"] if mode == "video" else ["Imagem", "Image"])
-        await page.wait_for_timeout(500)
+        names = ["Vídeo", "Video"] if mode == "video" else ["Imagem", "Image"]
+        for n in names:
+            r = page.get_by_role("radio", name=n, exact=True)
+            if await r.count():
+                await r.first.click(timeout=5000); await page.wait_for_timeout(700); return
+        await self.click_named(page, names)
+
+    async def pick_menu(self, page, labels, option_re):
+        """Abre o botao com aria-label (um de labels) e escolhe o menuitemradio cujo texto casa option_re."""
+        for lab in labels:
+            btn = page.locator(f'button[aria-label="{lab}"]')
+            if not await btn.count():
+                continue
+            if re.match(option_re, (await btn.first.inner_text()).strip()):
+                return True
+            await btn.first.click(timeout=5000); await page.wait_for_timeout(500)
+            items = page.locator('[role="menuitemradio"], [role="menuitem"], [role="option"]')
+            for k in range(await items.count()):
+                it = items.nth(k)
+                if re.match(option_re, (await it.inner_text()).strip()):
+                    await it.click(timeout=4000); await page.wait_for_timeout(400); return True
+            await page.keyboard.press("Escape")
+        self.log(f"aviso: menu {labels} sem opcao {option_re}")
+        return False
 
     async def set_aspect(self, page):
-        # Botao de proporcao mostra o valor atual (ex.: "2:3"). Abre e escolhe 16:9.
-        cur = page.get_by_role("button", name=re.compile(r"^\s*\d{1,2}:\d{1,2}\s*$"))
-        try:
-            if await cur.count():
-                if (await cur.first.inner_text()).strip() == "16:9":
-                    return
-                await cur.first.click(timeout=4000)
-                await page.wait_for_timeout(400)
-                opt = page.get_by_text("16:9", exact=True)
-                if await opt.count():
-                    await opt.last.click(timeout=4000)
-                    await page.wait_for_timeout(300)
-                    await page.keyboard.press("Escape")
-                    return
-        except Exception as e:
-            self.log(f"aviso: proporcao 16:9 nao confirmada ({e})")
+        await self.pick_menu(page, ["Aspecto de proporção", "Aspect ratio"], r"16:9")
+
+    async def set_video_opts(self, page, dur):
+        await self.pick_menu(page, ["Resolução do vídeo", "Video resolution"], RES_RE)
+        opt = "6s" if dur <= 7 else ("10s" if dur <= 11 else "15s")
+        await self.pick_menu(page, ["Duração do vídeo", "Video duration"], re.escape(opt))
+
+    async def set_image_count(self, page):
+        await self.pick_menu(page, ["Contagem de Imagens", "Image count"], r"^1\b")
 
     async def fill_prompt(self, page, prompt):
         box = page.locator("textarea:visible, [contenteditable='true']:visible").first
@@ -264,6 +290,7 @@ class Worker:
         await page.wait_for_timeout(300)
 
     async def submit(self, page):
+        await page.wait_for_timeout(400)
         for n in ("submeter", "Submit", "Enviar", "Send", "Gerar", "Generate"):
             loc = page.get_by_role("button", name=re.compile(rf"^\s*{n}\s*$", re.I))
             try:
@@ -294,6 +321,11 @@ class Worker:
         while time.time() < deadline:
             await self.gate()
             await self.check_blockers(page)
+            if getattr(page, "_ds_err", None):
+                e = page._ds_err
+                if LIMIT_RE.search(e) or "limit" in e.lower() or "quota" in e.lower():
+                    raise NeedsUser(f"limite do Grok: {e}")
+                raise RuntimeError(f"Grok recusou: {e}")
             items = [x for x in await page.evaluate(self.MEDIA_JS, mode) if x["src"] not in before]
             if mode == "video":
                 items = [x for x in items if x["ready"] >= 2]
@@ -334,11 +366,22 @@ class Worker:
         return ".mp4" if mode == "video" else ".jpg"
 
     # ---------- per scene ----------
-    async def run_scene(self, ctx, i, mode, prompt):
+    async def run_scene(self, ctx, i, mode, prompt, dur=8):
         err = None
         for attempt in range(1, MAX_RETRIES + 2):
             await self.gate()
             page = await ctx.new_page()
+            page._ds_err = None
+            async def _on_resp(r, page=page):
+                try:
+                    if r.request.method == "POST" and r.status >= 400 and "/rest/app-chat/conversations" in r.url:
+                        try:
+                            page._ds_err = (json.loads(await r.text()).get("error") or {}).get("message") or f"HTTP {r.status}"
+                        except Exception:
+                            page._ds_err = f"HTTP {r.status}"
+                except Exception:
+                    pass
+            page.on("response", lambda r: asyncio.ensure_future(_on_resp(r)))
             try:
                 self.scene_status(i, "gerando", None if attempt == 1 else f"tentativa {attempt}")
                 self.log(f"cena {i+1:02d} [{mode}] tentativa {attempt}")
@@ -346,8 +389,13 @@ class Worker:
                 await page.wait_for_timeout(2500)
                 await self.dismiss_cookies(page)
                 await self.check_blockers(page)
+                await self.dismiss_popups(page)
                 await self.set_mode(page, mode)
                 await self.set_aspect(page)
+                if mode == "video":
+                    await self.set_video_opts(page, dur)
+                else:
+                    await self.set_image_count(page)
                 await self.fill_prompt(page, prompt)
                 before = {x["src"] for x in await page.evaluate(self.MEDIA_JS, mode)}
                 async with self.submit_lock:
@@ -391,7 +439,7 @@ class Worker:
         from playwright.async_api import async_playwright
         self.ctrl_f.write_text("run", encoding="utf-8")
         q = self.queue()
-        for i, _, _ in q:
+        for i, *_ in q:
             self.state["scenes"][str(i)] = {"status": "na fila", "error": None}
         self.save_status(state="running", message=f"{len(q)} cenas na fila", total=len(q))
         if not q:
@@ -402,6 +450,17 @@ class Worker:
             ctx = browser.contexts[0]
             # checagem de login antes de comecar
             page = await ctx.new_page()
+            page._ds_err = None
+            async def _on_resp(r, page=page):
+                try:
+                    if r.request.method == "POST" and r.status >= 400 and "/rest/app-chat/conversations" in r.url:
+                        try:
+                            page._ds_err = (json.loads(await r.text()).get("error") or {}).get("message") or f"HTTP {r.status}"
+                        except Exception:
+                            page._ds_err = f"HTTP {r.status}"
+                except Exception:
+                    pass
+            page.on("response", lambda r: asyncio.ensure_future(_on_resp(r)))
             try:
                 await page.goto(URL, wait_until="domcontentloaded", timeout=60000)
                 await page.wait_for_timeout(3000)
