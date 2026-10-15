@@ -1,27 +1,77 @@
-<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><title>Dark YouTube</title>
-<style>
-body{font-family:system-ui,sans-serif;background:#111;color:#ddd;margin:0}
-nav{display:flex;gap:4px;background:#000;padding:8px}nav button{background:#222;color:#ccc;border:0;padding:10px 16px;cursor:pointer;border-radius:6px}
-nav button.on{background:#b00020;color:#fff}main{padding:20px;max-width:1000px;margin:auto}
-input,select,textarea{width:100%;background:#1c1c1c;color:#eee;border:1px solid #333;border-radius:6px;padding:8px;box-sizing:border-box}
-label{display:block;margin:10px 0 4px;color:#999}.btn{background:#b00020;color:#fff;border:0;padding:10px 18px;border-radius:6px;cursor:pointer;margin-top:12px}
-.card{background:#1a1a1a;border:1px solid #2a2a2a;border-radius:8px;padding:12px;margin:8px 0}.err{background:#4a0010;color:#fff;padding:12px;border-radius:6px;margin:10px 0}
-.warn{background:#4a3a00;color:#fff;padding:12px;border-radius:6px}.screen{display:none}.screen.on{display:block}.muted{color:#777}
-</style></head><body>
-<nav id="nav"></nav><main>
-<div id="keymsg"></div><div id="msg"></div>
-<section class="screen" id="s-ideia"><h2>1. Ideia</h2>
-<label>Nicho</label><input id="niche" placeholder="ex.: mistérios históricos, true crime, terror real">
-<label>Língua do vídeo</label><select id="language"><option>English</option><option>Español</option><option>Deutsch</option><option>Français</option><option>Português</option></select>
-<label>Tema / ideia</label><textarea id="theme" rows="3" placeholder="ex.: navios fantasmas encontrados à deriva"></textarea>
-<label>Duração alvo (minutos)</label><input id="minutes" type="number" min="8" max="15" value="10">
-<button class="btn" onclick="titles()">Sugerir títulos (ChatGPT)</button><div id="titles"></div>
-<h3>Projetos salvos</h3><div id="projects"></div></section>
-<section class="screen" id="s-roteiro"><h2>2. Roteiro</h2>
-<label>Título escolhido</label><input id="title">
-<button class="btn" onclick="script()">Gerar roteiro completo (ChatGPT)</button>
-<button class="btn" onclick="save()">Salvar projeto</button><span id="stats" class="muted"></span><div id="scenes"></div></section>
-<section class="screen" id="s-cenas"><h2>3. Cenas</h2><p class="warn">Em construção: a geração automática no Grok Imagine (Chrome) ainda não está ligada. Por enquanto, a lista mostra o prompt de cada cena.</p><div id="cenas"></div></section>
-<section class="screen" id="s-montagem"><h2>4. Montagem</h2><p class="warn">Em construção. Plano: narração completa via OpenAI TTS → clipes do Grok ajustados à duração de cada trecho → ffmpeg monta MP4 16:9 com trilha e legendas.</p></section>
-<section class="screen" id="s-publicacao"><h2>5. Publicação</h2><p class="warn">Em construção. Plano: thumbnail, título, descrição e tags na língua do vídeo.</p></section>
-</main><script src="app.js"></script></body></html>
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Dark Studio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css"></head><body>
+<div class="app">
+<aside class="sidebar" id="sidebar">
+  <div class="brand"><div class="logo"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div><div><b>Dark Studio</b><small>Vídeos longos sem rosto</small></div></div>
+  <button class="nav-item" data-view="projetos"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg><span>Projetos</span></button>
+  <div class="nav-label">Produção</div>
+  <div id="steps"></div>
+  <div class="sidebar-foot" id="keyStatus"></div>
+</aside>
+<div class="main">
+  <header class="topbar">
+    <button class="icon-btn menu" onclick="document.body.classList.toggle('nav-open')" aria-label="Menu"><svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    <div class="crumbs"><span class="muted" id="crumbStep">Projetos</span><span class="sep">/</span><b id="crumbProject">Nenhum projeto aberto</b></div>
+    <div class="progress-wrap"><div class="progress-meta"><span id="progressText">Etapa 0 de 5</span></div><div class="progress"><div id="progressBar"></div></div></div>
+    <button class="btn ghost sm" onclick="newProject()"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>Novo projeto</button>
+  </header>
+  <div class="content">
+    <div id="notice"></div>
+
+    <section class="view" id="v-projetos">
+      <div class="page-head"><div><h1>Projetos</h1><p>Seus vídeos em produção. Abra um projeto ou comece um novo.</p></div><button class="btn primary" onclick="newProject()"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>Novo projeto</button></div>
+      <div class="grid projects" id="projects"></div>
+    </section>
+
+    <section class="view" id="v-ideia">
+      <div class="page-head"><div><h1>Ideia</h1><p>Defina nicho, língua e tema. O ChatGPT sugere títulos pensados para retenção.</p></div></div>
+      <div class="two-col">
+        <div class="card form-card">
+          <div class="field"><label>Nicho</label><input id="niche" placeholder="Ex.: mistérios históricos, true crime, terror real"></div>
+          <div class="row">
+            <div class="field"><label>Língua do vídeo</label><select id="language"><option>English</option><option>Español</option><option>Deutsch</option><option>Français</option><option>Português</option></select></div>
+            <div class="field"><label>Duração alvo</label><div class="suffix"><input id="minutes" type="number" min="8" max="15" value="10"><span>min</span></div></div>
+          </div>
+          <div class="field"><label>Tema / ideia</label><textarea id="theme" rows="5" placeholder="Ex.: navios fantasmas encontrados à deriva sem tripulação"></textarea></div>
+          <button class="btn primary block" id="btnTitles" onclick="titles()"><svg viewBox="0 0 24 24"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9z"/></svg>Sugerir títulos</button>
+          <p class="hint">Língua de RPM alto (inglês, alemão) costuma pagar mais por mil views.</p>
+        </div>
+        <div class="results">
+          <div class="results-head"><h3>Sugestões de título</h3><span class="muted" id="titlesCount"></span></div>
+          <div id="titles"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="view" id="v-roteiro">
+      <div class="page-head"><div><h1>Roteiro</h1><p>Roteiro completo dividido em cenas. Edite a narração e o prompt visual de cada uma.</p></div></div>
+      <div class="card title-card">
+        <div class="field grow"><label>Título do vídeo</label><input id="title" placeholder="Escolha um título na etapa Ideia ou escreva aqui"></div>
+        <button class="btn primary" id="btnScript" onclick="script()"><svg viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16z"/></svg>Gerar roteiro</button>
+      </div>
+      <div class="stats" id="stats"></div>
+      <div id="scenes"></div>
+      <div class="savebar" id="savebar"><span id="saveState" class="muted">Alterações não salvas</span><button class="btn primary" onclick="save()"><svg viewBox="0 0 24 24"><path d="M5 3h11l3 3v15H5z M8 3v6h8"/></svg>Salvar projeto</button></div>
+    </section>
+
+    <section class="view" id="v-cenas">
+      <div class="page-head"><div><h1>Cenas</h1><p>Um clipe 16:9 do Grok Imagine para cada cena do roteiro.</p></div><span class="chip soon">Automação em breve</span></div>
+      <div class="grid scenes-grid" id="cenas"></div>
+    </section>
+
+    <section class="view" id="v-montagem">
+      <div class="page-head"><div><h1>Montagem</h1><p>Narração, clipes, trilha e legendas num MP4 horizontal.</p></div><span class="chip soon">Em breve</span></div>
+      <div class="pipeline" id="pipeMontagem"></div>
+    </section>
+
+    <section class="view" id="v-publicacao">
+      <div class="page-head"><div><h1>Publicação</h1><p>Tudo o que o YouTube precisa, na língua do vídeo.</p></div><span class="chip soon">Em breve</span></div>
+      <div class="pipeline" id="pipePublicacao"></div>
+    </section>
+  </div>
+</div>
+</div>
+<div class="toasts" id="toasts"></div>
+<script src="app.js"></script></body></html>
