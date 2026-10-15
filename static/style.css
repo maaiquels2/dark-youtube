@@ -150,4 +150,9 @@ input,select{min-height:48px;font-size:16px;padding:11px 14px}textarea{font-size
 
 .full-prompt{white-space:pre-wrap;font-size:17px;line-height:1.55;padding:14px 16px;border-radius:10px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.12);user-select:text;margin-top:6px}
 .full-prompt.sm{font-size:15px;max-height:260px;overflow:auto;margin:8px 0}
-.field label .btn{margin-left:10px;vertical-align:middle}
+.scene .prompt-row{grid-column:2/-1;min-width:0}
+.prompt-head{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.full-prompt{font-size:17px;line-height:1.6;max-height:260px;overflow:auto;white-space:normal;word-break:normal;overflow-wrap:break-word;width:100%;box-sizing:border-box;color:#d4d4dc}
+.full-prompt.sm{font-size:15px;max-height:240px}
+@media(max-width:1000px){.scene .prompt-row{grid-column:1}}
+.thumb-actions{display:flex;flex-wrap:wrap;gap:8px}.thumb .full-prompt.sm + .btn{margin-bottom:8px}
