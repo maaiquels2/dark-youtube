@@ -54,14 +54,14 @@ function renderScenes(){renderOverview();const n=P.scenes.length,w=P.scenes.redu
  $("savebar").style.display=n||P.title?"flex":"none";
  $("scenes").innerHTML=n?P.scenes.map((s,i)=>`<div class="card scene${s.reviewed?" reviewed":""}${s.needs_check?" check":""}"><div class="num">${i+1}</div>
   <div class="field"><label>Narração</label><textarea rows="4" oninput="edit(${i},'narration',this)">${esc(s.narration)}</textarea><div class="counter" id="c${i}">${words(s.narration)} palavras · ~${Math.round(words(s.narration)/150*60)}s</div></div>
-  <div class="field"><label>Prompt visual (Grok Imagine)</label><textarea rows="4" oninput="edit(${i},'visual_prompt',this)">${esc(s.visual_prompt)}</textarea></div>
+  <div class="field"><label>Descrição da cena</label><textarea rows="2" class="desc-sm" oninput="edit(${i},'visual_prompt',this)">${esc(s.visual_prompt)}</textarea></div><div class="field"><label>Prompt completo (Grok Imagine) <button class="btn primary sm" onclick="copyPrompt(${i})">Copiar prompt completo</button></label><div class="full-prompt" id="gp${i}">${esc(buildGrokPrompt(s))}</div></div>
   <div class="facts"><div><label>Fatos-chave</label><ul>${(s.key_facts||[]).map(f=>`<li>${esc(f)}</li>`).join("")||'<li class="muted">—</li>'}</ul></div>
   <div><label>Fontes</label><ul>${(s.sources||[]).map(x=>`<li>${x.url&&/^https?:/.test(x.url)?`<a href="${esc(x.url)}" target="_blank" rel="noopener">${esc(x.title||x.url)}</a>`:`${esc(x.title||"")} <span class="chip warn sm">verificar</span>`}</li>`).join("")||'<li class="muted">Nenhuma fonte</li>'}</ul></div>
   <div class="rev">${s.needs_check?'<span class="chip warn">Checar afirmações</span>':""}<label class="checkbox"><input type="checkbox" ${s.reviewed?"checked":""} onchange="review(${i},this.checked)">Revisado</label></div></div></div>`).join("")
   :`<div class="empty"><div class="ill">${svg("roteiro")}</div><b>Sem roteiro ainda</b><p>Com o título definido, clique em “Gerar roteiro”. O ChatGPT divide o texto em cenas de 6 a 10 segundos.</p></div>`;renderNav();}
 function review(i,v){P.scenes[i].reviewed=v;dirty();renderScenes();}
 function renderOverview(){$("overview").innerHTML=P.hook||(P.retention_beats||[]).length?`<div class="card overview"><div><label>Gancho (primeiros 30s)</label><p>${esc(P.hook)}</p></div><div><label>Pontos de retenção</label><ol>${(P.retention_beats||[]).map(b=>`<li>${esc(b)}</li>`).join("")}</ol></div></div>`:"";}
-function edit(i,k,el){P.scenes[i][k]=el.value;if(k=="narration"){const w=words(el.value);$("c"+i).textContent=`${w} palavras · ~${Math.round(w/150*60)}s`;}dirty();}
+function edit(i,k,el){P.scenes[i][k]=el.value;if(k=="visual_prompt"||k=="narration"){const g=$("gp"+i);if(g)g.textContent=buildGrokPrompt(P.scenes[i]);}if(k=="narration"){const w=words(el.value);$("c"+i).textContent=`${w} palavras · ~${Math.round(w/150*60)}s`;}dirty();}
 function dirty(){$("savebar").classList.remove("saved");$("saveState").textContent="Alterações não salvas";}
 async function script(){const t=$("title").value.trim();if(!t)return toast("Defina um título primeiro.","err");
  const b=$("btnScript");busy(b,true,"Escrevendo roteiro...");$("scenes").innerHTML='<div class="skel s"></div>'.repeat(3);$("stats").innerHTML="";
@@ -110,7 +110,7 @@ function renderCenas(){if(!P.scenes.length){$("cost").innerHTML="";$("cenas").in
   <div class="mini"><select onchange="setScene(${i},'mode',this.value)" ${busy?"disabled":""}><option value="video"${s.mode=="video"?" selected":""}>Vídeo</option><option value="image"${s.mode=="image"?" selected":""}>Imagem animada</option></select>
   <select onchange="setScene(${i},'source',this.value)" ${busy?"disabled":""}><option value="api"${s.source=="api"?" selected":""}>API xAI</option><option value="site"${s.source=="site"?" selected":""}>Site do Grok</option></select></div>
   ${s.source=="api"?`<select class="model" onchange="setScene(${i},'model',this.value)" ${busy?"disabled":""}>${MODELS[s.mode].map(m=>`<option${m==s.model?" selected":""}>${m}</option>`).join("")}</select>`:""}
-  <p title="${esc(s.visual_prompt)}">${esc(s.visual_prompt)}</p>${s.error?`<div class="scene-err">${esc(s.error)}</div>`:""}
+  <div class="full-prompt sm">${esc(buildGrokPrompt(s))}</div><button class="btn ghost sm" onclick="copyPrompt(${i})">Copiar prompt completo</button>${s.error?`<div class="scene-err">${esc(s.error)}</div>`:""}
   <div class="thumb-actions">${s.source=="api"?`<button class="btn ${s.file?"ghost":"primary"} sm" ${busy?"disabled":""} onclick="genOne(${i})">${busy?"Gerando...":s.file?"Regenerar":s.status=="erro"?"Tentar de novo":"Gerar"}</button>`
    :`<button class="btn primary sm" onclick="openGrok(${i})">Copiar prompt e abrir Grok</button>`}
   <label class="btn ghost sm upl">${s.file?"Substituir":"Enviar arquivo"}<input type="file" accept="video/*,image/*" hidden onchange="upload(${i},this.files[0])"></label></div></div></div>`;}).join("");}
@@ -124,7 +124,7 @@ async function refresh(){const d=await (await fetch("/api/projects/"+encodeURICo
  d.scenes.forEach((s,i)=>{if(P.scenes[i])["status","file","error","cost_usd","gen_seconds","media_duration","generated_with"].forEach(k=>{if(k in s)P.scenes[i][k]=s[k];else delete P.scenes[i][k];});});
  P.updated_at=d.updated_at;if(VIEW=="cenas")renderCenas();return d;}
 function startPoll(){if(POLL)return;POLL=setInterval(async()=>{try{await refresh();if(!P.scenes.some(s=>s.status=="gerando")){clearInterval(POLL);POLL=null;toast("Geração concluída.");}}catch{}},4000);}
-async function openGrok(i){try{await save();}catch{}const t=P.scenes[i].grok_prompt||P.scenes[i].visual_prompt||"";try{await navigator.clipboard.writeText(t);toast("Prompt copiado. Cole no Grok Imagine.");}catch{prompt("Copie o prompt:",t);}
+async function openGrok(i){try{await save();}catch{}const t=buildGrokPrompt(P.scenes[i]);try{await navigator.clipboard.writeText(t);toast("Prompt copiado. Cole no Grok Imagine.");}catch{prompt("Copie o prompt:",t);}
  window.open("https://grok.com/imagine","_blank","noopener");}
 async function upload(i,f){if(!f)return;if(!P.id)await save();try{const r=await fetch(`/api/upload?id=${encodeURIComponent(P.id)}&i=${i}&name=${encodeURIComponent(f.name)}`,{method:"POST",body:f});const d=await r.json();if(!r.ok)throw new Error(d.error);await refresh();toast(`Arquivo anexado à cena ${i+1}.`);}catch(e){toast(e.message,"err")}}
 function xaiNotice(){$("xaiNotice").innerHTML=HASXAI?"":`<div class="card notice"><span class="ic">${svg("key")}</span><div><b>Chave da xAI não configurada</b><p>Sem ela, só dá para usar o Site do Grok e enviar os arquivos à mão. Para gerar pela API, coloque <code>XAI_API_KEY=</code> no arquivo <code>.env</code> e reinicie o app.</p></div></div>`;}
@@ -148,3 +148,15 @@ function preset(i,el){document.querySelectorAll(".preset").forEach(b=>b.classLis
 (async()=>{try{PRICE=await (await fetch("/api/pricing")).json();fillModels("bModel","video");}catch{}try{const s=await (await fetch("/api/status")).json();HASKEY=s.has_key;HASXAI=!!s.has_xai;xaiNotice();
  $("keyStatus").innerHTML=s.has_key?`<i class="dot done"></i>OpenAI conectada · ${esc(s.model)}`:`<i class="dot" style="background:var(--warn)"></i>Chave OpenAI ausente`;}catch{}
  notice();emptyTitles();renderScenes();const h=location.hash.slice(1);if(h.startsWith("p=")){const [pid,v]=decodeURIComponent(h.slice(2)).split("|");openProj(pid).then(()=>{if(v){if(v=="cenas")VIEW="cenas";go(v)}});return;}go(STEPS.some(s=>s[0]==h)?h:"projetos");})();
+
+const GROK_STYLE="Style: dark cinematic documentary, moody low-key lighting with deep shadows and cold teal-and-amber contrast, volumetric haze, shallow depth of field, anamorphic lens look, subtle film grain, photorealistic, premium Netflix-style business documentary aesthetic.";
+const GROK_NEG="Avoid: no text, no captions, no watermark, no logos or trademarks, no real person likeness, no distorted faces or hands, no extra limbs, no cartoon look, no blur artifacts.";
+function cleanSubject(vp){let t=(vp||"").trim().replace(/\b(dark\s+)?cinematic\s+16:9\s*/i,"").trim();t=t.replace(/,?\s*no logos?,?\s*(no text,?)?\s*(no identifiable people\.?)?\s*$/i,"").replace(/^[\s,.]+|[\s,.]+$/g,"");t=t.split(" | ")[0];return t?t[0].toUpperCase()+t.slice(1):"Atmospheric establishing shot that illustrates the narration";}
+function buildGrokPrompt(s){const narr=(s.narration||"").replace(/\s+/g," ").trim();const p=[`Subject: ${cleanSubject(s.visual_prompt)}.`];
+ if(narr)p.push(`Context (illustrate this narration, do not write it on screen): "${narr.slice(0,240).replace(/\.+$/,"")}".`);
+ p.push("Composition: wide cinematic framing, strong leading lines, clear focal subject, rule of thirds.",GROK_STYLE);
+ if(s.mode=="video"){const w=narr?narr.split(" ").length:0;const d=Math.min(15,Math.max(1,Math.ceil(Math.max(1,w/150*60))));
+  p.push(`Motion: slow cinematic camera movement (gentle dolly-in or slow parallax pan), subtle atmospheric motion (drifting haze, flickering lights), smooth and stable, no cuts. Duration: about ${d} seconds (max 15s), no audio.`,"Format: video, aspect ratio 16:9, 1920x1080, high resolution, ultra detailed.");}
+ else p.push("Format: still image, aspect ratio 16:9, 1920x1080, high resolution, ultra detailed, sharp focus.");
+ p.push(GROK_NEG);return p.join(" ");}
+async function copyPrompt(i){const t=buildGrokPrompt(P.scenes[i]);try{await navigator.clipboard.writeText(t);toast("Prompt completo copiado.");}catch{prompt("Copie o prompt:",t);}}
