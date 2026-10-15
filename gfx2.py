@@ -338,7 +338,9 @@ def o_entity(im, s, ents, y0=70):
 
 def o_callout(im, s, k=0, top=120):
     t = str(s.get("text", "")); loss = s.get("tone") == "loss" or any(w in t.lower() for w in ("loss", "liabilit", "debt", "owed", "exposure"))
-    f = F("serifx", 92); d = ImageDraw.Draw(im); w = tw(d, t, f) + 80; x1 = W - 70; y0 = top + k * 190
+    d = ImageDraw.Draw(im); sz = 92
+    while sz > 44 and tw(d, t, F("serifx", sz)) > 1150: sz -= 6
+    f = F("serifx", sz); w = tw(d, t, f) + 80; x1 = W - 70; y0 = top + k * 190
     if y0 + 170 > H - 110: x1 = 70 + w; y0 = 160 + (k % 3) * 190
     col = (240, 96, 86) if loss else (250, 206, 110)
     plate = Image.new("RGBA", (w, 150), (10, 10, 12, 0)); pd = ImageDraw.Draw(plate)

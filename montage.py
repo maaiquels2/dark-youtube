@@ -11,6 +11,12 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent
 PROJECTS = ROOT / "projects"
 CFG_F = ROOT / "config" / "montage.json"
+ACT_VOICE = {
+    "act1": "This part is the rise: slightly warmer and brighter, a hint of wonder at the money flowing, steady forward momentum.",
+    "act2": "This part builds suspicion: lower and more restrained, tighter delivery, deliberate pauses before key facts, quiet tension.",
+    "act3": "This part is the collapse: grave and slower, weight on numbers and on the people affected, controlled emotion, never melodramatic.",
+    "after": "This is the aftermath: soft, reflective and unhurried, leaving space after each sentence.",
+}
 DEFAULTS = {
     "tts_model": "gpt-4o-mini-tts",
     "voice": "onyx",
@@ -136,6 +142,11 @@ class Job:
         body = {"model": self.c["tts_model"], "voice": self.c["voice"], "input": text, "response_format": "mp3"}
         if not self.c["tts_model"].startswith("tts-1"):
             body["instructions"] = self.c["instructions"]
+            try:  # expressividade por ato (arco emocional do roteiro)
+                act = (self.scenes()[i].get("act") or "")
+                body["instructions"] += " " + ACT_VOICE.get(act, "")
+            except Exception:
+                pass
         last = None
         for attempt in range(4):
             self.check_stop()

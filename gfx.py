@@ -336,7 +336,19 @@ def r_entity_full(s, ents=None):
     if cr: d.text((60, H - 50), "Photo: " + cr[:120], font=F("reg", 22), fill=(200, 204, 212))
     return im.convert("RGB")
 
-def _typewriter(full, out, dur, ents=None):
+def _make_room(im):
+    """Quando ha cartoes de entidade na direita, encolhe o grafico de tela cheia para a esquerda (sem sobreposicao)."""
+    try:
+        import gfx2 as V; bg = V.backdrop(5).convert("RGBA")
+    except Exception:
+        bg = background().convert("RGBA")
+    sc = 0.62; sm = im.convert("RGBA").resize((int(W * sc), int(H * sc)), Image.LANCZOS)
+    x, y = 70, (H - sm.height) // 2
+    sh = Image.new("RGBA", (W, H), (0, 0, 0, 0)); ImageDraw.Draw(sh).rectangle([x + 14, y + 20, x + sm.width + 14, y + sm.height + 20], fill=(0, 0, 0, 150))
+    bg.alpha_composite(sh.filter(ImageFilter.GaussianBlur(18))); bg.alpha_composite(sm, (x, y))
+    return bg.convert("RGB")
+
+def _typewriter(full, out, dur, ents=None, room=False):
     """Documento/citacao com efeito maquina de escrever (MP4): texto revelado em etapas, depois segura."""
     import gfx_anim
     key = "excerpt" if full["type"] == "document" else "text"; txt = str(full.get(key, "")); words = txt.split()
@@ -345,7 +357,8 @@ def _typewriter(full, out, dur, ents=None):
     for k in range(1, steps + 1):
         sp = dict(full); sp[key] = " ".join(words[:max(1, round(len(words) * k / steps))])
         if full["type"] == "document" and k < steps: sp["highlight"] = ""
-        frames.append(globals()["r_" + full["type"]](sp))
+        fimg = globals()["r_" + full["type"]](sp)
+        frames.append(_make_room(fimg) if room else fimg)
     def gen():
         for f in range(total):
             yield frames[min(steps - 1, int(f / max(1, reveal) * steps))]
@@ -375,13 +388,15 @@ def render_scene(spec_list, out_dir, idx, photos=None, logos=None, ents=None, du
         import gfx_anim
         fp = gfx_anim.render(an, out_dir / f"anim-{idx+1:02d}.mp4", float(an.get("seconds") or max(5.0, dur)))
     full = None if an else next((g for g in spec_list or [] if g.get("type") in FULL), None)
+    room = any(g.get("type") == "entity" for g in spec_list or []) and full and full["type"] not in ("photo", "entity_full")
     if full:
         if full["type"] in ("document", "quote") and _os.environ.get("DS_TYPEWRITER", "1") == "1":
-            fp = _typewriter(full, out_dir / f"tw-{idx+1:02d}.mp4", max(4.0, dur), ents)
+            fp = _typewriter(full, out_dir / f"tw-{idx+1:02d}.mp4", max(4.0, dur), ents, room)
         else:
             fp = out_dir / f"full-{idx+1:02d}.png"
             fn = globals()["r_" + full["type"]]
-            (fn(full, ents) if full["type"] in ("entity_full", "relmap") else fn(full)).save(fp)
+            fimg = fn(full, ents) if full["type"] in ("entity_full", "relmap") else fn(full)
+            (_make_room(fimg) if room else fimg).save(fp)
     ov = [g for g in spec_list or [] if g.get("type") in OVER]
     if ov:
         ov.sort(key=lambda g: g["type"] != "entity"); st = {"kc": 0, "ey": 70}
