@@ -124,7 +124,7 @@ async function refresh(){const d=await (await fetch("/api/projects/"+encodeURICo
  d.scenes.forEach((s,i)=>{if(P.scenes[i])["status","file","error","cost_usd","gen_seconds","media_duration","generated_with"].forEach(k=>{if(k in s)P.scenes[i][k]=s[k];else delete P.scenes[i][k];});});
  P.updated_at=d.updated_at;if(VIEW=="cenas")renderCenas();return d;}
 function startPoll(){if(POLL)return;POLL=setInterval(async()=>{try{await refresh();if(!P.scenes.some(s=>s.status=="gerando")){clearInterval(POLL);POLL=null;toast("Geração concluída.");}}catch{}},4000);}
-async function openGrok(i){const t=P.scenes[i].visual_prompt||"";try{await navigator.clipboard.writeText(t);toast("Prompt copiado. Cole no Grok Imagine.");}catch{prompt("Copie o prompt:",t);}
+async function openGrok(i){try{await save();}catch{}const t=P.scenes[i].grok_prompt||P.scenes[i].visual_prompt||"";try{await navigator.clipboard.writeText(t);toast("Prompt copiado. Cole no Grok Imagine.");}catch{prompt("Copie o prompt:",t);}
  window.open("https://grok.com/imagine","_blank","noopener");}
 async function upload(i,f){if(!f)return;if(!P.id)await save();try{const r=await fetch(`/api/upload?id=${encodeURIComponent(P.id)}&i=${i}&name=${encodeURIComponent(f.name)}`,{method:"POST",body:f});const d=await r.json();if(!r.ok)throw new Error(d.error);await refresh();toast(`Arquivo anexado à cena ${i+1}.`);}catch(e){toast(e.message,"err")}}
 function xaiNotice(){$("xaiNotice").innerHTML=HASXAI?"":`<div class="card notice"><span class="ic">${svg("key")}</span><div><b>Chave da xAI não configurada</b><p>Sem ela, só dá para usar o Site do Grok e enviar os arquivos à mão. Para gerar pela API, coloque <code>XAI_API_KEY=</code> no arquivo <code>.env</code> e reinicie o app.</p></div></div>`;}

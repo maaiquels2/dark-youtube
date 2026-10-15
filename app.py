@@ -120,6 +120,59 @@ def _download(url, dest_noext, default_ext):
 def proj_path(pid):
     return PROJECTS / (Path(pid).name + ".json")
 
+GROK_STYLE = ("Style: dark cinematic documentary, moody low-key lighting with deep shadows and cold teal-and-amber contrast, "
+              "volumetric haze, shallow depth of field, anamorphic lens look, subtle film grain, photorealistic, "
+              "premium Netflix-style business documentary aesthetic.")
+GROK_NEG = ("Avoid: no text, no captions, no watermark, no logos or trademarks, no real person likeness, "
+            "no distorted faces or hands, no extra limbs, no cartoon look, no blur artifacts.")
+
+def clean_subject(vp):
+    t = (vp or "").strip()
+    t = re.sub(r"(?i)\b(dark\s+)?cinematic\s+16:9\s*", "", t, count=1).strip()
+    t = re.sub(r"(?i),?\s*no logos?,?\s*(no text,?)?\s*(no identifiable people\.?)?\s*$", "", t).strip(" ,.")
+    t = t.split(" | ")[0]
+    return (t[:1].upper() + t[1:]) if t else "Atmospheric establishing shot that illustrates the narration"
+
+def build_grok_prompt(sc, cfg=None):
+    subj = clean_subject(sc.get("visual_prompt"))
+    narr = re.sub(r"\s+", " ", sc.get("narration") or "").strip()
+    parts = [f"Subject: {subj}."]
+    if narr:
+        parts.append(f"Context (illustrate this narration, do not write it on screen): \"{narr[:240].rstrip(\".\")}\".")
+    parts.append("Composition: wide cinematic framing, strong leading lines, clear focal subject, rule of thirds.")
+    parts.append(GROK_STYLE)
+    if sc.get("mode") == "video":
+        dur = 8
+        if cfg:
+            dur = int(min(cfg["video_max_seconds"], max(cfg["video_min_seconds"], math.ceil(scene_seconds(sc, cfg)))))
+        parts.append(f"Motion: slow cinematic camera movement (gentle dolly-in or slow parallax pan), subtle atmospheric motion "
+                     f"(drifting haze, flickering lights), smooth and stable, no cuts. Duration: about {dur} seconds (max 15s), no audio.")
+        parts.append("Format: video, aspect ratio 16:9, 1920x1080, high resolution, ultra detailed.")
+    else:
+        parts.append("Format: still image, aspect ratio 16:9, 1920x1080, high resolution, ultra detailed, sharp focus.")
+    parts.append(GROK_NEG)
+    return " ".join(parts)
+
+def with_prompts(d):
+    cfg = pricing()
+    for sc in d.get("scenes") or []:
+        sc["grok_prompt"] = build_grok_prompt(sc, cfg)
+    return d
+
+def export_prompts(d):
+    out = PROJECTS / Path(d["id"]).name
+    out.mkdir(parents=True, exist_ok=True)
+    md = [f"# Prompts Grok Imagine - {d.get('title','')}", "", "Cole cada prompt em grok.com/imagine. Formato 16:9.", ""]
+    tx = [f"Prompts Grok Imagine - {d.get('title','')}", ""]
+    for i, sc in enumerate(d.get("scenes") or []):
+        narr = re.sub(r"\s+", " ", sc.get("narration") or "").strip()
+        ex = narr[:160] + ("..." if len(narr) > 160 else "")
+        mode = "VIDEO" if sc.get("mode") == "video" else "IMAGEM"
+        md += [f"## Cena {i+1:02d} - {mode}", "", f"> {ex}", "", "```", sc["grok_prompt"], "```", ""]
+        tx += [f"=== Cena {i+1:02d} | {mode} ===", f"Narracao: {ex}", "", sc["grok_prompt"], "", ""]
+    (out / "prompts-grok.md").write_text("\n".join(md), encoding="utf-8")
+    (out / "prompts-grok.txt").write_text("\n".join(tx), encoding="utf-8")
+
 def load_project(pid):
     return json.loads(proj_path(pid).read_text(encoding="utf-8"))
 
@@ -139,7 +192,7 @@ def generate_scene(pid, i):
     try:
         sc = load_project(pid)["scenes"][i]
         model = sc.get("model") or ("grok-imagine-video-1.5-lite" if sc.get("mode") == "video" else "grok-imagine-image")
-        prompt = sc.get("visual_prompt") or ""
+        prompt = build_grok_prompt(sc, cfg)
         media = PROJECTS / Path(pid).name / "media"
         media.mkdir(parents=True, exist_ok=True)
         dest = media / f"scene-{i+1:02d}"
@@ -245,7 +298,7 @@ def write_script(p):
          f"Target length: {mins} minutes (~{words} words of narration in total).\n"
          "Write a documentary narration split into scenes of 1-3 sentences (6-10 seconds each). "
          "Strong hook in the first 30 seconds, clear story arc, retention beats (open loops, reveals) spread through the video, ending with a call to subscribe. "
-         "For each scene: narration in the narration language; visual_prompt IN ENGLISH for a short cinematic dark 16:9 AI clip "
+         "For each scene: narration in the narration language; visual_prompt IN ENGLISH: a concrete, detailed visual description (subject, setting, camera angle, lighting, mood; 25-50 words) faithful to that scene's narration "
          "(no real person likeness, no logos or trademarks, no on-screen text); key_facts (list of factual claims in the scene); "
          "sources (list of {title, url}); needs_check (boolean).\n"
          '{"title":"...","description":"resumo em português","hook":"first 30 seconds summary",'
@@ -268,7 +321,12 @@ def save_project(proj):
                             sc[k] = old[i][k]
                         else:
                             sc.pop(k, None)
+        with_prompts(proj)
         f.write_text(json.dumps(proj, ensure_ascii=False, indent=2), encoding="utf-8")
+    try:
+        export_prompts(proj)
+    except Exception:
+        pass
     return proj
 
 class H(BaseHTTPRequestHandler):
