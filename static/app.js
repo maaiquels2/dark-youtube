@@ -13,7 +13,7 @@ const I={
  text:'<path d="M4 6h16M4 12h10M4 18h7"/>',hash:'<path d="M5 9h14M5 15h14M10 3L8 21M16 3l-2 18"/>',globe:'<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/>',
  arrow:'<path d="M5 12h14M13 6l6 6-6 6"/>'};
 const svg=k=>`<svg viewBox="0 0 24 24">${I[k]}</svg>`;
-const STEPS=[["ideia","Ideia"],["roteiro","Roteiro"],["cenas","Cenas"],["montagem","Montagem","soon"],["publicacao","Publicação","soon"]];
+const STEPS=[["ideia","Ideia"],["roteiro","Roteiro"],["cenas","Cenas"],["montagem","Montagem"],["publicacao","Publicação","soon"]];
 const $=id=>document.getElementById(id);
 const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const words=t=>(t||"").trim().split(/\s+/).filter(Boolean).length;
@@ -30,7 +30,7 @@ function renderNav(){
  $("crumbStep").textContent=idx<0?"Projetos":STEPS[idx][1];
  $("crumbProject").textContent=P.title||(P.id?"Projeto sem título":"Novo projeto");
 }
-function go(k){if(k=="cenas"&&VIEW!="cenas"){const u=P.scenes.filter(s=>!s.reviewed).length;if(u&&!confirm(`${u} de ${P.scenes.length} cenas ainda não foram revisadas (fatos e fontes). Ir para Cenas mesmo assim?`))return;}
+function go(k){if(k=="montagem")setTimeout(()=>{montRefresh().then(()=>{if(MONT.running)montPoll();});},50);if(k=="cenas"&&VIEW!="cenas"){const u=P.scenes.filter(s=>!s.reviewed).length;if(u&&!confirm(`${u} de ${P.scenes.length} cenas ainda não foram revisadas (fatos e fontes). Ir para Cenas mesmo assim?`))return;}
 VIEW=k;document.querySelectorAll(".view").forEach(v=>v.classList.toggle("on",v.id=="v-"+k));document.body.classList.remove("nav-open");
  if(k=="cenas"){renderCenas();if(P.scenes.some(s=>s.status=="gerando"))startPoll();}if(k=="projetos")loadProjects();renderNav();window.scrollTo(0,0);}
 document.querySelector('[data-view=projetos]').onclick=()=>go("projetos");
@@ -129,7 +129,7 @@ async function openGrok(i){try{await save();}catch{}const t=buildGrokPrompt(P.sc
 async function upload(i,f){if(!f)return;if(!P.id)await save();try{const r=await fetch(`/api/upload?id=${encodeURIComponent(P.id)}&i=${i}&name=${encodeURIComponent(f.name)}`,{method:"POST",body:f});const d=await r.json();if(!r.ok)throw new Error(d.error);await refresh();toast(`Arquivo anexado à cena ${i+1}.`);}catch(e){toast(e.message,"err")}}
 function xaiNotice(){$("xaiNotice").innerHTML=HASXAI?"":`<div class="card notice"><span class="ic">${svg("key")}</span><div><b>Chave da xAI não configurada</b><p>Sem ela, só dá para usar o Site do Grok e enviar os arquivos à mão. Para gerar pela API, coloque <code>XAI_API_KEY=</code> no arquivo <code>.env</code> e reinicie o app.</p></div></div>`;}
 function pipe(id,items){$(id).innerHTML=items.map(([ic,t,d],i)=>`<div class="card pstep"><div class="ic">${svg(ic)}</div><small>PASSO ${i+1}</small><b>${t}</b><p>${d}</p></div>`).join("");}
-pipe("pipeMontagem",[["mic","Narração completa","Roteiro inteiro em uma única voz via OpenAI TTS, sem cortes de tom."],["film","Clipes sincronizados","Cada clipe do Grok ajustado à duração do seu trecho de narração."],["music","Trilha sonora","Música ambiente dark mixada abaixo da voz."],["cc","Legendas e export","ffmpeg gera MP4 1920×1080 com legendas embutidas."]]);
+if($("pipeMontagem"))pipe("pipeMontagem",[["mic","Narração completa","Roteiro inteiro em uma única voz via OpenAI TTS, sem cortes de tom."],["film","Clipes sincronizados","Cada clipe do Grok ajustado à duração do seu trecho de narração."],["music","Trilha sonora","Música ambiente dark mixada abaixo da voz."],["cc","Legendas e export","ffmpeg gera MP4 1920×1080 com legendas embutidas."]]);
 pipe("pipePublicacao",[["img","Thumbnail","Imagem 1280×720 de alto contraste a partir da cena mais forte."],["text","Título e descrição","Na língua do vídeo, com capítulos e gancho no começo."],["hash","Tags","Palavras-chave do nicho para busca e sugeridos."],["globe","Pronto para enviar","Pacote final para subir no YouTube Studio."]]);
 
 async function loadProjects(){$("projects").innerHTML='<div class="skel" style="height:240px"></div>'.repeat(3);
@@ -179,3 +179,35 @@ async function autoStart(){if(!P.id)await save();const sel=[...SEL];try{await ap
 async function autoCtl(a){try{AUTO=await api("/api/grok_auto/control",{id:P.id,action:a});renderAuto();toast({run:"Retomado.",pause:"Pausado.",stop:"Parando..."}[a]);autoPoll();}catch(e){toast(e.message);}}
 async function autoLogin(){try{await api("/api/grok_auto/login",{});toast("Chrome do Dark Studio aberto no Grok. Faça login uma vez.");}catch(e){toast(e.message);}}
 setTimeout(()=>{if(P&&P.id)autoRefresh().then(()=>{if(AUTO.running)autoPoll();});},1500);
+
+let MONT={},MONTPOLL=null;
+const VOICES=["onyx","cedar","ash","echo","ballad","verse","fable","sage","marin","alloy","coral","nova","shimmer"];
+const MSTEP={narracao:"Gerando narração",clipes:"Renderizando clipes",audio:"Montando narração",juncao:"Juntando cenas",final:"Codificando final.mp4"};
+function fmtDur(s){s=Math.round(s||0);return `${Math.floor(s/60)}:${String(s%60).padStart(2,"0")}`;}
+function renderMont(){const el=$("montPanel");if(!el)return;if(!P||!P.id){el.innerHTML='<div class="card empty"><b>Abra um projeto</b></div>';return;}
+ const m=MONT,c=m.config||{},run=m.running,cost=((m.audio_seconds||m.chars/15)/60*(c.tts_price_per_min_usd||0.015));
+ const st=m.state?`<div class="auto-state ${m.state}"><b>${run?(MSTEP[m.step]||"Rodando"):({done:"Concluído",error:"Erro",stopped:"Parado",interrupted:"Interrompido"}[m.state]||m.state)}</b> · ${esc(m.message||"")}${run?` · ${m.progress||0}%`:""}${m.updated_at?` <span class="muted">(${m.updated_at})</span>`:""}
+  ${run?`<div class="progress" style="margin-top:10px"><div style="width:${m.progress||0}%"></div></div>`:""}</div>`:"";
+ el.innerHTML=`<div class="mont-grid">
+ <div class="card"><h3>1. Narração</h3>
+  <div class="mont-stats"><div><span>Cenas com áudio</span><b>${m.audio_done||0}/${m.scenes||0}</b></div><div><span>Caracteres</span><b>${(m.chars||0).toLocaleString("pt-BR")}</b></div><div><span>Custo TTS (est.)</span><b>US$ ${cost.toFixed(2)}</b></div></div>
+  <div class="field"><label>Voz</label><select id="mVoice">${VOICES.map(v=>`<option${v==c.voice?" selected":""}>${v}</option>`).join("")}</select></div>
+  <div class="field"><label>Modelo TTS</label><input id="mModel" value="${esc(c.tts_model||"gpt-4o-mini-tts")}"></div>
+  <div class="field"><label>Instruções de tom</label><textarea id="mInstr" rows="3">${esc(c.instructions||"")}</textarea></div>
+  <div class="auto-btns"><button class="btn ghost" ${run?"disabled":""} onclick="montCfg().then(()=>montStart('tts',true))">Regerar narração</button></div></div>
+ <div class="card"><h3>2. Montagem</h3>
+  <div class="mont-stats"><div><span>Cenas com mídia</span><b>${m.media_done||0}/${m.scenes||0}</b></div><div><span>Duração</span><b>${fmtDur(m.duration_seconds||m.audio_seconds)}</b></div><div><span>Render</span><b>${m.render_seconds?fmtDur(m.render_seconds):"-"}</b></div></div>
+  <div class="field"><label>Trilha de fundo (opcional)</label><div class="row-inline"><span class="muted">${m.music?esc(m.music):"Nenhuma — o vídeo sai só com narração"}</span>
+   <label class="btn ghost sm upl">${m.music?"Trocar":"Enviar MP3"}<input type="file" accept="audio/*" hidden onchange="montMusic(this.files[0])"></label></div></div>
+  <div class="field"><label><input type="checkbox" id="mBurn" ${c.burn_subtitles?"checked":""}> Queimar legendas no vídeo (padrão: só o arquivo .srt)</label></div>
+  <div class="auto-btns">${run?`<button class="btn ghost danger" onclick="montStop()">Parar</button>`:`<button class="btn primary" onclick="montCfg().then(()=>montStart('all'))">Gerar narração e montar</button><button class="btn ghost" onclick="montCfg().then(()=>montStart('render'))">Só remontar vídeo</button>`}</div></div></div>
+ ${st}
+ ${m.final?`<div class="card mont-out"><h3>Resultado</h3><video controls preload="metadata" src="/files/${encodeURIComponent(P.id)}/output/final.mp4?v=${m.updated_at||""}"></video>
+  <div class="auto-btns"><a class="btn primary" href="/files/${encodeURIComponent(P.id)}/output/final.mp4?dl=1">Baixar final.mp4 (${m.final_mb} MB)</a>${m.srt?`<a class="btn ghost" href="/files/${encodeURIComponent(P.id)}/output/final.srt">Baixar legendas .srt</a>`:""}</div></div>`:""}`;}
+async function montRefresh(){if(!P||!P.id)return;try{MONT=await (await fetch("/api/montage?id="+encodeURIComponent(P.id))).json();}catch{return;}
+ if(!MONT.running&&MONTPOLL){clearInterval(MONTPOLL);MONTPOLL=null;}if(VIEW=="montagem")renderMont();}
+function montPoll(){if(!MONTPOLL)MONTPOLL=setInterval(montRefresh,3000);montRefresh();}
+async function montCfg(){await api("/api/montage/config",{voice:$("mVoice").value,tts_model:$("mModel").value.trim(),instructions:$("mInstr").value.trim(),burn_subtitles:$("mBurn").checked});}
+async function montStart(step,force){try{await api("/api/montage/start",{id:P.id,step,force_tts:!!force});toast("Montagem iniciada.");montPoll();}catch(e){toast(e.message);}}
+async function montStop(){await api("/api/montage/stop",{id:P.id});toast("Parando...");}
+async function montMusic(f){if(!f)return;const r=await fetch(`/api/montage/music?id=${encodeURIComponent(P.id)}&name=${encodeURIComponent(f.name)}`,{method:"POST",body:f});const d=await r.json();if(!r.ok)return toast(d.error);toast("Trilha salva.");montRefresh();}

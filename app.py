@@ -378,11 +378,99 @@ def auto_login():
                      cwd=str(Path(__file__).resolve().parent), creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0))
     return {"opened": True}
 
+# ---------- Montagem (montage.py em subprocesso) ----------
+MONT = {}
+def mont_status(pid):
+    pid = Path(pid).name; d = PROJECTS / pid
+    st = {}
+    f = d / "logs" / "montage.json"
+    if f.is_file():
+        try: st = json.loads(f.read_text(encoding="utf-8"))
+        except Exception: st = {}
+    pr = MONT.get(pid); st["running"] = bool(pr and pr.poll() is None)
+    if st.get("state") == "running" and not st["running"] and not pr:
+        st["state"] = "interrupted"
+    sc = json.loads((PROJECTS / f"{pid}.json").read_text(encoding="utf-8")).get("scenes") or []
+    st["scenes"] = len(sc)
+    st["chars"] = sum(len(x.get("narration") or "") for x in sc)
+    st["audio_done"] = sum(1 for i in range(len(sc)) if (d / "audio" / f"scene-{i+1:02d}.mp3").is_file())
+    st["media_done"] = sum(1 for x in sc if x.get("file") and (d / x["file"]).is_file())
+    fo = d / "output" / "final.mp4"
+    st["final"] = fo.is_file(); st["final_mb"] = round(fo.stat().st_size / 1e6, 1) if fo.is_file() else 0
+    st["srt"] = (d / "output" / "final.srt").is_file()
+    st["music"] = next((m.name for m in sorted(d.glob("music.*"))), None)
+    try:
+        import montage as _m; st["config"] = _m.cfg()
+    except Exception:
+        st["config"] = {}
+    return st
+
+def mont_start(pid, step="all", force_tts=False):
+    pid = Path(pid).name
+    pr = MONT.get(pid)
+    if pr and pr.poll() is None:
+        raise ApiError("A montagem já está rodando.")
+    logs = PROJECTS / pid / "logs"; logs.mkdir(parents=True, exist_ok=True)
+    args = [_venv_py(), str(Path(__file__).resolve().parent / "montage.py"), pid, "--step", step]
+    if force_tts: args.append("--force-tts")
+    out = open(logs / "montage.out", "a", encoding="utf-8")
+    MONT[pid] = subprocess.Popen(args, stdout=out, stderr=subprocess.STDOUT, cwd=str(Path(__file__).resolve().parent),
+                                 creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0))
+    return {"started": True}
+
+def mont_stop(pid):
+    (PROJECTS / Path(pid).name / "logs" / "montage_control.txt").write_text("stop", encoding="utf-8")
+    return {"ok": True}
+
+def mont_config(c):
+    f = Path(__file__).resolve().parent / "config" / "montage.json"
+    cur = json.loads(f.read_text(encoding="utf-8")) if f.is_file() else {}
+    for k in ("tts_model", "voice", "instructions", "music_volume", "burn_subtitles", "crossfade_seconds", "ken_burns_zoom"):
+        if k in c: cur[k] = c[k]
+    f.write_text(json.dumps(cur, ensure_ascii=False, indent=2), encoding="utf-8")
+    return cur
+
+def save_music(pid, name, data):
+    ext = Path(name).suffix.lower()
+    if ext not in (".mp3", ".wav", ".m4a", ".ogg"):
+        raise ApiError("Use MP3, WAV, M4A ou OGG.")
+    d = PROJECTS / Path(pid).name
+    for m in d.glob("music.*"): m.unlink()
+    (d / f"music{ext}").write_bytes(data)
+    return {"music": f"music{ext}"}
+
 class H(BaseHTTPRequestHandler):
     def _send(self, code, obj=None, raw=None, ctype="application/json; charset=utf-8"):
         b = raw if raw is not None else json.dumps(obj, ensure_ascii=False).encode()
         self.send_response(code); self.send_header("Content-Type", ctype)
         self.send_header("Content-Length", str(len(b))); self.end_headers(); self.wfile.write(b)
+
+    def _send_file(self, f):
+        ct = {".mp4": "video/mp4", ".srt": "application/x-subrip; charset=utf-8", ".mp3": "audio/mpeg"}.get(f.suffix.lower(), "application/octet-stream")
+        size = f.stat().st_size
+        rng = self.headers.get("Range")
+        start, end = 0, size - 1
+        if rng and rng.startswith("bytes="):
+            a, _, b = rng[6:].partition("-")
+            start = int(a) if a else max(0, size - int(b)); end = int(b) if (a and b) else size - 1
+            end = min(end, size - 1, start + 8 * 1024 * 1024 - 1)
+            self.send_response(206); self.send_header("Content-Range", f"bytes {start}-{end}/{size}")
+        else:
+            self.send_response(200)
+        n = end - start + 1
+        self.send_header("Content-Type", ct); self.send_header("Accept-Ranges", "bytes")
+        self.send_header("Content-Length", str(n))
+        if f.suffix.lower() == ".srt" or "dl=1" in self.path:
+            self.send_header("Content-Disposition", f'attachment; filename="{f.name}"')
+        self.end_headers()
+        with open(f, "rb") as fh:
+            fh.seek(start); left = n
+            while left > 0:
+                chunk = fh.read(min(1 << 20, left))
+                if not chunk: break
+                try: self.wfile.write(chunk)
+                except (BrokenPipeError, ConnectionResetError, ConnectionAbortedError): return
+                left -= len(chunk)
 
     def log_message(self, *a):
         pass
@@ -394,6 +482,16 @@ class H(BaseHTTPRequestHandler):
         if p == "/api/grok_auto":
             q = urllib.parse.parse_qs(urllib.parse.urlparse(self.path).query)
             return self._send(200, auto_status(q["id"][0]))
+        if p == "/api/montage":
+            q = urllib.parse.parse_qs(urllib.parse.urlparse(self.path).query)
+            return self._send(200, mont_status(q["id"][0]))
+        if p.startswith("/files/"):
+            parts = [urllib.parse.unquote(x) for x in p.split("/")[2:]]
+            if len(parts) == 3 and parts[1] in ("output", "audio"):
+                f = PROJECTS / Path(parts[0]).name / parts[1] / Path(parts[2]).name
+                if f.is_file():
+                    return self._send_file(f)
+            return self._send(404, {"error": "não encontrado"})
         if p == "/api/pricing":
             return self._send(200, pricing())
         if p.startswith("/media/"):
@@ -426,6 +524,12 @@ class H(BaseHTTPRequestHandler):
     def do_POST(self):
         n = int(self.headers.get("Content-Length") or 0)
         raw = self.rfile.read(n)
+        if self.path.startswith("/api/montage/music"):
+            q = urllib.parse.parse_qs(urllib.parse.urlparse(self.path).query)
+            try:
+                return self._send(200, save_music(q["id"][0], q.get("name", ["m.mp3"])[0], raw))
+            except ApiError as e:
+                return self._send(400, {"error": str(e)})
         if self.path.startswith("/api/upload"):
             q = urllib.parse.parse_qs(urllib.parse.urlparse(self.path).query)
             try:
@@ -448,6 +552,12 @@ class H(BaseHTTPRequestHandler):
                 return self._send(200, auto_control(body["id"], body["action"]))
             if self.path == "/api/grok_auto/login":
                 return self._send(200, auto_login())
+            if self.path == "/api/montage/start":
+                return self._send(200, mont_start(body["id"], body.get("step", "all"), body.get("force_tts", False)))
+            if self.path == "/api/montage/stop":
+                return self._send(200, mont_stop(body["id"]))
+            if self.path == "/api/montage/config":
+                return self._send(200, mont_config(body))
             if self.path == "/api/save":
                 return self._send(200, save_project(body))
         except ApiError as e:
