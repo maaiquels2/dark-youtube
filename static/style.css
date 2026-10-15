@@ -189,3 +189,30 @@ input,select{min-height:48px;font-size:16px;padding:11px 14px}textarea{font-size
 .yt-chart>div{flex:1;background:var(--accent,#e5484d);border-radius:4px 4px 0 0;opacity:.85}
 .logo-prev{height:32px;background:#fff;padding:4px 8px;border-radius:6px}
 .mont-grid input[type=checkbox]{width:18px;height:18px;margin:0 8px 0 0;vertical-align:middle;display:inline-block}
+
+.gfx-row{grid-column:1/-1;margin-top:6px}.gfx-chips{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0}
+.chip.gfx-chapter,.chip.gfx-timeline,.chip.gfx-chart,.chip.gfx-document,.chip.gfx-quote,.chip.gfx-relmap,.chip.gfx-scale,.chip.gfx-headline{border-color:#38bdc7;color:#7fe3ea}
+.chip.gfx-lower_third,.chip.gfx-callout,.chip.gfx-parties,.chip.gfx-logo,.chip.gfx-citation{border-color:#ffd60a;color:#ffe066}
+textarea.mono{font-family:Consolas,monospace;font-size:12px;width:100%}textarea.err{outline:2px solid #e5484d}
+.tracks{margin:6px 0 0 18px;padding:0}
+
+/* etapas do fluxo */
+.stage-panel{display:flex;flex-direction:column;gap:16px}
+.stage-panel .row{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
+table.dos{width:100%;border-collapse:collapse;font-size:14px}
+table.dos td{padding:9px 10px;border-top:1px solid rgba(255,255,255,.07);vertical-align:top}
+table.dos td.d{white-space:nowrap;color:#aab;width:130px}
+table.dos td.u{white-space:nowrap;width:200px}
+table.dos td.u a{color:#7fd1d8;text-decoration:none}
+.dos-ch h3{margin:0 0 4px}
+.amt{color:#ffd60a}
+.small{font-size:12px;opacity:.8;margin-top:4px}
+.ent-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px}
+.card.ent{padding:0;overflow:hidden;display:flex;flex-direction:column}
+.ent-mark{height:130px;background:#f7f7f5;display:flex;align-items:center;justify-content:center;padding:14px;color:#111;font-size:22px}
+.ent-mark img{max-height:100%;max-width:100%;object-fit:contain}
+.ent-hq{width:100%;height:140px;object-fit:cover}
+.ent-b{padding:12px 14px;display:flex;flex-direction:column;gap:5px}
+.ent-b .cred{font-size:11px;opacity:.75;line-height:1.4}
+.ent-b .cred a{color:#9ab}
+.chip.err{background:rgba(229,72,77,.18);color:#ff8a8e}

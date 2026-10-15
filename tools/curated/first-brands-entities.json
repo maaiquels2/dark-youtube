@@ -1,0 +1,270 @@
+[
+ {
+  "name": "First Brands",
+  "full_name": "First Brands Group",
+  "kind": "company",
+  "aliases": [
+   "First Brands Group"
+  ],
+  "role": "Ohio auto-parts supplier",
+  "hq_photo": "entities/first-brands-hq_photo.jpg",
+  "credits": {
+   "hq_photo": "Erik Drost, CC BY 2.0, via Wikimedia Commons",
+   "hq_photo_source": "https://commons.wikimedia.org/wiki/File:Cleveland,_Ohio_Skyline_at_Sunrise_at_Edgewater_Park_(8668179983).jpg"
+  }
+ },
+ {
+  "name": "FRAM",
+  "kind": "company",
+  "aliases": [
+   "Fram"
+  ],
+  "role": "Filter brand of First Brands",
+  "photo": "entities/fram-photo.jpg",
+  "credits": {
+   "photo": "Greasywheel at English Wikipedia, Public domain, via Wikimedia Commons",
+   "photo_source": "https://commons.wikimedia.org/wiki/File:Framoilfilterassortment.JPG"
+  }
+ },
+ {
+  "name": "Jefferies",
+  "full_name": "Jefferies Financial Group",
+  "kind": "company",
+  "aliases": [
+   "Jefferies Financial Group"
+  ],
+  "role": "Investment bank",
+  "logo": "entities/jefferies-logo.png",
+  "hq_photo": "entities/jefferies-hq_photo.jpg",
+  "credits": {
+   "logo": "Unknown authorUnknown author, Public domain, via Wikimedia Commons",
+   "logo_source": "https://commons.wikimedia.org/wiki/File:Jefferies_Financial_Group_logo.svg",
+   "hq_photo": "Jonathan Schilling, CC BY-SA 4.0, via Wikimedia Commons",
+   "hq_photo_source": "https://commons.wikimedia.org/wiki/File:520_Madison_Avenue_as_seen_from_53rd_Street.jpg"
+  }
+ },
+ {
+  "name": "Point Bonita",
+  "full_name": "Point Bonita Capital",
+  "kind": "fund",
+  "aliases": [
+   "Point Bonita Capital"
+  ],
+  "role": "Fund in Jefferies' Leucadia unit",
+  "credits": {}
+ },
+ {
+  "name": "Leucadia",
+  "full_name": "Leucadia Asset Management",
+  "kind": "company",
+  "aliases": [
+   "Leucadia Asset Management"
+  ],
+  "role": "Jefferies asset-management arm",
+  "credits": {}
+ },
+ {
+  "name": "UBS",
+  "kind": "company",
+  "role": "Swiss bank",
+  "logo": "entities/ubs-logo.png",
+  "hq_photo": "entities/ubs-hq_photo.jpg",
+  "credits": {
+   "logo": "UBS, Public domain, via Wikimedia Commons",
+   "logo_source": "https://commons.wikimedia.org/wiki/File:UBS_Logo.png",
+   "hq_photo": "Ank Kumar, CC BY-SA 4.0, via Wikimedia Commons",
+   "hq_photo_source": "https://commons.wikimedia.org/wiki/File:UBS_Switzerland_Headquarters_Z%C3%BCrich_(Ank_Kumar)_11.jpg"
+  }
+ },
+ {
+  "name": "Raistone",
+  "kind": "company",
+  "role": "Working-capital platform",
+  "credits": {}
+ },
+ {
+  "name": "Ford",
+  "full_name": "Ford Motor Company",
+  "kind": "company",
+  "aliases": [
+   "Ford Motor"
+  ],
+  "role": "Automaker",
+  "logo": "entities/ford-logo.png",
+  "hq_photo": "entities/ford-hq_photo.jpg",
+  "credits": {
+   "logo": "Ford Motor Company, Public domain, via Wikimedia Commons",
+   "logo_source": "https://commons.wikimedia.org/wiki/File:Ford_logo_flat.svg",
+   "hq_photo": "42-BRT, CC BY-SA 4.0, via Wikimedia Commons",
+   "hq_photo_source": "https://commons.wikimedia.org/wiki/File:Ford_World_Headquarters_under_clouds,_from_parking_lot.jpg"
+  }
+ },
+ {
+  "name": "GM",
+  "full_name": "General Motors",
+  "kind": "company",
+  "aliases": [
+   "General Motors"
+  ],
+  "role": "Automaker",
+  "logo": "entities/gm-logo.png",
+  "hq_photo": "entities/gm-hq_photo.jpg",
+  "credits": {
+   "logo": "™/®General Motors Company Tel(11)94017-9623, Public domain, via Wikimedia Commons",
+   "logo_source": "https://commons.wikimedia.org/wiki/File:General_Motors_(2021).svg",
+   "hq_photo": "Crisco 1492, Public domain, via Wikimedia Commons",
+   "hq_photo_source": "https://commons.wikimedia.org/wiki/File:Renaissance_Center,_Detroit,_Michigan_from_S_2014-12-07.jpg"
+  }
+ },
+ {
+  "name": "DOJ",
+  "full_name": "U.S. Department of Justice",
+  "kind": "agency",
+  "aliases": [
+   "Department of Justice",
+   "Justice Department",
+   "federal prosecutors"
+  ],
+  "role": "Federal prosecutors",
+  "seal": "entities/doj-seal.png",
+  "credits": {
+   "seal": "U.S. government, Public domain, via Wikimedia Commons",
+   "seal_source": "https://commons.wikimedia.org/wiki/File:Seal_of_the_United_States_Department_of_Justice.svg"
+  }
+ },
+ {
+  "name": "SDNY",
+  "full_name": "U.S. Attorney's Office, Southern District of New York",
+  "kind": "agency",
+  "aliases": [
+   "Southern District of New York",
+   "U.S. Attorney's Office",
+   "Manhattan federal prosecutors"
+  ],
+  "role": "Federal prosecutors, Manhattan",
+  "seal": "entities/sdny-seal.png",
+  "hq_photo": "entities/sdny-hq_photo.jpg",
+  "credits": {
+   "seal": "U.S. government, Public domain, via Wikimedia Commons",
+   "seal_source": "https://commons.wikimedia.org/wiki/File:Seal_of_the_United_States_Department_of_Justice.svg",
+   "hq_photo": "Ken Lund from Reno, Nevada, USA, CC BY-SA 2.0, via Wikimedia Commons",
+   "hq_photo_source": "https://commons.wikimedia.org/wiki/File:Daniel_Patrick_Moynihan_U.S._Courthouse,_Manhattan,_New_York_(7237347688).jpg"
+  }
+ },
+ {
+  "name": "FBI",
+  "full_name": "Federal Bureau of Investigation",
+  "kind": "agency",
+  "aliases": [
+   "Federal Bureau of Investigation"
+  ],
+  "seal": "entities/fbi-seal.png",
+  "credits": {
+   "seal": "Federal Bureau of Investigation, Public domain, via Wikimedia Commons",
+   "seal_source": "https://commons.wikimedia.org/wiki/File:Seal_of_the_Federal_Bureau_of_Investigation.svg"
+  }
+ },
+ {
+  "name": "IRS",
+  "full_name": "Internal Revenue Service",
+  "kind": "agency",
+  "aliases": [
+   "Internal Revenue Service",
+   "IRS Criminal Investigation"
+  ],
+  "seal": "entities/irs-seal.png",
+  "credits": {
+   "seal": "U.S. Government, Public domain, via Wikimedia Commons",
+   "seal_source": "https://commons.wikimedia.org/wiki/File:Seal_of_the_United_States_Internal_Revenue_Service.svg"
+  }
+ },
+ {
+  "name": "Bankruptcy Court",
+  "full_name": "U.S. Bankruptcy Court, Southern District of Texas",
+  "kind": "court",
+  "aliases": [
+   "bankruptcy court",
+   "Southern District of Texas",
+   "Chapter 11 court"
+  ],
+  "role": "Houston",
+  "hq_photo": "entities/bankruptcy-court-hq_photo.jpg",
+  "credits": {
+   "hq_photo": "WhisperToMe, Public domain, via Wikimedia Commons",
+   "hq_photo_source": "https://commons.wikimedia.org/wiki/File:CaseyFederalCourthouseHoustonTX.JPG"
+  }
+ },
+ {
+  "name": "Federal court in Manhattan",
+  "full_name": "U.S. District Court, Southern District of New York",
+  "kind": "court",
+  "aliases": [
+   "federal court in Manhattan",
+   "Manhattan federal court"
+  ],
+  "role": "Criminal case 26 Cr. 29",
+  "hq_photo": "entities/federal-court-in-manhattan-hq_photo.jpg",
+  "credits": {
+   "hq_photo": "aismallard, CC BY-SA 3.0, via Wikimedia Commons",
+   "hq_photo_source": "https://commons.wikimedia.org/wiki/File:Thurgood_Marshall_United_States_Courthouse_2018-06-14.jpg"
+  }
+ },
+ {
+  "name": "Patrick James",
+  "kind": "person",
+  "aliases": [],
+  "role": "First Brands founder · charged, pleaded not guilty",
+  "credits": {}
+ },
+ {
+  "name": "Edward James",
+  "kind": "person",
+  "aliases": [],
+  "role": "Ex-executive · charged, pleaded not guilty",
+  "credits": {}
+ },
+ {
+  "name": "Stephen Graham",
+  "kind": "person",
+  "aliases": [
+   "Graham"
+  ],
+  "role": "Former CFO · pleaded guilty, cooperating",
+  "credits": {}
+ },
+ {
+  "name": "Peter Andrew Brumbergs",
+  "kind": "person",
+  "aliases": [
+   "Brumbergs"
+  ],
+  "role": "Former VP of finance · pleaded guilty",
+  "credits": {}
+ },
+ {
+  "name": "Jay Clayton",
+  "kind": "person",
+  "aliases": [
+   "Clayton"
+  ],
+  "role": "U.S. Attorney, SDNY",
+  "photo": "entities/jay-clayton-photo.jpg",
+  "credits": {
+   "photo": "Securities and Exchange Commission, Public domain, via Wikimedia Commons",
+   "photo_source": "https://commons.wikimedia.org/wiki/File:Jay_Clayton_(cropped).jpg"
+  }
+ },
+ {
+  "name": "Analisa Torres",
+  "kind": "person",
+  "aliases": [
+   "Judge Torres"
+  ],
+  "role": "U.S. District Judge, SDNY",
+  "photo": "entities/analisa-torres-photo.jpg",
+  "credits": {
+   "photo": "U.S. Senate Judiciary Committee, Public domain, via Wikimedia Commons",
+   "photo_source": "https://commons.wikimedia.org/wiki/File:Analisa_Torres_(Judge)_(cropped).jpg"
+  }
+ }
+]

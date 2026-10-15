@@ -45,6 +45,10 @@
       </div>
     </section>
 
+    <section class="view" id="v-pesquisa">
+      <div class="page-head"><div><h1>Pesquisa</h1><p>Dossiê por capítulo: fatos, datas, valores, fontes, pessoas (juízes, promotores), empresas e órgãos. O roteiro é gerado a partir dele.</p></div></div>
+      <div id="st-pesquisa" class="stage-panel"></div>
+    </section>
     <section class="view" id="v-roteiro">
       <div class="page-head"><div><h1>Roteiro</h1><p>Roteiro completo dividido em cenas. Edite a narração e o prompt visual de cada uma.</p></div></div>
       <div class="card title-card">
@@ -56,6 +60,14 @@
       <div class="savebar" id="savebar"><span id="saveState" class="muted">Alterações não salvas</span><button class="btn primary" onclick="save()"><svg viewBox="0 0 24 24"><path d="M5 3h11l3 3v15H5z M8 3v6h8"/></svg>Salvar projeto</button></div>
     </section>
 
+    <section class="view" id="v-imagens">
+      <div class="page-head"><div><h1>Imagens reais</h1><p>Logos, selos e fotos licenciadas com crédito para cada entidade citada.</p></div></div>
+      <div id="st-imagens" class="stage-panel"></div>
+    </section>
+    <section class="view" id="v-prompts">
+      <div class="page-head"><div><h1>Prompts Grok</h1><p>Prompts ricos por cena, derivados das batidas da história.</p></div></div>
+      <div id="st-prompts" class="stage-panel"></div>
+    </section>
     <section class="view" id="v-cenas">
       <div class="page-head"><div><h1>Cenas</h1><p>Um vídeo ou imagem animada 16:9 para cada cena. Gere pela API da xAI ou anexe o que fizer no site do Grok.</p></div>
         <button class="btn primary" id="btnGenAll" onclick="genPending()"><svg viewBox="0 0 24 24"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9z"/></svg>Gerar todas pendentes</button></div>
@@ -78,6 +90,10 @@
       <div class="grid scenes-grid" id="cenas"></div>
     </section>
 
+    <section class="view" id="v-validacao">
+      <div class="page-head"><div><h1>Validação</h1><p>Gate pré-render: todo nome, sigla e valor da narração tem visual na tela naquele momento.</p></div></div>
+      <div id="st-validacao" class="stage-panel"></div>
+    </section>
     <section class="view" id="v-montagem">
       <div class="page-head"><div><h1>Montagem</h1><p>Narração (OpenAI TTS), cortes com Ken Burns, crossfades, trilha opcional e legendas num MP4 1080p.</p></div></div>
       <div id="montPanel"></div>

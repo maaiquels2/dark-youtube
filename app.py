@@ -137,14 +137,18 @@ def build_grok_prompt(sc, cfg=None):
     subj = clean_subject(sc.get("visual_prompt"))
     narr = re.sub(r"\s+", " ", sc.get("narration") or "").strip()
     parts = [f"Subject: {subj}."]
-    if narr:
+    if sc.get("beat"): parts.append(f"Story beat: {sc['beat']}.")
+    if sc.get("mood"): parts.append(f"Mood: {sc['mood']}.")
+    elif narr:
         parts.append("Mood: tense, investigative business documentary atmosphere.")
+    if sc.get("camera") and sc.get("mode") != "video": parts.append(f"Camera: {sc['camera']}.")
     parts.append("Composition: wide cinematic framing, strong leading lines, clear focal subject, rule of thirds.")
     parts.append(GROK_STYLE)
     if sc.get("mode") == "video":
         dur = 8
         if cfg:
             dur = int(min(cfg["video_max_seconds"], max(cfg["video_min_seconds"], math.ceil(scene_seconds(sc, cfg)))))
+        if sc.get("camera"): parts.append(f"Camera move: {sc['camera']}.")
         parts.append(f"Motion: slow cinematic camera movement (gentle dolly-in or slow parallax pan), subtle atmospheric motion "
                      f"(drifting haze, flickering lights), smooth and stable, no cuts. Duration: about {dur} seconds (max 15s), no audio.")
         parts.append("Format: video, aspect ratio 16:9, 1920x1080, high resolution, ultra detailed.")
@@ -287,26 +291,58 @@ def suggest_titles(p):
          'JSON: {"titles":[{"title":"...","hook":"ângulo do vídeo em português (1 frase)","why":"por que retém, em português (1 frase)","formula":"formula used"}]}')
     return chat_json(sys, u, 3000)
 
+STORY_STANDARD = (
+    "STORYTELLING STANDARD: (1) open with a ~15-second hook built on the single most shocking verified moment; "
+    "(2) a clear, humanized protagonist (who they are, what they wanted) without inventing private details; "
+    "(3) rising conflict and tension with open loops ('but', 'what nobody knew yet', 'that was only the beginning'); "
+    "(4) a clear 3-act structure (setup / unraveling / reckoning) mapped onto 6-10 chapters; "
+    "(5) emotional authenticity through affected people (employees, creditors, investors, customers) based on reported facts, never sensational; "
+    "(6) show-don't-tell: every visual_prompt must literally match its narration, varied shot types (wide, close-up, macro, aerial, tracking) so consecutive scenes never look alike. "
+    "LEGAL: anyone charged but not convicted is presumed innocent: attribute every accusation ('prosecutors allege', 'according to the indictment', 'the company said'); never state guilt; "
+    "include one explicit presumption-of-innocence line; report denials and not-guilty pleas. ")
+GFX_SPEC = (
+    "GRAPHICS (gfx) - motion-graphics specs rendered from real data. Use only facts given above, with their source. Types:\n"
+    "FULL-SCREEN (replaces the AI visual for that scene; use on ~25-35% of scenes, never two identical types in a row):\n"
+    '- {"type":"chapter","number":1,"title":"..."} on the first scene of each chapter (matches YouTube chapters).\n'
+    '- {"type":"timeline","title":"...","events":[{"date":"Sep 28, 2025","label":"<=6 words"}],"highlight":index,"source":"..."} 3-6 events.\n'
+    '- {"type":"chart","title":"... ($B)","unit":"$B","series":[{"label":"...","value":6.1}],"highlight":index,"source":"..."} only real sourced numbers.\n'
+    '- {"type":"document","doc":"Indictment, US v. X, 26 Cr. 29","header":"...","excerpt":"exact or near-exact public wording (<=45 words)","highlight":"key phrase inside excerpt","source":"..."}.\n'
+    '- {"type":"quote","text":"verbatim quote","speaker":"Name","role":"...","source":"outlet, date"} only real verbatim quotes from the facts.\n'
+    '- {"type":"relmap","title":"Who owed whom","center":"Company","center_role":"...","nodes":[{"name":"Lender","relation":"$715M receivables"}],"source":"..."} 3-7 nodes.\n'
+    '- {"type":"scale","title":"...","amount":"$11.6B","comparison":"plain-language comparison that is arithmetically true","blocks":0,"source":"..."}.\n'
+    '- {"type":"headline","outlet":"Reuters","date":"Jan 29, 2026","headline":"real published headline"}.\n'
+    '- {"type":"moneyflow","title":"Follow the money","flows":[{"from":{"name":"Fund, New York","lon":-74.0,"lat":40.7},"to":{"name":"Company, City","lon":-81.7,"lat":41.5},"amount":"$715M","date":"..."}],"source":"..."} ANIMATED map: ONLY for a sourced transfer/financing between two real places (use real city coordinates).\n'
+    '- {"type":"collapse","title":"...","unit":"$B","mode":"line|bars","points":[{"label":"...","value":5.0,"display":"~$5B","tone":"loss|","event":""}],"final":{"label":"...","value":"$12M"},"source":"..."} ANIMATED value collapse (valuation, stock, assets vs liabilities) with sourced numbers only.\n'
+    "OVERLAYS (drawn on top of the AI visual):\n"
+    '- {"type":"lower_third","name":"Full Name","role":"role + legal status e.g. pleaded not guilty"} when a person is first named.\n'
+    '- {"type":"logo","company":"Name"} when a company is named prominently.\n'
+    '- {"type":"callout","text":"$12B liabilities","source":"short source"} for key amounts.\n'
+    '- {"type":"parties","title":"Lenders exposed","items":["Jefferies","UBS"]} for involved parties (lenders, banks, regulators, courts).\n'
+    '- {"type":"citation","text":"DOJ SDNY, Jan 29 2026"} small corner source when a key number appears without a callout.\n'
+    "A scene may combine one full-screen item with nothing else, or several overlays. ")
+
 def write_script(p):
     mins = int(p.get("minutes") or 10)
     words = mins * 150
     sys = ("You are a researcher and scriptwriter for a faceless Business & Finance documentary YouTube channel. "
            "Scripts will be reviewed by a human before production, so accuracy matters more than drama. "
            "NEVER invent sources, URLs, quotes or numbers. Only give a URL if you are confident it exists; otherwise set url to \"verificar\". "
-           "Set needs_check=true on any scene whose claims (figures, dates, quotes, allegations) must be verified. Reply only in JSON.")
+           "Set needs_check=true on any scene whose claims (figures, dates, quotes, allegations) must be verified. Reply only in JSON (a single json object).")
     u = (f"Title: {p.get('title')}\nNiche: {p.get('niche')}\nLanguage of the narration: {p.get('language')}\n"
          f"Target length: {mins} minutes (~{words} words of narration in total).\n"
          + (f"Angle / editorial brief: {p.get('theme')}\n" if p.get("theme") else "")
          + (f"Verified facts you may use (with sources). Prefer these; do not contradict them; cite the given URLs in sources:\n{p.get('facts')}\n" if p.get("facts") else "")
          + 
          "Write a documentary narration split into scenes of 1-3 sentences (6-10 seconds each). "
+         + STORY_STANDARD +
          "Strong hook in the first 30 seconds, clear story arc, retention beats (open loops, reveals) spread through the video, ending with a call to subscribe. "
          "For each scene: narration in the narration language; visual_prompt IN ENGLISH: a concrete, detailed visual description (subject, setting, camera angle, lighting, mood; 25-50 words) faithful to that scene's narration "
          "(no real person likeness, no logos or trademarks, no on-screen text); key_facts (list of factual claims in the scene); "
-         "sources (list of {title, url}); needs_check (boolean).\n"
+         "sources (list of {title, url}); needs_check (boolean); chapter (short chapter title, set ONLY on the first scene of each chapter, else empty); "
+         "gfx (list of on-screen graphics specs for this scene, see GRAPHICS below; [] when none).\n" + GFX_SPEC + "\n"
          '{"title":"...","description":"resumo em português","hook":"first 30 seconds summary",'
          '"retention_beats":["..."],"scenes":[{"narration":"...","visual_prompt":"...","key_facts":["..."],'
-         '"sources":[{"title":"...","url":"verificar"}],"needs_check":true}]}')
+         '"sources":[{"title":"...","url":"verificar"}],"needs_check":true,"chapter":"","gfx":[]}]}')
     return chat_json(sys, u, 32000)
 
 def save_project(proj):
@@ -415,6 +451,13 @@ def mont_start(pid, step="all", force_tts=False):
     pr = MONT.get(pid)
     if pr and pr.poll() is None:
         raise ApiError("A montagem já está rodando.")
+    if step != "tts":
+        import pipeline
+        v = pipeline.validate(pid, autofix=True)
+        if not v["ok"]:
+            g = "; ".join(f"cena {x['scene']}: {', '.join(x['missing'])}" for x in v["gaps"][:8])
+            raise ApiError(f"Render bloqueado pela Validação: {len(v['gaps'])} cena(s) com lacunas. {g}")
+        gfx_render(pid)
     logs = PROJECTS / pid / "logs"; logs.mkdir(parents=True, exist_ok=True)
     args = [_venv_py(), str(Path(__file__).resolve().parent / "montage.py"), pid, "--step", step]
     if force_tts: args.append("--force-tts")
@@ -434,6 +477,12 @@ def mont_config(c):
         if k in c: cur[k] = c[k]
     f.write_text(json.dumps(cur, ensure_ascii=False, indent=2), encoding="utf-8")
     return cur
+
+def gfx_render(pid):
+    import gfx
+    pdir = PROJECTS / Path(pid).name
+    nf, no = gfx.render_project(proj_path(pid), pdir)
+    return {"full": nf, "overlays": no}
 
 def save_music(pid, name, data):
     ext = Path(name).suffix.lower()
@@ -540,7 +589,11 @@ def project_stages(d):
     sc = d.get("scenes") or []
     return {
         "ideia": bool(d.get("title")),
+        "pesquisa": bool(d.get("dossier")),
         "roteiro": len(sc) > 0,
+        "imagens": bool(d.get("images_done")),
+        "prompts": bool(d.get("prompts_enriched")),
+        "validacao": bool((d.get("validation") or {}).get("ok")),
         "cenas": len(sc) > 0 and all(x.get("file") and (pdir / x["file"]).is_file() for x in sc),
         "montagem": (pdir / "output" / "final.mp4").is_file(),
         "publicacao": d.get("status") in ("publicado", "agendado") and bool(d.get("published_url")),
@@ -631,7 +684,7 @@ class H(BaseHTTPRequestHandler):
                     f = PROJECTS / Path(parts[0]).name / c
                     ct = {".png": "image/png", ".webp": "image/webp"}.get(f.suffix.lower(), "image/jpeg")
                     return self._send(200, raw=f.read_bytes(), ctype=ct)
-            if len(parts) == 3 and parts[1] in ("output", "audio", "assets"):
+            if len(parts) == 3 and parts[1] in ("output", "audio", "assets", "entities", "gfx"):
                 f = PROJECTS / Path(parts[0]).name / parts[1] / Path(parts[2]).name
                 if f.is_file():
                     return self._send_file(f)
@@ -713,6 +766,21 @@ class H(BaseHTTPRequestHandler):
                 return self._send(200, mont_stop(body["id"]))
             if self.path == "/api/montage/config":
                 return self._send(200, mont_config(body))
+            if self.path == "/api/gfx/render":
+                return self._send(200, gfx_render(body["id"]))
+            if self.path.startswith("/api/pipeline/"):
+                import pipeline
+                st = self.path.rsplit("/", 1)[-1]
+                if st == "notes":
+                    with LOCK:
+                        d = load_project(body["id"]); d["research_notes"] = body.get("notes", ""); proj_path(body["id"]).write_text(json.dumps(d, ensure_ascii=False, indent=2), encoding="utf-8")
+                    return self._send(200, {"ok": True})
+                fn = {"research": lambda: pipeline.research(body["id"]), "script": lambda: pipeline.script_from_dossier(body["id"]),
+                      "images": lambda: pipeline.collect_images(body["id"], body.get("curated")),
+                      "prompts": lambda: pipeline.enrich_prompts(body["id"]), "validate": lambda: pipeline.validate(body["id"], body.get("autofix", True))}[st]
+                r = fn()
+                if st == "validate" and r.get("ok"): gfx_render(body["id"])
+                return self._send(200, r)
             if self.path == "/api/publish":
                 return self._send(200, publish(body["id"], body.get("url"), body.get("unpublish", False), body.get("scheduled_at")))
             if self.path == "/api/save":

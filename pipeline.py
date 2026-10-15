@@ -1,0 +1,202 @@
+"""Dark Studio - etapas do fluxo: Pesquisa (dossie) -> Roteiro do dossie -> Imagens reais -> Prompts Grok -> Validacao.
+Usa app.chat_json (OpenAI, so texto). Imagens reais vem de fontes licenciadas (Wikimedia Commons) com credito."""
+import json, re, time, urllib.request, urllib.parse, urllib.error
+from pathlib import Path
+import entities as E
+
+def _app():
+    import app; return app
+
+def _load(pid):
+    a = _app(); return a.load_project(pid)
+
+def _save(d):
+    a = _app()
+    with a.LOCK:
+        a.proj_path(d["id"]).write_text(json.dumps({k: v for k, v in d.items() if not k.startswith("_")}, ensure_ascii=False, indent=2), encoding="utf-8")
+    return d
+
+def url_ok(u):
+    try:
+        r = urllib.request.urlopen(urllib.request.Request(u, headers={"User-Agent": "Mozilla/5.0 Chrome/130"}), timeout=20)
+        return r.status < 400
+    except urllib.error.HTTPError as e:
+        return e.code in (401, 403, 429)  # existe, mas bloqueia robos
+    except Exception:
+        return False
+
+# ---------------- 1) Pesquisa ----------------
+def research(pid):
+    d = _load(pid); a = _app()
+    if not (d.get("facts") or d.get("research_notes")):
+        raise a.ApiError("Cole as notas de pesquisa (fatos com fontes) no campo de pesquisa antes de gerar o dossie.")
+    sys = ("You are a meticulous research editor for a documentary channel. Build a research dossier ONLY from the notes given. "
+           "Never add facts, names, numbers or URLs that are not in the notes. Reply only in json.")
+    u = ("Organize these research notes into a dossier grouped by story chapter (chronological, 6-10 chapters). "
+         "For every fact keep date, amount (if any), the exact source URL from the notes, and whether it is an allegation. "
+         "List ALL people (including judges, prosecutors, defendants, cooperators, executives), companies/funds/banks, government agencies and courts mentioned, "
+         "with role and legal status where relevant. json: {\"chapters\":[{\"title\":\"...\",\"summary\":\"...\",\"facts\":[{\"date\":\"...\",\"text\":\"...\","
+         "\"amount\":\"\",\"allegation\":false,\"url\":\"...\"}]}],\"people\":[{\"name\":\"...\",\"role\":\"...\",\"status\":\"...\"}],"
+         "\"companies\":[{\"name\":\"...\",\"role\":\"...\"}],\"agencies\":[{\"name\":\"...\",\"full_name\":\"...\"}],\"courts\":[{\"name\":\"...\",\"full_name\":\"...\"}]}\n\nNOTES:\n"
+         + (d.get("research_notes") or d.get("facts")))
+    dos = a.chat_json(sys, u, 16000)
+    cache = {}
+    for ch in dos.get("chapters") or []:
+        for f in ch.get("facts") or []:
+            uu = f.get("url") or ""
+            if uu.startswith("http"):
+                if uu not in cache: cache[uu] = url_ok(uu)
+                f["url_ok"] = cache[uu]
+    dos["sources_checked"] = len(cache); dos["sources_ok"] = sum(cache.values())
+    d["dossier"] = dos; _save(d)
+    return dos
+
+def dossier_text(dos):
+    out = []
+    for i, ch in enumerate(dos.get("chapters") or [], 1):
+        out.append(f"CHAPTER {i}: {ch.get('title')} - {ch.get('summary','')}")
+        for f in ch.get("facts") or []:
+            out.append(f"- {f.get('date','')}: {'[ALLEGATION] ' if f.get('allegation') else ''}{f.get('text')} {f.get('amount') or ''} {f.get('url','')}".strip())
+    for k in ("people", "companies", "agencies", "courts"):
+        if dos.get(k): out.append(k.upper() + ": " + "; ".join(f"{x.get('name')} ({x.get('full_name') or x.get('role','')}{', ' + x['status'] if x.get('status') else ''})" for x in dos[k]))
+    return "\n".join(out)
+
+# ---------------- 2) Roteiro a partir do dossie ----------------
+def script_from_dossier(pid):
+    d = _load(pid); a = _app()
+    if not d.get("dossier"): raise a.ApiError("Gere o dossie de pesquisa primeiro (etapa Pesquisa).")
+    p = dict(d, facts=dossier_text(d["dossier"]))
+    r = a.write_script(p)
+    keep = {k: d[k] for k in d if k not in ("scenes", "hook", "retention_beats", "description", "validation", "prompts_enriched")}
+    keep.update({k: r[k] for k in ("hook", "retention_beats", "description", "scenes") if k in r})
+    keep["script_from_dossier"] = True
+    return a.save_project(keep)
+
+# ---------------- 3) Imagens reais ----------------
+def _commons_search(q, n=6):
+    u = "https://commons.wikimedia.org/w/api.php?" + urllib.parse.urlencode({"action": "query", "list": "search", "srsearch": q, "srnamespace": 6, "srlimit": n, "format": "json"})
+    r = json.load(urllib.request.urlopen(urllib.request.Request(u, headers=E.UA), timeout=20))
+    return [x["title"] for x in r["query"]["search"]]
+
+def _pick(titles, must, phrase=None):
+    for t in titles:
+        low = t.lower()
+        if phrase and phrase.lower() not in low: continue
+        if all(m.lower() in low for m in must) and not low.endswith((".pdf", ".djvu", ".tif", ".tiff")): return t
+    return None
+
+JUNK = re.compile(r"^(unnamed|other|various|unknown|several)\b", re.I)
+
+def collect_images(pid, curated=None):
+    """Mescla registro curado + entidades do dossie; busca automatica estrita no Commons (selo/logo/foto) com credito."""
+    d = _load(pid); pdir = _app().PROJECTS / Path(pid).name
+    reg = {e["name"]: e for e in d.get("entities") or []}
+    for e in curated or []: reg[e["name"]] = {**reg.get(e["name"], {}), **e}
+    dos = d.get("dossier") or {}
+    for k, kind in (("people", "person"), ("companies", "company"), ("agencies", "agency"), ("courts", "court")):
+        for x in dos.get(k) or []:
+            n = x.get("name")
+            if n and JUNK.match(n): continue
+            if n and not any(n.lower() in [m.lower() for m in E._names(e)] for e in reg.values()):
+                reg[n] = {"name": n, "kind": kind, "full_name": x.get("full_name"), "role": x.get("role") or x.get("status") or "", "aliases": []}
+    log = []
+    for e in reg.values():
+        if E.has_real_asset(e) or e.get("no_auto") or e.get("kind") == "person": continue  # pessoas: so foto curada (evita homonimos)
+        time.sleep(1.5)
+        n = e.get("full_name") or e["name"]; t = None; key = None
+        try:
+            if e["kind"] == "agency": t = _pick(_commons_search("Seal of the " + n), ["seal"], phrase=n.replace("U.S. ", "United States ")); key = "seal"
+            elif e["kind"] in ("company", "fund"): t = _pick(_commons_search(n + " logo"), ["logo"], phrase=e["name"]); key = "logo"
+            if t:
+                ext = ".png" if t.lower().endswith((".svg", ".png")) else ".jpg"
+                rel = f"entities/{re.sub('[^a-z0-9]+','-',e['name'].lower())}-{key}{ext}"
+                info = E.fetch_commons(t, pdir / rel); e[key] = rel
+                e.setdefault("credits", {})[key] = info["credit"]; e["credits"][key + "_source"] = info["source"]
+                log.append(f"{e['name']}: {key} <- {t}")
+        except Exception as ex:
+            log.append(f"{e['name']}: erro {ex}")
+    d["entities"] = list(reg.values()); d["images_done"] = True; _save(d)
+    return {"entities": len(reg), "with_real_visual": sum(1 for e in reg.values() if E.has_real_asset(e)), "log": log}
+
+# ---------------- 4) Prompts Grok ricos ----------------
+ARC = {
+ "act1": "ACT 1 euphoria, money flowing: warm golden light, bustling energy, busy warehouses and trucks, deals and celebrations, smooth confident camera moves",
+ "act2": "ACT 2 tension and suspicion: cold blue-grey light, tight framing, slow push-ins, shadows creeping in, papers and screens examined late at night",
+ "act3": "ACT 3 collapse and human impact: anonymous workers leaving with boxes, idle factories, creditors facing red screens, empty offices, rain, harsh shadows, handheld unease",
+ "after": "AFTERMATH: quiet, desaturated, reflective; empty courthouse steps at dawn, still warehouses, slow pull-backs, lingering silence",
+}
+def act_of(i, n):
+    r = i / max(1, n - 1)
+    return "act1" if r < 0.3 else "act2" if r < 0.62 else "act3" if r < 0.9 else "after"
+
+def enrich_prompts(pid):
+    d = _load(pid); a = _app(); sc = d["scenes"]
+    sys = ("You are a documentary director of photography writing image/video generation prompts. Reply only in json. "
+           "Never depict a real person's likeness (people only as silhouettes, hands, backs, out-of-focus), no logos, no brand names, no readable text.")
+    for st in range(0, len(sc), 20):
+        part = [(i, s) for i, s in enumerate(sc[st:st + 20], st)]
+        lines = "\n".join(f"{i} <{act_of(i, len(sc))}>: [{'GFX' if any(g.get('type') in ('timeline','chart','document','quote','relmap','scale','chapter','headline','photo','entity_full') for g in s.get('gfx') or []) else 'AI'}] {s.get('narration')}" for i, s in part)
+        u = ("Story so far: " + (d.get("hook") or "") + "\nFor each scene, identify its story beat and write a rich visual prompt that SHOWS exactly what the narration says "
+             "(subject, action, setting, era, props, shot type, lens, camera move, lighting, color, mood; 60-90 words). Vary shot types between consecutive scenes. "
+             "Follow the EMOTIONAL ARC tag of each scene, so emotion tracks the financial impact as the story unfolds: " + " | ".join(ARC.values()) + ". "
+             "People are ALWAYS anonymous (seen from behind, silhouettes, hands, out of focus); never a real person's likeness. Emotion comes from lighting, camera movement and situations. "
+             "Skip scenes marked GFX (return them with empty visual_prompt). json: {\"scenes\":[{\"i\":0,\"beat\":\"...\",\"shot\":\"wide|close-up|macro|aerial|tracking|...\","
+             "\"mood\":\"...\",\"camera\":\"...\",\"visual_prompt\":\"...\"}]}\n\n" + lines)
+        r = a.chat_json(sys, u, 12000)
+        for x in r.get("scenes") or []:
+            i = int(x.get("i", -1))
+            if 0 <= i < len(sc) and x.get("visual_prompt"):
+                ac = act_of(i, len(sc))
+                if ac == "act3" and sc[i].get("source") != "gfx": sc[i]["mode"] = "video"  # mais video no colapso
+                sc[i].update(act=ac, beat=x.get("beat"), shot=x.get("shot"), mood=x.get("mood"), camera=x.get("camera"), visual_prompt=x["visual_prompt"])
+    d["prompts_enriched"] = True
+    return a.save_project(d)
+
+# ---------------- 5) Validacao ----------------
+AMT = re.compile(r"\$\s?\d[\d,]*(?:\.\d+)?\s?(?:billion|million|thousand|bn|B|M|K)?\b", re.I)
+ACR_SKIP = {"CEO", "CFO", "COO", "VP", "US", "U", "S", "OK", "TV", "AI", "I", "II", "III", "LLC", "INC", "CO", "A", "AM", "PM"}
+
+def _amt_val(s):
+    m = re.search(r"(\d[\d,]*(?:\.\d+)?)\s*(billion|bn|b|million|m|thousand|k)?", s.replace("$", ""), re.I)
+    if not m: return None
+    v = float(m.group(1).replace(",", "")); u = (m.group(2) or "").lower()
+    return round(v * (1000 if u in ("billion", "bn", "b") else 0.001 if u in ("thousand", "k") else 1 if u in ("million", "m") else 1e-6), 3)
+
+def _gfx_amounts(s):
+    vals = set()
+    for g in s.get("gfx") or []:
+        unit = str(g.get("unit") or "")
+        for k in ("text", "amount", "headline", "excerpt", "title"):
+            for m in AMT.finditer(str(g.get(k) or "")): vals.add(_amt_val(m.group()))
+        for nd in g.get("nodes") or []:
+            for m in AMT.finditer(str(nd.get("relation") or "")): vals.add(_amt_val(m.group()))
+        for se in g.get("series") or []:
+            try: vals.add(_amt_val(f"{se.get('value')}{' billion' if 'B' in unit else ' million' if 'M' in unit else ''}"))
+            except Exception: pass
+    return vals
+
+def validate(pid, autofix=True):
+    d = _load(pid)
+    rep = E.coverage(d, autofix=autofix)
+    names = {n.upper() for e in d.get("entities") or [] for n in E._names(e)}
+    amt_gaps, acr_gaps, added = [], [], 0
+    for i, s in enumerate(d.get("scenes") or []):
+        narr = s.get("narration") or ""
+        have = _gfx_amounts(s)
+        for m in AMT.finditer(narr):
+            v = _amt_val(m.group())
+            if v in have: continue
+            if autofix:
+                src = ((s.get("sources") or [{}])[0] or {}).get("title") or ""
+                s.setdefault("gfx", []).append({"type": "callout", "text": m.group().strip(), "source": src[:60], "auto": True}); have.add(v); added += 1
+            else: amt_gaps.append({"scene": i + 1, "amount": m.group().strip()})
+        for a in set(re.findall(r"\b[A-Z]{2,6}\b", narr)) - ACR_SKIP:
+            if a not in names and not any(a in str(g.get("text", "")) + str(g.get("title", "")) for g in s.get("gfx") or []):
+                acr_gaps.append({"scene": i + 1, "acronym": a})
+    gaps = rep["gaps"] + [{"scene": g["scene"], "missing": [g["amount"] + " (amount)"]} for g in amt_gaps] \
+         + [{"scene": g["scene"], "missing": [g["acronym"] + " (acronym not in registry)"]} for g in acr_gaps]
+    gaps.sort(key=lambda g: g["scene"])
+    v = {"ok": not gaps, "gaps": gaps, "entity_cards_added": rep["added_cards"], "amount_callouts_added": added,
+         "name_card_only": rep["name_card_only"], "mentions": rep["mentions"]}
+    d["validation"] = v; d.pop("coverage", None); _save(d)
+    return v

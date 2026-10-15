@@ -1,0 +1,36 @@
+import json, sys
+sys.path.insert(0, ".")
+import app
+FACTS = """
+- Jan 29, 2026: DOJ SDNY unsealed a nine-count indictment, United States v. Patrick James and Edward James, 26 Cr. 29 (AT), Judge Analisa Torres. Charges: conspiracy to commit wire fraud and bank fraud, conspiracy to commit money laundering, wire fraud and bank fraud counts; Patrick James also charged with managing a continuing financial crimes enterprise. Both arrested in Ohio that morning. https://www.justice.gov/usao-sdny/pr/first-brands-executives-charged-multibillion-dollar-fraud
+- DOJ release: "The charges contained in the Indictment are merely accusations, and the defendants are presumed innocent unless and until proven guilty." Every fact described is an allegation. https://www.justice.gov/usao-sdny/pr/first-brands-executives-charged-multibillion-dollar-fraud
+- According to the indictment (allegations): from about 2018 to 2025 the defendants allegedly perpetrated schemes to "fake and falsely inflate invoices", "double- and triple-pledge loan collateral", "falsify corporate financial statements" and "conceal substantial liabilities from lenders"; internal "bridge" files allegedly juxtaposed accurate and manipulated financials; self-payments allegedly called "round trips" or "corporate initiatives"; off-balance-sheet inventory financing allegedly ran through entities owned by Patrick James (the "James Entities"). https://www.justice.gov/usao-sdny/pr/first-brands-executives-charged-multibillion-dollar-fraud
+- DOJ (allegation): at bankruptcy First Brands, which reported about $5 billion in net annual sales, declared just $12 million in cash and over $9 billion in liabilities; lenders and creditors face billions in losses. Patrick James allegedly received at least hundreds of millions of dollars into personal accounts. https://www.justice.gov/usao-sdny/pr/first-brands-executives-charged-multibillion-dollar-fraud
+- Verbatim quote, U.S. Attorney Jay Clayton (Jan 29, 2026): "As alleged in the indictment, Patrick James, together with his brother, Edward James, perpetrated a staggering fraud at First Brands Group." https://www.justice.gov/usao-sdny/pr/first-brands-executives-charged-multibillion-dollar-fraud
+- First Brands: Ohio-based automotive aftermarket parts supplier (brakes, filters, wipers, lights); brands include FRAM filters and Luber-finer, which were shut at least temporarily during the bankruptcy; thousands of U.S. jobs were shed. https://www.truckpartsandservice.com/business/finance/article/15828455/judge-modifies-release-conditions-for-former-first-brands-executives
+- Sep 28, 2025: First Brands filed Chapter 11 in the U.S. Bankruptcy Court for the Southern District of Texas (Houston), case 25-90399. First-day declaration: about $6.1B on-balance-sheet funded debt, about $2.3B off-balance-sheet financings through special purpose vehicles, about $800M unsecured supply-chain-finance liabilities, plus about $2.3B in factoring liabilities; term loans about $5.5B. https://storage.courtlistener.com/recap/gov.uscourts.txsb.487046/gov.uscourts.txsb.487046.22.0.pdf
+- Court documents show $11.6 billion in total liabilities (Reuters). https://www.reuters.com/business/finance/ubs-examines-hit-funds-500-million-first-brands-exposure-2025-10-08/
+- Oct 8, 2025: Jefferies disclosed its Leucadia fund Point Bonita held about $715 million in receivables linked to First Brands; First Brands stopped forwarding payments to Point Bonita on Sep 15; Jefferies later said its own exposure was $43 million in receivables and $2 million in loans. https://www.reuters.com/business/finance/jefferies-discloses-715-million-fund-exposure-first-brands-bankruptcy-2025-10-08/
+- Oct 8, 2025: UBS said it had more than $500 million of exposure across funds, including through supply-chain-finance agreements. https://www.reuters.com/business/finance/ubs-examines-hit-funds-500-million-first-brands-exposure-2025-10-08/
+- Raistone, a working-capital platform, made much of its revenue from First Brands, laid off dozens of employees, and said First Brands companies owed at least $684M under its supply-chain-finance arrangements plus $172M to one of its entities. https://www.gtreview.com/news/americas/raistone-made-vast-majority-of-revenue-from-first-brands-sources-say/
+- GM held an "urgent" supplier call over First Brands exposure; GM, Ford and other customers got court approval to fund a $48 million cash advance to keep some operations running; GM said none of its operations were affected. https://www.crainsdetroit.com/auto-suppliers/gm-calls-urgent-supplier-meeting-over-first-brands-exposure
+- Feb 4, 2026: Patrick James pleaded not guilty to nine counts and Edward James to eight; released on bonds ($50M and $25M). https://www.reuters.com/world/first-brands-founder-patrick-james-pleads-not-guilty-fraud-2026-02-04/
+- Jan 26, 2026: former VP of finance Peter Andrew Brumbergs pleaded guilty and is cooperating. Mar 2, 2026: former CFO Stephen Graham pleaded guilty to four counts (bank fraud, wire fraud, conspiracy) and signed a cooperation agreement; expected to testify. The Jameses deny wrongdoing. https://www.ttnews.com/articles/first-brands-cfo-pleads-guilty
+- Trial originally set for July 13, 2026, moved to February 9, 2027. https://innercitypress.com/sdny120etorresfirstbrandjamesicp082726.html
+- Oct 2026: lawyers for Patrick and Edward James asked the judge for separate trials, each saying he plans to blame the other; both pleaded not guilty and deny wrongdoing; a ruling had not been reported as of Oct 15, 2026. https://www.ttnews.com/articles/james-brothers-blame-first-brands
+""".strip()
+THEME = ("Channel 'The Cracked Ledger'. Angle: how an Ohio auto-parts roll-up became a multibillion-dollar debt puzzle, how lenders and funds were exposed, and what prosecutors ALLEGE. "
+         "HIGH LEGAL RISK: Patrick and Edward James are charged, not convicted, and pleaded not guilty: use 'alleged', 'prosecutors say', 'according to the indictment' for EVERY accusation; never state guilt; "
+         "include an explicit presumption-of-innocence line; mention their denials and the request for separate trials. Cooperators' guilty pleas are facts about the cooperators only. "
+         "Affected people: employees (jobs shed, brands shut), lenders/funds, Raistone staff, automakers' supply chains. "
+         "End with where things stand on Oct 15, 2026 (trial Feb 2027, severance request pending) and a reflective close. "
+         "Visual prompts: never realistic faces of real people; no logos/brand names/readable text in visual prompts. Target 10-12 minutes.")
+p = {"title": "First Brands: The $11.6 Billion Auto Parts Collapse", "niche": "Business & Finance documentary (fraud allegations, rise and fall)",
+     "language": "English", "minutes": 11, "theme": THEME, "facts": FACTS}
+r = app.write_script(p)
+sc = r["scenes"]
+print(len(sc), sum(len(s["narration"].split()) for s in sc), sum(1 for s in sc if s.get("gfx")))
+r.update({"niche": p["niche"], "language": "English", "minutes": 11, "theme": THEME, "facts": FACTS, "channel": "The Cracked Ledger"})
+r["title"] = r.get("title") or p["title"]
+saved = app.save_project(r)
+print(saved["id"]); open("fb_id.txt", "w").write(saved["id"])

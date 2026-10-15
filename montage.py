@@ -208,6 +208,31 @@ class Job:
             return None
         return W, ch, 0, y0
 
+    def apply_overlay(self, i, clip, L):
+        gd = self.pdir / "gfx"; ov = gd / f"ov-{i+1:02d}.png"; js = gd / f"ov-{i+1:02d}.json"
+        if not ov.is_file():
+            return clip
+        out = clip.with_name(clip.stem + "-ov.mp4")
+        layers = json.loads(js.read_text(encoding="utf-8")) if js.is_file() else [{"file": ov.name, "enter": "fade", "delay": 0.35}]
+        layers = [l for l in layers if (gd / l["file"]).is_file()] or [{"file": ov.name, "enter": "fade", "delay": 0.35}]
+        args = ["-i", str(clip)]; fc = []; prev = "[0:v]"
+        for k, l in enumerate(layers):
+            args += ["-loop", "1", "-t", f"{L:.3f}", "-i", str(gd / l["file"])]
+            D = float(l.get("delay", 0.35)); p = f"pow(1-min(1,max(0,(t-{D})/0.55)),3)"
+            x, y = {"right": (f"700*{p}", "0"), "left": (f"-700*{p}", "0"), "up": ("0", f"160*{p}")}.get(l.get("enter"), ("0", "0"))
+            fc.append(f"[{k+1}:v]format=rgba,fade=in:st={D}:d=0.45:alpha=1[o{k}]")
+            fc.append(f"{prev}[o{k}]overlay=x='{x}':y='{y}':eval=frame:shortest=1[v{k}]"); prev = f"[v{k}]"
+        fc.append(f"{prev}format=yuv420p[v]")
+        ff(args + ["-filter_complex", ";".join(fc), "-map", "[v]", "-c:v", "libx264", "-preset", "veryfast", "-crf", "16", "-an",
+                   "-r", str(self.c["fps"]), str(out)])
+        return out
+
+    def render_gfx(self):
+        import gfx
+        nf, no = gfx.render_project(self.pfile, self.pdir)
+        self.log(f"graficos: {nf} telas cheias, {no} sobreposicoes")
+        return nf, no
+
     def render_clip(self, i, sc, D, L):
         fps = self.c["fps"]
         src = self.pdir / sc["file"]
@@ -228,6 +253,7 @@ class Job:
             if rem > 0.05:
                 vf += f",tpad=stop_mode=clone:stop_duration={rem + 0.2:.3f}"
             ff(["-i", str(src), "-vf", vf, "-t", f"{L:.3f}"] + enc + [str(out)])
+            out = self.apply_overlay(i, out, L)
             return out, crop, f"video x{speed:.2f}"
         frames = int(math.ceil(L * fps))
         z = self.c["ken_burns_zoom"]
@@ -244,6 +270,7 @@ class Job:
         vf = (f"{cf}scale=3840:2160:force_original_aspect_ratio=increase:flags=lanczos,crop=3840:2160,"
               f"zoompan=z='{zexp}':x='{xexp}':y='{yexp}':d={frames}:s=1920x1080:fps={fps},setsar=1")
         ff(["-i", str(src), "-vf", vf, "-frames:v", str(frames)] + enc + [str(out)])
+        out = self.apply_overlay(i, out, L)
         return out, crop, f"imagem kb{k}"
 
     def srt(self, sc, starts, durs):
@@ -257,15 +284,24 @@ class Job:
                 continue
             parts = [p.strip() for p in re.split(r"(?<=[.!?;])\s+", text) if p.strip()]
             chunks = []
-            for p in parts:  # quebra frases longas em ~84 chars
-                words, cur = p.split(), ""
+            for p in parts:  # quebra frases longas em partes equilibradas (~84 chars max)
+                words = p.split(); n = max(1, math.ceil(len(p) / 84)); target = len(p) / n; cur = ""
                 for w in words:
-                    if len(cur) + len(w) + 1 > 84 and cur:
+                    if cur and len(cur) + len(w) + 1 > target + 8 and len(chunks) < 999:
                         chunks.append(cur); cur = w
                     else:
                         cur = (cur + " " + w).strip()
                 if cur:
                     chunks.append(cur)
+            k = 0  # junta legendas orfas (1-2 palavras ou < 15 chars) com a vizinha
+            while k < len(chunks):
+                c = chunks[k]
+                if (len(c.split()) <= 2 or len(c) < 15) and len(chunks) > 1:
+                    if k > 0 and len(chunks[k - 1]) + len(c) <= 110:
+                        chunks[k - 1] += " " + c; chunks.pop(k); continue
+                    if k + 1 < len(chunks):
+                        chunks[k + 1] = c + " " + chunks[k + 1]; chunks.pop(k); continue
+                k += 1
             speak = max(0.5, d - self.c["pad_seconds"])
             tot = sum(len(c) for c in chunks) or 1
             t = t0
@@ -283,6 +319,7 @@ class Job:
         return c[:sp].strip() + "\n" + c[sp:].strip()
 
     def run_render(self):
+        self.render_gfx()
         sc = self.scenes()
         missing = [i + 1 for i, s in enumerate(sc) if not s.get("file") or not (self.pdir / s["file"]).is_file()]
         if missing:
@@ -395,6 +432,23 @@ class Job:
             vf = pre + f"{vin}subtitles='{sp}':force_style='FontName=Arial,FontSize=22,Outline=2,MarginV=40'[v]"
         if pre:
             args += self._logo_args
+        tracks = [t for t in (pj.get("music_tracks") or []) if t.get("file") and (self.pdir / t["file"]).is_file()]
+        if tracks:
+            base = 3 + (1 if pre else 0); parts = []; tracks = sorted(tracks, key=lambda t: int(t.get("from_scene", 1)))
+            for k, t in enumerate(tracks):
+                a = starts[max(0, int(t.get("from_scene", 1)) - 1)] if k else 0.0
+                b = starts[int(tracks[k + 1]["from_scene"]) - 1] if k + 1 < len(tracks) else total
+                dur = max(1.0, b - a + (1.5 if k + 1 < len(tracks) else 0))
+                args += ["-stream_loop", "-1", "-i", str(self.pdir / t["file"])]
+                vol = float(t.get("volume", self.c.get("music_volume", 0.18)))
+                parts.append(f"[{base+k}:a]aformat=sample_rates=48000:channel_layouts=stereo,atrim=0:{dur:.3f},asetpts=PTS-STARTPTS,"
+                             f"afade=t=in:d=1.5,afade=t=out:st={max(0, dur-2):.3f}:d=2,volume={vol},adelay={int(a*1000)}|{int(a*1000)}[t{k}]")
+            mix = "".join(f"[t{k}]" for k in range(len(tracks)))
+            af = (";".join(parts) + f";{mix}amix=inputs={len(tracks)}:duration=longest:normalize=0,atrim=0:{total:.3f}[mus];"
+                  f"[1:a]asplit=2[nar][sc];[mus][sc]sidechaincompress=threshold=0.02:ratio=10:attack=15:release=450:makeup=1[duck];"
+                  f"[nar][duck]amix=inputs=2:duration=first:normalize=0,loudnorm=I={lufs}:TP=-1.5:LRA=11[a]")
+            music = True
+            self.log(f"trilha: {len(tracks)} faixas por ato, com ducking")
         ff(args + ["-filter_complex", vf + ";" + af, "-map", "[v]", "-map", "[a]", "-t", f"{total:.3f}",
                    "-c:v", "libx264", "-preset", self.c["preset"], "-crf", str(self.c["crf"]), "-pix_fmt", "yuv420p",
                    "-r", str(fps), "-c:a", "aac", "-b:a", "192k", "-ar", "48000", "-movflags", "+faststart", str(out)])
