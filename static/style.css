@@ -177,3 +177,15 @@ input,select{min-height:48px;font-size:16px;padding:11px 14px}textarea{font-size
 .pub-card{display:grid;grid-template-columns:minmax(260px,420px) 1fr;gap:24px;align-items:start}.pub-thumb{width:100%;border-radius:12px;aspect-ratio:16/9;object-fit:cover}
 .pub-body h3{margin:0 0 8px;font-size:22px}.pub-body input{font-size:16px}
 @media(max-width:1000px){.pub-card{grid-template-columns:1fr}}
+
+.crumb-cover{width:64px;height:36px;object-fit:cover;border-radius:6px;margin-right:10px;border:1px solid var(--line,#333)}
+.yt-card{margin-top:18px;width:100%;box-sizing:border-box;padding:28px}
+.yt-head{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:18px}
+.yt-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.yt-stats>div{background:var(--card2,#1b1b22);border-radius:14px;padding:22px 24px}
+.yt-stats span{display:block;font-size:14px;opacity:.7;margin-bottom:6px}
+.yt-stats b{font-size:44px;line-height:1.1}
+.yt-chart{display:flex;align-items:flex-end;gap:4px;height:140px;margin-top:22px}
+.yt-chart>div{flex:1;background:var(--accent,#e5484d);border-radius:4px 4px 0 0;opacity:.85}
+.logo-prev{height:32px;background:#fff;padding:4px 8px;border-radius:6px}
+.mont-grid input[type=checkbox]{width:18px;height:18px;margin:0 8px 0 0;vertical-align:middle;display:inline-block}

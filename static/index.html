@@ -13,7 +13,7 @@
 <div class="main">
   <header class="topbar">
     <button class="icon-btn menu" onclick="document.body.classList.toggle('nav-open')" aria-label="Menu"><svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
-    <div class="crumbs"><span class="muted" id="crumbStep">Projetos</span><span class="sep">/</span><b id="crumbProject">Nenhum projeto aberto</b></div>
+    <img id="crumbCover" class="crumb-cover" alt="" style="display:none"><div class="crumbs"><span class="muted" id="crumbStep">Projetos</span><span class="sep">/</span><b id="crumbProject">Nenhum projeto aberto</b></div>
     <div class="progress-wrap"><div class="progress-meta"><span id="progressText">Etapa 0 de 5</span></div><div class="progress"><div id="progressBar"></div></div></div>
     <button class="btn ghost sm" onclick="newProject()"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>Novo projeto</button>
   </header>

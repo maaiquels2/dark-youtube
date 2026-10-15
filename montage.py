@@ -353,11 +353,31 @@ class Job:
             af = (f"[2:a]volume={self.c['music_volume']},atrim=0:{total:.3f}[m];"
                   f"[1:a][m]amix=inputs=2:duration=first:normalize=0,loudnorm=I={lufs}:TP=-1.5:LRA=11[a]")
         else:
+            args += ["-f", "lavfi", "-i", "anullsrc=r=48000:cl=stereo"]  # mantem o logo como input 3
             af = f"[1:a]loudnorm=I={lufs}:TP=-1.5:LRA=11[a]"
-        vf = "[0:v]null[v]"
+        vin = "[0:v]"
+        pj = json.loads(self.pfile.read_text(encoding="utf-8"))
+        lg = pj.get("logo") or {}
+        lfile = self.pdir / (lg.get("file") or "assets/logo.png")
+        pre = ""
+        if lg.get("enabled") and lfile.is_file():
+            intro = float(lg.get("intro_seconds", 15))
+            win = [(0.0, min(intro, total))] + [(starts[k], starts[k] + D[k]) for k, s in enumerate(sc) if s.get("logo") and starts[k] >= intro - 0.01]
+            en = "+".join(f"between(t,{a:.2f},{b:.2f})" for a, b in win)
+            args_logo = ["-loop", "1", "-i", str(lfile)]
+            self._logo_args = args_logo
+            m = round(0.03 * 1080)
+            pre = (f"[3:v]format=rgba,colorchannelmixer=aa={float(lg.get('opacity', 0.85)):.2f}[lg0];"
+                   f"[lg0][0:v]scale2ref=w='main_w*{float(lg.get('width_pct', 9))/100:.4f}':h='ow/mdar'[lg][base];"
+                   f"[base][lg]overlay=x={m}:y={m}:enable='{en}':shortest=1[ov];")
+            vin = "[ov]"
+            self.log(f"logo: {len(win)} janelas ({lfile.name})")
+        vf = pre + f"{vin}null[v]"
         if self.c.get("burn_subtitles"):
             sp = srt_path.as_posix().replace(":", "\\:")
-            vf = f"[0:v]subtitles='{sp}':force_style='FontName=Arial,FontSize=22,Outline=2,MarginV=40'[v]"
+            vf = pre + f"{vin}subtitles='{sp}':force_style='FontName=Arial,FontSize=22,Outline=2,MarginV=40'[v]"
+        if pre:
+            args += self._logo_args
         ff(args + ["-filter_complex", vf + ";" + af, "-map", "[v]", "-map", "[a]", "-t", f"{total:.3f}",
                    "-c:v", "libx264", "-preset", self.c["preset"], "-crf", str(self.c["crf"]), "-pix_fmt", "yuv420p",
                    "-r", str(fps), "-c:a", "aac", "-b:a", "192k", "-ar", "48000", "-movflags", "+faststart", str(out)])

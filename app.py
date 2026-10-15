@@ -444,6 +444,79 @@ def save_music(pid, name, data):
     (d / f"music{ext}").write_bytes(data)
     return {"music": f"music{ext}"}
 
+def save_logo(pid, name, data):
+    if not data.startswith(b"\x89PNG"):
+        raise ApiError("Envie um arquivo PNG.")
+    d = PROJECTS / Path(pid).name / "assets"; d.mkdir(parents=True, exist_ok=True)
+    (d / "logo.png").write_bytes(data)
+    return {"logo": "assets/logo.png"}
+
+# ---------- YouTube stats ----------
+YT_CHANNEL = "UCvmyoFV8fg5fMtoejd82CRA"
+def yt_key():
+    f = ROOT / ".env"
+    if f.is_file():
+        for line in f.read_text(encoding="utf-8", errors="ignore").splitlines():
+            if line.strip().startswith("YOUTUBE_API_KEY="):
+                return line.split("=", 1)[1].strip().strip('"').strip("'")
+    return os.environ.get("YOUTUBE_API_KEY", "").strip()
+def yt_vid(url):
+    m = re.search(r"(?:v=|youtu\.be/|shorts/|embed/)([A-Za-z0-9_-]{11})", url or "")
+    return m.group(1) if m else None
+def yt_stats(pid, force=False):
+    d = load_project(pid); vid = yt_vid(d.get("published_url"))
+    sf = PROJECTS / Path(pid).name / "yt_stats.json"
+    cur = json.loads(sf.read_text(encoding="utf-8")) if sf.is_file() else {"history": []}
+    cur["video_id"] = vid; cur["has_key"] = bool(yt_key())
+    if not vid:
+        cur["error"] = "Projeto sem link do YouTube publicado."; return cur
+    today = time.strftime("%Y-%m-%d")
+    if not force and cur.get("fetched_at", "")[:10] == today and cur.get("video_id_fetched") == vid:
+        return cur
+    if not cur["has_key"]:
+        cur["error"] = "no_key"; return cur
+    q = urllib.parse.urlencode({"part": "statistics,snippet", "id": vid, "key": yt_key()})
+    try:
+        with urllib.request.urlopen("https://www.googleapis.com/youtube/v3/videos?" + q, timeout=20) as r:
+            j = json.loads(r.read())
+    except urllib.error.HTTPError as e:
+        try: msg = json.loads(e.read())["error"]["message"]
+        except Exception: msg = f"HTTP {e.code}"
+        cur["error"] = "YouTube API: " + re.sub(r"key=[^&\s]+", "key=***", msg); return cur
+    except Exception as e:
+        cur["error"] = "Falha de rede: " + type(e).__name__; return cur
+    it = (j.get("items") or [None])[0]
+    if not it:
+        cur["error"] = "Vídeo não encontrado (privado ou removido?)."; return cur
+    stt, sn = it.get("statistics", {}), it.get("snippet", {})
+    cur.update(error=None, views=int(stt.get("viewCount", 0)), likes=int(stt.get("likeCount", 0)) if "likeCount" in stt else None,
+               comments=int(stt.get("commentCount", 0)) if "commentCount" in stt else None, yt_title=sn.get("title"),
+               channel_ok=sn.get("channelId") == YT_CHANNEL, published_at=sn.get("publishedAt"),
+               fetched_at=time.strftime("%Y-%m-%d %H:%M"), video_id_fetched=vid)
+    h = [x for x in cur.get("history", []) if x.get("date") != today]
+    h.append({"date": today, "views": cur["views"], "likes": cur["likes"], "comments": cur["comments"]})
+    cur["history"] = h[-120:]
+    sf.write_text(json.dumps(cur, ensure_ascii=False, indent=2), encoding="utf-8")
+    return cur
+def yt_cached(pid):
+    sf = PROJECTS / Path(pid).name / "yt_stats.json"
+    try: return json.loads(sf.read_text(encoding="utf-8"))
+    except Exception: return None
+def yt_daily_loop():
+    while True:
+        try:
+            if yt_key():
+                for f in PROJECTS.glob("*.json"):
+                    try:
+                        d = json.loads(f.read_text(encoding="utf-8"))
+                        if d.get("status") == "publicado" and d.get("published_url"):
+                            yt_stats(d["id"])
+                    except Exception:
+                        pass
+        except Exception:
+            pass
+        time.sleep(3600)
+
 # ---------- etapas / publicacao ----------
 COVER_CANDIDATES = ("PUBLICAR/3-thumbnail.jpg", "PUBLICAR/thumbnail.jpg", "output/thumbnail.jpg")
 def project_cover(d):
@@ -451,6 +524,11 @@ def project_cover(d):
     for rel in ([d["cover"]] if d.get("cover") else []) + list(COVER_CANDIDATES):
         if (pdir / rel).is_file():
             return rel
+    if (pdir / "output" / "final.mp4").is_file():
+        th = sorted(p for p in (pdir / "output" / "thumbs").rglob("*") if p.suffix.lower() in (".jpg", ".jpeg", ".png", ".webp")) if (pdir / "output" / "thumbs").is_dir() else []
+        th += sorted(p for p in (pdir / "PUBLICAR").glob("*thumb*")) if (pdir / "PUBLICAR").is_dir() else []
+        if th:
+            return th[-1].relative_to(pdir).as_posix()
     for sc in d.get("scenes") or []:
         f = sc.get("file") or ""
         if f.lower().endswith((".jpg", ".jpeg", ".png", ".webp")) and (pdir / f).is_file():
@@ -470,6 +548,8 @@ def project_stages(d):
 
 def decorate(d):
     d["_stages"] = project_stages(d); d["_cover"] = project_cover(d)
+    if isinstance(d.get("logo"), dict):
+        d["logo"]["has"] = (PROJECTS / Path(d["id"]).name / (d["logo"].get("file") or "assets/logo.png")).is_file()
     return d
 
 def publish(pid, url, unpublish=False):
@@ -531,6 +611,12 @@ class H(BaseHTTPRequestHandler):
         if p == "/api/montage":
             q = urllib.parse.parse_qs(urllib.parse.urlparse(self.path).query)
             return self._send(200, mont_status(q["id"][0]))
+        if p == "/api/ytstats":
+            q = urllib.parse.parse_qs(urllib.parse.urlparse(self.path).query)
+            try:
+                return self._send(200, yt_stats(q["id"][0], q.get("force", ["0"])[0] == "1"))
+            except Exception as e:
+                return self._send(400, {"error": str(e)})
         if p.startswith("/files/"):
             parts = [urllib.parse.unquote(x) for x in p.split("/")[2:]]
             if len(parts) == 2 and parts[1] == "cover":
@@ -540,7 +626,7 @@ class H(BaseHTTPRequestHandler):
                     f = PROJECTS / Path(parts[0]).name / c
                     ct = {".png": "image/png", ".webp": "image/webp"}.get(f.suffix.lower(), "image/jpeg")
                     return self._send(200, raw=f.read_bytes(), ctype=ct)
-            if len(parts) == 3 and parts[1] in ("output", "audio"):
+            if len(parts) == 3 and parts[1] in ("output", "audio", "assets"):
                 f = PROJECTS / Path(parts[0]).name / parts[1] / Path(parts[2]).name
                 if f.is_file():
                     return self._send_file(f)
@@ -564,7 +650,7 @@ class H(BaseHTTPRequestHandler):
                     st = project_stages(d)
                     items.append({"id": d["id"], "title": d.get("title"), "language": d.get("language"), "updated_at": d.get("updated_at"),
                                   "status": d.get("status"), "published_url": d.get("published_url"), "cover": project_cover(d),
-                                  "stages_done": sum(st.values()), "stages": st})
+                                  "stages_done": sum(st.values()), "stages": st, "yt": {k: (yt_cached(d["id"]) or {}).get(k) for k in ("views", "likes", "comments", "fetched_at")}})
                 except Exception:
                     pass
             return self._send(200, items)
@@ -582,6 +668,12 @@ class H(BaseHTTPRequestHandler):
     def do_POST(self):
         n = int(self.headers.get("Content-Length") or 0)
         raw = self.rfile.read(n)
+        if self.path.startswith("/api/montage/logo"):
+            q = urllib.parse.parse_qs(urllib.parse.urlparse(self.path).query)
+            try:
+                return self._send(200, save_logo(q["id"][0], q.get("name", ["logo.png"])[0], raw))
+            except ApiError as e:
+                return self._send(400, {"error": str(e)})
         if self.path.startswith("/api/montage/music"):
             q = urllib.parse.parse_qs(urllib.parse.urlparse(self.path).query)
             try:
@@ -637,4 +729,5 @@ if __name__ == "__main__":
         except Exception:
             pass
     print(f"Dark YouTube rodando em http://127.0.0.1:{PORT}  (chave OpenAI: {'OK' if api_key() else 'NÃO configurada'})")
+    threading.Thread(target=yt_daily_loop, daemon=True).start()
     ThreadingHTTPServer(("127.0.0.1", PORT), H).serve_forever()
