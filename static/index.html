@@ -57,7 +57,23 @@
     </section>
 
     <section class="view" id="v-cenas">
-      <div class="page-head"><div><h1>Cenas</h1><p>Um clipe 16:9 do Grok Imagine para cada cena do roteiro.</p></div><span class="chip soon">Automação em breve</span></div>
+      <div class="page-head"><div><h1>Cenas</h1><p>Um vídeo ou imagem animada 16:9 para cada cena. Gere pela API da xAI ou anexe o que fizer no site do Grok.</p></div>
+        <button class="btn primary" id="btnGenAll" onclick="genPending()"><svg viewBox="0 0 24 24"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9z"/></svg>Gerar todas pendentes</button></div>
+      <div id="xaiNotice"></div>
+      <div class="cenas-top">
+        <div class="card cost" id="cost"></div>
+        <div class="card bulk">
+          <h3>Ações em massa</h3>
+          <div class="bulk-row">
+            <div class="field"><label>Modo</label><select id="bMode" onchange="fillModels('bModel',this.value)"><option value="video">Vídeo</option><option value="image">Imagem animada</option></select></div>
+            <div class="field"><label>Origem</label><select id="bSource"><option value="api">API xAI</option><option value="site">Site do Grok (Chrome)</option></select></div>
+            <div class="field"><label>Modelo</label><select id="bModel"></select></div>
+          </div>
+          <div class="bulk-actions"><label class="checkbox"><input type="checkbox" id="selAll" onchange="selectAll(this.checked)">Selecionar todas</label><span class="muted" id="selCount"></span>
+            <button class="btn ghost sm" onclick="applyBulk(true)">Aplicar às selecionadas</button><button class="btn ghost sm" onclick="applyBulk(false)">Aplicar a todas</button><button class="btn ghost sm" onclick="resetDefaults()">Restaurar padrão</button></div>
+          <div class="progress-line" id="genProgress"></div>
+        </div>
+      </div>
       <div class="grid scenes-grid" id="cenas"></div>
     </section>
 

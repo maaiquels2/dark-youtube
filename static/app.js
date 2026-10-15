@@ -32,7 +32,7 @@ function renderNav(){
 }
 function go(k){if(k=="cenas"&&VIEW!="cenas"){const u=P.scenes.filter(s=>!s.reviewed).length;if(u&&!confirm(`${u} de ${P.scenes.length} cenas ainda não foram revisadas (fatos e fontes). Ir para Cenas mesmo assim?`))return;}
 VIEW=k;document.querySelectorAll(".view").forEach(v=>v.classList.toggle("on",v.id=="v-"+k));document.body.classList.remove("nav-open");
- if(k=="cenas")renderCenas();if(k=="projetos")loadProjects();renderNav();window.scrollTo(0,0);}
+ if(k=="cenas"){renderCenas();if(P.scenes.some(s=>s.status=="gerando"))startPoll();}if(k=="projetos")loadProjects();renderNav();window.scrollTo(0,0);}
 document.querySelector('[data-view=projetos]').onclick=()=>go("projetos");
 
 async function api(path,body){const r=await fetch(path,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(body)});
@@ -70,8 +70,64 @@ async function script(){const t=$("title").value.trim();if(!t)return toast("Defi
 function pickForm(){return{niche:P.niche||form().niche,language:P.language||form().language,minutes:P.minutes||form().minutes};}
 async function save(){P.title=$("title").value.trim()||P.title;try{P=await api("/api/save",P);$("savebar").classList.add("saved");$("saveState").textContent="Salvo às "+new Date().toLocaleTimeString("pt-BR",{hour:"2-digit",minute:"2-digit"});toast("Projeto salvo.");renderNav();}catch(e){toast(e.message,"err")}}
 
-function renderCenas(){$("cenas").innerHTML=P.scenes.length?P.scenes.map((s,i)=>`<div class="card thumb"><div class="frame"><span class="k">Cena ${i+1}</span>${svg("film")}</div><div class="body"><span class="chip">Aguardando clipe</span><p>${esc(s.visual_prompt)}</p></div></div>`).join("")
- :`<div class="empty" style="grid-column:1/-1"><div class="ill">${svg("cenas")}</div><b>Nenhuma cena</b><p>Gere ou abra um roteiro para ver aqui um quadro por cena.</p><button class="btn ghost sm" onclick="go('roteiro')">Ir para Roteiro</button></div>`;}
+let PRICE=null,HASXAI=false,SEL=new Set(),POLL=null;
+const MODELS={video:["grok-imagine-video-1.5-lite","grok-imagine-video","grok-imagine-video-1.5"],image:["grok-imagine-image","grok-imagine-image-2.0","grok-imagine-image-quality"]};
+const ST={pendente:["Pendente",""],gerando:["Gerando","warn"],pronto:["Pronto","ok"],erro:["Erro","err"]};
+function fillModels(id,mode,val){$(id).innerHTML=MODELS[mode].map(m=>`<option${m==val?" selected":""}>${m}</option>`).join("");}
+function secs(s){return Math.max(1,words(s.narration)/((PRICE&&PRICE.words_per_minute)||150)*60);}
+function vidSecs(s){const mx=(PRICE&&PRICE.video_max_seconds)||15;return Math.min(mx,Math.max(1,Math.ceil(secs(s))));}
+function defaultPlan(){const n=P.scenes.length,hot=new Set();let t=0;P.scenes.forEach((s,i)=>{if(t<30)hot.add(i);t+=secs(s);});
+ const B=(P.retention_beats||[]).length;for(let k=0;k<B;k++)hot.add(Math.min(n-1,Math.round((k+1)*n/(B+1))));return hot;}
+function ensurePlan(force){const hot=defaultPlan();let ch=false;P.scenes.forEach((s,i)=>{if(force||!s.mode){s.mode=hot.has(i)?"video":"image";s.source="api";s.model=s.mode=="video"?"grok-imagine-video-1.5-lite":"grok-imagine-image";s.beat=hot.has(i);ch=true;}if(!s.status)s.status="pendente";});return ch;}
+function estCost(s){if(!PRICE||s.source=="site")return 0;return s.mode=="video"?vidSecs(s)*(PRICE.video_per_second[s.model]||0):(PRICE.image[s.model]||0);}
+const usd=v=>"US$ "+v.toFixed(2).replace(".",",");
+function renderCost(){if(!PRICE)return;const g={};let tot=0,site=0,spent=0;
+ P.scenes.forEach(s=>{const c=estCost(s);tot+=c;if(s.source=="site"){site++;return;}const k=s.model;g[k]=g[k]||{n:0,s:0,c:0};g[k].n++;g[k].c+=c;if(s.mode=="video")g[k].s+=vidSecs(s);});
+ P.scenes.forEach(s=>spent+=s.cost_usd||0);const buf=tot*(PRICE.retry_buffer||0);
+ $("cost").innerHTML=`<h3>Custo estimado</h3><div class="cost-total"><b>${usd(tot+buf)}</b><span class="muted">com +${Math.round((PRICE.retry_buffer||0)*100)}% para refazer cenas</span></div>
+ <table class="cost-tbl">${Object.entries(g).map(([m,v])=>`<tr><td>${m}</td><td class="muted">${v.n} ${v.s?`· ${v.s}s`:"img"}</td><td>${usd(v.c)}</td></tr>`).join("")}
+ ${site?`<tr><td>Site do Grok</td><td class="muted">${site} cenas</td><td>US$ 0,00</td></tr>`:""}
+ <tr class="sub"><td>Subtotal</td><td></td><td>${usd(tot)}</td></tr><tr class="sub"><td>Folga (${Math.round((PRICE.retry_buffer||0)*100)}%)</td><td></td><td>${usd(buf)}</td></tr>
+ <tr class="sub"><td>Já gasto</td><td></td><td>${usd(spent)}</td></tr></table><p class="hint">Preços em config/pricing.json (docs.x.ai, 15/10/2026).</p>`;}
+function selectAll(v){SEL=new Set(v?P.scenes.map((_,i)=>i):[]);renderCenas();}
+function toggleSel(i,v){v?SEL.add(i):SEL.delete(i);$("selCount").textContent=SEL.size?`${SEL.size} selecionadas`:"";renderCost();}
+function applyBulk(onlySel){if(onlySel&&!SEL.size)return toast("Selecione pelo menos uma cena.","err");const m=$("bMode").value,src=$("bSource").value,mo=$("bModel").value;
+ P.scenes.forEach((s,i)=>{if(!onlySel||SEL.has(i)){s.mode=m;s.source=src;s.model=mo;}});dirty();autoSave();renderCenas();toast("Plano atualizado.");}
+function resetDefaults(){if(!confirm("Voltar todas as cenas para o plano padrão (gancho e retenção em vídeo, o resto em imagem animada)?"))return;ensurePlan(true);autoSave();renderCenas();}
+function setScene(i,k,v){const s=P.scenes[i];s[k]=v;if(k=="mode")s.model=MODELS[v][0];autoSave();renderCenas();}
+let saveT=null;function autoSave(){clearTimeout(saveT);saveT=setTimeout(()=>{if(P.id)api("/api/save",P).then(d=>{P.updated_at=d.updated_at}).catch(e=>toast(e.message,"err"))},500);}
+function preview(s){if(!s.file)return svg(s.mode=="video"?"film":"img");const u=`/media/${encodeURIComponent(P.id)}/${encodeURIComponent(s.file.split("/").pop())}?t=${encodeURIComponent(P.updated_at||"")}${s.gen_seconds||""}`;
+ return /\.(mp4|webm|mov)$/i.test(s.file)?`<video src="${u}" muted loop playsinline onmouseenter="this.play()" onmouseleave="this.pause()"></video>`:`<img src="${u}" alt="">`;}
+function renderCenas(){if(!P.scenes.length){$("cost").innerHTML="";$("cenas").innerHTML=`<div class="empty" style="grid-column:1/-1"><div class="ill">${svg("cenas")}</div><b>Nenhuma cena</b><p>Gere ou abra um roteiro para ver aqui um quadro por cena.</p><button class="btn ghost sm" onclick="go('roteiro')">Ir para Roteiro</button></div>`;return;}
+ if(ensurePlan(false))autoSave();renderCost();
+ const done=P.scenes.filter(s=>s.status=="pronto").length,run=P.scenes.filter(s=>s.status=="gerando").length,err=P.scenes.filter(s=>s.status=="erro").length;
+ $("genProgress").innerHTML=`<div class="progress"><div style="width:${done/P.scenes.length*100}%"></div></div><span>${done}/${P.scenes.length} prontas${run?` · ${run} gerando`:""}${err?` · ${err} com erro`:""}</span>`;
+ $("selCount").textContent=SEL.size?`${SEL.size} selecionadas`:"";$("selAll").checked=SEL.size==P.scenes.length;
+ $("cenas").innerHTML=P.scenes.map((s,i)=>{const [lab,cls]=ST[s.status]||ST.pendente;const busy=s.status=="gerando";
+ return `<div class="card thumb${SEL.has(i)?" sel":""}"><div class="frame">${preview(s)}<span class="k">Cena ${i+1} · ${Math.round(secs(s))}s</span>${s.beat?'<span class="beat">gancho/retenção</span>':""}
+  <input type="checkbox" class="pick" ${SEL.has(i)?"checked":""} onchange="toggleSel(${i},this.checked);this.closest('.thumb').classList.toggle('sel',this.checked)">${busy?'<div class="overlay"><span class="spin"></span></div>':""}</div>
+  <div class="body"><div class="thumb-head"><span class="chip ${cls}">${lab}</span><span class="muted">${s.source=="site"?"US$ 0":usd(estCost(s))}${s.cost_usd!=null&&s.status=="pronto"?` · gasto ${usd(s.cost_usd)}`:""}</span></div>
+  <div class="mini"><select onchange="setScene(${i},'mode',this.value)" ${busy?"disabled":""}><option value="video"${s.mode=="video"?" selected":""}>Vídeo</option><option value="image"${s.mode=="image"?" selected":""}>Imagem animada</option></select>
+  <select onchange="setScene(${i},'source',this.value)" ${busy?"disabled":""}><option value="api"${s.source=="api"?" selected":""}>API xAI</option><option value="site"${s.source=="site"?" selected":""}>Site do Grok</option></select></div>
+  ${s.source=="api"?`<select class="model" onchange="setScene(${i},'model',this.value)" ${busy?"disabled":""}>${MODELS[s.mode].map(m=>`<option${m==s.model?" selected":""}>${m}</option>`).join("")}</select>`:""}
+  <p title="${esc(s.visual_prompt)}">${esc(s.visual_prompt)}</p>${s.error?`<div class="scene-err">${esc(s.error)}</div>`:""}
+  <div class="thumb-actions">${s.source=="api"?`<button class="btn ${s.file?"ghost":"primary"} sm" ${busy?"disabled":""} onclick="genOne(${i})">${busy?"Gerando...":s.file?"Regenerar":s.status=="erro"?"Tentar de novo":"Gerar"}</button>`
+   :`<button class="btn primary sm" onclick="openGrok(${i})">Copiar prompt e abrir Grok</button>`}
+  <label class="btn ghost sm upl">${s.file?"Substituir":"Enviar arquivo"}<input type="file" accept="video/*,image/*" hidden onchange="upload(${i},this.files[0])"></label></div></div></div>`;}).join("");}
+async function genOne(i){if(!HASXAI)return toast("Configure XAI_API_KEY no .env para gerar pela API.","err");if(P.scenes[i].file&&!confirm(`Regenerar a cena ${i+1}? Custa ${usd(estCost(P.scenes[i]))}.`))return;await startGen([i]);}
+async function genPending(){if(!HASXAI)return toast("Configure XAI_API_KEY no .env para gerar pela API.","err");
+ const idx=P.scenes.map((s,i)=>i).filter(i=>{const s=P.scenes[i];return s.source=="api"&&s.status!="pronto"&&s.status!="gerando"});
+ if(!idx.length)return toast("Não há cenas pendentes para a API.");const c=idx.reduce((a,i)=>a+estCost(P.scenes[i]),0);
+ if(!confirm(`Gerar ${idx.length} cenas pela API da xAI? Custo estimado: ${usd(c)}.`))return;await startGen(idx);}
+async function startGen(idx){try{await api("/api/save",P);const r=await api("/api/generate",{id:P.id,scenes:idx});toast(`${r.started.length} cena(s) na fila.`);await refresh();startPoll();}catch(e){toast(e.message,"err")}}
+async function refresh(){const d=await (await fetch("/api/projects/"+encodeURIComponent(P.id))).json();
+ d.scenes.forEach((s,i)=>{if(P.scenes[i])["status","file","error","cost_usd","gen_seconds","media_duration","generated_with"].forEach(k=>{if(k in s)P.scenes[i][k]=s[k];else delete P.scenes[i][k];});});
+ P.updated_at=d.updated_at;if(VIEW=="cenas")renderCenas();return d;}
+function startPoll(){if(POLL)return;POLL=setInterval(async()=>{try{await refresh();if(!P.scenes.some(s=>s.status=="gerando")){clearInterval(POLL);POLL=null;toast("Geração concluída.");}}catch{}},4000);}
+async function openGrok(i){const t=P.scenes[i].visual_prompt||"";try{await navigator.clipboard.writeText(t);toast("Prompt copiado. Cole no Grok Imagine.");}catch{prompt("Copie o prompt:",t);}
+ window.open("https://grok.com/imagine","_blank","noopener");}
+async function upload(i,f){if(!f)return;if(!P.id)await save();try{const r=await fetch(`/api/upload?id=${encodeURIComponent(P.id)}&i=${i}&name=${encodeURIComponent(f.name)}`,{method:"POST",body:f});const d=await r.json();if(!r.ok)throw new Error(d.error);await refresh();toast(`Arquivo anexado à cena ${i+1}.`);}catch(e){toast(e.message,"err")}}
+function xaiNotice(){$("xaiNotice").innerHTML=HASXAI?"":`<div class="card notice"><span class="ic">${svg("key")}</span><div><b>Chave da xAI não configurada</b><p>Sem ela, só dá para usar o Site do Grok e enviar os arquivos à mão. Para gerar pela API, coloque <code>XAI_API_KEY=</code> no arquivo <code>.env</code> e reinicie o app.</p></div></div>`;}
 function pipe(id,items){$(id).innerHTML=items.map(([ic,t,d],i)=>`<div class="card pstep"><div class="ic">${svg(ic)}</div><small>PASSO ${i+1}</small><b>${t}</b><p>${d}</p></div>`).join("");}
 pipe("pipeMontagem",[["mic","Narração completa","Roteiro inteiro em uma única voz via OpenAI TTS, sem cortes de tom."],["film","Clipes sincronizados","Cada clipe do Grok ajustado à duração do seu trecho de narração."],["music","Trilha sonora","Música ambiente dark mixada abaixo da voz."],["cc","Legendas e export","ffmpeg gera MP4 1920×1080 com legendas embutidas."]]);
 pipe("pipePublicacao",[["img","Thumbnail","Imagem 1280×720 de alto contraste a partir da cena mais forte."],["text","Título e descrição","Na língua do vídeo, com capítulos e gancho no começo."],["hash","Tags","Palavras-chave do nicho para busca e sugeridos."],["globe","Pronto para enviar","Pacote final para subir no YouTube Studio."]]);
@@ -89,6 +145,6 @@ function notice(){if(HASKEY||sessionStorage.dyHide){$("notice").innerHTML="";ret
 const PRESETS=[["Fraude & golpes","Fraud & Scams"],["Ascensão e queda de empresas","Rise and Fall of Companies"],["Dark truth de impérios","The Dark Truth About Business Empires"],["Bilionários","Billionaires"],["História do dinheiro","History of Money"]];
 $("presets").innerHTML=PRESETS.map(([a,b],i)=>`<button class="preset" onclick="preset(${i},this)">${a}</button>`).join("");
 function preset(i,el){document.querySelectorAll(".preset").forEach(b=>b.classList.toggle("on",b==el));$("niche").value="Business & Finance Documentary — "+PRESETS[i][1];}
-(async()=>{try{const s=await (await fetch("/api/status")).json();HASKEY=s.has_key;
+(async()=>{try{PRICE=await (await fetch("/api/pricing")).json();fillModels("bModel","video");}catch{}try{const s=await (await fetch("/api/status")).json();HASKEY=s.has_key;HASXAI=!!s.has_xai;xaiNotice();
  $("keyStatus").innerHTML=s.has_key?`<i class="dot done"></i>OpenAI conectada · ${esc(s.model)}`:`<i class="dot" style="background:var(--warn)"></i>Chave OpenAI ausente`;}catch{}
- notice();emptyTitles();renderScenes();const h=location.hash.slice(1);if(h.startsWith("p=")){openProj(decodeURIComponent(h.slice(2)));return;}go(STEPS.some(s=>s[0]==h)?h:"projetos");})();
+ notice();emptyTitles();renderScenes();const h=location.hash.slice(1);if(h.startsWith("p=")){const [pid,v]=decodeURIComponent(h.slice(2)).split("|");openProj(pid).then(()=>{if(v){if(v=="cenas")VIEW="cenas";go(v)}});return;}go(STEPS.some(s=>s[0]==h)?h:"projetos");})();

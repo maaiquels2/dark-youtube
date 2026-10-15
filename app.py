@@ -1,5 +1,5 @@
 """Dark YouTube - protótipo local. Rode: python app.py  -> http://127.0.0.1:8765"""
-import json, os, re, time, urllib.request, urllib.error
+import json, os, re, time, threading, urllib.request, urllib.error, urllib.parse, math
 from http.server import ThreadingHTTPServer, BaseHTTPRequestHandler
 from pathlib import Path
 
@@ -67,7 +67,7 @@ def chat_json(system, user, max_tokens=8000):
         return _parse_json(_responses_text(d))
     except Exception as e:
         first_err = e
-        print("[aviso] Responses API falhou, tentando chat/completions:", e)
+        print("[aviso] Responses API falhou, tentando chat/completions:", e, flush=True)
     try:
         d = _post("https://api.openai.com/v1/chat/completions", {
             "model": MODEL, "response_format": {"type": "json_object"},
@@ -76,6 +76,148 @@ def chat_json(system, user, max_tokens=8000):
         return _parse_json(d["choices"][0]["message"]["content"])
     except Exception as e:
         raise ApiError(f"Responses: {first_err} | chat/completions: {e}")
+
+# ---------------- xAI (Cenas) ----------------
+XAI = "https://api.x.ai/v1"
+LOCK = threading.Lock()
+SERVER_FIELDS = ("status", "file", "error", "cost_usd", "gen_seconds", "request_id", "media_duration", "generated_with")
+
+def pricing():
+    return json.loads((ROOT / "config" / "pricing.json").read_text(encoding="utf-8"))
+
+def xai_key():
+    return os.environ.get("XAI_API_KEY", "").strip()
+
+def _xai(method, path, payload=None, timeout=120):
+    key = xai_key()
+    if not key:
+        raise ApiError("Chave da xAI não configurada. Defina XAI_API_KEY no arquivo .env e reinicie o app.")
+    data = json.dumps(payload).encode() if payload is not None else None
+    req = urllib.request.Request(XAI + path, data=data, method=method,
+                                 headers={"Authorization": f"Bearer {key}", "Content-Type": "application/json", "User-Agent": "DarkStudio/1.0"})
+    try:
+        with urllib.request.urlopen(req, timeout=timeout) as r:
+            return json.loads(r.read() or b"{}")
+    except urllib.error.HTTPError as e:
+        raise ApiError(f"Erro da API xAI ({e.code}): {e.read().decode(errors='ignore')[:300]}")
+    except ApiError:
+        raise
+    except Exception as e:
+        raise ApiError(f"Falha ao chamar a xAI: {e}")
+
+def _download(url, dest_noext, default_ext):
+    req = urllib.request.Request(url, headers={"User-Agent": "DarkStudio/1.0"})
+    with urllib.request.urlopen(req, timeout=300) as r:
+        ct = r.headers.get("Content-Type", "")
+        ext = ".jpg" if "jpeg" in ct else ".png" if "png" in ct else ".webp" if "webp" in ct else ".mp4" if "mp4" in ct else default_ext
+        data = r.read()
+    for old in dest_noext.parent.glob(dest_noext.name + ".*"):
+        old.unlink()
+    path = dest_noext.with_suffix(ext)
+    path.write_bytes(data)
+    return path
+
+def proj_path(pid):
+    return PROJECTS / (Path(pid).name + ".json")
+
+def load_project(pid):
+    return json.loads(proj_path(pid).read_text(encoding="utf-8"))
+
+def update_scene(pid, i, **fields):
+    with LOCK:
+        d = load_project(pid)
+        d["scenes"][i].update(fields)
+        proj_path(pid).write_text(json.dumps(d, ensure_ascii=False, indent=2), encoding="utf-8")
+
+def scene_seconds(sc, cfg):
+    w = len((sc.get("narration") or "").split())
+    return max(1.0, w / cfg["words_per_minute"] * 60)
+
+def generate_scene(pid, i):
+    cfg = pricing()
+    t0 = time.time()
+    try:
+        sc = load_project(pid)["scenes"][i]
+        model = sc.get("model") or ("grok-imagine-video-1.5-lite" if sc.get("mode") == "video" else "grok-imagine-image")
+        prompt = sc.get("visual_prompt") or ""
+        media = PROJECTS / Path(pid).name / "media"
+        media.mkdir(parents=True, exist_ok=True)
+        dest = media / f"scene-{i+1:02d}"
+        if sc.get("mode") == "video":
+            dur = int(min(cfg["video_max_seconds"], max(cfg["video_min_seconds"], math.ceil(scene_seconds(sc, cfg)))))
+            r = _xai("POST", "/videos/generations", {"model": model, "prompt": prompt, "duration": dur,
+                                                      "aspect_ratio": "16:9", "resolution": "720p", "generate_audio": False})
+            rid = r.get("request_id")
+            if not rid:
+                raise ApiError(f"Resposta inesperada da xAI: {str(r)[:200]}")
+            update_scene(pid, i, request_id=rid)
+            deadline = time.time() + 900
+            while True:
+                if time.time() > deadline:
+                    raise ApiError("Tempo esgotado esperando o vídeo (15 min).")
+                time.sleep(5)
+                d = _xai("GET", f"/videos/{rid}")
+                st = d.get("status")
+                if st == "done":
+                    v = d.get("video") or {}
+                    if v.get("respect_moderation") is False:
+                        raise ApiError("Vídeo bloqueado pela moderação da xAI. Ajuste o prompt.")
+                    path = _download(v["url"], dest, ".mp4")
+                    real = float(v.get("duration") or dur)
+                    cost = round(real * cfg["video_per_second"].get(model, 0), 4)
+                    break
+                if st == "failed":
+                    e = d.get("error") or {}
+                    raise ApiError(f"Geração falhou: {e.get('code')} {e.get('message')}")
+            update_scene(pid, i, status="pronto", file=f"media/{path.name}", error=None, cost_usd=cost,
+                         media_duration=real, gen_seconds=round(time.time() - t0, 1), generated_with=model)
+        else:
+            r = _xai("POST", "/images/generations", {"model": model, "prompt": prompt, "aspect_ratio": "16:9", "n": 1})
+            url = ((r.get("data") or [{}])[0]).get("url")
+            if not url:
+                raise ApiError(f"Resposta inesperada da xAI: {str(r)[:200]}")
+            path = _download(url, dest, ".jpg")
+            cost = cfg["image"].get(model, 0)
+            update_scene(pid, i, status="pronto", file=f"media/{path.name}", error=None, cost_usd=cost,
+                         media_duration=None, gen_seconds=round(time.time() - t0, 1), generated_with=model)
+    except Exception as e:
+        update_scene(pid, i, status="erro", error=str(e)[:400], gen_seconds=round(time.time() - t0, 1))
+
+SEM = None
+def start_generation(pid, idxs):
+    global SEM
+    if not xai_key():
+        raise ApiError("Chave da xAI não configurada. Defina XAI_API_KEY no arquivo .env e reinicie o app.")
+    if SEM is None:
+        SEM = threading.BoundedSemaphore(int(pricing().get("concurrency", 3)))
+    d = load_project(pid)
+    started = []
+    for i in idxs:
+        sc = d["scenes"][i]
+        if sc.get("source", "api") != "api" or sc.get("status") == "gerando":
+            continue
+        started.append(i)
+    for i in started:
+        update_scene(pid, i, status="gerando", error=None)
+        def run(i=i):
+            with SEM:
+                generate_scene(pid, i)
+        threading.Thread(target=run, daemon=True).start()
+    return {"started": started}
+
+def save_upload(pid, i, filename, data):
+    ext = Path(filename).suffix.lower()
+    if ext not in (".mp4", ".mov", ".webm", ".png", ".jpg", ".jpeg", ".webp"):
+        raise ApiError("Formato não suportado. Use MP4, MOV, WEBM, PNG, JPG ou WEBP.")
+    media = PROJECTS / Path(pid).name / "media"
+    media.mkdir(parents=True, exist_ok=True)
+    for old in media.glob(f"scene-{i+1:02d}.*"):
+        old.unlink()
+    path = media / f"scene-{i+1:02d}{ext}"
+    path.write_bytes(data)
+    update_scene(pid, i, status="pronto", file=f"media/{path.name}", error=None, cost_usd=0,
+                 generated_with="upload manual")
+    return {"file": f"media/{path.name}"}
 
 def slug(s):
     s = re.sub(r"[^a-zA-Z0-9]+", "-", s.lower()).strip("-")
@@ -115,7 +257,18 @@ def save_project(proj):
     pid = proj.get("id") or slug(proj.get("title", "projeto"))
     proj["id"] = pid
     proj["updated_at"] = time.strftime("%Y-%m-%d %H:%M:%S")
-    (PROJECTS / f"{pid}.json").write_text(json.dumps(proj, ensure_ascii=False, indent=2), encoding="utf-8")
+    with LOCK:
+        f = PROJECTS / f"{Path(pid).name}.json"
+        if f.exists():
+            old = json.loads(f.read_text(encoding="utf-8")).get("scenes") or []
+            for i, sc in enumerate(proj.get("scenes") or []):
+                if i < len(old):
+                    for k in SERVER_FIELDS:
+                        if k in old[i]:
+                            sc[k] = old[i][k]
+                        else:
+                            sc.pop(k, None)
+        f.write_text(json.dumps(proj, ensure_ascii=False, indent=2), encoding="utf-8")
     return proj
 
 class H(BaseHTTPRequestHandler):
@@ -130,7 +283,18 @@ class H(BaseHTTPRequestHandler):
     def do_GET(self):
         p = self.path.split("?")[0]
         if p == "/api/status":
-            return self._send(200, {"has_key": bool(api_key()), "model": MODEL})
+            return self._send(200, {"has_key": bool(api_key()), "model": MODEL, "has_xai": bool(xai_key())})
+        if p == "/api/pricing":
+            return self._send(200, pricing())
+        if p.startswith("/media/"):
+            parts = p.split("/")
+            if len(parts) == 4:
+                f = PROJECTS / Path(parts[2]).name / "media" / Path(urllib.parse.unquote(parts[3])).name
+                if f.is_file():
+                    ct = {".mp4": "video/mp4", ".webm": "video/webm", ".mov": "video/quicktime", ".png": "image/png",
+                          ".jpg": "image/jpeg", ".jpeg": "image/jpeg", ".webp": "image/webp"}.get(f.suffix.lower(), "application/octet-stream")
+                    return self._send(200, raw=f.read_bytes(), ctype=ct)
+            return self._send(404, {"error": "não encontrado"})
         if p == "/api/projects":
             items = []
             for f in sorted(PROJECTS.glob("*.json"), key=lambda x: x.stat().st_mtime, reverse=True):
@@ -151,8 +315,19 @@ class H(BaseHTTPRequestHandler):
 
     def do_POST(self):
         n = int(self.headers.get("Content-Length") or 0)
-        body = json.loads(self.rfile.read(n) or b"{}")
+        raw = self.rfile.read(n)
+        if self.path.startswith("/api/upload"):
+            q = urllib.parse.parse_qs(urllib.parse.urlparse(self.path).query)
+            try:
+                return self._send(200, save_upload(q["id"][0], int(q["i"][0]), q.get("name", ["x.mp4"])[0], raw))
+            except ApiError as e:
+                return self._send(400, {"error": str(e)})
+            except Exception as e:
+                return self._send(500, {"error": f"Erro interno: {e}"})
+        body = json.loads(raw or b"{}")
         try:
+            if self.path == "/api/generate":
+                return self._send(200, start_generation(body["id"], [int(i) for i in body.get("scenes", [])]))
             if self.path == "/api/titles":
                 return self._send(200, suggest_titles(body))
             if self.path == "/api/script":
@@ -166,5 +341,14 @@ class H(BaseHTTPRequestHandler):
         self._send(404, {"error": "não encontrado"})
 
 if __name__ == "__main__":
+    for f in PROJECTS.glob("*.json"):  # gerações interrompidas ao reiniciar
+        try:
+            d = json.loads(f.read_text(encoding="utf-8")); ch = False
+            for sc in d.get("scenes") or []:
+                if sc.get("status") == "gerando":
+                    sc["status"] = "erro"; sc["error"] = "Interrompido (app reiniciado). Gere de novo."; ch = True
+            if ch: f.write_text(json.dumps(d, ensure_ascii=False, indent=2), encoding="utf-8")
+        except Exception:
+            pass
     print(f"Dark YouTube rodando em http://127.0.0.1:{PORT}  (chave OpenAI: {'OK' if api_key() else 'NÃO configurada'})")
     ThreadingHTTPServer(("127.0.0.1", PORT), H).serve_forever()

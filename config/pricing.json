@@ -1,0 +1,19 @@
+{
+  "_fonte": "https://docs.x.ai/developers/pricing (conferido em 2026-10-15). Edite aqui se os preços mudarem.",
+  "image": {
+    "grok-imagine-image": 0.02,
+    "grok-imagine-image-2.0": 0.04,
+    "grok-imagine-image-quality": 0.05
+  },
+  "video_per_second": {
+    "grok-imagine-video-1.5-lite": 0.02,
+    "grok-imagine-video": 0.05,
+    "grok-imagine-video-1.5": 0.08
+  },
+  "site_grok": 0,
+  "retry_buffer": 0.25,
+  "video_max_seconds": 15,
+  "video_min_seconds": 1,
+  "words_per_minute": 150,
+  "concurrency": 3
+}
