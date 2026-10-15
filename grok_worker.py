@@ -21,7 +21,7 @@ URL = "https://grok.com/imagine"
 CHROME_PATHS = [r"C:\Program Files\Google\Chrome\Application\chrome.exe",
                 r"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe",
                 os.path.expandvars(r"%LOCALAPPDATA%\Google\Chrome\Application\chrome.exe")]
-RES_RE = os.environ.get("DS_GROK_RES", r"720p")  # 1080p exige plano maior no Grok
+RES_RE = os.environ.get("DS_GROK_RES", r"1080p")  # plano atual suporta 1080p; cai para 720p se o Grok recusar
 VIDEO_GAP = 20.0          # ~3 videos/min
 IMAGE_GAP = 4.0
 MAX_RETRIES = 2
@@ -270,7 +270,10 @@ class Worker:
         await self.pick_menu(page, ["Aspecto de proporção", "Aspect ratio"], r"16:9")
 
     async def set_video_opts(self, page, dur):
-        await self.pick_menu(page, ["Resolução do vídeo", "Video resolution"], RES_RE)
+        res = getattr(self, "res", RES_RE)
+        if not await self.pick_menu(page, ["Resolução do vídeo", "Video resolution"], res) and res != "720p":
+            self.log(f"aviso: opcao {res} indisponivel; usando 720p"); self.res = "720p"
+            await self.pick_menu(page, ["Resolução do vídeo", "Video resolution"], "720p")
         opt = "6s" if dur <= 7 else ("10s" if dur <= 11 else "15s")
         await self.pick_menu(page, ["Duração do vídeo", "Video duration"], re.escape(opt))
 
@@ -325,6 +328,8 @@ class Worker:
                 e = page._ds_err
                 if LIMIT_RE.search(e) or "limit" in e.lower() or "quota" in e.lower():
                     raise NeedsUser(f"limite do Grok: {e}")
+                if mode == "video" and getattr(self, "res", RES_RE) != "720p":
+                    self.res = "720p"; self.log(f"Grok recusou {RES_RE} ({e}); fallback para 720p nas proximas tentativas")
                 raise RuntimeError(f"Grok recusou: {e}")
             items = [x for x in await page.evaluate(self.MEDIA_JS, mode) if x["src"] not in before]
             if mode == "video":
