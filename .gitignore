@@ -5,3 +5,6 @@ output/
 __pycache__/
 *.pyc
 node_modules/
+server.log
+server.err
+server.pid

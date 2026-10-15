@@ -22,50 +22,94 @@ load_env()
 def api_key():
     return os.environ.get("OPENAI_API_KEY", "").strip()
 
-MODEL = os.environ.get("OPENAI_MODEL", "gpt-4o-mini")
+MODEL = os.environ.get("OPENAI_MODEL", "gpt-6.1-sol")
 
 class ApiError(Exception):
     pass
+
+def _post(url, payload, key):
+    req = urllib.request.Request(url, data=json.dumps(payload).encode(),
+                                 headers={"Authorization": f"Bearer {key}", "Content-Type": "application/json"})
+    try:
+        with urllib.request.urlopen(req, timeout=600) as r:
+            return json.loads(r.read())
+    except urllib.error.HTTPError as e:
+        raise ApiError(f"Erro da API OpenAI ({e.code}): {e.read().decode(errors='ignore')[:400]}")
+    except Exception as e:
+        raise ApiError(f"Falha ao chamar a OpenAI: {e}")
+
+def _responses_text(d):
+    if d.get("output_text"):
+        return d["output_text"]
+    parts = []
+    for item in d.get("output") or []:
+        for c in item.get("content") or []:
+            if c.get("text"):
+                parts.append(c["text"])
+    return "".join(parts)
+
+def _parse_json(text):
+    text = (text or "").strip()
+    m = re.search(r"\{.*\}", text, re.S)
+    if not m:
+        raise ApiError("A resposta do modelo não veio em JSON.")
+    return json.loads(m.group(0))
 
 def chat_json(system, user, max_tokens=8000):
     key = api_key()
     if not key:
         raise ApiError("Chave da OpenAI não configurada. Defina OPENAI_API_KEY no arquivo .env (veja .env.example) ou como variável de ambiente e reinicie o app.")
-    body = json.dumps({"model": MODEL, "response_format": {"type": "json_object"},
-                       "max_tokens": max_tokens,
-                       "messages": [{"role": "system", "content": system}, {"role": "user", "content": user}]}).encode()
-    req = urllib.request.Request("https://api.openai.com/v1/chat/completions", data=body,
-                                 headers={"Authorization": f"Bearer {key}", "Content-Type": "application/json"})
+    first_err = None
     try:
-        with urllib.request.urlopen(req, timeout=300) as r:
-            data = json.loads(r.read())
-    except urllib.error.HTTPError as e:
-        raise ApiError(f"Erro da API OpenAI ({e.code}): {e.read().decode(errors='ignore')[:400]}")
+        d = _post("https://api.openai.com/v1/responses", {
+            "model": MODEL, "instructions": system, "input": user,
+            "max_output_tokens": max_tokens, "text": {"format": {"type": "json_object"}}}, key)
+        return _parse_json(_responses_text(d))
     except Exception as e:
-        raise ApiError(f"Falha ao chamar a OpenAI: {e}")
-    return json.loads(data["choices"][0]["message"]["content"])
+        first_err = e
+        print("[aviso] Responses API falhou, tentando chat/completions:", e)
+    try:
+        d = _post("https://api.openai.com/v1/chat/completions", {
+            "model": MODEL, "response_format": {"type": "json_object"},
+            "max_completion_tokens": max_tokens,
+            "messages": [{"role": "system", "content": system}, {"role": "user", "content": user}]}, key)
+        return _parse_json(d["choices"][0]["message"]["content"])
+    except Exception as e:
+        raise ApiError(f"Responses: {first_err} | chat/completions: {e}")
 
 def slug(s):
     s = re.sub(r"[^a-zA-Z0-9]+", "-", s.lower()).strip("-")
     return (s[:50] or "projeto") + "-" + time.strftime("%Y%m%d-%H%M%S")
 
 def suggest_titles(p):
-    sys = "You are a YouTube strategist for faceless 'dark' channels (mystery, history, true crime, horror, curiosities). Reply in JSON."
+    sys = ("You are a YouTube strategist for faceless long-form documentary channels in the Business & Finance niche "
+           "(fraud and scams, rise and fall of companies, the dark truth about empires, billionaires, history of money). Reply only in JSON.")
     u = (f"Niche: {p.get('niche')}\nLanguage of the titles: {p.get('language')}\nTheme/idea: {p.get('theme')}\n"
-         "Suggest 8 click-worthy but honest titles for an 8-15 minute video, written in that language. "
-         'JSON: {"titles":[{"title":"...","hook":"one-sentence angle in Portuguese"}]}')
-    return chat_json(sys, u, 1500)
+         "Suggest 8 titles for an 8-15 minute video, in that language, using proven formulas such as: "
+         "'The Dark Truth About X', 'Why X Is Collapsing', 'Why X Owns EVERYTHING', 'Exposing $X ...', "
+         "'The Rise and Fall of X', 'How X Turned Down $Y and Died'. Use specific dollar figures ONLY when they are factual and well known; "
+         "never invent numbers. Titles must be honest about the content.\n"
+         'JSON: {"titles":[{"title":"...","hook":"ângulo do vídeo em português (1 frase)","why":"por que retém, em português (1 frase)","formula":"formula used"}]}')
+    return chat_json(sys, u, 3000)
 
 def write_script(p):
     mins = int(p.get("minutes") or 10)
-    words = mins * 145
-    sys = "You write narration scripts for faceless dark YouTube documentaries and prompts for an AI video generator (Grok Imagine). Reply in JSON."
+    words = mins * 150
+    sys = ("You are a researcher and scriptwriter for a faceless Business & Finance documentary YouTube channel. "
+           "Scripts will be reviewed by a human before production, so accuracy matters more than drama. "
+           "NEVER invent sources, URLs, quotes or numbers. Only give a URL if you are confident it exists; otherwise set url to \"verificar\". "
+           "Set needs_check=true on any scene whose claims (figures, dates, quotes, allegations) must be verified. Reply only in JSON.")
     u = (f"Title: {p.get('title')}\nNiche: {p.get('niche')}\nLanguage of the narration: {p.get('language')}\n"
-         f"Target length: {mins} minutes (~{words} words of narration total).\n"
-         "Split into scenes of 1-3 sentences (about 6-10 seconds each). Strong hook in the first scene, retention cues, satisfying ending with call to subscribe. "
-         "For each scene give a visual prompt IN ENGLISH for a short cinematic, dark, 16:9 clip (no text, no faces of real people). "
-         '{"title":"...","description":"short summary in Portuguese","scenes":[{"narration":"...","visual_prompt":"..."}]}')
-    return chat_json(sys, u, 16000)
+         f"Target length: {mins} minutes (~{words} words of narration in total).\n"
+         "Write a documentary narration split into scenes of 1-3 sentences (6-10 seconds each). "
+         "Strong hook in the first 30 seconds, clear story arc, retention beats (open loops, reveals) spread through the video, ending with a call to subscribe. "
+         "For each scene: narration in the narration language; visual_prompt IN ENGLISH for a short cinematic dark 16:9 AI clip "
+         "(no real person likeness, no logos or trademarks, no on-screen text); key_facts (list of factual claims in the scene); "
+         "sources (list of {title, url}); needs_check (boolean).\n"
+         '{"title":"...","description":"resumo em português","hook":"first 30 seconds summary",'
+         '"retention_beats":["..."],"scenes":[{"narration":"...","visual_prompt":"...","key_facts":["..."],'
+         '"sources":[{"title":"...","url":"verificar"}],"needs_check":true}]}')
+    return chat_json(sys, u, 32000)
 
 def save_project(proj):
     pid = proj.get("id") or slug(proj.get("title", "projeto"))

@@ -29,12 +29,12 @@
       <div class="page-head"><div><h1>Ideia</h1><p>Defina nicho, língua e tema. O ChatGPT sugere títulos pensados para retenção.</p></div></div>
       <div class="two-col">
         <div class="card form-card">
-          <div class="field"><label>Nicho</label><input id="niche" placeholder="Ex.: mistérios históricos, true crime, terror real"></div>
+          <div class="field"><label>Nicho</label><input id="niche" value="Business &amp; Finance Documentary"></div><div class="presets" id="presets"></div>
           <div class="row">
             <div class="field"><label>Língua do vídeo</label><select id="language"><option>English</option><option>Español</option><option>Deutsch</option><option>Français</option><option>Português</option></select></div>
             <div class="field"><label>Duração alvo</label><div class="suffix"><input id="minutes" type="number" min="8" max="15" value="10"><span>min</span></div></div>
           </div>
-          <div class="field"><label>Tema / ideia</label><textarea id="theme" rows="5" placeholder="Ex.: navios fantasmas encontrados à deriva sem tripulação"></textarea></div>
+          <div class="field"><label>Tema / ideia</label><textarea id="theme" rows="5" placeholder="Ex.: The Rise and Fall of WeWork"></textarea></div>
           <button class="btn primary block" id="btnTitles" onclick="titles()"><svg viewBox="0 0 24 24"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9z"/></svg>Sugerir títulos</button>
           <p class="hint">Língua de RPM alto (inglês, alemão) costuma pagar mais por mil views.</p>
         </div>
@@ -51,7 +51,7 @@
         <div class="field grow"><label>Título do vídeo</label><input id="title" placeholder="Escolha um título na etapa Ideia ou escreva aqui"></div>
         <button class="btn primary" id="btnScript" onclick="script()"><svg viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16z"/></svg>Gerar roteiro</button>
       </div>
-      <div class="stats" id="stats"></div>
+      <div class="stats" id="stats"></div><div id="overview"></div>
       <div id="scenes"></div>
       <div class="savebar" id="savebar"><span id="saveState" class="muted">Alterações não salvas</span><button class="btn primary" onclick="save()"><svg viewBox="0 0 24 24"><path d="M5 3h11l3 3v15H5z M8 3v6h8"/></svg>Salvar projeto</button></div>
     </section>

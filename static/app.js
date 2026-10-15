@@ -30,7 +30,8 @@ function renderNav(){
  $("crumbStep").textContent=idx<0?"Projetos":STEPS[idx][1];
  $("crumbProject").textContent=P.title||(P.id?"Projeto sem título":"Novo projeto");
 }
-function go(k){VIEW=k;document.querySelectorAll(".view").forEach(v=>v.classList.toggle("on",v.id=="v-"+k));document.body.classList.remove("nav-open");
+function go(k){if(k=="cenas"&&VIEW!="cenas"){const u=P.scenes.filter(s=>!s.reviewed).length;if(u&&!confirm(`${u} de ${P.scenes.length} cenas ainda não foram revisadas (fatos e fontes). Ir para Cenas mesmo assim?`))return;}
+VIEW=k;document.querySelectorAll(".view").forEach(v=>v.classList.toggle("on",v.id=="v-"+k));document.body.classList.remove("nav-open");
  if(k=="cenas")renderCenas();if(k=="projetos")loadProjects();renderNav();window.scrollTo(0,0);}
 document.querySelector('[data-view=projetos]').onclick=()=>go("projetos");
 
@@ -42,24 +43,29 @@ function fill(){["niche","language","theme","minutes","title"].forEach(k=>{if(P[
 
 function emptyTitles(){$("titles").innerHTML=`<div class="empty"><div class="ill">${svg("spark")}</div><b>Nenhuma sugestão ainda</b><p>Preencha nicho, língua e tema e clique em “Sugerir títulos”. As opções aparecem aqui para você escolher.</p></div>`;$("titlesCount").textContent="";}
 function renderTitles(){if(!TITLES.length)return emptyTitles();$("titlesCount").textContent=`${TITLES.length} opções`;
- $("titles").innerHTML=TITLES.map((t,i)=>`<div class="title-opt${P.title==t.title?" sel":""}" onclick="pick(${i})"><div class="n">${i+1}</div><div><b>${esc(t.title)}</b><p>${esc(t.hook)}</p></div><span class="go">${svg("arrow")}</span></div>`).join("");}
+ $("titles").innerHTML=TITLES.map((t,i)=>`<div class="title-opt${P.title==t.title?" sel":""}" onclick="pick(${i})"><div class="n">${i+1}</div><div><b>${esc(t.title)}</b><p>${esc(t.hook)}</p>${t.why?`<p class="why">${svg("check")}${esc(t.why)}</p>`:""}${t.formula?`<span class="chip sm">${esc(t.formula)}</span>`:""}</div><span class="go">${svg("arrow")}</span></div>`).join("");}
 async function titles(){const f=form();if(!f.niche&&!f.theme)return toast("Preencha pelo menos o nicho ou o tema.","err");
  const b=$("btnTitles");busy(b,true,"Gerando títulos...");$("titles").innerHTML='<div class="skel t"></div>'.repeat(5);
  try{TITLES=(await api("/api/titles",f)).titles||[];Object.assign(P,f);renderTitles();}catch(e){toast(e.message,"err");renderTitles();}finally{busy(b,false)}}
 function pick(i){Object.assign(P,form(),{title:TITLES[i].title});$("title").value=P.title;dirty();go("roteiro");toast("Título escolhido. Agora gere o roteiro.");}
 
-function renderScenes(){const n=P.scenes.length,w=P.scenes.reduce((a,s)=>a+words(s.narration),0);
- $("stats").innerHTML=n?[["Cenas",n],["Palavras",w.toLocaleString("pt-BR")],["Duração estimada",(w/145).toFixed(1).replace(".",",")+" min"],["Meta",(P.minutes||form().minutes)+" min"]].map(([a,b])=>`<div class="stat"><small>${a}</small><b>${b}</b></div>`).join(""):"";
+function renderScenes(){renderOverview();const n=P.scenes.length,w=P.scenes.reduce((a,s)=>a+words(s.narration),0);
+ $("stats").innerHTML=n?[["Cenas",n],["Palavras",w.toLocaleString("pt-BR")],["Duração estimada",(w/150).toFixed(1).replace(".",",")+" min"],["Meta",(P.minutes||form().minutes)+" min"],["Revisadas",`${P.scenes.filter(s=>s.reviewed).length}/${n}`],["A checar",P.scenes.filter(s=>s.needs_check).length]].map(([a,b])=>`<div class="stat"><small>${a}</small><b>${b}</b></div>`).join(""):"";
  $("savebar").style.display=n||P.title?"flex":"none";
- $("scenes").innerHTML=n?P.scenes.map((s,i)=>`<div class="card scene"><div class="num">${i+1}</div>
-  <div class="field"><label>Narração</label><textarea rows="4" oninput="edit(${i},'narration',this)">${esc(s.narration)}</textarea><div class="counter" id="c${i}">${words(s.narration)} palavras · ~${Math.round(words(s.narration)/145*60)}s</div></div>
-  <div class="field"><label>Prompt visual (Grok Imagine)</label><textarea rows="4" oninput="edit(${i},'visual_prompt',this)">${esc(s.visual_prompt)}</textarea></div></div>`).join("")
+ $("scenes").innerHTML=n?P.scenes.map((s,i)=>`<div class="card scene${s.reviewed?" reviewed":""}${s.needs_check?" check":""}"><div class="num">${i+1}</div>
+  <div class="field"><label>Narração</label><textarea rows="4" oninput="edit(${i},'narration',this)">${esc(s.narration)}</textarea><div class="counter" id="c${i}">${words(s.narration)} palavras · ~${Math.round(words(s.narration)/150*60)}s</div></div>
+  <div class="field"><label>Prompt visual (Grok Imagine)</label><textarea rows="4" oninput="edit(${i},'visual_prompt',this)">${esc(s.visual_prompt)}</textarea></div>
+  <div class="facts"><div><label>Fatos-chave</label><ul>${(s.key_facts||[]).map(f=>`<li>${esc(f)}</li>`).join("")||'<li class="muted">—</li>'}</ul></div>
+  <div><label>Fontes</label><ul>${(s.sources||[]).map(x=>`<li>${x.url&&/^https?:/.test(x.url)?`<a href="${esc(x.url)}" target="_blank" rel="noopener">${esc(x.title||x.url)}</a>`:`${esc(x.title||"")} <span class="chip warn sm">verificar</span>`}</li>`).join("")||'<li class="muted">Nenhuma fonte</li>'}</ul></div>
+  <div class="rev">${s.needs_check?'<span class="chip warn">Checar afirmações</span>':""}<label class="checkbox"><input type="checkbox" ${s.reviewed?"checked":""} onchange="review(${i},this.checked)">Revisado</label></div></div></div>`).join("")
   :`<div class="empty"><div class="ill">${svg("roteiro")}</div><b>Sem roteiro ainda</b><p>Com o título definido, clique em “Gerar roteiro”. O ChatGPT divide o texto em cenas de 6 a 10 segundos.</p></div>`;renderNav();}
-function edit(i,k,el){P.scenes[i][k]=el.value;if(k=="narration"){const w=words(el.value);$("c"+i).textContent=`${w} palavras · ~${Math.round(w/145*60)}s`;}dirty();}
+function review(i,v){P.scenes[i].reviewed=v;dirty();renderScenes();}
+function renderOverview(){$("overview").innerHTML=P.hook||(P.retention_beats||[]).length?`<div class="card overview"><div><label>Gancho (primeiros 30s)</label><p>${esc(P.hook)}</p></div><div><label>Pontos de retenção</label><ol>${(P.retention_beats||[]).map(b=>`<li>${esc(b)}</li>`).join("")}</ol></div></div>`:"";}
+function edit(i,k,el){P.scenes[i][k]=el.value;if(k=="narration"){const w=words(el.value);$("c"+i).textContent=`${w} palavras · ~${Math.round(w/150*60)}s`;}dirty();}
 function dirty(){$("savebar").classList.remove("saved");$("saveState").textContent="Alterações não salvas";}
 async function script(){const t=$("title").value.trim();if(!t)return toast("Defina um título primeiro.","err");
  const b=$("btnScript");busy(b,true,"Escrevendo roteiro...");$("scenes").innerHTML='<div class="skel s"></div>'.repeat(3);$("stats").innerHTML="";
- try{const d=await api("/api/script",{...form(),...pickForm(),title:t});Object.assign(P,{title:d.title||t,description:d.description,scenes:d.scenes||[]});$("title").value=P.title;renderScenes();dirty();toast(`Roteiro gerado com ${P.scenes.length} cenas.`);}
+ try{const d=await api("/api/script",{...form(),...pickForm(),title:t});Object.assign(P,{title:d.title||t,description:d.description,hook:d.hook,retention_beats:d.retention_beats||[],scenes:(d.scenes||[]).map(s=>({...s,reviewed:false}))});$("title").value=P.title;renderScenes();dirty();toast(`Roteiro gerado com ${P.scenes.length} cenas.`);}
  catch(e){toast(e.message,"err");renderScenes();}finally{busy(b,false)}}
 function pickForm(){return{niche:P.niche||form().niche,language:P.language||form().language,minutes:P.minutes||form().minutes};}
 async function save(){P.title=$("title").value.trim()||P.title;try{P=await api("/api/save",P);$("savebar").classList.add("saved");$("saveState").textContent="Salvo às "+new Date().toLocaleTimeString("pt-BR",{hour:"2-digit",minute:"2-digit"});toast("Projeto salvo.");renderNav();}catch(e){toast(e.message,"err")}}
@@ -75,11 +81,14 @@ async function loadProjects(){$("projects").innerHTML='<div class="skel" style="
  const nw=`<button class="new-proj" onclick="newProject()"><div><div class="ill" style="margin:0 auto 10px;width:44px;height:44px;border-radius:12px;background:var(--card2);display:grid;place-items:center">${svg("spark")}</div><b style="color:var(--text)">Novo projeto</b><div style="font-size:13px">Comece por uma ideia</div></div></button>`;
  $("projects").innerHTML=nw+l.map(p=>`<div class="card proj" onclick="openProj('${esc(p.id)}')"><div class="cover">${svg("film")}</div><div class="body"><b>${esc(p.title||"Sem título")}</b><div class="meta"><span class="chip">${esc(p.language||"—")}</span><span>${esc(p.updated_at||"")}</span></div></div></div>`).join("");}
 async function openProj(id){try{const r=await fetch("/api/projects/"+encodeURIComponent(id));if(!r.ok)throw 0;P=await r.json();P.scenes=P.scenes||[];fill();TITLES=[];renderTitles();renderScenes();$("savebar").classList.add("saved");$("saveState").textContent="Salvo";go("roteiro");}catch{toast("Não foi possível abrir o projeto.","err")}}
-function newProject(){P={scenes:[]};TITLES=[];["niche","theme","title"].forEach(k=>$(k).value="");$("minutes").value=10;renderTitles();renderScenes();go("ideia");}
+function newProject(){P={scenes:[]};TITLES=[];["theme","title"].forEach(k=>$(k).value="");$("niche").value="Business & Finance Documentary";$("language").value="English";$("minutes").value=10;renderTitles();renderScenes();go("ideia");}
 
 function notice(){if(HASKEY||sessionStorage.dyHide){$("notice").innerHTML="";return}
  $("notice").innerHTML=`<div class="card notice"><span class="ic">${svg("key")}</span><div><b>Chave da OpenAI não configurada</b><p>Sem ela, as sugestões de título e o roteiro não funcionam. <a onclick="this.closest('.notice').querySelector('ol').hidden^=1">Ver como configurar</a></p>
  <ol hidden><li>Na pasta do app, copie <code>.env.example</code> para <code>.env</code></li><li>Coloque sua chave em <code>OPENAI_API_KEY=</code></li><li>Feche e abra o app de novo</li></ol></div><button class="icon-btn" title="Dispensar" onclick="sessionStorage.dyHide=1;notice()">${svg("x")}</button></div>`;}
+const PRESETS=[["Fraude & golpes","Fraud & Scams"],["Ascensão e queda de empresas","Rise and Fall of Companies"],["Dark truth de impérios","The Dark Truth About Business Empires"],["Bilionários","Billionaires"],["História do dinheiro","History of Money"]];
+$("presets").innerHTML=PRESETS.map(([a,b],i)=>`<button class="preset" onclick="preset(${i},this)">${a}</button>`).join("");
+function preset(i,el){document.querySelectorAll(".preset").forEach(b=>b.classList.toggle("on",b==el));$("niche").value="Business & Finance Documentary — "+PRESETS[i][1];}
 (async()=>{try{const s=await (await fetch("/api/status")).json();HASKEY=s.has_key;
  $("keyStatus").innerHTML=s.has_key?`<i class="dot done"></i>OpenAI conectada · ${esc(s.model)}`:`<i class="dot" style="background:var(--warn)"></i>Chave OpenAI ausente`;}catch{}
- notice();emptyTitles();renderScenes();const h=location.hash.slice(1);go(STEPS.some(s=>s[0]==h)?h:"projetos");})();
+ notice();emptyTitles();renderScenes();const h=location.hash.slice(1);if(h.startsWith("p=")){openProj(decodeURIComponent(h.slice(2)));return;}go(STEPS.some(s=>s[0]==h)?h:"projetos");})();

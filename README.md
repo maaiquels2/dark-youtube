@@ -15,4 +15,4 @@ Protótipo local para produzir vídeos longos (8–15 min) de canais "dark" sem 
 4. **Montagem** – TODO: narração inteira via OpenAI TTS + ffmpeg (MP4 16:9, trilha, legendas).
 5. **Publicação** – TODO: thumbnail, título, descrição e tags na língua do vídeo.
 
-Modelo padrão: `gpt-4o-mini` (mude com `OPENAI_MODEL` no `.env`).
+Modelo padrão: `gpt-6.1-sol` (mude com `OPENAI_MODEL` no `.env`).
