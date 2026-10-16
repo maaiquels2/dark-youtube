@@ -188,7 +188,7 @@ def validate(pid, autofix=True):
             if v in have: continue
             if autofix:
                 src = ((s.get("sources") or [{}])[0] or {}).get("title") or ""
-                s.setdefault("gfx", []).append({"type": "callout", "text": m.group().strip(), "source": src[:60], "auto": True}); have.add(v); added += 1
+                s.setdefault("gfx", []).append({"type": "callout", "text": m.group().strip(), "source": (src if len(src) <= 60 else src[:60].rsplit(" ", 1)[0] + "…"), "auto": True}); have.add(v); added += 1
             else: amt_gaps.append({"scene": i + 1, "amount": m.group().strip()})
         for a in set(re.findall(r"\b[A-Z]{2,6}\b", narr)) - ACR_SKIP:
             if a not in names and not any(a in str(g.get("text", "")) + str(g.get("title", "")) for g in s.get("gfx") or []):
@@ -201,8 +201,57 @@ def validate(pid, autofix=True):
         gaps += [{"scene": f["scene"], "missing": ["logo/brand artifact: " + "; ".join(f["what"])[:120]]} for f in lc["flagged"]]
     except Exception as e:
         lc = {"error": str(e)[:200]}
+    tc = text_check(d)
+    gaps += [{"scene": t["scene"], "missing": ["overlay text: " + t["issue"]]} for t in tc]
     gaps.sort(key=lambda g: g["scene"])
-    v = {"logo_check": {k: lc.get(k) for k in ("checked", "flagged", "error") if k in lc}, "ok": not gaps, "gaps": gaps, "entity_cards_added": rep["added_cards"], "amount_callouts_added": added,
+    v = {"text_check": tc, "logo_check": {k: lc.get(k) for k in ("checked", "flagged", "error") if k in lc}, "ok": not gaps, "gaps": gaps, "entity_cards_added": rep["added_cards"], "amount_callouts_added": added,
          "name_card_only": rep["name_card_only"], "mentions": rep["mentions"]}
     d["validation"] = v; d.pop("coverage", None); _save(d)
     return v
+
+
+TEXT_KEYS = ("outlet", "name", "title", "headline", "text", "label", "role", "subtitle", "source", "caption", "quote", "attribution", "highlight_text")
+def _gfx_texts(g):
+    for k in TEXT_KEYS:
+        if isinstance(g.get(k), str): yield k, g[k]
+    for k in ("events", "items", "bars", "nodes", "edges", "points", "markers"):
+        for x in g.get(k) or []:
+            if isinstance(x, dict):
+                for kk in ("label", "name", "text", "title"):
+                    if isinstance(x.get(kk), str): yield kk, x[kk]
+
+def text_check(d):
+    """Spell/name check of every overlay string: outlet and person/company names must match the dossier,
+    sources or entity registry exactly; any other word must appear somewhere in narration/dossier/sources."""
+    corpus = json.dumps(d.get("dossier") or {}, ensure_ascii=False) + " " + json.dumps(d.get("entities") or [], ensure_ascii=False)
+    for s in d.get("scenes") or []:
+        corpus += " " + (s.get("narration") or "") + " " + json.dumps(s.get("sources") or [], ensure_ascii=False) + " " + json.dumps(s.get("key_facts") or [], ensure_ascii=False)
+    low = corpus.lower(); vocab = set(re.findall(r"[a-z][a-z'\-]+", low))
+    common = set("the a an and or of to in on for by with from at as is was were be been are it its this that these those not no than then into over under after before about against between during without within upon per via new old says said say alleged allegedly according court case filed filing billion million thousand percent former chief officer financial executive pleaded plead pleads guilty innocent charged charges counts count trial judge prosecutors prosecutor indictment bankruptcy chapter lenders lender debt cash liabilities assets company group fund funds bank banks timeline source sources photo key date dates amount amounts total owed collapse fraud case recreated illustration headline published jan feb mar apr may jun jul aug sep sept oct nov dec january february march april june july august september october november december".split())
+    out = []
+    for i, s in enumerate(d.get("scenes") or []):
+        for g in s.get("gfx") or []:
+            for k, t in _gfx_texts(g):
+                if (k == "outlet" or (k == "name" and g.get("type") in ("entity", "lower_third", "entity_full"))) and t.strip() and t.strip().lower() not in low:
+                    out.append({"scene": i + 1, "issue": f"{k} '{t}' not found in dossier/sources/registry"})
+                    continue
+                for w in re.findall(r"[A-Za-z][A-Za-z'\-]{3,}", t):
+                    wl = w.lower().strip("'-")
+                    if wl in vocab or wl in common or wl.rstrip("s") in vocab or (wl + "s") in vocab: continue
+                    out.append({"scene": i + 1, "issue": f"possible typo '{w}' in {g.get('type')}.{k}", "_w": w, "_t": t})
+    sus = [o for o in out if o.get("_w")]
+    if sus:  # second pass: language model confirms which unknown words are really misspelled (text-only)
+        try:
+            import app as _app
+            items = sorted({f"{o['_w']} || {o['_t']}" for o in sus})
+            r = _app.chat_json("You are a meticulous copy editor. Reply in JSON.",
+                "For each line 'WORD || CONTEXT', decide if WORD is misspelled or truncated (English word or proper name) in that context. "
+                "Return json {\"typos\":[{\"word\":...,\"fix\":...}]} listing ONLY real errors.\n" + "\n".join(items), 1500)
+            bad = {x.get("word"): x.get("fix") for x in r.get("typos") or []}
+            out = [o for o in out if not o.get("_w") or o["_w"] in bad]
+            for o in out:
+                if o.get("_w"): o["issue"] = f"typo '{o['_w']}' -> '{bad[o['_w']]}' in {o['issue'].split(' in ', 1)[1]}"
+        except Exception as e:
+            print("[text_check] LLM pass failed:", e)
+    for o in out: o.pop("_w", None); o.pop("_t", None)
+    return out

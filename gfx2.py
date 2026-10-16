@@ -1,4 +1,4 @@
-"""Dark Studio - estilo v2 (documentario premium): texturas, papel envelhecido, polaroids inclinadas,
+﻿"""Dark Studio - estilo v2 (documentario premium): texturas, papel envelhecido, polaroids inclinadas,
 quadro de evidencias com fios vermelhos, timeline em filme, sombras suaves e brilho.
 Sobrescreve os renderizadores de gfx.py (mesmos nomes). Fontes OFL em fonts/."""
 import math, random
@@ -268,7 +268,7 @@ def r_headline(s):
             if yy < ph - 60: pd.line([(60 + k * 410, yy), (60 + k * 410 + 370, yy)], fill=(150, 142, 128), width=8)
     pg = torn(grain(pg.convert("RGB"), 10).convert("RGBA"), 10, 43)
     place(im, pg, W // 2, 520, -2.2, 26)
-    place(im, tape(170, 46, 3), W // 2 - 520, 250, -28, 4); place(im, tape(170, 46, 4), W // 2 + 520, 790, -24, 4)
+    place(im, tape(150, 44, 3), W // 2 - 690, 238, -40, 4)  # corner, clear of masthead text; place(im, tape(170, 46, 4), W // 2 + 520, 790, -24, 4)
     d.text((120, H - 66), "Headline as published · recreated for illustration", font=F("sansm", 24), fill=(190, 184, 172))
     return grain(im.convert("RGB"), 8)
 
@@ -374,3 +374,4 @@ def o_lower_third(im, s, photos):
     glow_text(im, (150, H - 280), name, fn, WHITE, (0, 0, 0), 12); d.text((152, H - 196), role, font=fr, fill=(250, 206, 110))
 
 OVERRIDES = [n for n in dir() if n.startswith(("r_", "o_"))]
+
