@@ -195,8 +195,14 @@ def validate(pid, autofix=True):
                 acr_gaps.append({"scene": i + 1, "acronym": a})
     gaps = rep["gaps"] + [{"scene": g["scene"], "missing": [g["amount"] + " (amount)"]} for g in amt_gaps] \
          + [{"scene": g["scene"], "missing": [g["acronym"] + " (acronym not in registry)"]} for g in acr_gaps]
+    try:
+        import logo_check
+        import app as _app; lc = logo_check.check(d, _app.PROJECTS / Path(pid).name)
+        gaps += [{"scene": f["scene"], "missing": ["logo/brand artifact: " + "; ".join(f["what"])[:120]]} for f in lc["flagged"]]
+    except Exception as e:
+        lc = {"error": str(e)[:200]}
     gaps.sort(key=lambda g: g["scene"])
-    v = {"ok": not gaps, "gaps": gaps, "entity_cards_added": rep["added_cards"], "amount_callouts_added": added,
+    v = {"logo_check": {k: lc.get(k) for k in ("checked", "flagged", "error") if k in lc}, "ok": not gaps, "gaps": gaps, "entity_cards_added": rep["added_cards"], "amount_callouts_added": added,
          "name_card_only": rep["name_card_only"], "mentions": rep["mentions"]}
     d["validation"] = v; d.pop("coverage", None); _save(d)
     return v

@@ -122,8 +122,8 @@ def proj_path(pid):
 
 GROK_STYLE = ("Style: dark cinematic documentary, moody low-key lighting with deep shadows and cold teal-and-amber contrast, "
               "volumetric haze, shallow depth of field, no letterbox bars, full-frame edge-to-edge image, subtle film grain, photorealistic, "
-              "premium Netflix-style business documentary aesthetic.")
-GROK_NEG = ("Avoid: no text, no captions, no watermark, no logos or trademarks, no real person likeness, "
+              "premium business documentary aesthetic.")
+GROK_NEG = ("Avoid: no text, no captions, no watermark, no logos, no emblems, no brand marks or trademarks, blank unbranded walls and screens, no real person likeness, "
             "no distorted faces or hands, no extra limbs, no cartoon look, no blur artifacts, no subtitles or quotes on screen, no letterbox or black bars.")
 
 def clean_subject(vp):
@@ -568,6 +568,35 @@ def yt_daily_loop():
 
 # ---------- etapas / publicacao ----------
 COVER_CANDIDATES = ("PUBLICAR/3-thumbnail.jpg", "PUBLICAR/thumbnail.jpg", "output/thumbnail.jpg")
+def set_fair_use(b):
+    """Per-person 'Uso justo' (fair use): news/agency photo of a verified person, shown only inside the person card,
+    briefly, with transformative polaroid treatment and on-card credit. Requires image URL + article URL naming the person."""
+    with LOCK:
+        d = load_project(b["id"]); pdir = PROJECTS / Path(d["id"]).name
+        e = next((x for x in d.get("entities") or [] if x["name"] == b["name"]), None)
+        if not e or e.get("kind") != "person": raise ApiError("Pessoa não encontrada.")
+        cr = e.setdefault("credits", {})
+        if not b.get("enabled"):
+            if e.get("photo_license") == "fair_use":
+                e.pop("photo", None); e.pop("photo_license", None)
+                for k in ("photo", "photo_source", "photo_short", "photo_image_url"): cr.pop(k, None)
+        else:
+            if not (b.get("source_url") and b.get("outlet")): raise ApiError("Informe a URL da matéria (que nomeia a pessoa) e o veículo.")
+            if b.get("image_url"):
+                req = urllib.request.Request(b["image_url"], headers={"User-Agent": "Mozilla/5.0"})
+                data = urllib.request.urlopen(req, timeout=60).read()
+                from PIL import Image
+                import io
+                rel = f"entities/{re.sub(r'[^a-z0-9]+', '-', e['name'].lower()).strip('-')}-photo.jpg"
+                Image.open(io.BytesIO(data)).convert("RGB").save(pdir / rel, quality=95); e["photo"] = rel
+            if not e.get("photo"): raise ApiError("Informe a URL da imagem.")
+            e["photo_license"] = "fair_use"
+            cr.update(photo=f"{b['outlet']} (fair use, news photo)", photo_short=b["outlet"], photo_source=b["source_url"])
+            if b.get("image_url"): cr["photo_image_url"] = b["image_url"]
+            if b.get("role"): e["role"] = b["role"]
+        proj_path(d["id"]).write_text(json.dumps(d, ensure_ascii=False, indent=2), encoding="utf-8")
+    return {"ok": True, "entity": e}
+
 def project_cover(d):
     pdir = PROJECTS / Path(d["id"]).name
     # chosen/uploaded thumbnail wins over generated candidates and scene frames
@@ -589,13 +618,14 @@ def project_cover(d):
 def project_stages(d):
     pdir = PROJECTS / Path(d["id"]).name
     sc = d.get("scenes") or []
+    leg = bool(d.get("legacy_complete"))  # produced before the 9-stage flow; all stages done
     return {
         "ideia": bool(d.get("title")),
-        "pesquisa": bool(d.get("dossier")),
+        "pesquisa": leg or bool(d.get("dossier")),
         "roteiro": len(sc) > 0,
-        "imagens": bool(d.get("images_done")),
-        "prompts": bool(d.get("prompts_enriched")),
-        "validacao": bool((d.get("validation") or {}).get("ok")),
+        "imagens": leg or bool(d.get("images_done")),
+        "prompts": leg or bool(d.get("prompts_enriched")),
+        "validacao": leg or bool((d.get("validation") or {}).get("ok")),
         "cenas": len(sc) > 0 and all(x.get("file") and (pdir / x["file"]).is_file() for x in sc),
         "montagem": (pdir / "output" / "final.mp4").is_file(),
         "publicacao": d.get("status") in ("publicado", "agendado") and bool(d.get("published_url")),
@@ -777,6 +807,8 @@ class H(BaseHTTPRequestHandler):
                     with LOCK:
                         d = load_project(body["id"]); d["research_notes"] = body.get("notes", ""); proj_path(body["id"]).write_text(json.dumps(d, ensure_ascii=False, indent=2), encoding="utf-8")
                     return self._send(200, {"ok": True})
+                if st == "fairuse":
+                    return self._send(200, set_fair_use(body))
                 fn = {"research": lambda: pipeline.research(body["id"]), "script": lambda: pipeline.script_from_dossier(body["id"]),
                       "images": lambda: pipeline.collect_images(body["id"], body.get("curated")),
                       "prompts": lambda: pipeline.enrich_prompts(body["id"]), "validate": lambda: pipeline.validate(body["id"], body.get("autofix", True))}[st]

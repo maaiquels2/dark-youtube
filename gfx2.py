@@ -306,12 +306,14 @@ def r_entity_full(s, ents=None):
 def o_entity(im, s, ents, y0=70):
     e = (ents or {}).get(s.get("name", ""), {"name": s.get("name", ""), "kind": "company"})
     mark, mk = G._ent_mark(e); ph = e.get("photo") if e.get("kind") == "person" and e.get("photo") and Path(e["photo"]).is_file() else None
-    title = G._ent_title(e, s.get("first")); sub = (e.get("role") or G.KIND_LABEL.get(e.get("kind"), "")).upper()
+    title = G._ent_title(e, s.get("first")); sub = (e.get("role") or s.get("role") or G.KIND_LABEL.get(e.get("kind"), "")).upper()
     k = hash(e.get("name", "")) % 5; ang = [-3, 2.5, -1.5, 3.5, -2][k]
     if ph:  # polaroid inclinada
         cw = 380; fr = _photo_frame(ph, cw, 330, "polaroid", e.get("name"), k)
         d = ImageDraw.Draw(fr); fs = F("sansb", 20)
         for j, l in enumerate(wrap(d, sub, fs, cw - 10)[:2]): d.text((28, 330 + 22 + 64 + j * 24), l, font=fs, fill=(120, 60, 40))
+        pc = (e.get("credits") or {}).get("photo_short") or ""
+        if pc: d.text((34, 322), ("Photo: " + pc)[:44], font=F("sans", 16), fill=(245, 242, 235), stroke_width=2, stroke_fill=(20, 20, 20))
         card = fr
     else:
         cw = 600; d0 = ImageDraw.Draw(Image.new("RGB", (1, 1)))

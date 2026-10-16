@@ -231,7 +231,8 @@ class Job:
             args += ["-loop", "1", "-t", f"{L:.3f}", "-i", str(gd / l["file"])]
             D = float(l.get("delay", 0.35)); p = f"pow(1-min(1,max(0,(t-{D})/0.55)),3)"
             x, y = {"right": (f"700*{p}", "0"), "left": (f"-700*{p}", "0"), "up": ("0", f"160*{p}")}.get(l.get("enter"), ("0", "0"))
-            fc.append(f"[{k+1}:v]format=rgba,fade=in:st={D}:d=0.45:alpha=1[o{k}]")
+            fo = f",fade=out:st={D + float(l['hold']):.2f}:d=0.5:alpha=1" if l.get("hold") else ""
+            fc.append(f"[{k+1}:v]format=rgba,fade=in:st={D}:d=0.45:alpha=1{fo}[o{k}]")
             fc.append(f"{prev}[o{k}]overlay=x='{x}':y='{y}':eval=frame:shortest=1[v{k}]"); prev = f"[v{k}]"
         fc.append(f"{prev}format=yuv420p[v]")
         ff(args + ["-filter_complex", ";".join(fc), "-map", "[v]", "-c:v", "libx264", "-preset", "veryfast", "-crf", "16", "-an",

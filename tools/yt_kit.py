@@ -28,8 +28,9 @@ for s in d["scenes"]:
 photos = []
 for e in d.get("entities") or []:
     for k, v in (e.get("credits") or {}).items():
-        if k.endswith("_source") or k == "logo": continue
-        line = f"{e.get('full_name') or e['name']} ({k.replace('_', ' ').replace('hq photo', 'building photo')}): {v}"
+        if k.endswith("_source") or k in ("logo", "photo_short", "photo_image_url"): continue
+        if e.get("photo_license") == "fair_use" and k == "photo": continue
+        line = f"{e.get('full_name') or e['name']} ({k.replace('_', ' ').replace('hq photo', 'building photo')}): {v}".replace(", via Wikimedia Commons", "")
         if line not in photos: photos.append(line)
 title = "First Brands: The $11.6 Billion Collapse and the Alleged Fraud Behind It"
 desc = f"""In September 2025, auto-parts giant First Brands Group filed for bankruptcy. Prosecutors say it declared just $12 million in cash against more than $9 billion in liabilities. Court documents show $11.6 billion in total liabilities. How did an Ohio maker of brakes, filters and wipers become one of the biggest credit shocks in years, and what do prosecutors allege happened inside?
@@ -51,6 +52,7 @@ https://creativecommons.org/licenses/by/4.0/
 
 PHOTO CREDITS (Wikimedia Commons)
 """ + "\n".join(f"- {p}" for p in photos) + """
+""" + "".join(f"\nFAIR USE NOTE: The photo of {e['name']} (Photo: {e['credits'].get('photo_short')}, {e['credits'].get('photo_source')}) is a news photograph used briefly, cropped and stylized, for commentary and news reporting under fair use (17 U.S.C. 107). No endorsement implied." for e in d.get("entities") or [] if e.get("photo_license") == "fair_use") + """
 Agency seals are U.S. government works (public domain). Company logos are trademarks of their owners, shown for identification.
 
 Visuals: illustrative scenes are AI-generated (no real people depicted) and motion graphics are built from the cited sources. Headlines are recreated for illustration.
@@ -63,4 +65,5 @@ kit = {"title": title, "description": desc, "tags": tags, "chapters": [[fmt(t), 
 (pdir / "output/youtube_kit.json").write_text(json.dumps(kit, ensure_ascii=False, indent=2), encoding="utf-8")
 (pdir / "output/youtube_kit.md").write_text(f"# {title}\n\n{desc}\n\nTAGS: {', '.join(tags)}\n", encoding="utf-8")
 print(len(title), len(desc), sum(len(t) for t in tags) + len(tags)); print("\n".join(f"{fmt(t)} {c} (scene {n})" for t, c, n in chap))
+
 

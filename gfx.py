@@ -404,10 +404,38 @@ def render_scene(spec_list, out_dir, idx, photos=None, logos=None, ents=None, du
         for k, g in enumerate(ov):
             lay = _draw_ov(g, photos, logos, ents, st); comp.alpha_composite(lay)
             lp = out_dir / f"ov-{idx+1:02d}-{k}.png"; lay.save(lp)
-            layers.append({"file": lp.name, "enter": ENTER.get(g["type"], "fade"), "delay": round(0.35 + 0.45 * k, 2)})
+            L_ = {"file": lp.name, "enter": ENTER.get(g["type"], "fade"), "delay": round(0.35 + 0.45 * k, 2)}
+            if g.get("type") == "entity" and (ents.get(g.get("name")) or {}).get("photo_license") == "fair_use":
+                L_["hold"] = 4.5  # fair-use photo: brief on-screen time
+            layers.append(L_)
         op = out_dir / f"ov-{idx+1:02d}.png"; comp.save(op)
         (out_dir / f"ov-{idx+1:02d}.json").write_text(_j.dumps(layers), encoding="utf-8")
     return fp, op
+
+def tidy_cards(specs, ents):
+    """One name card per person/entity per scene: a lower-third for someone with a photo becomes the photo card,
+    and lower-thirds/entity cards that repeat a name already on screen (other card or full-screen entity) are dropped."""
+    nk = lambda x: (x or "").strip().lower()
+    out, seen = [], set()
+    for g in specs:
+        if g.get("type") == "entity_full": seen.add(nk(g.get("name")))
+    conv = []
+    for g in specs:
+        if g.get("type") == "lower_third" and (ents.get(g.get("name")) or {}).get("photo"):
+            g = {"type": "entity", "name": g["name"], "role": g.get("role"), "first": True, "from_lower_third": True}
+        conv.append(g)
+    conv.sort(key=lambda g: {"entity": 0, "lower_third": 1}.get(g.get("type"), -1))
+    for g in conv:
+        if g.get("type") in ("entity", "lower_third"):
+            n = nk(g.get("name"))
+            if n in seen: continue
+            seen.add(n)
+        if g.get("type") == "parties":
+            g = dict(g, items=[x for x in g.get("items") or [] if nk(x.get("name") if isinstance(x, dict) else x) not in seen])
+            if not g["items"]: continue
+        out.append(g)
+    order = {id(g): k for k, g in enumerate(conv)}
+    return out
 
 def render_project(pfile, pdir):
     """Renderiza todos os graficos do projeto. Tela cheia vira a midia da cena (source=gfx)."""
@@ -425,6 +453,8 @@ def render_project(pfile, pdir):
             if e2.get(k): e2[k] = str(pdir / e2[k])
         ents[e["name"]] = e2
     gd = pdir / "gfx"; gd.mkdir(exist_ok=True)
+    for s in pj["scenes"]:
+        s["gfx"] = tidy_cards(s.get("gfx") or [], ents)
     for f in list(gd.glob("ov-*.png")) + list(gd.glob("ov-*.json")): f.unlink()
     nf = no = 0
     for i, s in enumerate(pj["scenes"]):
