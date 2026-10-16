@@ -570,12 +570,14 @@ def yt_daily_loop():
 COVER_CANDIDATES = ("PUBLICAR/3-thumbnail.jpg", "PUBLICAR/thumbnail.jpg", "output/thumbnail.jpg")
 def project_cover(d):
     pdir = PROJECTS / Path(d["id"]).name
-    for rel in ([d["cover"]] if d.get("cover") else []) + list(COVER_CANDIDATES):
+    # chosen/uploaded thumbnail wins over generated candidates and scene frames
+    for rel in [d.get(k) for k in ("thumbnail", "cover") if d.get(k)] + list(COVER_CANDIDATES):
         if (pdir / rel).is_file():
             return rel
     if (pdir / "output" / "final.mp4").is_file():
         th = sorted(p for p in (pdir / "output" / "thumbs").rglob("*") if p.suffix.lower() in (".jpg", ".jpeg", ".png", ".webp")) if (pdir / "output" / "thumbs").is_dir() else []
         th += sorted(p for p in (pdir / "PUBLICAR").glob("*thumb*")) if (pdir / "PUBLICAR").is_dir() else []
+        th += sorted(p for p in (pdir / "output").glob("thumb*") if p.suffix.lower() in (".jpg", ".jpeg", ".png", ".webp"))
         if th:
             return th[-1].relative_to(pdir).as_posix()
     for sc in d.get("scenes") or []:
