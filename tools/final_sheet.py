@@ -1,9 +1,9 @@
-﻿import subprocess, re, sys, shutil
+import subprocess, re, sys, shutil
 from pathlib import Path
 from PIL import Image, ImageDraw, ImageFont
-pid = open("fb_id.txt").read().strip(); o = Path("projects") / pid / "output"; out = Path("output_progress/final"); out.mkdir(parents=True, exist_ok=True)
+pid = open(sys.argv[1]+"_id.txt").read().strip(); o = Path("projects") / pid / "output"; out = Path("output_progress")/sys.argv[1]/"final"; out.mkdir(parents=True, exist_ok=True)
 FF = shutil.which("ffmpeg") or r"C:\Users\Admin\AppData\Local\Microsoft\WinGet\Packages\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\ffmpeg-9.0.1-full_build\bin\ffmpeg.EXE"
-dur = 810.5; N = 48; ims = []
+dur = float(subprocess.run([shutil.which("ffprobe"),"-v","error","-show_entries","format=duration","-of","csv=p=0",str(o/"final.mp4")],capture_output=True,text=True).stdout); N = 48; ims = []
 for k in range(N):
     t = 4 + k * (dur - 8) / (N - 1); f = out / f"f{k:02d}.jpg"
     subprocess.run([FF, "-y", "-loglevel", "error", "-ss", f"{t:.2f}", "-i", str(o / "final.mp4"), "-frames:v", "1", "-q:v", "3", str(f)]); ims.append((t, f))

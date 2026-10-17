@@ -34,8 +34,11 @@ def _money(n):  # "$715M" -> (prefix, valor, sufixo)
     m = re.match(r"([^\d]*)([\d,.]+)(.*)", str(n))
     return (m.group(1), float(m.group(2).replace(",", "")), m.group(3)) if m else ("", 0.0, str(n))
 
+def _dec(ref):  # casas decimais do valor final (ex.: $0.97 -> 2), usadas tambem durante a contagem
+    return 2 if ref < 10 and round(ref, 1) != ref else 1 if (ref < 100 and ref != int(ref)) else 0
+
 def _fmtc(pre, v, suf, ref):
-    dec = 1 if (ref < 100 and ref != int(ref)) else 0
+    dec = _dec(ref)
     return f"{pre}{v:,.{dec}f}{suf}"
 
 # ---------- mapa ----------
@@ -112,8 +115,8 @@ def moneyflow_frames(s, dur=7.0, fps=30):
             if st > 0.6:  # rotulo de valor + data no meio do arco
                 al = min(1, (st - 0.6) / 0.3); mx, my = _bez(a, b, 0.5)
                 pre, v, suf = _money(f.get("amount", "")); txt = _fmtc(pre, v * _ease(al), suf, v)
-                fa = V.F("serifx", 72); wv = V.tw(d, txt, fa)
-                V.glow_text(im, (mx - wv / 2, my - 170), txt, fa, (255, 222, 140), V.AMBER, 18)
+                fa = V.F("num", 72); wv = V.text_w(_fmtc(pre, v, suf, v), fa, True)  # largura do valor final: o contador nao balanca
+                V.glow_text(im, (mx - wv / 2, my - 170), txt, fa, (255, 222, 140), V.AMBER, 18, tabular=True)
                 if f.get("date"): d.text((mx - V.tw(d, f["date"], V.F("sansm", 28)) / 2, my - 80), f["date"], font=V.F("sansm", 28), fill=(220, 214, 200))
         im.alpha_composite(glow.filter(ImageFilter.GaussianBlur(10)))
         yield im
@@ -121,14 +124,15 @@ def moneyflow_frames(s, dur=7.0, fps=30):
 # ---------- colapso ----------
 def collapse_frames(s, dur=7.0, fps=30):
     pts = s.get("points") or []; unit = s.get("unit", ""); mode = s.get("mode", "line"); n = int(dur * fps)
-    base = V.backdrop(57, leak=V.RED).convert("RGBA"); d0 = ImageDraw.Draw(base); V.kicker(d0, s.get("title", ""), color=V.RED); V.source(d0, s.get("source"))
+    base = V.backdrop(57, leak=V.RED).convert("RGBA"); d0 = ImageDraw.Draw(base); V.kicker(d0, s.get("title", ""), color=(240, 96, 86))  # vermelho claro: contraste 5.4:1 (o RED puro da 3.7:1 em texto); V.source(d0, s.get("source"))
     x0, x1, yb, yt = 200, W - 520, 900, 260; mx = max([float(p["value"]) for p in pts] + [1e-9])
     d0.line([(x0, yb), (x1 + 80, yb)], fill=(110, 104, 96), width=2)
     for g in range(1, 4):
         yy = yb - (yb - yt) * g / 4; d0.line([(x0, yy), (x1 + 80, yy)], fill=(48, 46, 44), width=1)
     def fmt(v):
         if unit == "$B" and v < 1: return f"${v * 1000:,.0f}M"
-        return f"{unit[:1] if unit.startswith('$') else ''}{v:,.{1 if v < 100 and v != int(v) else 0}f}{unit[1:] if unit.startswith('$') else unit}"
+        dec = max([_dec(float(p["value"])) for p in pts] + [0])
+        return f"{unit[:1] if unit.startswith('$') else ''}{v:,.{dec}f}{unit[1:] if unit.startswith('$') else unit}"
     for i in range(n):
         t = i / (n - 1); im = base.copy(); d = ImageDraw.Draw(im); glow = Image.new("RGBA", (W, H), (0, 0, 0, 0)); gd = ImageDraw.Draw(glow)
         k = len(pts); prog = _ease(t / 0.8) * (k - 1) if k > 1 else 1
@@ -139,7 +143,7 @@ def collapse_frames(s, dur=7.0, fps=30):
                 col = tuple(p.get("color") or (V.RED if p.get("tone") == "loss" else V.TEAL)); bx = x0 + 40 + j * (bw + 70)
                 gd.rectangle([bx, yb - h, bx + bw, yb], fill=col + (140,)); d.rectangle([bx, yb - h, bx + bw, yb], fill=col)
                 if al > 0: 
-                    tx = p["display"] if p.get("display") and al >= 1 else fmt(v * _ease(al)); fv = V.F("serifx", 60 if len(tx) < 8 else 48); d.text((bx + bw / 2 - V.tw(d, tx, fv) / 2, yb - h - 78), tx, font=fv, fill=V.WHITE)
+                    tx = p["display"] if p.get("display") and al >= 1 else fmt(v * _ease(al)); fv = V.fit(p.get("display") or fmt(v), "num", 60, bw + 60, True); V.draw_text(d, (bx + bw / 2 - V.text_w(tx, fv, True) / 2, yb - h - 78), tx, fv, V.WHITE, tabular=True)
                     for q, l in enumerate(V.wrap(d, p.get("label", ""), V.F("sansm", 26), bw + 40)[:2]): d.text((bx + bw / 2 - V.tw(d, l, V.F("sansm", 26)) / 2, yb + 16 + q * 32), l, font=V.F("sansm", 26), fill=V.MUTED)
         else:
             xs = [x0 + (x1 - x0) * j / max(1, k - 1) for j in range(k)]; ys = [yb - (yb - yt) * float(p["value"]) / mx for p in pts]
@@ -159,7 +163,7 @@ def collapse_frames(s, dur=7.0, fps=30):
         fin = s.get("final")
         if fin:  # contador final
             al = max(0, min(1, (t - 0.45) / 0.45)); pre, v, suf = _money(fin.get("value", "")); txt = _fmtc(pre, v * _ease(al) if v > 0 else v, suf, v)
-            fv = V.F("serifx", 120); V.glow_text(im, (W - 470, 420), txt, fv, (255, 120, 108), V.RED, 24)
+            fv = V.fit(_fmtc(pre, v, suf, v), "num", 120, 420, True); V.glow_text(im, (W - 470, 420), txt, fv, (255, 120, 108), V.RED, 24, tabular=True)
             for q, l in enumerate(V.wrap(d, fin.get("label", ""), V.F("sansm", 30), 400)[:3]): d.text((W - 470, 570 + q * 40), l, font=V.F("sansm", 30), fill=V.WHITE)
         im.alpha_composite(glow.filter(ImageFilter.GaussianBlur(12)))
         yield im

@@ -1,4 +1,4 @@
-"""Dark Studio - etapas do fluxo: Pesquisa (dossie) -> Roteiro do dossie -> Imagens reais -> Prompts Grok -> Validacao.
+﻿"""Dark Studio - etapas do fluxo: Pesquisa (dossie) -> Roteiro do dossie -> Imagens reais -> Prompts Grok -> Validacao.
 Usa app.chat_json (OpenAI, so texto). Imagens reais vem de fontes licenciadas (Wikimedia Commons) com credito."""
 import json, re, time, urllib.request, urllib.parse, urllib.error
 from pathlib import Path
@@ -100,9 +100,13 @@ def collect_images(pid, curated=None):
             if n and not any(n.lower() in [m.lower() for m in E._names(e)] for e in reg.values()):
                 reg[n] = {"name": n, "kind": kind, "full_name": x.get("full_name"), "role": x.get("role") or x.get("status") or "", "aliases": []}
     log = []
+    idx = E._lib_index()  # 1o: biblioteca local (nao gasta busca nem download)
+    for e in reg.values():
+        got = E.library_apply(e, pdir, idx)
+        if got: log.append(f"{e['name']}: biblioteca <- {', '.join(got)}")
     for e in reg.values():
         if E.has_real_asset(e) or e.get("no_auto") or e.get("kind") == "person": continue  # pessoas: so foto curada (evita homonimos)
-        time.sleep(1.5)
+        time.sleep(5)
         n = e.get("full_name") or e["name"]; t = None; key = None
         try:
             if e["kind"] == "agency": t = _pick(_commons_search("Seal of the " + n), ["seal"], phrase=n.replace("U.S. ", "United States ")); key = "seal"
@@ -115,42 +119,103 @@ def collect_images(pid, curated=None):
                 log.append(f"{e['name']}: {key} <- {t}")
         except Exception as ex:
             log.append(f"{e['name']}: erro {ex}")
+    for e in reg.values():  # guarda o que foi achado para os proximos videos
+        try:
+            sv = E.library_save(e, pdir)
+            if sv: log.append(f"{e['name']}: salvo na biblioteca ({', '.join(sv)})")
+        except Exception as ex:
+            log.append(f"{e['name']}: biblioteca erro {ex}")
     d["entities"] = list(reg.values()); d["images_done"] = True; _save(d)
     return {"entities": len(reg), "with_real_visual": sum(1 for e in reg.values() if E.has_real_asset(e)), "log": log}
 
 # ---------------- 4) Prompts Grok ricos ----------------
 ARC = {
- "act1": "ACT 1 euphoria, money flowing: warm golden light, bustling energy, busy warehouses and trucks, deals and celebrations, smooth confident camera moves",
+ "act1": "ACT 1 euphoria, money flowing: warm golden light, bustling energy, busy workplaces of THIS story (offices, trading floors, factories or shops as the narration says), deals and celebrations, smooth confident camera moves",
  "act2": "ACT 2 tension and suspicion: cold blue-grey light, tight framing, slow push-ins, shadows creeping in, papers and screens examined late at night",
- "act3": "ACT 3 collapse and human impact: anonymous workers leaving with boxes, idle factories, creditors facing red screens, empty offices, rain, harsh shadows, handheld unease",
+ "act3": "ACT 3 collapse and human impact: anonymous workers leaving with boxes, idle workplaces, creditors waiting, empty offices, rain, harsh shadows, handheld unease",
  "after": "AFTERMATH: quiet, desaturated, reflective; empty courthouse steps at dawn, still warehouses, slow pull-backs, lingering silence",
 }
 def act_of(i, n):
     r = i / max(1, n - 1)
     return "act1" if r < 0.3 else "act2" if r < 0.62 else "act3" if r < 0.9 else "after"
 
+FULL_GFX = ("timeline", "chart", "document", "quote", "relmap", "scale", "chapter", "headline", "photo", "entity_full", "moneyflow", "collapse")
+GFX_HINTS = ("timeline", "chart", "scale", "moneyflow", "collapse", "relmap", "document")
+PROMPT_RULES = (
+    "RULES FOR EVERY visual_prompt (40-70 words):\n"
+    "1. EXPLAIN, don't decorate: a viewer with the sound off should understand the narration line from the picture. "
+    "Choose a device: 'reconstruction' (the real event in its real place and era), 'metaphor' (a concrete physical object stands for an abstract finance idea), "
+    "'human' (the people affected), or 'establishing' (place/time). For abstract ideas (leverage, debt, deposits, liquidity, funds moving, who owed whom, ratios) "
+    "use a physical METAPHOR built from real objects, e.g. 31 identical crates stacked on one thin plank for 31-to-1 leverage; water draining from one glass tank into another "
+    "for money moving; a borrowed key handed back and forth for a repo. Never explain with 'an analyst looking at screens/charts/documents'.\n"
+    "2. ONE clear subject doing ONE visible action that fits a ~6-second clip; say how the frame changes from start to end. No lists of three simultaneous actions.\n"
+    "3. Never let the meaning depend on readable text, numbers, charts on screens, calendars, nameplates or signed papers: the generator garbles text. "
+    "Papers and screens may appear only blank, out of focus or turned away.\n"
+    "4. Camera: give lens + ONE move that matches the emotion (static locked-off, slow push-in, lateral dolly, pull-back reveal, handheld drift). "
+    "Vary shot size: never the same shot type, and never the same setting, in more than 2 consecutive scenes (e.g. not three courtroom corridors in a row; "
+    "legal beats can use details: file boxes on a cart, an empty witness chair, a pen above a signature line, courthouse steps at dawn).\n"
+    "5. Era accuracy: phones, cars, monitors, clothing and architecture match the date in the narration.\n"
+    "6. CONTINUITY: when a scene involves an element of the VISUAL BIBLE (protagonist silhouette, headquarters, recurring places), describe it with the same words.\n"
+    "7. Do not write 'no logos / no text / no faces' inside visual_prompt (added automatically); describe what IS in frame.\n"
+    "8. If a data graphic would explain the line better than any picture (amounts compared, dates in sequence, money moving between named parties, "
+    "a value collapsing, who owes whom), set gfx_hint to one of " + "|".join(GFX_HINTS) + " and say in gfx_why which sourced numbers/dates it needs; still write the visual_prompt.\n")
+
 def enrich_prompts(pid):
     d = _load(pid); a = _app(); sc = d["scenes"]
-    sys = ("You are a documentary director of photography writing image/video generation prompts. Reply only in json. "
+    sys = ("You are a documentary director of photography writing image/video generation prompts for Grok Imagine. Reply only in json. "
            "Never depict a real person's likeness (people only as silhouettes, hands, backs, out-of-focus), no logos, no brand names, no readable text.")
+    bible = d.get("visual_bible") or ""
+    prev = []  # ultimas cenas do lote anterior: variedade tambem na emenda entre lotes
     for st in range(0, len(sc), 20):
         part = [(i, s) for i, s in enumerate(sc[st:st + 20], st)]
-        lines = "\n".join(f"{i} <{act_of(i, len(sc))}>: [{'GFX' if any(g.get('type') in ('timeline','chart','document','quote','relmap','scale','chapter','headline','photo','entity_full') for g in s.get('gfx') or []) else 'AI'}] {s.get('narration')}" for i, s in part)
-        u = ("Story so far: " + (d.get("hook") or "") + "\nFor each scene, identify its story beat and write a rich visual prompt that SHOWS exactly what the narration says "
-             "(subject, action, setting, era, props, shot type, lens, camera move, lighting, color, mood; 60-90 words). Vary shot types between consecutive scenes. "
+        lines = "\n".join(f"{i} <{act_of(i, len(sc))}>: [{'GFX' if any(g.get('type') in FULL_GFX for g in s.get('gfx') or []) else 'AI'}] {s.get('narration')}" for i, s in part)
+        ask_bible = "" if bible else (
+            "First define a short VISUAL BIBLE for the whole video (json key visual_bible, 50-90 words): how the anonymous protagonist always looks "
+            "(silhouette, build, clothing, seen from behind), the headquarters and 2-3 recurring places (architecture, era, materials, no signage), and the base palette. ")
+        u = ("Story so far: " + (d.get("hook") or "") + "\n"
+             + (f"VISUAL BIBLE (reuse exactly): {bible}\n" if bible else ask_bible)
+             + (f"Previous scenes (do not repeat their shot type or setting): {' | '.join(prev)}\n" if prev else "")
+             + "For each scene, identify its story beat and write a visual prompt that SHOWS exactly what the narration says "
+             "(subject, action, setting, era, props, shot type, lens, camera move, lighting, color, mood). "
              "Follow the EMOTIONAL ARC tag of each scene, so emotion tracks the financial impact as the story unfolds: " + " | ".join(ARC.values()) + ". "
-             "People are ALWAYS anonymous (seen from behind, silhouettes, hands, out of focus); never a real person's likeness. Emotion comes from lighting, camera movement and situations. "
-             "Skip scenes marked GFX (return them with empty visual_prompt). json: {\"scenes\":[{\"i\":0,\"beat\":\"...\",\"shot\":\"wide|close-up|macro|aerial|tracking|...\","
-             "\"mood\":\"...\",\"camera\":\"...\",\"visual_prompt\":\"...\"}]}\n\n" + lines)
+             "People are ALWAYS anonymous (seen from behind, silhouettes, hands, out of focus); never a real person's likeness. Emotion comes from lighting, camera movement and situations.\n"
+             + PROMPT_RULES +
+             "Skip scenes marked GFX (return them with empty visual_prompt). json: {" + ('' if bible else '"visual_bible":"...",') + "\"scenes\":[{\"i\":0,\"beat\":\"...\","
+             "\"device\":\"reconstruction|metaphor|human|establishing\",\"shot\":\"wide|medium|close-up|macro|aerial|overhead|tracking|over-the-shoulder|low-angle\","
+             "\"setting\":\"2-5 words\",\"mood\":\"...\",\"camera\":\"lens + one move\",\"visual_prompt\":\"...\",\"gfx_hint\":\"\",\"gfx_why\":\"\"}]}\n\n" + lines)
         r = a.chat_json(sys, u, 12000)
+        if not bible and r.get("visual_bible"):
+            bible = d["visual_bible"] = re.sub(r"\s+", " ", str(r["visual_bible"])).strip()
         for x in r.get("scenes") or []:
             i = int(x.get("i", -1))
             if 0 <= i < len(sc) and x.get("visual_prompt"):
                 ac = act_of(i, len(sc))
                 if ac == "act3" and sc[i].get("source") != "gfx": sc[i]["mode"] = "video"  # mais video no colapso
-                sc[i].update(act=ac, beat=x.get("beat"), shot=x.get("shot"), mood=x.get("mood"), camera=x.get("camera"), visual_prompt=x["visual_prompt"])
+                sc[i].update(act=ac, beat=x.get("beat"), shot=x.get("shot"), mood=x.get("mood"), camera=x.get("camera"), visual_prompt=x["visual_prompt"],
+                             device=x.get("device"), setting=x.get("setting"))
+                h = str(x.get("gfx_hint") or "").strip().lower()
+                if h in GFX_HINTS: sc[i].update(gfx_hint=h, gfx_why=x.get("gfx_why") or "")
+                else: sc[i].pop("gfx_hint", None); sc[i].pop("gfx_why", None)
+                prev = (prev + [f"#{i} {x.get('shot')} / {x.get('setting') or ''}"])[-3:]
     d["prompts_enriched"] = True
     return a.save_project(d)
+
+def gfx_hints(d):
+    """Cenas onde o diretor de fotografia sugeriu um grafico com dados no lugar (ou alem) do clipe. Aviso, nao bloqueia."""
+    out = []
+    for i, s in enumerate(d.get("scenes") or []):
+        if s.get("gfx_hint") and not any(g.get("type") in FULL_GFX for g in s.get("gfx") or []):
+            out.append({"scene": i + 1, "gfx": s["gfx_hint"], "why": s.get("gfx_why") or ""})
+    return out
+
+def title_check(t):
+    """Avisos (nao bloqueiam) quando o titulo foge das regras de clique do PADRAO_VIDEOS.md."""
+    t = (t or "").strip(); w = []
+    if not t: return ["sem título"]
+    if len(t) > 60: w.append(f"{len(t)} caracteres (máx. 60)")
+    if re.match(r"^[^:]{2,40}:\s", t) and not t.lower().startswith("the "): w.append("formato manchete 'Nome: ...' (esconder o nome da empresa)")
+    if re.match(r"(?i)^(the )?rise and fall", t): w.append("'rise and fall' é título de assunto, não de história")
+    return w
 
 # ---------------- 5) Validacao ----------------
 AMT = re.compile(r"\$\s?\d[\d,]*(?:\.\d+)?\s?(?:billion|million|thousand|bn|B|M|K)?\b", re.I)
@@ -202,9 +267,11 @@ def validate(pid, autofix=True):
     except Exception as e:
         lc = {"error": str(e)[:200]}
     tc = text_check(d)
+    gfx_rules = [{"scene": i + 1, "issue": "gráfico com uma barra só (regra: nunca); use scale/callout ou compare com outro valor"}
+                 for i, s in enumerate(d.get("scenes") or []) for g in s.get("gfx") or [] if g.get("type") == "chart" and len(g.get("series") or []) < 2]
     gaps += [{"scene": t["scene"], "missing": ["overlay text: " + t["issue"]]} for t in tc]
     gaps.sort(key=lambda g: g["scene"])
-    v = {"text_check": tc, "logo_check": {k: lc.get(k) for k in ("checked", "flagged", "error") if k in lc}, "ok": not gaps, "gaps": gaps, "entity_cards_added": rep["added_cards"], "amount_callouts_added": added,
+    v = {"title_check": title_check(d.get("title")), "gfx_hints": gfx_hints(d), "gfx_rules": gfx_rules, "text_check": tc, "logo_check": {k: lc.get(k) for k in ("checked", "flagged", "error") if k in lc}, "ok": not gaps, "gaps": gaps, "entity_cards_added": rep["added_cards"], "amount_callouts_added": added,
          "name_card_only": rep["name_card_only"], "mentions": rep["mentions"]}
     d["validation"] = v; d.pop("coverage", None); _save(d)
     return v

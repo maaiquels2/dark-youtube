@@ -81,6 +81,65 @@ def coverage(pj, autofix=True, max_cards=3):
     pj["coverage"] = rep
     return rep
 
+# ---------------- Biblioteca local de entidades (reaproveitada entre videos) ----------------
+# library/entities/<slug>/ : logo.*, seal.*, photo.*, hq_photo.* + meta.json (nome, apelidos, tipo, creditos/licencas)
+LIBRARY = Path(__file__).resolve().parent / "library" / "entities"
+ASSET_KEYS = ("logo", "seal", "photo", "hq_photo")
+
+def slug(n):
+    return re.sub(r"[^a-z0-9]+", "-", (n or "").lower()).strip("-")
+
+def _lib_index():
+    idx = {}
+    if not LIBRARY.is_dir(): return idx
+    for m in LIBRARY.glob("*/meta.json"):
+        try: meta = json.loads(m.read_text(encoding="utf-8"))
+        except Exception: continue
+        for n in [meta.get("name"), meta.get("full_name")] + list(meta.get("aliases") or []):
+            if n: idx.setdefault(slug(n), m.parent)
+    return idx
+
+def library_apply(e, pdir, idx=None):
+    """Preenche logo/selo/foto que faltam na entidade com o que ja existe na biblioteca. Copia para o projeto."""
+    import shutil
+    idx = _lib_index() if idx is None else idx
+    folder = next((idx[slug(n)] for n in _names(e) if slug(n) in idx), None)
+    if not folder: return []
+    meta = json.loads((folder / "meta.json").read_text(encoding="utf-8")); got = []
+    if meta.get("kind") and e.get("kind") and meta["kind"] != e["kind"]: return []  # mesmo nome, outra coisa
+    for k in ASSET_KEYS:
+        f = next(iter(sorted(folder.glob(k + ".*"))), None)
+        if e.get(k) or not f: continue
+        rel = f"entities/{slug(e['name'])}-{k}{f.suffix.lower()}"
+        (Path(pdir) / rel).parent.mkdir(parents=True, exist_ok=True)
+        shutil.copyfile(f, Path(pdir) / rel); e[k] = rel; got.append(k)
+        cr = (meta.get("credits") or {})
+        for ck in (k, k + "_source"):
+            if cr.get(ck): e.setdefault("credits", {})[ck] = cr[ck]
+    for a in [meta.get("name")] + list(meta.get("aliases") or []):
+        if a and a != e["name"] and a not in (e.get("aliases") or []): e.setdefault("aliases", []).append(a)
+    return got
+
+def library_save(e, pdir):
+    """Guarda na biblioteca os arquivos reais da entidade (so acrescenta, nunca sobrescreve)."""
+    import shutil
+    if not has_real_asset(e) or not e.get("name"): return []
+    folder = _lib_index().get(slug(e["name"])) or (LIBRARY / slug(e["name"]))
+    folder.mkdir(parents=True, exist_ok=True); mf = folder / "meta.json"
+    meta = json.loads(mf.read_text(encoding="utf-8")) if mf.is_file() else {"name": e["name"], "kind": e.get("kind")}
+    if e.get("full_name") and not meta.get("full_name"): meta["full_name"] = e["full_name"]
+    meta["aliases"] = sorted({*(meta.get("aliases") or []), *(e.get("aliases") or [])} - {meta["name"]})
+    saved = []
+    for k in ASSET_KEYS:
+        src = Path(pdir) / e[k] if e.get(k) else None
+        if not src or not src.is_file() or any(folder.glob(k + ".*")): continue
+        shutil.copyfile(src, folder / (k + src.suffix.lower())); saved.append(k)
+        cr = e.get("credits") or {}
+        for ck in (k, k + "_source"):
+            if cr.get(ck): meta.setdefault("credits", {})[ck] = cr[ck]
+    mf.write_text(json.dumps(meta, ensure_ascii=False, indent=2), encoding="utf-8")
+    return saved
+
 def extract_mentions(pj, chat_json):
     """IA (texto) lista empresas/orgaos/tribunais/pessoas citados por cena, para achar quem falta no registro."""
     lines = "\n".join(f"{i}: {s.get('narration','')}" for i, s in enumerate(pj["scenes"]))

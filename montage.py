@@ -10,6 +10,11 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
 PROJECTS = ROOT / "projects"
+# legenda queimada (opcional, burn_subtitles): Inter (OFL) do projeto, branca com contorno + sombra, ~10% acima da borda.
+# Escala do ASS = 288 linhas: FontSize 16 ~ 60 px em 1080p; MarginV 28 ~ 10% da altura.
+FONTS_DIR = (ROOT / "fonts").as_posix().replace(":", "\\:") if (ROOT / "fonts" / "Inter-VF.ttf").is_file() else ""
+SUB_STYLE = ("FontName=Inter,FontSize=16,PrimaryColour=&H00FFFFFF,OutlineColour=&H00101010,BackColour=&H80000000,"
+             "BorderStyle=1,Outline=1.6,Shadow=0.8,Bold=0,Spacing=0,MarginV=28,MarginL=40,MarginR=40,Alignment=2")
 CFG_F = ROOT / "config" / "montage.json"
 ACT_VOICE = {
     "act1": "This part is the rise: slightly warmer and brighter, a hint of wonder at the money flowing, steady forward momentum.",
@@ -28,6 +33,7 @@ DEFAULTS = {
     "fps": 30,
     "ken_burns_zoom": 0.12,
     "music_volume": 0.12,
+    "single_music": True,  # PADRAO_VIDEOS.md: uma musica calma so, o video inteiro (False = trilha por ato)
     "loudness_lufs": -14,
     "burn_subtitles": False,
     "crf": 20,
@@ -295,27 +301,36 @@ class Job:
             if not text:
                 continue
             parts = [p.strip() for p in re.split(r"(?<=[.!?;])\s+", text) if p.strip()]
+            # padrao de legenda (Netflix/BBC): no maximo 2 linhas de 42 caracteres (84 por legenda) e pelo menos ~1,5 s na tela
+            WEAK = {"a", "an", "the", "of", "to", "in", "on", "at", "for", "and", "or", "but", "its", "his", "her", "their"}  # nao terminar legenda nessas palavras
+            MAXC, MINS = 78, 1.5  # 78 e nao 84: folga para as duas linhas ficarem <= 42 mesmo com palavras longas
             chunks = []
-            for p in parts:  # quebra frases longas em partes equilibradas (~84 chars max)
-                words = p.split(); n = max(1, math.ceil(len(p) / 84)); target = len(p) / n; cur = ""
+            for p in parts:  # quebra frases longas em partes equilibradas (nunca acima de 84 caracteres)
+                words = p.split(); parts_n = max(1, math.ceil(len(p) / MAXC)); target = len(p) / parts_n; cur = ""  # (antes usava "n" e zerava a numeracao da SRT a cada cena)
                 for w in words:
-                    if cur and len(cur) + len(w) + 1 > target + 8 and len(chunks) < 999:
+                    nxt = (cur + " " + w).strip()
+                    if cur and (len(nxt) > MAXC or (len(cur) + len(w) + 1 > target + 8 and cur.split()[-1].lower() not in WEAK) or (cur[-1] in ",;:" and len(cur) >= target * 0.6)):
                         chunks.append(cur); cur = w
                     else:
-                        cur = (cur + " " + w).strip()
+                        cur = nxt
                 if cur:
                     chunks.append(cur)
-            k = 0  # junta legendas orfas (1-2 palavras ou < 15 chars) com a vizinha
-            while k < len(chunks):
-                c = chunks[k]
-                if (len(c.split()) <= 2 or len(c) < 15) and len(chunks) > 1:
-                    if k > 0 and len(chunks[k - 1]) + len(c) <= 110:
-                        chunks[k - 1] += " " + c; chunks.pop(k); continue
-                    if k + 1 < len(chunks):
-                        chunks[k + 1] = c + " " + chunks[k + 1]; chunks.pop(k); continue
-                k += 1
             speak = max(0.5, d - self.c["pad_seconds"])
             tot = sum(len(c) for c in chunks) or 1
+            k = 0  # junta legendas orfas (1-2 palavras, < 15 chars ou rapidas demais) com a vizinha, sem passar de 84
+            while k < len(chunks) and len(chunks) > 1:
+                c = chunks[k]
+                if len(c.split()) <= 2 or len(c) < 15 or speak * len(c) / tot < MINS:
+                    if k > 0 and len(chunks[k - 1]) + len(c) + 1 <= MAXC:
+                        chunks[k - 1] += " " + c; chunks.pop(k); continue
+                    if k + 1 < len(chunks) and len(c) + len(chunks[k + 1]) + 1 <= MAXC:
+                        chunks[k + 1] = c + " " + chunks[k + 1]; chunks.pop(k); continue
+                    if len(c.split()) <= 2 or len(c) < 15:  # nao cabe inteira: junta com a vizinha e redivide em duas metades equilibradas
+                        j = k - 1 if k > 0 else k + 1; a_, b_ = sorted((j, k)); both = chunks[a_] + " " + chunks[b_]
+                        x, y = self._two_lines(both).split("\n")
+                        if min(len(x.split()), len(y.split())) > 2:
+                            chunks[a_], chunks[b_] = x, y; k = b_ + 1; continue
+                k += 1
             t = t0
             for c in chunks:
                 dd = speak * len(c) / tot
@@ -326,8 +341,14 @@ class Job:
 
     @staticmethod
     def _two_lines(c):
-        mid = len(c) // 2
-        sp = min((k for k in range(len(c)) if c[k] == " "), key=lambda k: abs(k - mid), default=mid)
+        # quebra no espaco que deixa as duas linhas mais parecidas (nenhuma acima de 42 quando possivel);
+        # em empate, prefere quebrar depois de virgula/dois-pontos
+        sps = [k for k in range(len(c)) if c[k] == " "] or [len(c) // 2]
+        weak = {"a", "an", "the", "of", "to", "in", "on", "at", "for", "and", "or", "but", "its", "his", "her", "their"}
+        def cost(k):  # linhas parecidas; bonus depois de pontuacao; penalidade se a linha 1 termina em artigo/preposicao
+            last = c[:k].split()[-1].lower() if c[:k].split() else ""
+            return max(k, len(c) - k - 1) - (6 if k and c[k - 1] in ",:;" else 0) + (6 if last in weak else 0) + (50 if max(k, len(c) - k - 1) > 42 else 0)
+        sp = min(sps, key=cost)
         return c[:sp].strip() + "\n" + c[sp:].strip()
 
     def run_render(self):
@@ -441,10 +462,18 @@ class Job:
         vf = pre + f"{vin}null[v]"
         if self.c.get("burn_subtitles"):
             sp = srt_path.as_posix().replace(":", "\\:")
-            vf = pre + f"{vin}subtitles='{sp}':force_style='FontName=Arial,FontSize=22,Outline=2,MarginV=40'[v]"
+            vf = pre + f"{vin}subtitles='{sp}':force_style='{SUB_STYLE}'"
+            vf += (f":fontsdir='{FONTS_DIR}'" if FONTS_DIR else "") + "[v]"
         if pre:
             args += self._logo_args
         tracks = [t for t in (pj.get("music_tracks") or []) if t.get("file") and (self.pdir / t["file"]).is_file()]
+        if tracks and self.c.get("single_music", True):
+            # regra do canal: uma faixa so, do comeco ao fim (usa a primeira; ignora trocas por ato)
+            tracks = sorted(tracks, key=lambda t: int(t.get("from_scene", 1)))[:1]
+            tracks[0] = {**tracks[0], "from_scene": 1}
+        elif not tracks and music and self.c.get("single_music", True):
+            # trilha enviada pela tela Montagem (music.*): mesma mixagem com ducking sob a narracao
+            tracks = [{"file": music.relative_to(self.pdir).as_posix(), "from_scene": 1, "volume": self.c["music_volume"]}]
         if tracks:
             base = 3 + (1 if pre else 0); parts = []; tracks = sorted(tracks, key=lambda t: int(t.get("from_scene", 1)))
             for k, t in enumerate(tracks):
@@ -460,7 +489,7 @@ class Job:
                   f"[1:a]asplit=2[nar][sc];[mus][sc]sidechaincompress=threshold=0.02:ratio=10:attack=15:release=450:makeup=1[duck];"
                   f"[nar][duck]amix=inputs=2:duration=first:normalize=0,loudnorm=I={lufs}:TP=-1.5:LRA=11[a]")
             music = True
-            self.log(f"trilha: {len(tracks)} faixas por ato, com ducking")
+            self.log(f"trilha: {len(tracks)} faixa(s), com ducking" + (" (musica unica)" if len(tracks) == 1 else " por ato"))
         ff(args + ["-filter_complex", vf + ";" + af, "-map", "[v]", "-map", "[a]", "-t", f"{total:.3f}",
                    "-c:v", "libx264", "-preset", self.c["preset"], "-crf", str(self.c["crf"]), "-pix_fmt", "yuv420p",
                    "-r", str(fps), "-c:a", "aac", "-b:a", "192k", "-ar", "48000", "-movflags", "+faststart", str(out)])

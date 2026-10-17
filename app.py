@@ -120,40 +120,99 @@ def _download(url, dest_noext, default_ext):
 def proj_path(pid):
     return PROJECTS / (Path(pid).name + ".json")
 
-GROK_STYLE = ("Style: dark cinematic documentary, moody low-key lighting with deep shadows and cold teal-and-amber contrast, "
-              "volumetric haze, shallow depth of field, no letterbox bars, full-frame edge-to-edge image, subtle film grain, photorealistic, "
-              "premium business documentary aesthetic.")
+GROK_STYLE = ("Style: photorealistic cinematic documentary reconstruction, natural film look, subtle film grain, gentle volumetric haze, "
+              "no letterbox bars, full-frame edge-to-edge image, premium business documentary aesthetic.")
 GROK_NEG = ("Avoid: no text, no captions, no watermark, no logos, no emblems, no brand marks or trademarks, blank unbranded walls and screens, no real person likeness, "
             "no distorted faces or hands, no extra limbs, no cartoon look, no blur artifacts, no subtitles or quotes on screen, no letterbox or black bars.")
+# texto garbado e o defeito mais comum do gerador: dizer o que fazer com papel/tela/placa, nao so "no text"
+GROK_TEXT_GUARD = "Papers, screens and signs are blank, blurred or turned away; people only from behind or in silhouette."
+# luz e cor seguem o arco emocional (pipeline.ARC); sem ato, mantem o visual escuro original
+ACT_LOOK = {
+    "act1": ("confident, prosperous momentum", "warm golden key light, rich amber tones with soft teal accents, lively but controlled contrast"),
+    "act2": ("uneasy, investigative suspicion", "cool blue-grey light, low-key contrast, deepening shadows, restrained teal palette"),
+    "act3": ("grave, heavy, human cost", "hard light and deep shadows, desaturated cold palette with small red accents"),
+    "after": ("quiet, reflective aftermath", "soft dawn or overcast light, muted desaturated palette, calm stillness"),
+}
+DEFAULT_LOOK = ("tense, investigative business documentary atmosphere", "moody low-key lighting with deep shadows and cold teal-and-amber contrast")
+# enquadramento coerente com o tipo de plano (antes todo prompt dizia "wide cinematic framing", ate em close-up)
+SHOT_COMPOSITION = [
+    ("over-the-shoulder", "over-the-shoulder framing from behind an anonymous figure toward what they are looking at, focus on the object of attention"),
+    ("macro", "macro detail, one object filling the frame, very shallow depth of field"),
+    ("close", "close-up, one subject filling most of the frame, shallow depth of field, soft background"),
+    ("detail", "detail shot, one object filling the frame, shallow depth of field"),
+    ("overhead", "top-down overhead composition, clean graphic arrangement of objects, even focus"),
+    ("top-down", "top-down overhead composition, clean graphic arrangement of objects, even focus"),
+    ("aerial", "high aerial composition, clear geography and scale, deep focus"),
+    ("low-angle", "low-angle composition looking up, conveying authority and scale"),
+    ("tracking", "tracking shot following one subject through the space, subject held on a third"),
+    ("medium", "medium shot, one subject and its immediate surroundings, clean separation from the background"),
+    ("wide", "wide establishing composition, clear focal subject on a rule-of-thirds line, deep focus"),
+]
+DEFAULT_COMPOSITION = "clear single focal subject, strong leading lines, rule of thirds"
+
+def shot_composition(shot):
+    t = (shot or "").lower()
+    return next((c for k, c in SHOT_COMPOSITION if k in t), DEFAULT_COMPOSITION)
+
+_NEG_HEAD = re.compile(r"(?i)^\s*(?:and\s+|with\s+|while\s+)?(?:no\b|without\b|never\b|nothing\b|keep(?:ing)?\b|all\s+\w+\s+(?:remain|are|is|stay)|"
+                       r"every\s+\w+\s+(?:remains?|is|stays?)|not\s+(?:a\s+)?(?:depict|represent|recreat))")
+_NEG_TOPIC = re.compile(r"(?i)logo|text|letter|label|sign|brand|readab|legib|likeness|identif|face|watermark|seal|flag|emblem|nameplate|placard|"
+                        r"marking|caption|portrait|appearance|interface|numbers|figures|dates|recogni|trademark|badge|crest|inscription")
+
+def strip_negations(t):
+    """Tira do assunto as frases do tipo 'no logos / no readable text / keep faces hidden' (o bloco Avoid e o guard ja cobrem).
+    Prompt mais curto = o gerador presta atencao na acao. Tudo depois de 'STRICT:' (correcao manual) fica intacto."""
+    head, sep, tail = t.partition("STRICT:")
+    sents = []
+    for sent in re.split(r"(?<=[.!?])\s+", head.strip()):
+        body = sent.rstrip(".!? ")
+        cl, dropping = [], False
+        for c in re.split(r"[,;]\s+", body):
+            if _NEG_HEAD.search(c) and _NEG_TOPIC.search(c): dropping = True; continue
+            # resto da mesma lista ("no X, readable text, or logos"): tambem sai, senao vira pedido positivo de texto/logo
+            if dropping and len(c.split()) <= 5 and (_NEG_TOPIC.search(c) or re.match(r"(?i)\s*(or|nor)\b", c)): continue
+            dropping = False; cl.append(c)
+        if cl: sents.append(", ".join(cl).strip() + ".")
+    out = " ".join(sents).strip()
+    return (out + (" STRICT:" + tail if sep else "")).strip()
 
 def clean_subject(vp):
     t = (vp or "").strip()
     t = re.sub(r"(?i)\b(dark\s+)?cinematic\s+16:9\s*", "", t, count=1).strip()
     t = re.sub(r"(?i),?\s*no logos?,?\s*(no text,?)?\s*(no identifiable people\.?)?\s*$", "", t).strip(" ,.")
     t = t.split(" | ")[0]
+    t = strip_negations(t).strip(" ,.") if t else t
     return (t[:1].upper() + t[1:]) if t else "Atmospheric establishing shot that illustrates the narration"
+
+def _sent(x):
+    return re.sub(r"\s+", " ", str(x or "")).strip().rstrip(".") + "."
 
 def build_grok_prompt(sc, cfg=None):
     subj = clean_subject(sc.get("visual_prompt"))
     narr = re.sub(r"\s+", " ", sc.get("narration") or "").strip()
-    parts = [f"Subject: {subj}."]
-    if sc.get("beat"): parts.append(f"Story beat: {sc['beat']}.")
-    if sc.get("mood"): parts.append(f"Mood: {sc['mood']}.")
-    elif narr:
-        parts.append("Mood: tense, investigative business documentary atmosphere.")
-    if sc.get("camera") and sc.get("mode") != "video": parts.append(f"Camera: {sc['camera']}.")
-    parts.append("Composition: wide cinematic framing, strong leading lines, clear focal subject, rule of thirds.")
-    parts.append(GROK_STYLE)
+    mood, look = ACT_LOOK.get(sc.get("act"), DEFAULT_LOOK)
+    parts = [f"Subject: {_sent(subj)}"]
+    if isinstance(sc.get("beat"), str) and sc["beat"].strip(): parts.append(f"Story beat: {_sent(sc['beat'])}")  # projetos antigos tem beat=true
+    if sc.get("mood"): parts.append(f"Mood: {_sent(sc['mood'])}")
+    elif narr: parts.append(f"Mood: {mood}.")
+    if sc.get("camera") and sc.get("mode") != "video": parts.append(f"Camera: {_sent(sc['camera'])}")
+    parts.append(f"Composition: {shot_composition(sc.get('shot'))}.")
+    parts.append(GROK_STYLE + f" Light and color: {look}.")
     if sc.get("mode") == "video":
         dur = 8
         if cfg:
             dur = int(min(cfg["video_max_seconds"], max(cfg["video_min_seconds"], math.ceil(scene_seconds(sc, cfg)))))
-        if sc.get("camera"): parts.append(f"Camera move: {sc['camera']}.")
-        parts.append(f"Motion: slow cinematic camera movement (gentle dolly-in or slow parallax pan), subtle atmospheric motion "
-                     f"(drifting haze, flickering lights), smooth and stable, no cuts. Duration: about {dur} seconds (max 15s), no audio.")
+        if sc.get("camera"):  # um movimento so: o da cena (antes vinha junto um "gentle dolly-in" generico que contradizia)
+            parts.append(f"Camera move: one continuous move only: {_sent(sc['camera'])}")
+            mv = "One simple, clearly visible subject action that completes within the clip, subtle atmospheric motion, realistic physics, no cuts, no morphing."
+        else:
+            mv = ("Motion: slow cinematic camera movement (gentle dolly-in or slow parallax pan), one simple subject action, subtle atmospheric motion "
+                  "(drifting haze, flickering lights), smooth and stable, no cuts, no morphing.")
+        parts.append(f"{mv} Duration: about {dur} seconds (max 15s), no audio.")
         parts.append("Format: video, aspect ratio 16:9, 1920x1080, high resolution, ultra detailed.")
     else:
         parts.append("Format: still image, aspect ratio 16:9, 1920x1080, high resolution, ultra detailed, sharp focus.")
+    parts.append(GROK_TEXT_GUARD)
     parts.append(GROK_NEG)
     return " ".join(parts)
 
@@ -280,15 +339,29 @@ def slug(s):
     s = re.sub(r"[^a-zA-Z0-9]+", "-", s.lower()).strip("-")
     return (s[:50] or "projeto") + "-" + time.strftime("%Y%m%d-%H%M%S")
 
+# Regras de clique (PADRAO_VIDEOS.md, secao Titulo/Escolha de tema), tiradas de ~2.000 videos do nicho (17/10/2026)
+CLICK_RULES = (
+    "CLICK RULES (from data on ~2,000 niche videos): the title sells a STORY, not a topic. "
+    "NEVER use the news-headline format 'Company: How X happened' and do NOT start the title with the company name. "
+    "Hide the company/person name in at least 6 of the 8 titles (the name goes in the description and on the thumbnail logo); curiosity about WHO it is drives the click. "
+    "Use one of these proven formulas per title: "
+    "(A) CHARACTER + EXACT AMOUNT + CONTRADICTION, e.g. 'The $63 BILLION Company That Sold Nothing', 'The Fake Genius: a $30 BILLION Fraud', 'The Homeless Teen Who Created Louis Vuitton', 'Hunting the $477,000,000 FTX Hacker'; "
+    "(B) DIRECT, INFORMAL QUESTION with 'Actually', e.g. 'WTF Did Lehman Brothers Actually Do?', 'How Jeff Bezos Actually Built Amazon'; "
+    "(C) PROMISE OF CLARITY, e.g. 'The 2008 Crisis Explained Simply'. "
+    "Write big amounts in caps or full digits ($11.6 BILLION, $477,000,000) and ONLY when factual and well known; never invent numbers. "
+    "Max 60 characters. The title must be honest: the video must pay off its promise in the first 15 seconds. ")
+
 def suggest_titles(p):
-    sys = ("You are a YouTube strategist for faceless long-form documentary channels in the Business & Finance niche "
+    sys = ("You are a YouTube packaging strategist for faceless long-form documentary channels in the Business & Finance niche "
            "(fraud and scams, rise and fall of companies, the dark truth about empires, billionaires, history of money). Reply only in JSON.")
     u = (f"Niche: {p.get('niche')}\nLanguage of the titles: {p.get('language')}\nTheme/idea: {p.get('theme')}\n"
-         "Suggest 8 titles for an 8-15 minute video, in that language, using proven formulas such as: "
-         "'The Dark Truth About X', 'Why X Is Collapsing', 'Why X Owns EVERYTHING', 'Exposing $X ...', "
-         "'The Rise and Fall of X', 'How X Turned Down $Y and Died'. Use specific dollar figures ONLY when they are factual and well known; "
-         "never invent numbers. Titles must be honest about the content.\n"
-         'JSON: {"titles":[{"title":"...","hook":"ângulo do vídeo em português (1 frase)","why":"por que retém, em português (1 frase)","formula":"formula used"}]}')
+         "Suggest 8 titles for a 10-16 minute video, in that language.\n" + CLICK_RULES +
+         "Also rate the topic's search DEMAND for a brand-new channel: 'alta' for famous evergreen stories people keep searching for years "
+         "(Enron, Theranos, Madoff, 2008, FTX, Wolf of Wall Street), 'media' for known but niche stories, 'baixa' for little-known recent cases. "
+         "For each title give a thumbnail text of 2-4 words that COMPLEMENTS the title without repeating its words (e.g. title 'The $63 BILLION Company That Sold Nothing' -> thumbnail 'ALL FAKE'). "
+         "Suggest one recurring SERIES name the channel could use for this kind of video.\n"
+         'JSON: {"demand":"alta|media|baixa","demand_why":"em português (1 frase)","series":"...","titles":[{"title":"...","thumb_text":"2-4 WORDS",'
+         '"hook":"ângulo do vídeo em português (1 frase)","why":"por que gera clique, em português (1 frase)","formula":"A|B|C"}]}')
     return chat_json(sys, u, 3000)
 
 STORY_STANDARD = (
@@ -297,7 +370,8 @@ STORY_STANDARD = (
     "(3) rising conflict and tension with open loops ('but', 'what nobody knew yet', 'that was only the beginning'); "
     "(4) a clear 3-act structure (setup / unraveling / reckoning) mapped onto 6-10 chapters; "
     "(5) emotional authenticity through affected people (employees, creditors, investors, customers) based on reported facts, never sensational; "
-    "(6) show-don't-tell: every visual_prompt must literally match its narration, varied shot types (wide, close-up, macro, aerial, tracking) so consecutive scenes never look alike. "
+    "(6) show-don't-tell: every visual_prompt must literally match and EXPLAIN its narration, varied shot types (wide, close-up, macro, aerial, tracking) so consecutive scenes never look alike; "
+    "for abstract finance ideas (leverage, debt, funds moving, who owed whom) show a concrete physical metaphor or put the numbers in a gfx, never 'someone looking at screens or documents'. "
     "LEGAL: anyone charged but not convicted is presumed innocent: attribute every accusation ('prosecutors allege', 'according to the indictment', 'the company said'); never state guilt; "
     "include one explicit presumption-of-innocence line; report denials and not-guilty pleas. ")
 GFX_SPEC = (
@@ -329,6 +403,8 @@ def write_script(p):
            "NEVER invent sources, URLs, quotes or numbers. Only give a URL if you are confident it exists; otherwise set url to \"verificar\". "
            "Set needs_check=true on any scene whose claims (figures, dates, quotes, allegations) must be verified. Reply only in JSON (a single json object).")
     u = (f"Title: {p.get('title')}\nNiche: {p.get('niche')}\nLanguage of the narration: {p.get('language')}\n"
+         "Keep the title EXACTLY as given (it was chosen for click-through); return it unchanged in the json. "
+         "The first 15 seconds of narration must deliver on the title's curiosity promise (if the title hides who it is, reveal or tease it right away). "
          f"Target length: {mins} minutes (~{words} words of narration in total).\n"
          + (f"Angle / editorial brief: {p.get('theme')}\n" if p.get("theme") else "")
          + (f"Verified facts you may use (with sources). Prefer these; do not contradict them; cite the given URLs in sources:\n{p.get('facts')}\n" if p.get("facts") else "")
@@ -336,7 +412,8 @@ def write_script(p):
          "Write a documentary narration split into scenes of 1-3 sentences (6-10 seconds each). "
          + STORY_STANDARD +
          "Strong hook in the first 30 seconds, clear story arc, retention beats (open loops, reveals) spread through the video, ending with a call to subscribe. "
-         "For each scene: narration in the narration language; visual_prompt IN ENGLISH: a concrete, detailed visual description (subject, setting, camera angle, lighting, mood; 25-50 words) faithful to that scene's narration "
+         "For each scene: narration in the narration language; visual_prompt IN ENGLISH: a concrete, detailed visual description (ONE clear subject doing ONE visible action, setting and era, camera angle, lighting, mood; 25-50 words) faithful to that scene's narration; "
+         "the meaning must read from objects, action and light, never from readable text, charts on screens, calendars or documents "
          "(no real person likeness, no logos or trademarks, no on-screen text); key_facts (list of factual claims in the scene); "
          "sources (list of {title, url}); needs_check (boolean); chapter (short chapter title, set ONLY on the first scene of each chapter, else empty); "
          "gfx (list of on-screen graphics specs for this scene, see GRAPHICS below; [] when none).\n" + GFX_SPEC + "\n"
@@ -398,6 +475,12 @@ def auto_start(pid, scenes=None, concurrency=None):
     if pr and pr.poll() is None:
         raise ApiError("A geração automática já está rodando neste projeto.")
     conc = int(concurrency or pricing().get("grok_auto_concurrency", 2))
+    with LOCK:  # cenas ainda sem midia usam o modelo de prompt atual (as prontas guardam o prompt com que foram geradas)
+        d = load_project(pid); cfg = pricing(); pdir = PROJECTS / pid
+        for sc in d.get("scenes") or []:
+            if not (sc.get("file") and (pdir / sc["file"]).is_file()):
+                sc["grok_prompt"] = build_grok_prompt(sc, cfg)
+        proj_path(pid).write_text(json.dumps(d, ensure_ascii=False, indent=2), encoding="utf-8")
     args = [_venv_py(), str(Path(__file__).resolve().parent / "grok_worker.py"), pid, "--concurrency", str(conc)]
     if scenes:
         args += ["--scenes", ",".join(str(int(i)) for i in scenes)]
@@ -739,7 +822,7 @@ class H(BaseHTTPRequestHandler):
                     d = json.loads(f.read_text(encoding="utf-8"))
                     st = project_stages(d)
                     items.append({"id": d["id"], "title": d.get("title"), "language": d.get("language"), "updated_at": d.get("updated_at"),
-                                  "status": decorate(dict(d))["status"], "scheduled_at": d.get("scheduled_at"), "published_url": d.get("published_url"), "cover": project_cover(d),
+                                  "status": decorate(dict(d)).get("status") or "rascunho", "scheduled_at": d.get("scheduled_at"), "published_url": d.get("published_url"), "cover": project_cover(d),
                                   "stages_done": sum(st.values()), "stages": st, "yt": {k: (yt_cached(d["id"]) or {}).get(k) for k in ("views", "likes", "comments", "fetched_at")}})
                 except Exception:
                     pass

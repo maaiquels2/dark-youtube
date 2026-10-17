@@ -1,0 +1,138 @@
+{
+ "svb": [
+  {
+   "name": "Greg Becker",
+   "kind": "person",
+   "role": "Former SVB CEO",
+   "_t": {
+    "photo": "File:Opening remarks by Greg Becker at Global Entrepreneurship Summit 2016 welcome reception.jpg"
+   }
+  },
+  {
+   "name": "Jerome Powell",
+   "kind": "person",
+   "role": "Federal Reserve Chair",
+   "_t": {
+    "photo": "File:Jerome H. Powell, Federal Reserve Chair (cropped).jpg"
+   }
+  },
+  {
+   "name": "Janet Yellen",
+   "kind": "person",
+   "role": "Treasury Secretary (2021-2025)",
+   "_t": {
+    "photo": "File:Secretary Janet Yellen portrait (cropped).jpg"
+   }
+  },
+  {
+   "name": "Martin Gruenberg",
+   "kind": "person",
+   "role": "FDIC Chairman",
+   "_t": {
+    "photo": "File:Martin Gruenberg Portrait.jpg"
+   }
+  },
+  {
+   "name": "Michael S. Barr",
+   "kind": "person",
+   "role": "Fed Vice Chair for Supervision",
+   "_t": {
+    "photo": "File:Michael S. Barr, Federal Reserve Member.jpg"
+   },
+   "aliases": [
+    "Michael Barr"
+   ]
+  },
+  {
+   "name": "Silicon Valley Bank",
+   "kind": "company",
+   "role": "Startup bank, Santa Clara, Calif.",
+   "_t": {
+    "hq_photo": "File:3003 West Tasman Drive entrance, Santa Clara, California.jpg"
+   },
+   "aliases": [
+    "SVB"
+   ]
+  },
+  {
+   "name": "Signature Bank",
+   "kind": "company",
+   "role": "New York bank, failed Mar 12 2023",
+   "_t": {
+    "hq_photo": "File:Signature bank storefront (39th & Madison).png"
+   }
+  },
+  {
+   "name": "First Citizens Bank",
+   "kind": "company",
+   "role": "Acquired SVB deposits and loans",
+   "_t": {
+    "hq_photo": "File:First Citizens Bank (50784933857).jpg"
+   },
+   "aliases": [
+    "First Citizens"
+   ]
+  }
+ ],
+ "lehman": [
+  {
+   "name": "Richard S. Fuld Jr.",
+   "kind": "person",
+   "role": "Lehman CEO 1994-2008",
+   "_t": {
+    "photo": "File:Richard S. Fuld, Jr. at World Resources Institute forum (cropped).jpg"
+   },
+   "aliases": [
+    "Richard Fuld",
+    "Dick Fuld",
+    "Fuld"
+   ]
+  },
+  {
+   "name": "Henry Paulson",
+   "kind": "person",
+   "role": "U.S. Treasury Secretary 2006-2009",
+   "_t": {
+    "photo": "File:Henry Paulson official Treasury photo, 2006 (cropped).jpg"
+   },
+   "aliases": [
+    "Hank Paulson",
+    "Paulson"
+   ]
+  },
+  {
+   "name": "Timothy Geithner",
+   "kind": "person",
+   "role": "President, New York Fed (2008)",
+   "_t": {
+    "photo": "File:Timothy Geithner official portrait.jpg"
+   },
+   "aliases": [
+    "Geithner"
+   ]
+  },
+  {
+   "name": "Ben Bernanke",
+   "kind": "person",
+   "role": "Federal Reserve Chair (2008)",
+   "_t": {
+    "photo": "File:Ben Bernanke official portrait (cropped).jpg"
+   },
+   "aliases": [
+    "Bernanke"
+   ]
+  },
+  {
+   "name": "Lehman Brothers Holdings Inc.",
+   "kind": "company",
+   "role": "Fourth-largest U.S. investment bank",
+   "_t": {
+    "hq_photo": "File:Lehman Brothers Times Square by David Shankbone.jpg"
+   },
+   "aliases": [
+    "Lehman Brothers",
+    "Lehman"
+   ]
+  }
+ ]
+}

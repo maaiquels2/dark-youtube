@@ -18,7 +18,8 @@ def F(kind, size):
     spec = {"serif": ("Playfair-VF.ttf", "Bold"), "serifx": ("Playfair-VF.ttf", "Black"), "serifr": ("Playfair-VF.ttf", "Regular"),
             "sans": ("Inter-VF.ttf", "Regular"), "sansb": ("Inter-VF.ttf", "Bold"), "sansm": ("Inter-VF.ttf", "SemiBold"),
             "type": ("CourierPrime-Regular.ttf", None), "typeb": ("CourierPrime-Bold.ttf", None),
-            "hand": ("Caveat-VF.ttf", "Bold"), "cond": ("BebasNeue-Regular.ttf", None)}[kind]
+            "hand": ("Caveat-VF.ttf", "Bold"), "cond": ("BebasNeue-Regular.ttf", None),
+            "num": ("Inter-VF.ttf", "ExtraBold"), "numm": ("Inter-VF.ttf", "SemiBold")}[kind]
     try:
         f = ImageFont.truetype(str(FD / spec[0]), size)
         if spec[1]: f.set_variation_by_name(spec[1])
@@ -27,6 +28,47 @@ def F(kind, size):
     _FC[k] = f; return f
 tw = G.tw
 def wrap(d, s, f, mw): return G.wrap(d, s, f, mw)
+
+# ---------- tipografia (ver PADRAO_VIDEOS.md > Fontes e tipografia) ----------
+# Sistema: Inter (texto, rotulos, numeros) + Playfair Display (titulos). Courier Prime, Caveat e Bebas Neue so dentro de
+# objetos de cena (documento datilografado, anotacao a mao, carimbo). Hierarquia em 1080p: titulo 132/96/76, subtitulo 48-60,
+# texto 30-38, rotulo 24-30, credito >= 16. Sem libraqm o PIL nao liga recursos OpenType (tnum/lnum): os numeros sao
+# desenhados em celulas de largura fixa (algarismos tabulares, nao "dancam" nos contadores) e com a Inter, que tem algarismos
+# alinhados (a Playfair usa algarismos de estilo antigo, que sobem e descem: bonitos em texto, ruins em valores grandes).
+DIGITS = "0123456789"
+def _cell(font): return max(font.getlength(c) for c in DIGITS)
+
+def text_w(text, font, tabular=False, tracking=0.0):
+    text = str(text)
+    if not tabular and not tracking: return font.getlength(text)
+    cw = _cell(font) if tabular else 0; tr = tracking * font.size
+    return sum((cw if tabular and c in DIGITS else font.getlength(c)) + tr for c in text) - (tr if text else 0)
+
+def draw_text(d, xy, text, font, fill, tabular=False, tracking=0.0):
+    """Texto com algarismos tabulares e/ou espacamento entre letras (tracking em em, ex.: 0.08 para rotulos em caixa alta)."""
+    text = str(text); x, y = xy
+    if not tabular and not tracking: d.text((x, y), text, font=font, fill=fill); return
+    cw = _cell(font) if tabular else 0; tr = tracking * font.size
+    for c in text:
+        if tabular and c in DIGITS:
+            d.text((x + (cw - font.getlength(c)) / 2, y), c, font=font, fill=fill); x += cw + tr
+        else:
+            d.text((x, y), c, font=font, fill=fill); x += font.getlength(c) + tr
+
+def wrap_balanced(d, s, f, mw):
+    """Mesmo numero de linhas do wrap normal, mas com linhas de tamanho parecido (evita palavra sozinha na ultima linha)."""
+    lines = wrap(d, s, f, mw)
+    if len(lines) < 2: return lines
+    lo, hi = mw * 0.4, mw
+    while hi - lo > 4:
+        mid = (lo + hi) / 2
+        if len(wrap(d, s, f, mid)) <= len(lines): hi = mid
+        else: lo = mid
+    return wrap(d, s, f, hi)
+
+def fit(text, kind, size, maxw, tabular=False, tracking=0.0, step=2, minimum=18):
+    while size > minimum and text_w(text, F(kind, size), tabular, tracking) > maxw: size -= step
+    return F(kind, size)
 
 # ---------- texturas ----------
 def _noise(w, h, scale=1, blur=0, seed=None):
@@ -99,18 +141,20 @@ def place(dst, src, cx, cy, angle=0, shadow=18, glow=None):
 def tape(w=150, h=44, seed=1):
     t = Image.new("RGBA", (w, h), (236, 228, 196, 150)); t = torn(t, 4, seed, "lr"); return t
 
-def glow_text(dst, xy, text, font, fill, glow=None, radius=18):
+def glow_text(dst, xy, text, font, fill, glow=None, radius=18, tabular=False, tracking=0.0):
     if glow:
-        lay = Image.new("RGBA", dst.size, (0, 0, 0, 0)); ImageDraw.Draw(lay).text(xy, text, font=font, fill=glow + (220,))
+        lay = Image.new("RGBA", dst.size, (0, 0, 0, 0)); draw_text(ImageDraw.Draw(lay), xy, text, font, glow + (220,), tabular, tracking)
         dst.alpha_composite(lay.filter(ImageFilter.GaussianBlur(radius)))
-    ImageDraw.Draw(dst).text(xy, text, font=font, fill=fill)
+    draw_text(ImageDraw.Draw(dst), xy, text, font, fill, tabular, tracking)
 
 def kicker(d, text, x=120, y=96, color=AMBER):
     d.line([(x, y + 22), (x + 60, y + 22)], fill=color, width=3)
-    d.text((x + 76, y), str(text).upper(), font=F("sansb", 30), fill=color)
+    draw_text(d, (x + 76, y), str(text).upper(), F("sansb", 30), color, tracking=0.08)
 
-def source(d, src, x=120, y=H - 66, fill=(190, 184, 172)):
-    if src: d.text((x, y), "SOURCE  ·  " + str(src), font=F("sansm", 24), fill=fill)
+def source(d, src, x=120, y=H - 96, fill=(196, 190, 178)):
+    if not src: return  # acima de 5% da borda (area segura de titulo); a barra do YouTube cobre o rodape
+    f = F("sansb", 24); draw_text(d, (x, y), "SOURCE", f, fill, tracking=0.1); x += text_w("SOURCE", f, tracking=0.1) + 18
+    d.text((x, y), "·  " + str(src), font=F("sansm", 24), fill=fill)
 
 def _photo_frame(path, w, h, kind="polaroid", caption=None, seed=2):
     ph = G._cover(path, w, h)
@@ -127,9 +171,9 @@ def r_chapter(s):
     im = backdrop(11, leak=AMBER).convert("RGBA"); d = ImageDraw.Draw(im)
     n = s.get("number")
     if n:
-        lab = f"CHAPTER {n}"; f = F("cond", 64); d.text((W // 2 - tw(d, lab, f) // 2, 330), lab, font=f, fill=AMBER)
+        lab = f"CHAPTER {n}"; f = F("sansm", 40); draw_text(d, (W // 2 - text_w(lab, f, True, 0.2) / 2, 340), lab, f, AMBER, True, 0.2)
     f = F("serifx", 132); y = 420
-    for l in wrap(d, s.get("title", ""), f, 1560)[:3]:
+    for l in wrap_balanced(d, s.get("title", ""), f, 1560)[:3]:
         glow_text(im, (W // 2 - tw(d, l, f) // 2, y), l, f, WHITE, (0, 0, 0), 24); y += 156
     d.line([(W // 2 - 90, y + 30), (W // 2 + 90, y + 30)], fill=RED, width=4)
     return grain(im.convert("RGB"), 10)
@@ -143,8 +187,8 @@ def r_timeline(s):
         sd.rounded_rectangle([x, 16, x + 18, 40], radius=4, fill=(60, 56, 50)); sd.rounded_rectangle([x, sh + 80, x + 18, sh + 104], radius=4, fill=(60, 56, 50))
     for i, e in enumerate(ev):
         x0 = 40 + i * (fw + 24); fr = paper(fw, sh, (226, 214, 188) if i != hl else (248, 216, 150), 20 + i, 0.7)
-        fd = ImageDraw.Draw(fr); fdt = F("cond", 58 if len(e.get("date", "")) < 14 else 48)
-        fd.text((22, 26), e.get("date", ""), font=fdt, fill=RED if i == hl else INK)
+        fd = ImageDraw.Draw(fr); dt = e.get("date", ""); fdt = fit(dt, "num", 44, fw - 44, True)
+        draw_text(fd, (22, 34), dt, fdt, RED if i == hl else INK, tabular=True)
         fd.line([(22, 100), (fw - 22, 100)], fill=(120, 100, 80), width=2)
         yy = 120
         for l in wrap(fd, e.get("label", ""), F("sansm", 32), fw - 44)[:4]: fd.text((22, yy), l, font=F("sansm", 32), fill=INK); yy += 42
@@ -156,14 +200,14 @@ def r_timeline(s):
 def r_chart(s):
     im = backdrop(17).convert("RGBA"); d = ImageDraw.Draw(im); kicker(d, s.get("title", ""))
     ser = (s.get("series") or [])[:7]; hl = s.get("highlight", -1); unit = s.get("unit", "")
-    mx = max([float(x.get("value") or 0) for x in ser] + [1]); bw = min(200, (W - 400) // max(1, len(ser)) - 40); base = 900
+    mx = max([float(x.get("value") or 0) for x in ser] + [1]); bw = min(200, (W - 400) // max(1, len(ser)) - 40); base = 870  # rotulos acabam antes da linha de fonte
     for i, x in enumerate(ser):
         v = float(x.get("value") or 0); h = int(560 * v / mx); x0 = 240 + i * (bw + 50)
         col = RED if i == hl else TEAL
         bar = Image.new("RGBA", (bw, max(4, h)), col + (235,)); bar = grain(bar.convert("RGB"), 12).convert("RGBA")
         place(im, bar, x0 + bw // 2, base - h // 2, 0, 14, col if i == hl else None)
-        val = G._fmt(v, unit) if hasattr(G, "_fmt") else str(v); fv = F("serif", 54)
-        d.text((x0 + bw // 2 - tw(d, val, fv) // 2, base - h - 74), val, font=fv, fill=WHITE)
+        val = G._fmt(v, unit) if hasattr(G, "_fmt") else str(v); fv = fit(val, "num", 54, bw + 40, True)
+        draw_text(d, (x0 + bw // 2 - text_w(val, fv, True) / 2, base - h - 74), val, fv, WHITE, tabular=True)
         for k, l in enumerate(wrap(d, x.get("label", ""), F("sansm", 26), bw + 40)[:2]):
             d.text((x0 + bw // 2 - tw(d, l, F("sansm", 26)) // 2, base + 18 + k * 32), l, font=F("sansm", 26), fill=MUTED)
     d.line([(200, base), (W - 200, base)], fill=(120, 116, 108), width=2)
@@ -248,8 +292,8 @@ def r_relmap(s, ents=None):
 
 def r_scale(s):
     im = backdrop(31, leak=RED).convert("RGBA"); d = ImageDraw.Draw(im); kicker(d, s.get("title", "Putting it in perspective"))
-    amt = str(s.get("amount", "")); f = F("serifx", 200 if len(amt) < 10 else 150)
-    glow_text(im, (W // 2 - tw(d, amt, f) // 2, 250), amt, f, (250, 214, 120), AMBER, 30)
+    amt = str(s.get("amount", "")); f = fit(amt, "num", 200, W - 2 * 192, True)
+    glow_text(im, (W // 2 - text_w(amt, f, True) / 2, 250), amt, f, (250, 214, 120), AMBER, 30, tabular=True)
     fc = F("sansm", 50); y = 560
     for l in wrap(d, s.get("comparison", ""), fc, 1440)[:3]: d.text((W // 2 - tw(d, l, fc) // 2, y), l, font=fc, fill=WHITE); y += 68
     source(d, s.get("source")); return grain(im.convert("RGB"), 8)
@@ -340,15 +384,14 @@ def o_entity(im, s, ents, y0=70):
 
 def o_callout(im, s, k=0, top=120):
     t = str(s.get("text", "")); loss = s.get("tone") == "loss" or any(w in t.lower() for w in ("loss", "liabilit", "debt", "owed", "exposure"))
-    d = ImageDraw.Draw(im); sz = 92
-    while sz > 44 and tw(d, t, F("serifx", sz)) > 1150: sz -= 6
-    f = F("serifx", sz); w = tw(d, t, f) + 80; x1 = W - 70; y0 = top + k * 190
-    if y0 + 170 > H - 110: x1 = 70 + w; y0 = 160 + (k % 3) * 190
+    d = ImageDraw.Draw(im); f = fit(t, "num", 88, 1150, True, step=4, minimum=44)
+    w = int(text_w(t, f, True)) + 80; x1 = W - 100; y0 = top + k * 190  # margem direita >= 5%
+    if y0 + 170 > H - 110: x1 = 100 + w; y0 = 160 + (k % 3) * 190
     col = (240, 96, 86) if loss else (250, 206, 110)
     plate = Image.new("RGBA", (w, 150), (10, 10, 12, 0)); pd = ImageDraw.Draw(plate)
     pd.rounded_rectangle([0, 0, w, 150], radius=10, fill=(12, 12, 14, 170))
     im.alpha_composite(plate.filter(ImageFilter.GaussianBlur(3)), (x1 - w, y0))
-    glow_text(im, (x1 - w + 40, y0 + 10), t, f, col, RED if loss else AMBER, 20)
+    glow_text(im, (x1 - w + 40, y0 + 75 - f.size * 0.62), t, f, col, RED if loss else AMBER, 20, tabular=True)
     d.line([(x1 - w + 40, y0 + 132), (x1 - 40, y0 + 132)], fill=col, width=3)
     if s.get("source"): o_citation(im, {"text": s["source"]})
 
@@ -361,9 +404,9 @@ def o_parties(im, s):
         place(im, tg, 96 + w // 2, y + 36, [-1.5, 1, -0.5, 1.5, -1][i], 12); y += 92
 
 def o_citation(im, s):
-    d = ImageDraw.Draw(im); t = "SOURCE · " + str(s.get("text", "")); f = F("type", 24); w = tw(d, t, f) + 36
-    strip = paper(w, 44, (230, 222, 200), 77, 0.4); ImageDraw.Draw(strip).text((18, 9), t, font=f, fill=(40, 34, 28))
-    im.alpha_composite(torn(strip, 3, 5, "lr"), (W - 60 - w, H - 84))
+    d = ImageDraw.Draw(im); t = "SOURCE · " + str(s.get("text", "")); f = F("sansm", 24); w = tw(d, t, f) + 36
+    strip = paper(w, 44, (230, 222, 200), 77, 0.4); ImageDraw.Draw(strip).text((18, 8), t, font=f, fill=(40, 34, 28))
+    im.alpha_composite(torn(strip, 3, 5, "lr"), (W - 100 - w, H - 112))
 
 def o_lower_third(im, s, photos):
     d = ImageDraw.Draw(im); name, role = s.get("name", ""), s.get("role", "")

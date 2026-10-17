@@ -1,3 +1,4 @@
+let TITLES_META={};
 const I={
  ideia:'<path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-4 10.5c.7.7 1 1.5 1 2.5h6c0-1 .3-1.8 1-2.5A6 6 0 0 0 12 3z"/>',
  roteiro:'<path d="M14 3H6a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V8z"/><path d="M14 3v5h5M8 13h8M8 17h5"/>',
@@ -44,11 +45,20 @@ function form(){return{niche:$("niche").value.trim(),language:$("language").valu
 function fill(){["niche","language","theme","minutes","title"].forEach(k=>{if(P[k]!=null)$(k).value=P[k]});}
 
 function emptyTitles(){$("titles").innerHTML=`<div class="empty"><div class="ill">${svg("spark")}</div><b>Nenhuma sugestão ainda</b><p>Preencha nicho, língua e tema e clique em “Sugerir títulos”. As opções aparecem aqui para você escolher.</p></div>`;$("titlesCount").textContent="";}
+/* Regras de clique (PADRAO_VIDEOS.md): avisa quando o titulo foge do padrao */
+function titleWarn(t){const w=[],s=(t||"").trim();if(!s)return w;
+ if(s.length>60)w.push(`${s.length} caracteres (máx. 60)`);
+ if(/^[^:]{2,40}:\s/.test(s)&&!/^the\b/i.test(s))w.push("formato manchete “Nome: …”");
+ if(/^(the )?rise and fall/i.test(s))w.push("“rise and fall” é título de assunto, não de história");
+ return w;}
+const FORMULA={A:"Personagem + valor + contradição",B:"Pergunta com “Actually”",C:"Explicado de forma simples"};
 function renderTitles(){if(!TITLES.length)return emptyTitles();$("titlesCount").textContent=`${TITLES.length} opções`;
- $("titles").innerHTML=TITLES.map((t,i)=>`<div class="title-opt${P.title==t.title?" sel":""}" onclick="pick(${i})"><div class="n">${i+1}</div><div><b>${esc(t.title)}</b><p>${esc(t.hook)}</p>${t.why?`<p class="why">${svg("check")}${esc(t.why)}</p>`:""}${t.formula?`<span class="chip sm">${esc(t.formula)}</span>`:""}</div><span class="go">${svg("arrow")}</span></div>`).join("");}
+ const M=TITLES_META||{},dem={alta:"Procura alta",media:"Procura média",baixa:"Procura baixa (tema pouco buscado)"}[M.demand]||"";
+ const head=(dem||M.series)?`<div class="card" style="margin-bottom:10px">${dem?`<p><b>${esc(dem)}</b>${M.demand_why?` · ${esc(M.demand_why)}`:""}</p>`:""}${M.series?`<p class="muted">Série sugerida: <b>${esc(M.series)}</b></p>`:""}</div>`:"";
+ $("titles").innerHTML=head+TITLES.map((t,i)=>{const w=titleWarn(t.title);return `<div class="title-opt${P.title==t.title?" sel":""}" onclick="pick(${i})"><div class="n">${i+1}</div><div><b>${esc(t.title)}</b><p>${esc(t.hook)}</p>${t.why?`<p class="why">${svg("check")}${esc(t.why)}</p>`:""}${t.formula?`<span class="chip sm">${esc(FORMULA[t.formula]||t.formula)}</span>`:""}${t.thumb_text?` <span class="chip sm">Capa: ${esc(t.thumb_text)}</span>`:""}${w.length?`<p class="why" style="color:#d9822b">⚠ ${esc(w.join(" · "))}</p>`:""}</div><span class="go">${svg("arrow")}</span></div>`}).join("");}
 async function titles(){const f=form();if(!f.niche&&!f.theme)return toast("Preencha pelo menos o nicho ou o tema.","err");
  const b=$("btnTitles");busy(b,true,"Gerando títulos...");$("titles").innerHTML='<div class="skel t"></div>'.repeat(5);
- try{TITLES=(await api("/api/titles",f)).titles||[];Object.assign(P,f);renderTitles();}catch(e){toast(e.message,"err");renderTitles();}finally{busy(b,false)}}
+ try{const R=await api("/api/titles",f);TITLES=R.titles||[];TITLES_META={demand:R.demand,demand_why:R.demand_why,series:R.series};Object.assign(P,f);renderTitles();}catch(e){toast(e.message,"err");renderTitles();}finally{busy(b,false)}}
 function pick(i){Object.assign(P,form(),{title:TITLES[i].title});$("title").value=P.title;dirty();go("roteiro");toast("Título escolhido. Agora gere o roteiro.");}
 
 function renderScenes(){renderOverview();const n=P.scenes.length,w=P.scenes.reduce((a,s)=>a+words(s.narration),0);
@@ -72,7 +82,7 @@ function edit(i,k,el){P.scenes[i][k]=el.value;if(k=="visual_prompt"||k=="narrati
 function dirty(){$("savebar").classList.remove("saved");$("saveState").textContent="Alterações não salvas";}
 async function script(){const t=$("title").value.trim();if(!t)return toast("Defina um título primeiro.","err");
  const b=$("btnScript");busy(b,true,"Escrevendo roteiro...");$("scenes").innerHTML='<div class="skel s"></div>'.repeat(3);$("stats").innerHTML="";
- try{const d=await api("/api/script",{...form(),...pickForm(),title:t});Object.assign(P,{title:d.title||t,description:d.description,hook:d.hook,retention_beats:d.retention_beats||[],scenes:(d.scenes||[]).map(s=>({...s,reviewed:false}))});$("title").value=P.title;renderScenes();dirty();toast(`Roteiro gerado com ${P.scenes.length} cenas.`);}
+ try{const d=await api("/api/script",{...form(),...pickForm(),title:t});Object.assign(P,{title:t||d.title,description:d.description,hook:d.hook,retention_beats:d.retention_beats||[],scenes:(d.scenes||[]).map(s=>({...s,reviewed:false}))});$("title").value=P.title;renderScenes();dirty();toast(`Roteiro gerado com ${P.scenes.length} cenas.`);}
  catch(e){toast(e.message,"err");renderScenes();}finally{busy(b,false)}}
 function pickForm(){return{niche:P.niche||form().niche,language:P.language||form().language,minutes:P.minutes||form().minutes};}
 async function save(){P.title=$("title").value.trim()||P.title;try{P=await api("/api/save",P);$("savebar").classList.add("saved");$("saveState").textContent="Salvo às "+new Date().toLocaleTimeString("pt-BR",{hour:"2-digit",minute:"2-digit"});toast("Projeto salvo.");renderNav();}catch(e){toast(e.message,"err")}}
@@ -156,16 +166,40 @@ function preset(i,el){document.querySelectorAll(".preset").forEach(b=>b.classLis
  $("keyStatus").innerHTML=s.has_key?`<i class="dot done"></i>OpenAI conectada · ${esc(s.model)}`:`<i class="dot" style="background:var(--warn)"></i>Chave OpenAI ausente`;}catch{}
  notice();emptyTitles();renderScenes();const h=location.hash.slice(1);if(h.startsWith("p=")){const [pid,v]=decodeURIComponent(h.slice(2)).split("|");openProj(pid).then(()=>{if(v){if(v=="cenas")VIEW="cenas";go(v)}});return;}go(STEPS.some(s=>s[0]==h)?h:"projetos");})();
 
-const GROK_STYLE="Style: dark cinematic documentary, moody low-key lighting with deep shadows and cold teal-and-amber contrast, volumetric haze, shallow depth of field, no letterbox bars, full-frame edge-to-edge image, subtle film grain, photorealistic, premium Netflix-style business documentary aesthetic.";
-const GROK_NEG="Avoid: no text, no captions, no watermark, no logos or trademarks, no real person likeness, no distorted faces or hands, no extra limbs, no cartoon look, no blur artifacts, no subtitles or quotes on screen, no letterbox or black bars.";
-function cleanSubject(vp){let t=(vp||"").trim().replace(/\b(dark\s+)?cinematic\s+16:9\s*/i,"").trim();t=t.replace(/,?\s*no logos?,?\s*(no text,?)?\s*(no identifiable people\.?)?\s*$/i,"").replace(/^[\s,.]+|[\s,.]+$/g,"");t=t.split(" | ")[0];return t?t[0].toUpperCase()+t.slice(1):"Atmospheric establishing shot that illustrates the narration";}
-function buildGrokPrompt(s){const narr=(s.narration||"").replace(/\s+/g," ").trim();const p=[`Subject: ${cleanSubject(s.visual_prompt)}.`];
- if(narr)p.push("Mood: tense, investigative business documentary atmosphere.");
- p.push("Composition: wide cinematic framing, strong leading lines, clear focal subject, rule of thirds.",GROK_STYLE);
- if(s.mode=="video"){const w=narr?narr.split(" ").length:0;const d=Math.min(15,Math.max(1,Math.ceil(Math.max(1,w/150*60))));
-  p.push(`Motion: slow cinematic camera movement (gentle dolly-in or slow parallax pan), subtle atmospheric motion (drifting haze, flickering lights), smooth and stable, no cuts. Duration: about ${d} seconds (max 15s), no audio.`,"Format: video, aspect ratio 16:9, 1920x1080, high resolution, ultra detailed.");}
+// espelho de app.build_grok_prompt (manter igual ao Python)
+const GROK_STYLE="Style: photorealistic cinematic documentary reconstruction, natural film look, subtle film grain, gentle volumetric haze, no letterbox bars, full-frame edge-to-edge image, premium business documentary aesthetic.";
+const GROK_NEG="Avoid: no text, no captions, no watermark, no logos, no emblems, no brand marks or trademarks, blank unbranded walls and screens, no real person likeness, no distorted faces or hands, no extra limbs, no cartoon look, no blur artifacts, no subtitles or quotes on screen, no letterbox or black bars.";
+const GROK_TEXT_GUARD="Papers, screens and signs are blank, blurred or turned away; people only from behind or in silhouette.";
+const ACT_LOOK={act1:["confident, prosperous momentum","warm golden key light, rich amber tones with soft teal accents, lively but controlled contrast"],
+ act2:["uneasy, investigative suspicion","cool blue-grey light, low-key contrast, deepening shadows, restrained teal palette"],
+ act3:["grave, heavy, human cost","hard light and deep shadows, desaturated cold palette with small red accents"],
+ after:["quiet, reflective aftermath","soft dawn or overcast light, muted desaturated palette, calm stillness"]};
+const DEFAULT_LOOK=["tense, investigative business documentary atmosphere","moody low-key lighting with deep shadows and cold teal-and-amber contrast"];
+const SHOT_COMPOSITION=[["over-the-shoulder","over-the-shoulder framing from behind an anonymous figure toward what they are looking at, focus on the object of attention"],
+ ["macro","macro detail, one object filling the frame, very shallow depth of field"],["close","close-up, one subject filling most of the frame, shallow depth of field, soft background"],
+ ["detail","detail shot, one object filling the frame, shallow depth of field"],["overhead","top-down overhead composition, clean graphic arrangement of objects, even focus"],
+ ["top-down","top-down overhead composition, clean graphic arrangement of objects, even focus"],["aerial","high aerial composition, clear geography and scale, deep focus"],
+ ["low-angle","low-angle composition looking up, conveying authority and scale"],["tracking","tracking shot following one subject through the space, subject held on a third"],
+ ["medium","medium shot, one subject and its immediate surroundings, clean separation from the background"],["wide","wide establishing composition, clear focal subject on a rule-of-thirds line, deep focus"]];
+function shotComposition(shot){const t=(shot||"").toLowerCase();const m=SHOT_COMPOSITION.find(([k])=>t.includes(k));return m?m[1]:"clear single focal subject, strong leading lines, rule of thirds";}
+const NEG_HEAD=/^\s*(?:and\s+|with\s+|while\s+)?(?:no\b|without\b|never\b|nothing\b|keep(?:ing)?\b|all\s+\w+\s+(?:remain|are|is|stay)|every\s+\w+\s+(?:remains?|is|stays?)|not\s+(?:a\s+)?(?:depict|represent|recreat))/i;
+const NEG_TOPIC=/logo|text|letter|label|sign|brand|readab|legib|likeness|identif|face|watermark|seal|flag|emblem|nameplate|placard|marking|caption|portrait|appearance|interface|numbers|figures|dates|recogni|trademark|badge|crest|inscription/i;
+function stripNegations(t){const i=t.indexOf("STRICT:");const head=i<0?t:t.slice(0,i),tail=i<0?"":t.slice(i);const out=[];
+ for(const sent of head.trim().split(/(?<=[.!?])\s+/)){const body=sent.replace(/[.!? ]+$/,"");const cl=[];let dropping=false;for(const c of body.split(/[,;]\s+/)){if(NEG_HEAD.test(c)&&NEG_TOPIC.test(c)){dropping=true;continue;}if(dropping&&c.split(/\s+/).length<=5&&(NEG_TOPIC.test(c)||/^\s*(or|nor)\b/i.test(c)))continue;dropping=false;cl.push(c);}if(cl.length)out.push(cl.join(", ").trim()+".");}
+ return (out.join(" ")+(tail?" "+tail:"")).trim();}
+function cleanSubject(vp){let t=(vp||"").trim().replace(/\b(dark\s+)?cinematic\s+16:9\s*/i,"").trim();t=t.replace(/,?\s*no logos?,?\s*(no text,?)?\s*(no identifiable people\.?)?\s*$/i,"").replace(/^[\s,.]+|[\s,.]+$/g,"");t=t.split(" | ")[0];if(t)t=stripNegations(t).replace(/^[\s,.]+|[\s,.]+$/g,"");return t?t[0].toUpperCase()+t.slice(1):"Atmospheric establishing shot that illustrates the narration";}
+function sent_(x){return String(x||"").replace(/\s+/g," ").trim().replace(/\.+$/,"")+".";}
+function buildGrokPrompt(s){const narr=(s.narration||"").replace(/\s+/g," ").trim();const [mood,look]=ACT_LOOK[s.act]||DEFAULT_LOOK;const p=[`Subject: ${sent_(cleanSubject(s.visual_prompt))}`];
+ if(typeof s.beat=="string"&&s.beat.trim())p.push(`Story beat: ${sent_(s.beat)}`);
+ if(s.mood)p.push(`Mood: ${sent_(s.mood)}`);else if(narr)p.push(`Mood: ${mood}.`);
+ if(s.camera&&s.mode!="video")p.push(`Camera: ${sent_(s.camera)}`);
+ p.push(`Composition: ${shotComposition(s.shot)}.`,`${GROK_STYLE} Light and color: ${look}.`);
+ if(s.mode=="video"){const w=narr?narr.split(" ").length:0;const d=Math.min(15,Math.max(1,Math.ceil(Math.max(1,w/150*60))));let mv;
+  if(s.camera){p.push(`Camera move: one continuous move only: ${sent_(s.camera)}`);mv="One simple, clearly visible subject action that completes within the clip, subtle atmospheric motion, realistic physics, no cuts, no morphing.";}
+  else mv="Motion: slow cinematic camera movement (gentle dolly-in or slow parallax pan), one simple subject action, subtle atmospheric motion (drifting haze, flickering lights), smooth and stable, no cuts, no morphing.";
+  p.push(`${mv} Duration: about ${d} seconds (max 15s), no audio.`,"Format: video, aspect ratio 16:9, 1920x1080, high resolution, ultra detailed.");}
  else p.push("Format: still image, aspect ratio 16:9, 1920x1080, high resolution, ultra detailed, sharp focus.");
- p.push(GROK_NEG);return p.join(" ");}
+ p.push(GROK_TEXT_GUARD,GROK_NEG);return p.join(" ");}
 async function copyPrompt(i){const t=buildGrokPrompt(P.scenes[i]);try{await navigator.clipboard.writeText(t);toast("Prompt completo copiado.");}catch{prompt("Copie o prompt:",t);}}
 
 let AUTO={},AUTOPOLL=null;
@@ -209,7 +243,7 @@ function renderMont(){const el=$("montPanel");if(!el)return;if(!P||!P.id){el.inn
   <div class="field logo-field"><label>Logo da empresa (opcional)</label>${(()=>{const lg=P.logo||{};return `<div class="row-inline">${lg.has?`<img class="logo-prev" src="/files/${encodeURIComponent(P.id)}/assets/logo.png?v=${Date.now()}" alt="logo">`:`<span class="muted">Nenhum logo</span>`}<label class="btn ghost sm upl">${lg.has?"Trocar PNG":"Enviar PNG"}<input type="file" accept="image/png" hidden onchange="montLogo(this.files[0])"></label></div>
    <label><input type="checkbox" id="mLogo" ${lg.enabled?"checked":""} onchange="logoSet('enabled',this.checked)"> Sobrepor logo (canto sup. esquerdo, ${lg.width_pct||9}% da largura, ${Math.round((lg.opacity||0.85)*100)}% opacidade) na abertura (${lg.intro_seconds||15}s) e em ${P.scenes.filter(s=>s.logo).length} cenas marcadas no Roteiro</label><label><input type="checkbox" ${lg.plate!==false?"checked":""} onchange="logoSet('plate',this.checked)"> Placa clara atrás do logo (arredondada, ~90% opacidade)</label>${lg.source?`<div class="muted sm">Fonte: <a href="${esc(lg.source)}" target="_blank" rel="noopener">${esc(lg.source)}</a> · ${esc(lg.license||"")}</div>`:""}`;})()}</div>
   <div class="field"><label>Motion graphics</label><div class="row-inline"><span class="muted">${P.scenes.filter(s=>(s.gfx||[]).length).length} cenas com gráficos · ${P.scenes.filter(s=>s.source=="gfx").length} telas cheias prontas</span><button class="btn ghost sm" onclick="gfxRender()">Gerar gráficos</button></div></div>
-  <div class="field"><label>Trilhas por ato (com ducking sob a narração)</label>${(P.music_tracks||[]).length?`<ul class="tracks">${P.music_tracks.map(t=>`<li><b>Cena ${t.from_scene}+</b> · ${esc(t.title||t.file)} <span class="muted">${esc(t.license||"")}</span></li>`).join("")}</ul>`:'<span class="muted">Nenhuma trilha por ato definida</span>'}</div>
+  <div class="field"><label>Trilha (música única, com ducking sob a narração; só a primeira é usada)</label>${(P.music_tracks||[]).length?`<ul class="tracks">${P.music_tracks.map(t=>`<li><b>Cena ${t.from_scene}+</b> · ${esc(t.title||t.file)} <span class="muted">${esc(t.license||"")}</span></li>`).join("")}</ul>`:'<span class="muted">Nenhuma trilha por ato definida</span>'}</div>
   <div class="field"><label><input type="checkbox" id="mBurn" ${c.burn_subtitles?"checked":""}> Queimar legendas no vídeo (padrão: só o arquivo .srt)</label></div>
   <div class="auto-btns">${run?`<button class="btn ghost danger" onclick="montStop()">Parar</button>`:`<button class="btn primary" onclick="montCfg().then(()=>montStart('all'))">Gerar narração e montar</button><button class="btn ghost" onclick="montCfg().then(()=>montStart('render'))">Só remontar vídeo</button>`}</div></div></div>
  ${st}
@@ -271,7 +305,7 @@ function renderStage(k){const el=$("st-"+k);if(!el||!P)return;let h="";
   <div class="card"><table class="dos">${S.map((s,i)=>`<tr><td class="d">#${i+1}<br><span class="chip">${esc(s.shot||"")}</span></td><td><b>${esc(s.beat||"")}</b><div class="muted">${esc(s.narration)}</div><div class="mono small">${esc(s.visual_prompt||"")}</div></td></tr>`).join("")}</table></div>`;}
  if(k=="validacao"){const V=P.validation;
   h=`<div class="card"><p class="muted">Cada nome, sigla e valor citado na narração precisa de um visual na mesma cena (cartão da entidade, logo, selo, foto, callout do valor). Lacunas bloqueiam o render.</p><button class="btn primary" id="stBtn" onclick="runStage('validate')">Validar e corrigir</button></div>`;
-  if(V){h+=`<div class="card"><div class="meta"><span class="chip ${V.ok?"ok":"err"}">${V.ok?"APROVADO · render liberado":"BLOQUEADO · "+V.gaps.length+" lacuna(s)"}</span><span class="chip">${V.mentions} menções</span><span class="chip">+${V.entity_cards_added} cartões de entidade</span><span class="chip">+${V.amount_callouts_added} callouts de valor</span>${(V.name_card_only||[]).length?`<span class="chip warn">só cartão com nome: ${esc(V.name_card_only.join(", "))}</span>`:""}</div></div>`;
+  if(V){h+=`<div class="card"><div class="meta"><span class="chip ${V.ok?"ok":"err"}">${V.ok?"APROVADO · render liberado":"BLOQUEADO · "+V.gaps.length+" lacuna(s)"}</span><span class="chip">${V.mentions} menções</span><span class="chip">+${V.entity_cards_added} cartões de entidade</span><span class="chip">+${V.amount_callouts_added} callouts de valor</span>${(V.name_card_only||[]).length?`<span class="chip warn">só cartão com nome: ${esc(V.name_card_only.join(", "))}</span>`:""}${(V.title_check||[]).length?`<span class="chip warn">título: ${esc(V.title_check.join(" · "))}</span>`:""}${(V.gfx_rules||[]).length?`<span class="chip warn" title="${esc(V.gfx_rules.map(x=>"cena "+x.scene).join(", "))}">${V.gfx_rules.length} gráfico(s) com uma barra só</span>`:""}${(V.gfx_hints||[]).length?`<span class="chip" title="${esc(V.gfx_hints.map(x=>"cena "+x.scene+": "+x.gfx+" - "+x.why).join(" | "))}">${V.gfx_hints.length} sugestão(ões) de gráfico</span>`:""}</div></div>`;
    if(V.gaps.length)h+=`<div class="card"><table class="dos">${V.gaps.map(g=>`<tr><td class="d">Cena ${g.scene}</td><td>${g.missing.map(m=>`<span class="chip err">${esc(m)}</span>`).join(" ")}<div class="muted">${esc(g.narration||"")}</div></td></tr>`).join("")}</table></div>`;}}
  el.innerHTML=h;}
 
