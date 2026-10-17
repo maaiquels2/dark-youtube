@@ -455,18 +455,17 @@ class Worker:
         return True
 
     async def flow_open(self, page):
-        """Abre o projeto do Flow deste video (um por projeto do Dark Studio, guardado em logs/flow_project.txt)."""
-        f = self.logs / "flow_project.txt"
-        url = f.read_text(encoding="utf-8").strip() if f.is_file() else ""
-        await page.goto(url or FLOW_HOME, wait_until="domcontentloaded", timeout=60000)
+        """Abre um projeto NOVO do Flow para esta cena: num projeto com videos antigos, um video antigo que
+        carregava depois do envio era salvo como se fosse o novo (cena 53 do Lehman)."""
+        await page.goto(FLOW_HOME, wait_until="domcontentloaded", timeout=60000)
         await page.wait_for_timeout(4000)
         if "accounts.google.com" in page.url:
             raise NeedsUser("login no Google Flow")
-        if "/project/" not in page.url:
-            await page.get_by_role("button", name=re.compile(r"Novo projeto|New project")).click(timeout=10000)
-            await page.wait_for_url(re.compile(r"/project/"), timeout=30000)
-            await page.wait_for_timeout(3000)
-            f.write_text(page.url, encoding="utf-8")
+        await page.get_by_role("button", name=re.compile(r"Novo projeto|New project")).click(timeout=10000)
+        await page.wait_for_url(re.compile(r"/project/"), timeout=30000)
+        await page.wait_for_timeout(3000)
+        if await page.locator("video").count():
+            raise RuntimeError("Flow: projeto novo ja tem videos")
         await page.get_by_role("textbox").first.wait_for(timeout=20000)
 
     async def flow_settings(self, page, dur):
