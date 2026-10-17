@@ -167,8 +167,8 @@ class Worker:
             f = sc.get("file")
             if f and (self.pdir / f).is_file():
                 continue
-            if any((x or {}).get("type") in ("timeline", "chart", "document", "quote", "relmap", "scale", "chapter", "headline") for x in (sc.get("gfx") or [])):
-                continue  # cena de grafico: gerada pelo gfx.py, nao pelo Grok
+            if any((x or {}).get("type") in ("timeline", "chart", "document", "quote", "relmap", "scale", "chapter", "headline", "photo", "entity_full", "moneyflow", "collapse") for x in (sc.get("gfx") or [])):
+                continue  # cena de grafico (inclui mapa do dinheiro e queda animada): gerada pelo gfx.py, nao pelo Grok
             prompt = sc.get("grok_prompt") or sc.get("visual_prompt")
             if prompt:
                 w = len((sc.get("narration") or "").split())

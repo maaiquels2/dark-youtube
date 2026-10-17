@@ -13,17 +13,24 @@ FULL = {"timeline", "chart", "document", "quote", "relmap", "scale", "chapter", 
 OVER = {"lower_third", "logo", "callout", "parties", "citation", "entity"}
 BG, PANEL, LINE = (11, 14, 20), (22, 27, 37), (52, 60, 76)
 WHITE, MUTED, RED, GOLD, TEAL = (245, 246, 248), (160, 168, 182), (229, 72, 77), (255, 214, 10), (56, 189, 199)
+_FD = Path(__file__).resolve().parent / "fonts"  # fontes OFL do projeto primeiro (licenca livre p/ uso comercial); Windows so de reserva
 _FONTS = {
-    "bold": ["C:/Windows/Fonts/arialbd.ttf", "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"],
-    "reg": ["C:/Windows/Fonts/arial.ttf", "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf"],
-    "impact": ["C:/Windows/Fonts/impact.ttf", "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"],
-    "serif": ["C:/Windows/Fonts/georgia.ttf", "/usr/share/fonts/truetype/dejavu/DejaVuSerif.ttf"],
-    "serifb": ["C:/Windows/Fonts/georgiab.ttf", "/usr/share/fonts/truetype/dejavu/DejaVuSerif-Bold.ttf"],
+    "bold": [(_FD / "Inter-VF.ttf", "Bold"), "C:/Windows/Fonts/arialbd.ttf", "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"],
+    "reg": [(_FD / "Inter-VF.ttf", "Regular"), "C:/Windows/Fonts/arial.ttf", "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf"],
+    "impact": [(_FD / "Anton-Regular.ttf", None), "C:/Windows/Fonts/impact.ttf", "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"],
+    "serif": [(_FD / "Playfair-VF.ttf", "Regular"), "C:/Windows/Fonts/georgia.ttf", "/usr/share/fonts/truetype/dejavu/DejaVuSerif.ttf"],
+    "serifb": [(_FD / "Playfair-VF.ttf", "Bold"), "C:/Windows/Fonts/georgiab.ttf", "/usr/share/fonts/truetype/dejavu/DejaVuSerif-Bold.ttf"],
 }
 def F(kind, size):
     for p in _FONTS[kind]:
+        p, var = p if isinstance(p, tuple) else (p, None)
         if Path(p).is_file():
-            return ImageFont.truetype(p, size)
+            try:
+                f = ImageFont.truetype(str(p), size)
+                if var: f.set_variation_by_name(var)
+                return f
+            except Exception:
+                continue
     return ImageFont.load_default()
 
 def tw(d, s, f):
@@ -92,7 +99,8 @@ def _fmt(v, unit):
     if unit in ("$B", "B"): return f"${v:,.1f}B".replace(".0B", "B")
     if unit in ("$M", "M"): return f"${v:,.0f}M"
     if unit == "%": return f"{v:g}%"
-    return f"{v:,g}{unit or ''}"
+    if str(unit).lower() in ("x", "times", "to 1", ":1"): return f"{v:,g}×"  # 31x -> 31×
+    return f"{v:,g} {unit}" if unit and str(unit)[:1].isalpha() and len(str(unit)) > 1 else f"{v:,g}{unit or ''}"
 
 def r_chart(s):
     im = background(); d = ImageDraw.Draw(im); kicker(d, s.get("title", ""))

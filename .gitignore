@@ -11,3 +11,21 @@ server.pid
 .venv/
 browser_profile/
 projects_archive/
+library/
+
+# local artifacts / one-off run outputs
+backups/
+output_progress/
+output_ui/
+output_yt/
+work/
+*.zip
+*.tar
+*.log
+*.err
+*.out
+*_id.txt
+fb_video_pick.txt
+*.mp4
+*.mp3
+*.wav
