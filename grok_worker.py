@@ -34,6 +34,25 @@ LIMIT_RE = re.compile(r"reached (your|the) (daily |usage )?limit|limit reached|r
                       r"upgrade to (supergrok|premium)", re.I)
 
 
+SLUG_SKIP = set("""a an the of in on at to for from with and or by as into onto over under before after between beside behind
+above below toward towards through across around while its their his her this that these those one two three is are was were be
+wide close closeup medium tight shot view interior exterior frame framed begin track glide smooth slow slowly ascending descending
+aerial move moves reveals revealing documentary reconstruction conceptual composition cinematic anonymous contemporary modern
+realistic scene image video camera subject inside outside seen viewed level dramatic soft warm cold golden light lighting
+reconstructed reconstruct during late early smoothly showing shows""".split())
+
+
+def slug(text, n=3):
+    """Resumo curto do prompt para o nome do arquivo: '03_warehouse_cash_tray'."""
+    out = []
+    for w in re.findall(r"[a-z]+", re.sub(r"^\s*subject:\s*", "", (text or "").lower())):
+        if len(w) > 2 and w not in SLUG_SKIP and w not in out:
+            out.append(w)
+            if len(out) == n:
+                break
+    return "_".join(out) or "scene"
+
+
 class NeedsUser(Exception):
     pass
 
@@ -159,6 +178,38 @@ class Worker:
                 except (OSError, json.JSONDecodeError):
                     await asyncio.sleep(0.5)
 
+    @staticmethod
+    def is_gfx(sc):
+        return any((x or {}).get("type") in ("timeline", "chart", "document", "quote", "relmap", "scale", "chapter", "headline", "photo", "entity_full", "moneyflow", "collapse") for x in (sc.get("gfx") or []))
+
+    def handoff(self):
+        """Entrega para a edicao/narracao: media/manifest.json, folha de quadros e media/PRONTO."""
+        d = self.load(); scenes, missing = [], []
+        for i, sc in enumerate(d.get("scenes") or []):
+            f = sc.get("file"); has = bool(f and (self.pdir / f).is_file())
+            src = "gfx" if self.is_gfx(sc) else "grok"
+            if src == "grok" and not has:
+                missing.append(i + 1)
+            scenes.append({"scene": i + 1, "source": src, "mode": sc.get("mode") or "image", "file": f if has else None,
+                           "narration": sc.get("narration") or "",
+                           "seconds": round(len((sc.get("narration") or "").split()) / 150 * 60, 1)})
+        man = {"project": self.pid, "title": d.get("title"), "created_at": time.strftime("%Y-%m-%d %H:%M:%S"),
+               "files_relative_to": f"projects/{self.pid}", "grok_missing": missing, "scenes": scenes}
+        tmp = self.media / "manifest.tmp"
+        tmp.write_text(json.dumps(man, ensure_ascii=False, indent=1), encoding="utf-8"); os.replace(tmp, self.media / "manifest.json")
+        if missing:
+            return f"Faltam cenas do Grok {missing}: manifest.json gravado, PRONTO nao."
+        r = subprocess.run([sys.executable, str(ROOT / "tools" / "contact_sheet.py"), self.pid, str(self.media)],
+                           capture_output=True, text=True, timeout=900)
+        sheet = "folha de quadros" if r.returncode == 0 else "SEM folha de quadros (ver log)"
+        if r.returncode:
+            self.log("folha de quadros falhou: " + (r.stderr or r.stdout)[-1500:])
+        (self.media / "PRONTO").write_text(time.strftime("%Y-%m-%d %H:%M:%S"), encoding="utf-8")
+        name = (d.get("title") or self.pid).split(":")[0].strip()
+        msg = f"{name} pronto: manifest.json, {sheet} e PRONTO em projects/{self.pid}/media/."
+        self.log(msg)
+        return msg
+
     def queue(self):
         d = self.load(); q = []
         for i, sc in enumerate(d.get("scenes") or []):
@@ -167,12 +218,13 @@ class Worker:
             f = sc.get("file")
             if f and (self.pdir / f).is_file():
                 continue
-            if any((x or {}).get("type") in ("timeline", "chart", "document", "quote", "relmap", "scale", "chapter", "headline", "photo", "entity_full", "moneyflow", "collapse") for x in (sc.get("gfx") or [])):
+            if self.is_gfx(sc):
                 continue  # cena de grafico (inclui mapa do dinheiro e queda animada): gerada pelo gfx.py, nao pelo Grok
             prompt = sc.get("grok_prompt") or sc.get("visual_prompt")
             if prompt:
                 w = len((sc.get("narration") or "").split())
-                q.append((i, "video" if sc.get("mode") == "video" else "image", prompt, max(1, round(w / 150 * 60))))
+                q.append((i, "video" if sc.get("mode") == "video" else "image", prompt, max(1, round(w / 150 * 60)),
+                          f"{i+1:02d}_{slug(sc.get('visual_prompt') or prompt)}"))
         return q
 
     async def shot(self, page, name):
@@ -373,7 +425,7 @@ class Worker:
         return ".mp4" if mode == "video" else ".jpg"
 
     # ---------- per scene ----------
-    async def run_scene(self, ctx, i, mode, prompt, dur=8):
+    async def run_scene(self, ctx, i, mode, prompt, dur=8, name=None):
         err = None
         for attempt in range(1, MAX_RETRIES + 2):
             await self.gate()
@@ -417,9 +469,10 @@ class Worker:
                 if len(data) < (50_000 if mode == "video" else 15_000):
                     raise RuntimeError(f"arquivo pequeno demais ({len(data)} bytes)")
                 ext = self.ext_for(data, mode)
-                for old in self.media.glob(f"scene-{i+1:02d}.*"):
-                    old.unlink()
-                out = self.media / f"scene-{i+1:02d}{ext}"
+                for old in [*self.media.glob(f"scene-{i+1:02d}.*"), *self.media.glob(f"{i+1:02d}_*.*")]:
+                    if old.is_file():
+                        old.unlink()
+                out = self.media / f"{name or f'scene-{i+1:02d}'}{ext}"
                 out.write_bytes(data)
                 await self.mark_done(i, f"media/{out.name}", mode)
                 self.scene_status(i, "pronto")
@@ -445,12 +498,13 @@ class Worker:
     async def main(self):
         from playwright.async_api import async_playwright
         self.ctrl_f.write_text("run", encoding="utf-8")
+        (self.media / "PRONTO").unlink(missing_ok=True)  # PRONTO antigo nao vale enquanto gera de novo
         q = self.queue()
         for i, *_ in q:
             self.state["scenes"][str(i)] = {"status": "na fila", "error": None}
         self.save_status(state="running", message=f"{len(q)} cenas na fila", total=len(q))
         if not q:
-            self.save_status(state="done", message="Nenhuma cena pendente."); return
+            self.save_status(state="done", message="Nenhuma cena pendente. " + self.handoff()); return
         ensure_chrome()
         async with async_playwright() as p:
             browser = await p.chromium.connect_over_cdp(f"http://127.0.0.1:{PORT}")
@@ -504,7 +558,10 @@ class Worker:
             if self.state["state"] == "needs_user":
                 return
             ok = sum(1 for v in self.state["scenes"].values() if v["status"] == "pronto")
-            self.save_status(state="done", message=f"Concluido: {ok}/{len(q)} cenas prontas.")
+            msg = f"Concluido: {ok}/{len(q)} cenas prontas."
+            if ok == len(q):
+                msg += " " + self.handoff()
+            self.save_status(state="done", message=msg)
             # nao fecha o Chrome dedicado: o usuario pode continuar usando/logado
 
     @staticmethod

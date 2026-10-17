@@ -1,12 +1,16 @@
 import json, subprocess, sys
 from pathlib import Path
 from PIL import Image, ImageDraw, ImageFont
-P = Path("projects/ftx-how-8-billion-vanished-overnight-20261015-155014")
+# Uso: python tools/contact_sheet.py <project_id> [pasta_saida]  (padrao: projects/<id>/output)
+P = Path(__file__).resolve().parent.parent / "projects" / Path(sys.argv[1]).name
 d = json.loads((P.parent / (P.name + ".json")).read_text(encoding="utf-8"))
 T = P / "work" / "sheet"; T.mkdir(parents=True, exist_ok=True)
+OUT = Path(sys.argv[2]) if len(sys.argv) > 2 else P / "output"; OUT.mkdir(parents=True, exist_ok=True)
 tw, th, cols = 384, 216, 6
 ims = []
 for i, s in enumerate(d["scenes"]):
+    if not s.get("file") or not (P / s["file"]).is_file():
+        continue  # cena ainda sem arquivo (ex.: grafico que o gfx.py gera depois)
     f = P / s["file"]; o = T / f"{i+1:02d}.jpg"
     if f.suffix.lower() in (".mp4", ".webm", ".mov"):
         subprocess.run(["ffmpeg", "-v", "error", "-y", "-ss", "2", "-i", str(f), "-frames:v", "1", str(o)])
@@ -21,5 +25,5 @@ for part in range(0, len(ims), 36):
     ch = ims[part:part+36]; rows = (len(ch)+cols-1)//cols
     S = Image.new("RGB", (cols*tw, rows*th))
     for k, c in enumerate(ch): S.paste(c, ((k % cols)*tw, (k//cols)*th))
-    S.save(P / "output" / f"contact-sheet-{part//36+1}.jpg", quality=85)
+    S.save(OUT / f"contact-sheet-{part//36+1}.jpg", quality=85)
 print("ok", len(ims))
