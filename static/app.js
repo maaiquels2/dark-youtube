@@ -167,7 +167,7 @@ function preset(i,el){document.querySelectorAll(".preset").forEach(b=>b.classLis
  notice();emptyTitles();renderScenes();const h=location.hash.slice(1);if(h.startsWith("p=")){const [pid,v]=decodeURIComponent(h.slice(2)).split("|");openProj(pid).then(()=>{if(v){if(v=="cenas")VIEW="cenas";go(v)}});return;}go(STEPS.some(s=>s[0]==h)?h:"projetos");})();
 
 // espelho de app.build_grok_prompt (manter igual ao Python)
-const GROK_STYLE="Style: photorealistic cinematic documentary reconstruction, natural film look, subtle film grain, gentle volumetric haze, no letterbox bars, full-frame edge-to-edge image, premium business documentary aesthetic.";
+const GROK_STYLE="Style: photorealistic cinematic documentary reconstruction, natural film look, subtle film grain, clear clean air, no letterbox bars, full-frame edge-to-edge image, premium business documentary aesthetic.";
 const GROK_NEG="Avoid: no text, no captions, no watermark, no logos, no emblems, no brand marks or trademarks, blank unbranded walls and screens, no real person likeness, no distorted faces or hands, no extra limbs, no cartoon look, no blur artifacts, no subtitles or quotes on screen, no letterbox or black bars.";
 const GROK_TEXT_GUARD="Papers, screens and signs are blank, blurred or turned away; people only from behind or in silhouette.";
 const ACT_LOOK={act1:["confident, prosperous momentum","warm golden key light, rich amber tones with soft teal accents, lively but controlled contrast"],
@@ -195,8 +195,8 @@ function buildGrokPrompt(s){const narr=(s.narration||"").replace(/\s+/g," ").tri
  if(s.camera&&s.mode!="video")p.push(`Camera: ${sent_(s.camera)}`);
  p.push(`Composition: ${shotComposition(s.shot)}.`,`${GROK_STYLE} Light and color: ${look}.`);
  if(s.mode=="video"){const w=narr?narr.split(" ").length:0;const d=Math.min(15,Math.max(1,Math.ceil(Math.max(1,w/150*60))));let mv;
-  if(s.camera){p.push(`Camera move: one continuous move only: ${sent_(s.camera)}`);mv="One simple, clearly visible subject action that completes within the clip, subtle atmospheric motion, realistic physics, no cuts, no morphing.";}
-  else mv="Motion: slow cinematic camera movement (gentle dolly-in or slow parallax pan), one simple subject action, subtle atmospheric motion (drifting haze, flickering lights), smooth and stable, no cuts, no morphing.";
+  if(s.camera){p.push(`Camera move: one continuous move only: ${sent_(s.camera)}`);mv="One simple, clearly visible subject action that completes within the clip, the rest of the scene stays still, realistic physics, no cuts, no morphing.";}
+  else mv="Motion: slow cinematic camera movement (gentle dolly-in or slow parallax pan), one simple subject action, the rest of the scene stays still, smooth and stable, no cuts, no morphing.";
   p.push(`${mv} Duration: about ${d} seconds (max 15s), no audio.`,"Format: video, aspect ratio 16:9, 1920x1080, high resolution, ultra detailed.");}
  else p.push("Format: still image, aspect ratio 16:9, 1920x1080, high resolution, ultra detailed, sharp focus.");
  p.push(GROK_TEXT_GUARD,GROK_NEG);return p.join(" ");}

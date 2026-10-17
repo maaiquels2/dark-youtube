@@ -120,7 +120,7 @@ def _download(url, dest_noext, default_ext):
 def proj_path(pid):
     return PROJECTS / (Path(pid).name + ".json")
 
-GROK_STYLE = ("Style: photorealistic cinematic documentary reconstruction, natural film look, subtle film grain, gentle volumetric haze, "
+GROK_STYLE = ("Style: photorealistic cinematic documentary reconstruction, natural film look, subtle film grain, clear clean air, "
               "no letterbox bars, full-frame edge-to-edge image, premium business documentary aesthetic.")
 GROK_NEG = ("Avoid: no text, no captions, no watermark, no logos, no emblems, no brand marks or trademarks, blank unbranded walls and screens, no real person likeness, "
             "no distorted faces or hands, no extra limbs, no cartoon look, no blur artifacts, no subtitles or quotes on screen, no letterbox or black bars.")
@@ -204,10 +204,10 @@ def build_grok_prompt(sc, cfg=None):
             dur = int(min(cfg["video_max_seconds"], max(cfg["video_min_seconds"], math.ceil(scene_seconds(sc, cfg)))))
         if sc.get("camera"):  # um movimento so: o da cena (antes vinha junto um "gentle dolly-in" generico que contradizia)
             parts.append(f"Camera move: one continuous move only: {_sent(sc['camera'])}")
-            mv = "One simple, clearly visible subject action that completes within the clip, subtle atmospheric motion, realistic physics, no cuts, no morphing."
+            mv = "One simple, clearly visible subject action that completes within the clip, the rest of the scene stays still, realistic physics, no cuts, no morphing."
         else:
-            mv = ("Motion: slow cinematic camera movement (gentle dolly-in or slow parallax pan), one simple subject action, subtle atmospheric motion "
-                  "(drifting haze, flickering lights), smooth and stable, no cuts, no morphing.")
+            mv = ("Motion: slow cinematic camera movement (gentle dolly-in or slow parallax pan), one simple subject action, the rest of the scene stays still, "
+                  "smooth and stable, no cuts, no morphing.")
         parts.append(f"{mv} Duration: about {dur} seconds (max 15s), no audio.")
         parts.append("Format: video, aspect ratio 16:9, 1920x1080, high resolution, ultra detailed.")
     else:

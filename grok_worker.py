@@ -10,7 +10,7 @@ contem o caminho do perfil dedicado.
 Uso: python grok_worker.py <project_id> [--scenes 0,3,5] [--concurrency 2] [--login]
 Controle: logs/grok_control.txt com run|pause|stop. Status: logs/grok_auto.json
 """
-import argparse, asyncio, base64, json, os, re, socket, subprocess, sys, time, traceback
+import argparse, asyncio, base64, hashlib, json, os, re, socket, subprocess, sys, time, traceback
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
@@ -108,8 +108,16 @@ def ensure_chrome(url=URL):
     raise RuntimeError("Chrome dedicado nao abriu a porta de depuracao.")
 
 
+FLOW_HOME = "https://flow.google.com/"
+FLOW_MODEL = os.environ.get("DS_FLOW_MODEL", "Omni 1.1 Flash")
+FLOW_CREDIT_RE = re.compile(r"cr[eé]ditos? insuficientes|sem cr[eé]ditos|not enough credits|out of credits|insufficient credits", re.I)
+FLOW_FAIL_RE = re.compile(r"falha na gera|n[aã]o foi poss[ií]vel gerar|generation failed|couldn.t generate|viol(a|ou) (a|as|nossas)|policy", re.I)
+FLOW_VIDS_JS = "() => [...document.querySelectorAll('video')].map(v => ({src: v.currentSrc || v.src, w: v.videoWidth, rs: v.readyState}))"
+
+
 class Worker:
-    def __init__(self, pid, scenes=None, concurrency=2):
+    def __init__(self, pid, scenes=None, concurrency=2, video_engine="grok", flow_model=FLOW_MODEL, only=None):
+        self.video_engine, self.flow_model, self.only_mode = video_engine, flow_model, only
         self.pid = Path(pid).name
         self.pfile = PROJECTS / f"{self.pid}.json"
         self.pdir = PROJECTS / self.pid
@@ -155,28 +163,37 @@ class Worker:
             if c == "stop":
                 raise asyncio.CancelledError()
             if c == "pause":
-                if self.state["state"] != "paused":
+                if self.state["state"] not in ("paused", "needs_user"):  # nao apaga o motivo do needs_user
                     self.save_status(state="paused", message="Pausado.")
                 await asyncio.sleep(2); continue
-            if self.state["state"] in ("paused",):
+            if self.state["state"] == "paused":
                 self.save_status(state="running", message="Retomado.")
             return
 
     def load(self):
         return json.loads(self.pfile.read_text(encoding="utf-8"))
 
-    async def mark_done(self, i, rel, mode):
+    async def mark_done(self, i, rel, mode, via="grok.com/imagine"):
         async with self.flock:
             for _ in range(5):
                 try:
                     d = self.load()
                     d["scenes"][i].update(status="pronto", file=rel, error=None, cost_usd=0,
-                                          generated_with=f"grok.com/imagine ({mode}, auto)")
+                                          generated_with=f"{via} ({mode}, auto)")
                     tmp = self.pfile.with_suffix(".tmp")
                     tmp.write_text(json.dumps(d, ensure_ascii=False, indent=2), encoding="utf-8")
                     os.replace(tmp, self.pfile); return
                 except (OSError, json.JSONDecodeError):
                     await asyncio.sleep(0.5)
+
+    def file_hashes(self):
+        """md5 -> numero da cena, dos arquivos que o projeto ja usa (trava contra salvar o video de outra cena)."""
+        out = {}
+        for i, sc in enumerate(self.load().get("scenes") or []):
+            f = sc.get("file")
+            if f and (self.pdir / f).is_file():
+                out.setdefault(hashlib.md5((self.pdir / f).read_bytes()).hexdigest(), i + 1)
+        return out
 
     @staticmethod
     def is_gfx(sc):
@@ -221,6 +238,8 @@ class Worker:
             if self.is_gfx(sc):
                 continue  # cena de grafico (inclui mapa do dinheiro e queda animada): gerada pelo gfx.py, nao pelo Grok
             prompt = sc.get("grok_prompt") or sc.get("visual_prompt")
+            if self.only_mode and ("video" if sc.get("mode") == "video" else "image") != self.only_mode:
+                continue
             if prompt:
                 w = len((sc.get("narration") or "").split())
                 q.append((i, "video" if sc.get("mode") == "video" else "image", prompt, max(1, round(w / 150 * 60)),
@@ -424,6 +443,74 @@ class Worker:
         if data[:4] == b"RIFF" and data[8:12] == b"WEBP": return ".webp"
         return ".mp4" if mode == "video" else ".jpg"
 
+    # ---------- Google Flow (videos enquanto o Grok esta sem credito) ----------
+    async def flow_radio(self, page, label, required=True):
+        loc = page.get_by_role("radio", name=re.compile(rf"(^|\s){re.escape(label)}$"))
+        if not await loc.count():
+            if required:
+                raise RuntimeError(f"Flow: opcao '{label}' nao encontrada")
+            return False
+        if await loc.first.get_attribute("aria-checked") != "true":
+            await loc.first.click(timeout=4000); await page.wait_for_timeout(400)
+        return True
+
+    async def flow_open(self, page):
+        """Abre o projeto do Flow deste video (um por projeto do Dark Studio, guardado em logs/flow_project.txt)."""
+        f = self.logs / "flow_project.txt"
+        url = f.read_text(encoding="utf-8").strip() if f.is_file() else ""
+        await page.goto(url or FLOW_HOME, wait_until="domcontentloaded", timeout=60000)
+        await page.wait_for_timeout(4000)
+        if "accounts.google.com" in page.url:
+            raise NeedsUser("login no Google Flow")
+        if "/project/" not in page.url:
+            await page.get_by_role("button", name=re.compile(r"Novo projeto|New project")).click(timeout=10000)
+            await page.wait_for_url(re.compile(r"/project/"), timeout=30000)
+            await page.wait_for_timeout(3000)
+            f.write_text(page.url, encoding="utf-8")
+        await page.get_by_role("textbox").first.wait_for(timeout=20000)
+
+    async def flow_settings(self, page, dur):
+        await page.get_by_role("button", name=re.compile(r"Gatilho de configura|Settings")).click(timeout=8000)
+        await page.wait_for_timeout(800)
+        await self.flow_radio(page, "Vídeo"); await self.flow_radio(page, "Frames", False); await self.flow_radio(page, "16:9")
+        dd = page.locator('[aria-label="Selecionar família de modelos"]')
+        if self.flow_model not in await dd.inner_text():
+            await dd.click(timeout=4000); await page.wait_for_timeout(600)
+            await page.get_by_role("menuitem", name=re.compile(re.escape(self.flow_model))).click(timeout=4000)
+            await page.wait_for_timeout(800)
+        if self.flow_model not in await dd.inner_text():
+            raise RuntimeError(f"Flow: modelo {self.flow_model} nao selecionado")
+        await self.flow_radio(page, "720p", False)  # 1080p nao existe na geracao do Flow
+        secs = [s for s in (4, 6, 8, 10) if await page.get_by_role("radio", name=re.compile(rf"(^|\s){s}s$")).count()]
+        if secs:  # Omni escolhe a duracao; o Veo Fast e sempre 8s
+            await self.flow_radio(page, f"{min([s for s in secs if s >= dur] or [max(secs)])}s")
+        await self.flow_radio(page, "x1")
+        await page.keyboard.press("Escape"); await page.wait_for_timeout(500)
+
+    async def flow_generate(self, page, prompt, dur):
+        await self.flow_open(page)
+        await self.flow_settings(page, dur)
+        box = page.get_by_role("textbox", name=re.compile(r"O que voc|What do you want"))
+        await box.click(); await page.keyboard.press("Control+A"); await page.keyboard.press("Delete")
+        await page.keyboard.insert_text(prompt); await page.wait_for_timeout(500)
+        before = {v["src"] for v in await page.evaluate(FLOW_VIDS_JS) if v["src"]}
+        fails0 = len(FLOW_FAIL_RE.findall(await page.evaluate("() => document.body.innerText")))
+        await page.get_by_role("button", name=re.compile(r"Iniciar gera|Start generat|Generate")).click(timeout=8000)
+        deadline = time.time() + GEN_TIMEOUT["video"]
+        while time.time() < deadline:
+            await page.wait_for_timeout(5000)
+            await self.gate()
+            txt = await page.evaluate("() => document.body.innerText")
+            m = FLOW_CREDIT_RE.search(txt)
+            if m:
+                raise NeedsUser(f"creditos do Flow: '{m.group(0)}'")
+            if len(FLOW_FAIL_RE.findall(txt)) > fails0:
+                raise RuntimeError("Flow recusou o prompt: " + FLOW_FAIL_RE.findall(txt)[-1])
+            new = [v for v in await page.evaluate(FLOW_VIDS_JS) if v["src"] and v["src"] not in before and v["w"] and v["rs"] >= 2]
+            if new:
+                return await self.fetch_bytes(page, new[0]["src"])
+        raise TimeoutError(f"Flow nao entregou o video em {GEN_TIMEOUT['video']}s")
+
     # ---------- per scene ----------
     async def run_scene(self, ctx, i, mode, prompt, dur=8, name=None):
         err = None
@@ -443,38 +530,48 @@ class Worker:
             page.on("response", lambda r: asyncio.ensure_future(_on_resp(r)))
             try:
                 self.scene_status(i, "gerando", None if attempt == 1 else f"tentativa {attempt}")
-                self.log(f"cena {i+1:02d} [{mode}] tentativa {attempt}")
-                await page.goto(URL, wait_until="domcontentloaded", timeout=60000)
-                await page.wait_for_timeout(2500)
-                await self.dismiss_cookies(page)
-                await self.check_blockers(page)
-                await self.dismiss_popups(page)
-                await self.set_mode(page, mode)
-                await self.set_aspect(page)
-                if mode == "video":
-                    await self.set_video_opts(page, dur)
+                flow = mode == "video" and self.video_engine == "flow"
+                self.log(f"cena {i+1:02d} [{mode}{', flow ' + self.flow_model if flow else ''}] tentativa {attempt}")
+                if flow:
+                    data = await self.flow_generate(page, prompt, dur)
+                    via = f"flow.google.com {self.flow_model}"
                 else:
-                    await self.set_image_count(page)
-                await self.fill_prompt(page, prompt)
-                before = {x["src"] for x in await page.evaluate(self.MEDIA_JS, mode)}
-                async with self.submit_lock:
-                    gap = VIDEO_GAP if mode == "video" else IMAGE_GAP
-                    wait = self.last_submit[mode] + gap - time.time()
-                    if wait > 0:
-                        await asyncio.sleep(wait)
-                    await self.submit(page)
-                    self.last_submit[mode] = time.time()
-                src = await self.wait_result(page, mode, before)
-                data = await self.fetch_bytes(page, src)
+                    await page.goto(URL, wait_until="domcontentloaded", timeout=60000)
+                    await page.wait_for_timeout(2500)
+                    await self.dismiss_cookies(page)
+                    await self.check_blockers(page)
+                    await self.dismiss_popups(page)
+                    await self.set_mode(page, mode)
+                    await self.set_aspect(page)
+                    if mode == "video":
+                        await self.set_video_opts(page, dur)
+                    else:
+                        await self.set_image_count(page)
+                    await self.fill_prompt(page, prompt)
+                    before = {x["src"] for x in await page.evaluate(self.MEDIA_JS, mode)}
+                    async with self.submit_lock:
+                        gap = VIDEO_GAP if mode == "video" else IMAGE_GAP
+                        wait = self.last_submit[mode] + gap - time.time()
+                        if wait > 0:
+                            await asyncio.sleep(wait)
+                        await self.submit(page)
+                        self.last_submit[mode] = time.time()
+                    src = await self.wait_result(page, mode, before)
+                    data = await self.fetch_bytes(page, src)
+                    via = "grok.com/imagine"
                 if len(data) < (50_000 if mode == "video" else 15_000):
                     raise RuntimeError(f"arquivo pequeno demais ({len(data)} bytes)")
+                h = hashlib.md5(data).hexdigest()
+                if self.hashes.get(h, i + 1) != i + 1:
+                    raise RuntimeError(f"arquivo identico ao da cena {self.hashes[h]}: o resultado era de outra cena")
+                self.hashes[h] = i + 1
                 ext = self.ext_for(data, mode)
                 for old in [*self.media.glob(f"scene-{i+1:02d}.*"), *self.media.glob(f"{i+1:02d}_*.*")]:
                     if old.is_file():
                         old.unlink()
                 out = self.media / f"{name or f'scene-{i+1:02d}'}{ext}"
                 out.write_bytes(data)
-                await self.mark_done(i, f"media/{out.name}", mode)
+                await self.mark_done(i, f"media/{out.name}", mode, via)
                 self.scene_status(i, "pronto")
                 self.log(f"cena {i+1:02d} OK -> {out.name} ({len(data)//1024} KB)")
                 return True
@@ -509,43 +606,40 @@ class Worker:
         async with async_playwright() as p:
             browser = await p.chromium.connect_over_cdp(f"http://127.0.0.1:{PORT}")
             ctx = browser.contexts[0]
-            # checagem de login antes de comecar
-            page = await ctx.new_page()
-            page._ds_err = None
-            async def _on_resp(r, page=page):
+            is_flow = lambda item: item[1] == "video" and self.video_engine == "flow"
+            # checagem de login no Grok antes de comecar (o Flow checa o proprio login ao abrir)
+            if not all(is_flow(x) for x in q):
+                page = await ctx.new_page()
                 try:
-                    if r.request.method == "POST" and r.status >= 400 and "/rest/app-chat/conversations" in r.url:
-                        try:
-                            page._ds_err = (json.loads(await r.text()).get("error") or {}).get("message") or f"HTTP {r.status}"
-                        except Exception:
-                            page._ds_err = f"HTTP {r.status}"
-                except Exception:
-                    pass
-            page.on("response", lambda r: asyncio.ensure_future(_on_resp(r)))
-            try:
-                await page.goto(URL, wait_until="domcontentloaded", timeout=60000)
-                await page.wait_for_timeout(3000)
-                await self.dismiss_cookies(page)
-                await self.check_blockers(page)
-            except NeedsUser as e:
-                await self.shot(page, "needs_user")
-                self.ctrl_f.write_text("pause", encoding="utf-8")
-                self.save_status(state="needs_user", message=self.user_msg(str(e)))
-                await page.close(); return
-            await page.close()
+                    await page.goto(URL, wait_until="domcontentloaded", timeout=60000)
+                    await page.wait_for_timeout(3000)
+                    await self.dismiss_cookies(page)
+                    await self.check_blockers(page)
+                except NeedsUser as e:
+                    await self.shot(page, "needs_user")
+                    self.ctrl_f.write_text("pause", encoding="utf-8")
+                    self.save_status(state="needs_user", message=self.user_msg(str(e)))
+                    await page.close(); return
+                await page.close()
 
-            sem = asyncio.Semaphore(self.conc)
+            # Grok uma cena por vez: com 2+ abas, o video de uma cena aparecia na aba da outra e era salvo
+            # duas vezes (cenas repetidas no First Brands, SVB e Lehman). shortcut: volta ao paralelo quando o
+            # resultado for ligado ao post da propria aba.
+            sem = asyncio.Semaphore(1)
+            flow_slot = asyncio.Semaphore(1)  # videos do Flow numa fila propria: rodam junto com as imagens do Grok
+            self.hashes = self.file_hashes()
             stop = asyncio.Event()
 
             async def one(item):
                 if stop.is_set():
                     return
-                async with sem:
+                async with (flow_slot if is_flow(item) else sem):
                     if stop.is_set():
                         return
                     try:
                         await self.run_scene(ctx, *item)
                     except NeedsUser as e:
+                        self.log(f"cena {item[0]+1:02d} pausou: {e}")
                         stop.set()
                         self.ctrl_f.write_text("pause", encoding="utf-8")
                         self.scene_status(item[0], "na fila", str(e))
@@ -579,11 +673,14 @@ def run(argv=None):
     ap.add_argument("--scenes", default="")
     ap.add_argument("--concurrency", type=int, default=2)
     ap.add_argument("--login", action="store_true", help="so abre o Chrome dedicado no Grok")
+    ap.add_argument("--video-engine", choices=["grok", "flow"], default="grok", help="flow: videos no Google Flow, imagens seguem no Grok")
+    ap.add_argument("--flow-model", default=FLOW_MODEL, help="ex.: 'Omni 1.1 Flash' (4-10s) ou 'Veo 3.1 - Fast' (8s)")
+    ap.add_argument("--only", choices=["video", "image"], help="so as cenas deste tipo")
     a = ap.parse_args(argv)
     if a.login:
         ensure_chrome(); return
     scenes = [int(x) for x in a.scenes.split(",") if x.strip()] or None
-    w = Worker(a.project, scenes, a.concurrency)
+    w = Worker(a.project, scenes, a.concurrency, a.video_engine, a.flow_model, a.only)
     # loop de retomada: em needs_user, espera o usuario clicar Retomar e recomeca
     while True:
         try:
