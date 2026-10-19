@@ -474,15 +474,9 @@ def wrap(s, width):
 
 
 def durations(pdir, n):
-    c = montage.cfg()
-    ff = shutil.which("ffprobe")
-    out = []
-    for i in range(n):
-        r = subprocess.run([ff, "-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0",
-                            str(pdir / "audio" / f"scene-{i+1:02d}.mp3")], capture_output=True, text=True)
-        d = float(r.stdout.strip() or 4) + c["pad_seconds"]
-        out.append(round(d + (c["crossfade_seconds"] if i < n - 1 else 0), 3))
-    return out
+    """Duracao de cada clipe (cena + crossfade): timeline.py. Sem narracao para com erro (antes inventava 4 s)."""
+    import timeline
+    return timeline.plan(pdir, n)["L"]
 
 
 def prep(spec, wd, pdir):

@@ -11,6 +11,7 @@ from PIL import Image, ImageDraw, ImageFont, ImageFilter
 
 W, H = 1920, 1080
 import scenes  # noqa: E402  dono das listas de tipos
+import timeline  # noqa: E402  duracao estimada antes do audio
 FULL = set(scenes.PIL_FULL) - {"moneyflow", "collapse"}  # tela cheia em PNG (os dois animados: gfx_anim.py)
 OVER = {"lower_third", "logo", "callout", "parties", "citation", "entity", "chapter"}  # capitulo e sobreposicao (scenes.py)
 BG, PANEL, LINE = (11, 14, 20), (22, 27, 37), (52, 60, 76)
@@ -480,7 +481,7 @@ def render_project(pfile, pdir):
     for i, s in enumerate(pj["scenes"]):
         if (s.get("ec") or {}).get("full"): continue  # grafico EffectCraft (tools/ec_gfx.py): aqui nao se desenha nem se desmarca
         spec = [dict(g, file=str(pdir / g["file"])) if g.get("type") == "photo" and g.get("file") else g for g in s.get("gfx") or []]
-        fp, op = render_scene(spec, gd, i, photos, logos, ents, max(4.0, len((s.get('narration') or '').split()) / 2.6))
+        fp, op = render_scene(spec, gd, i, photos, logos, ents, max(4.0, timeline.estimate(s.get('narration'))))
         if fp:
             s.update(file=fp.relative_to(pdir).as_posix(), status="pronto", source="gfx", error=None); nf += 1
         elif s.get("source") == "gfx":

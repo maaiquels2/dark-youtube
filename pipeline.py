@@ -163,9 +163,7 @@ ARC = {
  "act3": "ACT 3 collapse and human impact: anonymous workers leaving with boxes, idle workplaces, creditors waiting, empty offices, rain, harsh shadows, handheld unease",
  "after": "AFTERMATH: quiet, desaturated, reflective; empty courthouse steps at dawn, still warehouses, slow pull-backs, lingering silence",
 }
-def act_of(i, n):
-    r = i / max(1, n - 1)
-    return "act1" if r < 0.3 else "act2" if r < 0.62 else "act3" if r < 0.9 else "after"
+from timeline import act as act_of  # noqa: E402  mesmos cortes da montagem (timeline.py)
 
 FULL_GFX = tuple(sorted(scenes.FULL))  # tipos de tela cheia: a lista mora em scenes.py (capitulo e sobreposicao, nao entra)
 GFX_HINTS = ("timeline", "chart", "scale", "moneyflow", "collapse", "relmap", "document", "flow", "stack", "list")

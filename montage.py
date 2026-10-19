@@ -8,6 +8,8 @@ import argparse, json, math, os, re, shutil, subprocess, sys, threading, time, u
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
+import timeline  # duracao, inicio e ato de cada cena (fonte unica)
+
 ROOT = Path(__file__).resolve().parent
 PROJECTS = ROOT / "projects"
 # legenda queimada (opcional, burn_subtitles): Inter (OFL) do projeto, branca com contorno + sombra, ~10% acima da borda.
@@ -362,15 +364,9 @@ class Job:
         missing = [i + 1 for i, s in enumerate(sc) if not s.get("file") or not (self.pdir / s["file"]).is_file()]
         if missing:
             raise RuntimeError(f"Cenas sem midia: {missing[:10]}")
-        amiss = [i + 1 for i in range(len(sc)) if not (self.pdir / "audio" / f"scene-{i+1:02d}.mp3").is_file()]
-        if amiss:
-            raise RuntimeError(f"Cenas sem narracao: {amiss[:10]} (gere a narracao primeiro)")
-        pad, XF, fps = self.c["pad_seconds"], self.c["crossfade_seconds"], self.c["fps"]
-        adurs = [probe_dur(self.pdir / "audio" / f"scene-{i+1:02d}.mp3") for i in range(len(sc))]
-        D = [round(a + pad, 3) for a in adurs]
-        L = [d + (XF if k < len(D) - 1 else 0) for k, d in enumerate(D)]
-        starts = [sum(D[:k]) for k in range(len(D))]
-        total = sum(D)
+        XF, fps = self.c["crossfade_seconds"], self.c["fps"]
+        tl = timeline.plan(self.pdir, len(sc), self.c)  # para com erro se faltar narracao de alguma cena
+        D, L, starts, total = tl["D"], tl["L"], tl["starts"], tl["total"]
         self.save(state="running", step="clipes", progress=0, total=len(sc), message="Renderizando clipes (Ken Burns / ajuste de video)",
                   duration_seconds=round(total, 1))
         t0 = time.time(); done = [0]; info = {}

@@ -28,10 +28,7 @@ VIGNETTE, GRAIN, GRAIN_GFX = "vignette=angle=PI/5", "noise=alls=5:allf=t+u", "no
 SR = 48000
 
 
-def act_of(s, i, n):
-    if s.get("act") in GRADE: return s["act"]
-    x = i / n  # roteiro em 3 atos + desfecho (mesma proporcao do pipeline)
-    return "act1" if x < 0.32 else "act2" if x < 0.55 else "act3" if x < 0.84 else "after"
+from timeline import act_of  # noqa: E402  ato gravado na cena ou o corte unico (timeline.py)
 
 
 class ECJob(montage.Job):
@@ -85,9 +82,9 @@ class ECJob(montage.Job):
         return out
 
     def timing(self):
-        pad = self.c["pad_seconds"]
-        D = [montage.probe_dur(self.pdir / "audio" / f"scene-{i+1:02d}.mp3") + pad for i in range(len(self.scenes()))]
-        return D, [sum(D[:k]) for k in range(len(D))]
+        import timeline
+        tl = timeline.plan(self.pdir, len(self.scenes()), self.c)
+        return tl["D"], tl["starts"]
 
     # ---------------- design de som ----------------
     def sfx_events(self):

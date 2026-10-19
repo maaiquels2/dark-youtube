@@ -14,6 +14,7 @@ import argparse, asyncio, base64, hashlib, json, os, re, socket, subprocess, sys
 from pathlib import Path
 
 import scenes  # noqa: E402  o que cada cena e (grafico, foto real, local, IA)
+import timeline  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent
 PROJECTS = ROOT / "projects"
@@ -232,7 +233,7 @@ class Worker:
                 missing.append(i + 1)
             scenes.append({"scene": i + 1, "source": src, "mode": sc.get("mode") or "image", "file": f if has else None,
                            "narration": sc.get("narration") or "",
-                           "seconds": round(len((sc.get("narration") or "").split()) / 150 * 60, 1)})
+                           "seconds": round(timeline.estimate(sc.get("narration")), 1)})
         man = {"project": self.pid, "title": d.get("title"), "created_at": time.strftime("%Y-%m-%d %H:%M:%S"),
                "files_relative_to": f"projects/{self.pid}", "grok_missing": missing, "scenes": scenes}
         tmp = self.media / "manifest.tmp"
@@ -265,7 +266,7 @@ class Worker:
                 continue
             if prompt:
                 w = len((sc.get("narration") or "").split())
-                q.append((i, "video" if sc.get("mode") == "video" else "image", prompt, max(1, round(w / 150 * 60)),
+                q.append((i, "video" if sc.get("mode") == "video" else "image", prompt, max(1, round(timeline.estimate(sc.get("narration")))),
                           f"{i+1:02d}_{slug(sc.get('visual_prompt') or prompt)}"))
         return q
 

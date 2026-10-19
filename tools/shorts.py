@@ -20,10 +20,10 @@ MIN_S, MAX_S = 20.0, 45.0  # cortes de 20-45 s retem melhor que os de quase 1 mi
 
 
 def timeline(pdir, sc):
-    pad = 0.3; ff = shutil.which("ffprobe")
-    D = [float(subprocess.run([ff, "-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", str(pdir / "audio" / f"scene-{i+1:02d}.mp3")],
-                              capture_output=True, text=True).stdout) + pad for i in range(len(sc))]
-    return D, [sum(D[:k]) for k in range(len(D))]
+    """Duracao e inicio de cada cena: timeline.py (a pausa vem da configuracao; antes era 0,3 fixo aqui)."""
+    import timeline as T
+    tl = T.plan(pdir, len(sc))
+    return tl["D"], tl["starts"]
 
 
 def _plain(t):
