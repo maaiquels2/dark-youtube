@@ -2,6 +2,7 @@
 import json, os, re, time, threading, urllib.request, urllib.error, urllib.parse, math
 from http.server import ThreadingHTTPServer, BaseHTTPRequestHandler
 from pathlib import Path
+import scenes  # o que cada cena e (grafico, foto real, local, IA)
 
 ROOT = Path(__file__).resolve().parent
 STATIC = ROOT / "static"
@@ -310,8 +311,8 @@ def start_generation(pid, idxs):
     started = []
     for i in idxs:
         sc = d["scenes"][i]
-        if sc.get("source", "api") != "api" or sc.get("status") == "gerando":
-            continue
+        if sc.get("source", "api") != "api" or sc.get("status") == "gerando" or scenes.kind(sc) != "ia":
+            continue  # so cena de IA marcada para a API; grafico e foto real nunca (scenes.py)
         started.append(i)
     for i in started:
         update_scene(pid, i, status="gerando", error=None)

@@ -13,6 +13,8 @@ Controle: logs/grok_control.txt com run|pause|stop. Status: logs/grok_auto.json
 import argparse, asyncio, base64, hashlib, json, os, re, socket, subprocess, sys, time, traceback
 from pathlib import Path
 
+import scenes  # noqa: E402  o que cada cena e (grafico, foto real, local, IA)
+
 ROOT = Path(__file__).resolve().parent
 PROJECTS = ROOT / "projects"
 PROFILE = ROOT / "browser_profile"
@@ -217,9 +219,8 @@ class Worker:
         return out
 
     @staticmethod
-    def is_gfx(sc):
-        return any((x or {}).get("type") in ("timeline", "chart", "document", "quote", "relmap", "scale", "chapter", "headline", "photo", "entity_full", "moneyflow", "collapse",
-                                             "flow", "stack", "list", "takeaway") for x in (sc.get("gfx") or []))
+    def is_gfx(sc):  # cena que nao vem do Grok/Flow (grafico, foto real, imagem local): scenes.py decide
+        return scenes.kind(sc) != "ia"
 
     def handoff(self):
         """Entrega para a edicao/narracao: media/manifest.json, folha de quadros e media/PRONTO."""

@@ -11,8 +11,9 @@ from pathlib import Path
 import numpy as np
 from PIL import Image, ImageFilter
 
-sys.path.insert(0, str(Path(__file__).resolve().parent))
+sys.path.insert(0, str(Path(__file__).resolve().parent)); sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 import media_ai as M  # noqa: E402
+import scenes  # noqa: E402
 
 W, H, FPS = 1920, 1080, 30
 MOVES = [  # (fundo: zoom ini/fim, deslocamento x px) (frente: idem) - alterna para nao repetir o mesmo movimento
@@ -80,13 +81,14 @@ def main():
     for i, s in enumerate(sc):
         if only and i + 1 not in only: continue
         photo = s.get("photo_file") or s.get("file") or ""
-        if not (s.get("parallax") or s.get("source") in ("real_photo", "real_photo_parallax")) or not photo.lower().endswith((".jpg", ".jpeg", ".png")):
+        k = scenes.kind(s)  # grafico nunca (o parallax gravaria por cima do grafico); foto real sempre; imagem com parallax: true
+        if k == "grafico" or not (s.get("parallax") or k == "foto_real") or not photo.lower().endswith((".jpg", ".jpeg", ".png")):
             continue
         out = (Path(a.preview) if a.preview else pdir / "media") / f"parallax-{i+1:02d}.mp4"; out.parent.mkdir(parents=True, exist_ok=True)
         mode = render(pdir / photo, out, L[i], move=i)
         print(f"cena {i+1}: {mode} -> {out.name}", flush=True)
         if not a.preview:
-            real = s.get("source") in ("real_photo", "real_photo_parallax")  # imagem gerada (local/IA) nao vira "foto real"
+            real = k == "foto_real"  # imagem gerada (local/IA) nao vira "foto real"
             s["photo_file"] = photo; s.update(file=out.relative_to(pdir).as_posix(), mode="video", source="real_photo_parallax" if real else s.get("source"))
     if not a.preview:
         pfile.write_text(json.dumps(pj, ensure_ascii=False, indent=2), encoding="utf-8")

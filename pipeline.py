@@ -3,6 +3,7 @@ Usa app.chat_json (OpenAI, so texto). Imagens reais vem de fontes licenciadas (W
 import json, re, time, urllib.request, urllib.parse, urllib.error
 from pathlib import Path
 import entities as E
+import scenes
 
 def _app():
     import app; return app
@@ -79,7 +80,7 @@ def plan_gfx(pid, batch=20):
     d = _load(pid); a = _app(); sc = d["scenes"]
     facts = dossier_text(d["dossier"]) if d.get("dossier") else "\n".join(
         dict.fromkeys(f"- {f} (source: {(s.get('sources') or [{}])[0].get('title', '')})" for s in sc for f in s.get("key_facts") or []))
-    full = set(FULL_GFX) | {"real_photo"}; full.discard("chapter"); kinds = []
+    full = set(scenes.FULL) | {"real_photo"}; kinds = []
     chapters = ", ".join(str(i + 1) for i, s in enumerate(sc) if s.get("chapter"))
     sys_ = ("You are the graphics director of a faceless business documentary channel. Use only the verified facts given, with their source. "
             "Never invent numbers, quotes or sources. Reply only in JSON (a single json object).")
@@ -166,8 +167,7 @@ def act_of(i, n):
     r = i / max(1, n - 1)
     return "act1" if r < 0.3 else "act2" if r < 0.62 else "act3" if r < 0.9 else "after"
 
-FULL_GFX = ("timeline", "chart", "document", "quote", "relmap", "scale", "chapter", "headline", "photo", "entity_full", "moneyflow", "collapse",
-            "flow", "stack", "list", "takeaway")  # os 4 ultimos so existem no EffectCraft (tools/remake.py convert + tools/ec_gfx.py)
+FULL_GFX = tuple(sorted(scenes.FULL))  # tipos de tela cheia: a lista mora em scenes.py (capitulo e sobreposicao, nao entra)
 GFX_HINTS = ("timeline", "chart", "scale", "moneyflow", "collapse", "relmap", "document", "flow", "stack", "list")
 PROMPT_RULES = (
     "RULES FOR EVERY visual_prompt (40-70 words):\n"
@@ -196,7 +196,7 @@ def enrich_prompts(pid):
     prev = []  # ultimas cenas do lote anterior: variedade tambem na emenda entre lotes
     for st in range(0, len(sc), 20):
         part = [(i, s) for i, s in enumerate(sc[st:st + 20], st)]
-        lines = "\n".join(f"{i} <{act_of(i, len(sc))}>: [{'GFX' if any(g.get('type') in FULL_GFX for g in s.get('gfx') or []) else 'AI'}] {s.get('narration')}" for i, s in part)
+        lines = "\n".join(f"{i} <{act_of(i, len(sc))}>: [{'GFX' if scenes.kind(s) == 'grafico' else 'AI'}] {s.get('narration')}" for i, s in part)
         ask_bible = "" if bible else (
             "First define a short VISUAL BIBLE for the whole video (json key visual_bible, 50-90 words): how the anonymous protagonist always looks "
             "(silhouette, build, clothing, seen from behind), the headquarters and 2-3 recurring places (architecture, era, materials, no signage), and the base palette. ")
@@ -218,7 +218,7 @@ def enrich_prompts(pid):
             i = int(x.get("i", -1))
             if 0 <= i < len(sc) and x.get("visual_prompt"):
                 ac = act_of(i, len(sc))
-                if ac == "act3" and sc[i].get("source") != "gfx": sc[i]["mode"] = "video"  # mais video no colapso
+                if ac == "act3" and scenes.kind(sc[i]) == "ia": sc[i]["mode"] = "video"  # mais video no colapso (so cena de IA)
                 sc[i].update(act=ac, beat=x.get("beat"), shot=x.get("shot"), mood=x.get("mood"), camera=x.get("camera"), visual_prompt=x["visual_prompt"],
                              device=x.get("device"), setting=x.get("setting"))
                 h = str(x.get("gfx_hint") or "").strip().lower()
@@ -232,7 +232,7 @@ def gfx_hints(d):
     """Cenas onde o diretor de fotografia sugeriu um grafico com dados no lugar (ou alem) do clipe. Aviso, nao bloqueia."""
     out = []
     for i, s in enumerate(d.get("scenes") or []):
-        if s.get("gfx_hint") and not any(g.get("type") in FULL_GFX for g in s.get("gfx") or []):
+        if s.get("gfx_hint") and scenes.kind(s) != "grafico":
             out.append({"scene": i + 1, "gfx": s["gfx_hint"], "why": s.get("gfx_why") or ""})
     return out
 

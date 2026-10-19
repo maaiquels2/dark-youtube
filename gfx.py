@@ -1,16 +1,18 @@
 """Dark Studio - motion graphics (Pillow). Gera PNGs 1920x1080 a partir de specs por cena.
 Tipos de tela cheia (substituem a midia da cena; o Ken Burns da montagem da o movimento):
-  timeline, chart, document, quote, relmap, scale, chapter, headline, photo (foto real licenciada), entity_full
+  timeline, chart, document, quote, relmap, scale, headline, photo (foto real licenciada), entity_full (lista em scenes.py)
 Tipos de sobreposicao (PNG transparente por cima do clipe):
-  lower_third, logo, callout, parties, citation, entity (card grande logo/selo/foto + nome)
+  chapter, lower_third, logo, callout, parties, citation, entity (card grande logo/selo/foto + nome)
+Cena com grafico EffectCraft (ec.full) fica de fora: quem desenha e tools/ec_gfx.py.
 """
 import math, textwrap, os as _os
 from pathlib import Path
 from PIL import Image, ImageDraw, ImageFont, ImageFilter
 
 W, H = 1920, 1080
-FULL = {"timeline", "chart", "document", "quote", "relmap", "scale", "chapter", "headline", "photo", "entity_full"}
-OVER = {"lower_third", "logo", "callout", "parties", "citation", "entity"}
+import scenes  # noqa: E402  dono das listas de tipos
+FULL = set(scenes.PIL_FULL) - {"moneyflow", "collapse"}  # tela cheia em PNG (os dois animados: gfx_anim.py)
+OVER = {"lower_third", "logo", "callout", "parties", "citation", "entity", "chapter"}  # capitulo e sobreposicao (scenes.py)
 BG, PANEL, LINE = (11, 14, 20), (22, 27, 37), (52, 60, 76)
 WHITE, MUTED, RED, GOLD, TEAL = (245, 246, 248), (160, 168, 182), (229, 72, 77), (255, 214, 10), (56, 189, 199)
 _FD = Path(__file__).resolve().parent / "fonts"  # fontes OFL do projeto primeiro (licenca livre p/ uso comercial); Windows so de reserva
@@ -372,9 +374,19 @@ def _typewriter(full, out, dur, ents=None, room=False):
             yield frames[min(steps - 1, int(f / max(1, reveal) * steps))]
     return gfx_anim.encode(gen(), out, fps)
 
+def o_chapter(im, g):
+    """Titulo do capitulo por cima da midia da cena (antes era um cartao de tela cheia no lugar da cena)."""
+    d = ImageDraw.Draw(im); d.rectangle([0, 0, W, H], fill=(0, 0, 0, 115))
+    n = g.get("number"); t = g.get("title", "")
+    if n: d.text((W // 2 - tw(d, f"CHAPTER {n}", F("bold", 40)) // 2, 380), f"CHAPTER {n}", font=F("bold", 40), fill=RED)
+    f = F("impact", 130); y = 450
+    for l in wrap(d, t.upper(), f, 1500): d.text((W // 2 - tw(d, l, f) // 2, y), l, font=f, fill=WHITE); y += 150
+    d.rectangle([W // 2 - 120, y + 20, W // 2 + 120, y + 28], fill=GOLD)
+
 def _draw_ov(g, photos, logos, ents, st):
     im = Image.new("RGBA", (W, H), (0, 0, 0, 0)); t = g["type"]
-    if t == "lower_third": o_lower_third(im, g, photos)
+    if t == "chapter": o_chapter(im, g)
+    elif t == "lower_third": o_lower_third(im, g, photos)
     elif t == "callout": o_callout(im, g, st["kc"], st["ey"] if st["ey"] > 70 else 120); st["kc"] += 1
     elif t == "parties": o_parties(im, g)
     elif t == "citation": o_citation(im, g)
@@ -383,7 +395,7 @@ def _draw_ov(g, photos, logos, ents, st):
     return im
 
 # entrada animada por tipo (aplicada na montagem): slide da direita/esquerda/baixo + fade
-ENTER = {"entity": "right", "callout": "up", "parties": "left", "citation": "fade", "logo": "fade", "lower_third": "left"}
+ENTER = {"entity": "right", "callout": "up", "parties": "left", "citation": "fade", "logo": "fade", "lower_third": "left", "chapter": "fade"}
 
 def render_scene(spec_list, out_dir, idx, photos=None, logos=None, ents=None, dur=7.0):
     """Retorna (full_png/mp4 or None, overlay_png or None). Grava tambem camadas ov-NN-k.png + ov-NN.json p/ entradas animadas."""
@@ -466,6 +478,7 @@ def render_project(pfile, pdir):
     for f in list(gd.glob("ov-*.png")) + list(gd.glob("ov-*.json")): f.unlink()
     nf = no = 0
     for i, s in enumerate(pj["scenes"]):
+        if (s.get("ec") or {}).get("full"): continue  # grafico EffectCraft (tools/ec_gfx.py): aqui nao se desenha nem se desmarca
         spec = [dict(g, file=str(pdir / g["file"])) if g.get("type") == "photo" and g.get("file") else g for g in s.get("gfx") or []]
         fp, op = render_scene(spec, gd, i, photos, logos, ents, max(4.0, len((s.get('narration') or '').split()) / 2.6))
         if fp:

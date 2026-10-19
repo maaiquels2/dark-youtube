@@ -16,6 +16,7 @@ import numpy as np
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 import montage  # noqa: E402
+import scenes  # noqa: E402
 
 GRADE = {  # leve: as cenas do Grok ja vem com luz de cinema
     "act1": "colorbalance=rs=0.035:gs=0.01:bs=-0.04:rm=0.03:bm=-0.03,eq=saturation=1.04:contrast=1.04",
@@ -41,7 +42,7 @@ class ECJob(montage.Job):
         if self.redo is not None and i + 1 not in self.redo and fx.is_file():
             return fx, None, "reaproveitado"
         src = self.pdir / sc["file"]
-        if src.suffix.lower() in (".mp4", ".mov", ".webm") and sc.get("source") != "gfx" and montage.probe_dur(src) < L - 0.05:
+        if src.suffix.lower() in (".mp4", ".mov", ".webm") and scenes.kind(sc) != "grafico" and montage.probe_dur(src) < L - 0.05:
             sc = dict(sc, file=self.smooth(i, src).relative_to(self.pdir).as_posix())  # sera desacelerado: quadros reais (RIFE)
         return super().render_clip(i, sc, D, L)
 
@@ -62,7 +63,7 @@ class ECJob(montage.Job):
     def apply_overlay(self, i, clip, L):
         sc = self.scenes(); s = sc[i]; ec = s.get("ec") or {}
         full = (ec.get("full") or {}).get("type")
-        vf = [GRAIN_GFX] if s.get("source") == "gfx" else [GRADE[act_of(s, i, len(sc))], VIGNETTE, GRAIN]
+        vf = [GRAIN_GFX] if scenes.kind(s) == "grafico" else [GRADE[act_of(s, i, len(sc))], VIGNETTE, GRAIN]
         chapter = any(e.get("type") == "chapter" for e in ec.get("overlay") or [])
         if i == 0 or chapter:
             vf.append(f"fade=in:st=0:d={0.9 if i == 0 else 0.6}:color=black")   # mergulho no preto

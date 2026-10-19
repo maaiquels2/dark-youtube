@@ -22,7 +22,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]; P = ROOT / "projects"; PY = sys.executable
 sys.path.insert(0, str(ROOT)); sys.path.insert(0, str(ROOT / "tools"))
-KEEP_PIL = {"document", "headline", "scale", "collapse", "moneyflow"}  # sem equivalente no EffectCraft: fica a imagem/animacao atual
+import scenes  # noqa: E402
 MUSIC = {"E": "echoes-of-time-v2.mp3", "S": "stay-the-course.mp3", "I": "interloper.mp3", "K": "darkest-child.mp3"}
 TITLES = {"E": "Echoes of Time v2", "S": "Stay the Course", "I": "Interloper", "K": "Darkest Child"}
 CREDIT = "Kevin MacLeod (incompetech.com), licensed under Creative Commons: By Attribution 4.0, https://creativecommons.org/licenses/by/4.0/"
@@ -79,7 +79,9 @@ def convert(pj):
     def sig(g):  # mesmas partes = mesmo diagrama, seja flow ou relmap
         return frozenset(str(x).lower() for x in [n.get("name", "") for n in g.get("nodes") or []] + ([g["center"]] if g.get("center") else []))
     for s in pj["scenes"]:
-        gfx = s.get("gfx_legacy") or s.get("gfx") or []; ov, full, keep = [], None, []  # gfx_legacy: pode rodar de novo
+        gfx = s.get("gfx_legacy") or s.get("gfx") or []; ov, full, keep, rec = [], None, [], []  # gfx_legacy: pode rodar de novo
+        def recusa(g, motivo):  # a cena vira IA (scenes.kind): o item fica guardado com o motivo, nao volta para gfx
+            rec.append(dict(g, motivo=motivo)); stat["recusado: " + motivo] += 1
         chips, people, others, callouts = [], [], [], []
         explicit = {g.get("name") for g in gfx if g.get("type") == "lower_third"}
         for g in gfx:
@@ -122,7 +124,7 @@ def convert(pj):
                 full = {"type": "statement", "label": (g.get("speaker") or "").upper()[:50], "text": g.get("text", ""),
                         "sub": g.get("role", ""), "source": g.get("source", "")}; stat[t] += 1
             elif t in ("flow", "relmap") and diagrams[sig(g)] >= 2:
-                keep.append(g); stat[t + " repetido (3a vez)"] += 1  # mesmo diagrama pela 3a vez cansa: fica a IA
+                recusa(g, "mesmo diagrama pela 3a vez")
             elif t == "flow" and 2 <= len(g.get("nodes") or []) <= 3:  # tempos: tools/ec_gfx.py timing() pelo "say"
                 cr = []
                 full = {"type": "flow", "label": (g.get("label") or g.get("title") or "").upper()[:44],
@@ -172,9 +174,11 @@ def convert(pj):
                     if credit: ov.append({"type": "credit", "text": "Photo: " + credit})
                     stat[t] += 1
                 else:
-                    keep.append(g); stat["real_photo sem foto ou repetida"] += 1  # fica o clipe de IA da cena
+                    recusa(g, "foto real sem foto ou ja usada")
+            elif t in scenes.FULL and t not in scenes.PIL_FULL:  # so o EffectCraft desenharia e ele nao aceitou (tamanho, frase longa)
+                recusa(g, f"{t} fora do limite do EffectCraft")
             else:
-                keep.append(g); stat["mantido:" + str(t)] += 1
+                keep.append(g); stat["mantido:" + str(t)] += 1  # o gfx.py desenha (tools/produce.py chama na etapa render_graficos)
         if full:  # logo que ja esta num cartao do grafico nao se repete no canto
             shown = {x.get("file") for k in ("nodes", "sats") for x in full.get(k) or []} | {(full.get("center") or {}).get("file")}
             chips = [c for c in chips if c not in shown]
@@ -190,6 +194,8 @@ def convert(pj):
         stagger([o for o in ov if o["type"] == "lower_third"]); stagger(callouts)
         ov += callouts[:3]
         s["gfx_legacy"] = gfx; s["gfx"] = keep  # s["gfx"] so com o que continua vindo do gfx.py (Validacao le gfx + ec)
+        if rec: s["gfx_recusado"] = rec
+        else: s.pop("gfx_recusado", None)
         s["ec"] = {k: v for k, v in (("full", full), ("overlay", ov)) if v}
         if not s["ec"]: s.pop("ec")
     return stat

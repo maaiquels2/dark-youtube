@@ -19,6 +19,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]; PY = sys.executable
 sys.path.insert(0, str(ROOT)); sys.path.insert(0, str(ROOT / "tools"))
+import scenes  # noqa: E402
 
 
 def run(*args):
@@ -36,6 +37,13 @@ def validar(pid):
         raise RuntimeError("validacao com lacunas: " + "; ".join(f"cena {g['scene']}: {', '.join(g['missing'])}" for g in v["gaps"][:10]))
 
 
+def graficos_antigos(pid):
+    """O que sobrou em gfx sem equivalente no EffectCraft (documento, manchete, escala, queda, mapa do dinheiro): gfx.py desenha.
+    gfx.render_project nao mexe em cena que e grafico EffectCraft."""
+    import gfx
+    print("gfx.py (tela cheia, sobreposicoes):", gfx.render_project(ROOT / "projects" / f"{pid}.json", ROOT / "projects" / pid), flush=True)
+
+
 def cenas(pid, st):
     if st["motor"] == "local": remake(pid, "local")
     else: run("grok_worker.py", pid, "--video-engine", st["motor"])
@@ -49,7 +57,7 @@ def revisao(pid):
     sc = json.loads((ROOT / "projects" / f"{pid}.json").read_text(encoding="utf-8"))["scenes"]
     for i, s in enumerate(sc):
         f = pdir / (s.get("file") or "")
-        if s.get("source") in ("gfx", "local", "real_photo_parallax", "real_photo") or f.suffix.lower() != ".mp4" or not f.is_file(): continue
+        if scenes.kind(s) != "ia" or f.suffix.lower() != ".mp4" or not f.is_file(): continue  # parallax so move a camera: fica de fora
         subprocess.run(["ffmpeg", "-hide_banner", "-loglevel", "error", "-y", "-i", str(f), "-vf", "fps=6,scale=384:216,tile=6x6",
                         "-frames:v", "1", "-update", "1", str(out / f"cena-{i + 1:02d}-6fps.jpg")])
     return out
@@ -57,10 +65,7 @@ def revisao(pid):
 
 def resumo_roteiro(pid):
     d = json.loads((ROOT / "projects" / f"{pid}.json").read_text(encoding="utf-8")); sc = d["scenes"]
-    import pipeline
-    full = set(pipeline.FULL_GFX) - {"chapter"} | {"real_photo"}
-    sem_ia = sum(any((g or {}).get("type") in full for g in (s.get("gfx") or []) + (s.get("gfx_legacy") or []))
-                 or bool((s.get("ec") or {}).get("full")) or s.get("source") in ("real_photo", "real_photo_parallax") for s in sc)
+    sem_ia = sum(scenes.kind(s) != "ia" or any((g or {}).get("type") == "real_photo" for g in s.get("gfx") or []) for s in sc)  # foto pedida conta
     chk = [str(i + 1) for i, s in enumerate(sc) if s.get("needs_check")]
     return (f"{len(sc)} cenas, ~{sum(len((s.get('narration') or '').split()) for s in sc) / 150:.0f} min de narracao, {sem_ia} com grafico ou foto "
             f"({sem_ia / max(1, len(sc)):.0%}); a conferir (needs_check): {', '.join(chk) or 'nenhuma'}")
@@ -88,7 +93,7 @@ ETAPAS = [  # (nome, funcao(pid, estado)) ou (PARADA, nome, mensagem(pid))
     ("palavras", lambda pid, st: run("tools/words.py", pid)),
     ("converter", lambda pid, st: remake(pid, "convert,cues,sheet")),
     ("PARADA", "logos", lambda pid: f"Confira logos, selos e fotos em projects/{pid}/logs/logos-sheet.jpg (troque o errado em entities/ antes de seguir)."),
-    ("render_graficos", lambda pid, st: remake(pid, "gfx")),
+    ("render_graficos", lambda pid, st: (graficos_antigos(pid), remake(pid, "gfx"))),
     ("cenas", cenas),
     ("acabamento", lambda pid, st: remake(pid, "clean,parallax")),
     ("revisao", lambda pid, st: revisao(pid)),

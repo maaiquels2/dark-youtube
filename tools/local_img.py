@@ -12,7 +12,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
-import pipeline  # noqa: E402
+import scenes  # noqa: E402
 
 FLUX_PY = Path(os.environ.get("LOCALAPPDATA", "")) / "DarkStudio" / "flux" / ".venv" / "Scripts" / "python.exe"
 STYLE = ("Photorealistic documentary still of the real place and era, natural film look, subtle film grain, moody low-key light with readable "
@@ -24,10 +24,8 @@ MIN_FREE_MB = 5000
 def todo(sc, pdir, only, redo):
     for i, s in enumerate(sc):
         if only and i + 1 not in only: continue
-        if (s.get("ec") or {}).get("full") or s.get("source") in ("gfx", "real_photo", "real_photo_parallax"): continue
-        if any((g or {}).get("type") in pipeline.FULL_GFX for g in s.get("gfx") or []): continue
-        f = s.get("file")
-        if f and (pdir / f).is_file() and not redo: continue
+        if scenes.kind(s) not in ("ia", "local"): continue  # grafico e foto real nunca viram imagem gerada
+        if not (redo or scenes.needs_media(s, pdir)): continue
         if s.get("visual_prompt"): yield i
 
 
