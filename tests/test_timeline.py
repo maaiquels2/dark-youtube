@@ -72,6 +72,7 @@ def _():
 @caso("estimativa antes do audio: 150 palavras por minuto")
 def _():
     assert timeline.estimate(" ".join(["w"] * 150)) == 60 and timeline.estimate("") == 1.0
+    assert timeline.estimate(" ".join(["w"] * 150), wpm=180) == 50  # velocidade configuravel (app.scene_seconds)
 
 
 print(f"\n{'TUDO OK' if not FALHAS else f'{len(FALHAS)} FALHA(S): ' + ', '.join(FALHAS)}")

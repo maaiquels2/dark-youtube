@@ -19,7 +19,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]; PY = sys.executable
 sys.path.insert(0, str(ROOT)); sys.path.insert(0, str(ROOT / "tools"))
-import scenes  # noqa: E402
+import scenes, timeline  # noqa: E402
 
 
 def run(*args):
@@ -67,7 +67,7 @@ def resumo_roteiro(pid):
     d = json.loads((ROOT / "projects" / f"{pid}.json").read_text(encoding="utf-8")); sc = d["scenes"]
     sem_ia = sum(scenes.kind(s) != "ia" or any((g or {}).get("type") == "real_photo" for g in s.get("gfx") or []) for s in sc)  # foto pedida conta
     chk = [str(i + 1) for i, s in enumerate(sc) if s.get("needs_check")]
-    return (f"{len(sc)} cenas, ~{sum(len((s.get('narration') or '').split()) for s in sc) / 150:.0f} min de narracao, {sem_ia} com grafico ou foto "
+    return (f"{len(sc)} cenas, ~{sum(timeline.estimate(s.get('narration')) for s in sc) / 60:.0f} min de narracao, {sem_ia} com grafico ou foto "
             f"({sem_ia / max(1, len(sc)):.0%}); a conferir (needs_check): {', '.join(chk) or 'nenhuma'}")
 
 

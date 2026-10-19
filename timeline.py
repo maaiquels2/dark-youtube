@@ -4,7 +4,7 @@ montage, ec_gfx, ec_montage, parallax, shorts e o kit de capitulos leem daqui.
   plan(pasta, n)        -> {"D": cena (narracao + pausa), "L": clipe (D + crossfade, menos a ultima), "starts", "total"}
   act(i, n)             -> "act1" | "act2" | "act3" | "after"   (o ato gravado na cena, se houver, vale mais: act_of)
   act_of(cena, i, n)    -> ato gravado na cena ou act(i, n)
-  estimate(narracao)    -> segundos estimados antes de existir audio (150 palavras por minuto)
+  estimate(narracao, wpm=150) -> segundos estimados antes de existir audio (wpm: palavras por minuto)
 Sem audio de uma cena, plan() para com erro (antes uma copia inventava 4 s e o clipe saia com a duracao errada).
 """
 import shutil, subprocess
@@ -41,5 +41,5 @@ def act_of(s, i, n):
     return s["act"] if s.get("act") in ACTS else act(i, n)
 
 
-def estimate(text):
-    return max(1.0, len((text or "").split()) / 150 * 60)
+def estimate(text, wpm=150):
+    return max(1.0, len((text or "").split()) / wpm * 60)

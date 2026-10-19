@@ -4,6 +4,7 @@ from http.server import ThreadingHTTPServer, BaseHTTPRequestHandler
 from pathlib import Path
 import scenes  # o que cada cena e (grafico, foto real, local, IA)
 import projfile  # dono do arquivo do projeto: trava entre processos + gravacao atomica
+import timeline  # duracao estimada antes do audio
 import sys as _sys0; _sys0.path.append(str(Path(__file__).resolve().parent / "tools"))  # tools/montar.py (no fim: nao esconde modulo da raiz)
 
 ROOT = Path(__file__).resolve().parent
@@ -247,8 +248,7 @@ def update_scene(pid, i, **fields):
         d["scenes"][i].update(fields)
 
 def scene_seconds(sc, cfg):
-    w = len((sc.get("narration") or "").split())
-    return max(1.0, w / cfg["words_per_minute"] * 60)
+    return timeline.estimate(sc.get("narration"), cfg["words_per_minute"])  # velocidade configuravel (precos da API)
 
 def generate_scene(pid, i):
     cfg = pricing()
