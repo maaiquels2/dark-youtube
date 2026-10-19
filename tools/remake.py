@@ -297,26 +297,28 @@ def cards(pn, pj):
 
 def run(*args):
     r = subprocess.run([PY] + list(args), cwd=ROOT, env={**__import__("os").environ, "PYTHONIOENCODING": "utf-8"})
-    if r.returncode: raise SystemExit(f"falhou: {' '.join(map(str, args))}")
+    if r.returncode: raise RuntimeError(f"falhou: {' '.join(map(str, args))}")  # RuntimeError: o produce.py registra e retoma
 
 
-def main():
-    ap = argparse.ArgumentParser(); ap.add_argument("project"); ap.add_argument("--steps", default="copy,convert,cues,sheet,cards")
-    ap.add_argument("--new", help="id do remake (padrao: <prefixo>-ec-<data>)")
-    a = ap.parse_args(); steps = a.steps.split(",")
-    old = a.project; new = a.new or "-".join(old.split("-")[:4]) + "-ec-" + time.strftime("%Y%m%d")
+def copy(old, new):
+    """Copia o projeto antigo para <new> (midia, narracao, entidades, graficos, musica) sem alterar o original."""
     po, pn = P / old, P / new; fn = P / f"{new}.json"
-    if "copy" in steps:
-        assert not pn.exists(), f"{new} ja existe"
-        pn.mkdir()
-        for d in ("media", "audio", "entities", "gfx", "music", "assets"):
-            if (po / d).is_dir(): shutil.copytree(po / d, pn / d)
-        for k, f in MUSIC.items():  # trilhas de suspense (aprovadas no remake do WeWork)
-            if not (pn / "music" / f).is_file(): shutil.copyfile(ROOT / "library" / "music" / "incompetech" / f, pn / "music" / f)
-        pj = json.loads((P / f"{old}.json").read_text(encoding="utf-8"))
-        pj.update(id=new, remake_of=old, status="draft")
-        for k in ("published_url", "scheduled_at", "published_at", "legacy_complete", "validation"): pj.pop(k, None)
-        projfile.create(fn, pj); print("copia:", new)
+    assert not pn.exists(), f"{new} ja existe"
+    pn.mkdir()
+    for d in ("media", "audio", "entities", "gfx", "music", "assets"):
+        if (po / d).is_dir(): shutil.copytree(po / d, pn / d)
+    for k, f in MUSIC.items():  # trilhas de suspense (aprovadas no remake do WeWork)
+        if not (pn / "music" / f).is_file(): shutil.copyfile(ROOT / "library" / "music" / "incompetech" / f, pn / "music" / f)
+    pj = json.loads((P / f"{old}.json").read_text(encoding="utf-8"))
+    pj.update(id=new, remake_of=old, status="draft")
+    for k in ("published_url", "scheduled_at", "published_at", "legacy_complete", "validation"): pj.pop(k, None)
+    projfile.create(fn, pj); print("copia:", new)
+
+
+def run_steps(new, steps, old=None):
+    """Etapas sobre um projeto que ja existe. O produce.py chama esta funcao direto, sem abrir outro processo.
+    As do proprio modulo rodam aqui; as ferramentas com dependencias proprias (FLUX, EffectCraft, OCR) em processo separado."""
+    pn, fn = P / new, P / f"{new}.json"
     if "convert" in steps:
         with projfile.edit(fn) as pj: print("convertido:", dict(convert(pj)))
     if "cues" in steps:
@@ -337,7 +339,16 @@ def main():
         for g in v["gaps"]: print("  cena", g["scene"], g["missing"])
     if "montage" in steps: run("tools/montar.py", new, "--step", "render", "--sem-graficos")
     if "kit" in steps:
-        print("capitulos:\n" + kit(pn, pj, json.loads((P / f"{old}.json").read_text(encoding="utf-8"))))
+        print("capitulos:\n" + kit(pn, projfile.read(fn), json.loads((P / f"{old or new}.json").read_text(encoding="utf-8"))))
+
+
+def main():
+    ap = argparse.ArgumentParser(); ap.add_argument("project"); ap.add_argument("--steps", default="copy,convert,cues,sheet,cards")
+    ap.add_argument("--new", help="id do remake (padrao: <prefixo>-ec-<data>)")
+    a = ap.parse_args(); steps = a.steps.split(",")
+    old = a.project; new = a.new or "-".join(old.split("-")[:4]) + "-ec-" + time.strftime("%Y%m%d")
+    if "copy" in steps: copy(old, new)
+    run_steps(new, steps, old)
 
 
 if __name__ == "__main__":

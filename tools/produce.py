@@ -20,14 +20,12 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]; PY = sys.executable
 sys.path.insert(0, str(ROOT)); sys.path.insert(0, str(ROOT / "tools"))
 import scenes, timeline  # noqa: E402
+from remake import run_steps  # noqa: E402  etapas do remake no mesmo processo
 
 
 def run(*args):
     r = subprocess.run([PY] + [str(a) for a in args], cwd=ROOT, env={**__import__("os").environ, "PYTHONIOENCODING": "utf-8"})
     if r.returncode: raise RuntimeError(f"falhou: {' '.join(map(str, args))}")
-
-
-def remake(pid, steps): run("tools/remake.py", pid, "--new", pid, "--steps", steps)
 
 
 def validar(pid):
@@ -45,7 +43,7 @@ def graficos_antigos(pid):
 
 
 def cenas(pid, st):
-    if st["motor"] == "local": remake(pid, "local")
+    if st["motor"] == "local": run_steps(pid, ["local"])
     else: run("grok_worker.py", pid, "--video-engine", st["motor"])
 
 
@@ -91,11 +89,11 @@ ETAPAS = [  # (nome, funcao(pid, estado)) ou (PARADA, nome, mensagem(pid))
     ("prompts", lambda pid, st: __import__("pipeline").enrich_prompts(pid)),
     ("narracao", lambda pid, st: run("montage.py", pid, "--step", "tts")),
     ("palavras", lambda pid, st: run("tools/words.py", pid)),
-    ("converter", lambda pid, st: remake(pid, "convert,cues,sheet")),
+    ("converter", lambda pid, st: run_steps(pid, ["convert", "cues", "sheet"])),
     ("PARADA", "logos", lambda pid: f"Confira logos, selos e fotos em projects/{pid}/logs/logos-sheet.jpg (troque o errado em entities/ antes de seguir)."),
-    ("render_graficos", lambda pid, st: (graficos_antigos(pid), remake(pid, "gfx"))),
+    ("render_graficos", lambda pid, st: (graficos_antigos(pid), run_steps(pid, ["gfx"]))),
     ("cenas", cenas),
-    ("acabamento", lambda pid, st: remake(pid, "clean,parallax")),
+    ("acabamento", lambda pid, st: run_steps(pid, ["clean", "parallax"])),
     ("revisao", lambda pid, st: revisao(pid)),
     ("PARADA", "cenas", lambda pid: f"Revise as cenas em projects/{pid}/logs/revisao/ (folha geral + tiras a 6 fps dos clipes). "
                                     f"Para gerar de novo: python tools/produce.py {pid} --refazer 12,30"),
