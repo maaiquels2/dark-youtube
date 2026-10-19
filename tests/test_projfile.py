@@ -75,6 +75,17 @@ def _():
         assert projfile.read(f)["scenes"][0]["narration"] == "a"
 
 
+@caso("create: projeto novo grava; existente nao e sobrescrito")
+def _():
+    with tempfile.TemporaryDirectory() as d:
+        f = Path(d) / "novo.json"
+        projfile.create(f, {"id": "novo", "scenes": [{"narration": "a"}]})
+        assert projfile.read(f)["scenes"][0]["narration"] == "a"
+        try: projfile.create(f, {"id": "novo", "scenes": []}); raise AssertionError("sobrescreveu")
+        except FileExistsError: pass
+        assert projfile.read(f)["scenes"], "apagou o projeto existente"
+
+
 @caso("trava vale entre processos")
 def _():
     with tempfile.TemporaryDirectory() as d:

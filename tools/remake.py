@@ -23,6 +23,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]; P = ROOT / "projects"; PY = sys.executable
 sys.path.insert(0, str(ROOT)); sys.path.insert(0, str(ROOT / "tools"))
 import scenes  # noqa: E402
+import projfile  # noqa: E402
 MUSIC = {"E": "echoes-of-time-v2.mp3", "S": "stay-the-course.mp3", "I": "interloper.mp3", "K": "darkest-child.mp3"}
 TITLES = {"E": "Echoes of Time v2", "S": "Stay the Course", "I": "Interloper", "K": "Darkest Child"}
 CREDIT = "Kevin MacLeod (incompetech.com), licensed under Creative Commons: By Attribution 4.0, https://creativecommons.org/licenses/by/4.0/"
@@ -315,8 +316,7 @@ def main():
         pj = json.loads((P / f"{old}.json").read_text(encoding="utf-8"))
         pj.update(id=new, remake_of=old, status="draft")
         for k in ("published_url", "scheduled_at", "published_at", "legacy_complete", "validation"): pj.pop(k, None)
-        fn.write_text(json.dumps(pj, ensure_ascii=False, indent=2), encoding="utf-8"); print("copia:", new)
-    import projfile
+        projfile.create(fn, pj); print("copia:", new)
     if "convert" in steps:
         with projfile.edit(fn) as pj: print("convertido:", dict(convert(pj)))
     if "cues" in steps:

@@ -6,6 +6,7 @@ por cima do que o outro tinha gravado nesse meio tempo.
   edit(pid)                   -> `with edit(pid) as d:` trava, le, entrega; grava atomico ao sair (mudanca curta)
   patch(pid, {i: {campo: v}}) -> ferramenta lenta: aplica so os campos dela sobre a versao mais nova (DROP apaga o campo)
   save(d)                     -> documento inteiro vindo da tela/pipeline; os campos das ferramentas ficam como estao no disco
+  create(pid, d)              -> projeto novo; para se ja existir
 A trava e um arquivo <id>.json.lock travado pelo sistema: vale entre processos e se solta sozinha se o processo morrer.
 """
 import contextlib, json, os, threading, time
@@ -64,6 +65,14 @@ def _write(pid, d):
         except PermissionError:
             if k == 19: raise
             time.sleep(0.1)
+
+
+def create(pid, d):
+    """Projeto novo (copia do remake, etc.): grava sob a trava e para se o arquivo ja existir."""
+    with lock(pid):
+        if path(pid).is_file(): raise FileExistsError(f"projeto ja existe: {path(pid).name}")
+        _write(pid, d)
+    return d
 
 
 @contextlib.contextmanager
