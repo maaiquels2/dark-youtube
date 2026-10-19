@@ -368,7 +368,7 @@ def _typewriter(full, out, dur, ents=None, room=False):
     for k in range(1, steps + 1):
         sp = dict(full); sp[key] = " ".join(words[:max(1, round(len(words) * k / steps))])
         if full["type"] == "document" and k < steps: sp["highlight"] = ""
-        fimg = globals()["r_" + full["type"]](sp)
+        fimg = draw("r_" + full["type"])(sp)
         frames.append(_make_room(fimg) if room else fimg)
     def gen():
         for f in range(total):
@@ -386,13 +386,13 @@ def o_chapter(im, g):
 
 def _draw_ov(g, photos, logos, ents, st):
     im = Image.new("RGBA", (W, H), (0, 0, 0, 0)); t = g["type"]
-    if t == "chapter": o_chapter(im, g)
-    elif t == "lower_third": o_lower_third(im, g, photos)
-    elif t == "callout": o_callout(im, g, st["kc"], st["ey"] if st["ey"] > 70 else 120); st["kc"] += 1
-    elif t == "parties": o_parties(im, g)
-    elif t == "citation": o_citation(im, g)
-    elif t == "logo": o_logo(im, g, logos)
-    elif t == "entity": st["ey"] = o_entity(im, g, ents, st["ey"])
+    if t == "chapter": draw("o_chapter")(im, g)
+    elif t == "lower_third": draw("o_lower_third")(im, g, photos)
+    elif t == "callout": draw("o_callout")(im, g, st["kc"], st["ey"] if st["ey"] > 70 else 120); st["kc"] += 1
+    elif t == "parties": draw("o_parties")(im, g)
+    elif t == "citation": draw("o_citation")(im, g)
+    elif t == "logo": draw("o_logo")(im, g, logos)
+    elif t == "entity": st["ey"] = draw("o_entity")(im, g, ents, st["ey"])
     return im
 
 # entrada animada por tipo (aplicada na montagem): slide da direita/esquerda/baixo + fade
@@ -415,7 +415,7 @@ def render_scene(spec_list, out_dir, idx, photos=None, logos=None, ents=None, du
             fp = _typewriter(full, out_dir / f"tw-{idx+1:02d}.mp4", max(4.0, dur), ents, room)
         else:
             fp = out_dir / f"full-{idx+1:02d}.png"
-            fn = globals()["r_" + full["type"]]
+            fn = draw("r_" + full["type"])
             fimg = fn(full, ents) if full["type"] in ("entity_full", "relmap") else fn(full)
             (_make_room(fimg) if room else fimg).save(fp)
     ov = [g for g in spec_list or [] if g.get("type") in OVER]
@@ -491,11 +491,21 @@ def render_project(pfile, pdir):
     return nf, no
 
 
-# estilo v2 (premium) por padrao; DS_GFX_STYLE=v1 volta ao estilo plano
-import os as _os
-if _os.environ.get("DS_GFX_STYLE", "v2") != "v1":
-    try:
-        import gfx2 as _g2
-        globals().update({_k: getattr(_g2, _k) for _k in _g2.OVERRIDES})
-    except Exception as _e:
-        print("[gfx] estilo v2 indisponivel:", _e)
+# estilo: v2 (premium, gfx2.py) por padrao; DS_GFX_STYLE=v1 usa os desenhos planos deste modulo.
+# Antes, carregar este modulo trocava as funcoes r_/o_ daqui pelas do gfx2 (e, se o gfx2 fosse importado primeiro, a troca
+# falhava em silencio e o video saia no estilo antigo). Agora a escolha e explicita: draw(nome) devolve o desenho do estilo ativo.
+_STYLE = []
+
+
+def draw(name):
+    """Funcao de desenho r_<tipo> / o_<tipo> do estilo ativo: a do gfx2.py quando ele a tem, senao a deste modulo."""
+    if not _STYLE:
+        st = None
+        if _os.environ.get("DS_GFX_STYLE", "v2") != "v1":
+            try:
+                import gfx2 as st
+            except Exception as e:
+                print("[gfx] estilo v2 indisponivel:", e)
+        _STYLE.append(st)
+    st = _STYLE[0]
+    return getattr(st, name) if st is not None and name in getattr(st, "OVERRIDES", ()) else globals()[name]
