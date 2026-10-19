@@ -79,6 +79,18 @@ def notas(pid):
         d["research_notes"] = nf.read_text(encoding="utf-8"); app.save_project(d)
 
 
+def segurar(pid):
+    """Cena com "hold": N (ex.: abertura de capitulo narrada) fica no minimo N s: silencio no fim do audio da cena,
+    e a duracao de tudo (timeline) sai do audio."""
+    pdir = ROOT / "projects" / pid
+    for i, s in enumerate(json.loads((ROOT / "projects" / f"{pid}.json").read_text(encoding="utf-8"))["scenes"]):
+        a = pdir / "audio" / f"scene-{i + 1:02d}.mp3"
+        if s.get("hold") and a.is_file() and timeline.probe(a) < float(s["hold"]) - 0.05:
+            tmp = a.with_suffix(".hold.mp3")
+            subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", str(a), "-af", f"apad=whole_dur={float(s['hold'])}", str(tmp)], check=True)
+            tmp.replace(a)
+
+
 ETAPAS = [  # (nome, funcao(pid, estado)) ou (PARADA, nome, mensagem(pid))
     ("notas", lambda pid, st: notas(pid)),
     ("pesquisa", lambda pid, st: __import__("pipeline").research(pid)),
@@ -87,7 +99,7 @@ ETAPAS = [  # (nome, funcao(pid, estado)) ou (PARADA, nome, mensagem(pid))
     ("PARADA", "roteiro", lambda pid: "Revise o roteiro no app (fatos, valores, acusacoes, presuncao de inocencia). " + resumo_roteiro(pid)),
     ("entidades", lambda pid, st: __import__("pipeline").collect_images(pid)),
     ("prompts", lambda pid, st: __import__("pipeline").enrich_prompts(pid)),
-    ("narracao", lambda pid, st: run("montage.py", pid, "--step", "tts")),
+    ("narracao", lambda pid, st: (run("montage.py", pid, "--step", "tts"), segurar(pid))),
     ("palavras", lambda pid, st: run("tools/words.py", pid)),
     ("converter", lambda pid, st: run_steps(pid, ["convert", "cues", "sheet"])),
     ("PARADA", "logos", lambda pid: f"Confira logos, selos e fotos em projects/{pid}/logs/logos-sheet.jpg (troque o errado em entities/ antes de seguir)."),

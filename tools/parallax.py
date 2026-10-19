@@ -44,12 +44,14 @@ def cover(im, scale):
     return im.resize((max(W, round(im.width * r)), max(H, round(im.height * r))), Image.LANCZOS)
 
 
-def render(src, out, dur, move=0):
+def render(src, out, dur, move=0, flat=False):
     img = Image.open(src)
     if img.width < 1600:  # foto pequena: Real-ESRGAN antes (so nitidez geral; rosto nao e "restaurado")
         tmp = Path(tempfile.gettempdir()) / f"px_up_{Path(src).stem}.png"
         M.upscale(src, tmp, 2 if img.width >= 1000 else 4); img = Image.open(tmp)
-    fg, bg, mode = layers(img)
+    if flat:  # "camera": "zoom" na cena: so aproxima a foto inteira (casa, predio: o recorte descolava a fachada do fundo)
+        bg = img.convert("RGB"); fg = Image.new("RGBA", bg.size, (0, 0, 0, 0)); mode = "zoom"
+    else: fg, bg, mode = layers(img)
     (b0, b1, bx), (f0, f1, fx) = MOVES[move % len(MOVES)]
     zmax = max(b0, b1, f0, f1) + 0.02
     BG, FG = cover(bg, zmax), cover(fg, zmax)  # uma vez em resolucao folgada; cada quadro so recorta e reduz
@@ -86,7 +88,7 @@ def main():
         if k == "grafico" or not (s.get("parallax") or k == "foto_real") or not photo.lower().endswith((".jpg", ".jpeg", ".png")):
             continue
         out = (Path(a.preview) if a.preview else pdir / "media") / f"parallax-{i+1:02d}.mp4"; out.parent.mkdir(parents=True, exist_ok=True)
-        mode = render(pdir / photo, out, L[i], move=i)
+        mode = render(pdir / photo, out, L[i], move=i, flat=s.get("camera") == "zoom")
         print(f"cena {i+1}: {mode} -> {out.name}", flush=True)
         if not a.preview:
             real = k == "foto_real"  # imagem gerada (local/IA) nao vira "foto real"
