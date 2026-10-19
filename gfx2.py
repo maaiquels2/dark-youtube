@@ -1,7 +1,7 @@
 ﻿"""Dark Studio - estilo v2 (documentario premium): texturas, papel envelhecido, polaroids inclinadas,
 quadro de evidencias com fios vermelhos, timeline em filme, sombras suaves e brilho.
 Sobrescreve os renderizadores de gfx.py (mesmos nomes). Fontes OFL em fonts/."""
-import math, random
+import math, random, zlib
 from pathlib import Path
 import numpy as np
 from PIL import Image, ImageDraw, ImageFont, ImageFilter, ImageChops
@@ -351,7 +351,7 @@ def o_entity(im, s, ents, y0=70):
     e = (ents or {}).get(s.get("name", ""), {"name": s.get("name", ""), "kind": "company"})
     mark, mk = G._ent_mark(e); ph = e.get("photo") if e.get("kind") == "person" and e.get("photo") and Path(e["photo"]).is_file() else None
     title = G._ent_title(e, s.get("first")); sub = (e.get("role") or s.get("role") or G.KIND_LABEL.get(e.get("kind"), "")).upper()
-    k = hash(e.get("name", "")) % 5; ang = [-3, 2.5, -1.5, 3.5, -2][k]
+    k = zlib.crc32(e.get("name", "").encode()) % 5; ang = [-3, 2.5, -1.5, 3.5, -2][k]
     if ph:  # polaroid inclinada
         cw = 380; fr = _photo_frame(ph, cw, 330, "polaroid", e.get("name"), k)
         d = ImageDraw.Draw(fr); fs = F("sansb", 20)
