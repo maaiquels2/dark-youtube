@@ -307,12 +307,18 @@ def copy(old, new):
     pn.mkdir()
     for d in ("media", "audio", "entities", "gfx", "music", "assets"):
         if (po / d).is_dir(): shutil.copytree(po / d, pn / d)
-    for k, f in MUSIC.items():  # trilhas de suspense (aprovadas no remake do WeWork)
-        if not (pn / "music" / f).is_file(): shutil.copyfile(ROOT / "library" / "music" / "incompetech" / f, pn / "music" / f)
+    copy_music(pn)
     pj = json.loads((P / f"{old}.json").read_text(encoding="utf-8"))
     pj.update(id=new, remake_of=old, status="draft")
     for k in ("published_url", "scheduled_at", "published_at", "legacy_complete", "validation"): pj.pop(k, None)
     projfile.create(fn, pj); print("copia:", new)
+
+
+def copy_music(pn):
+    """Trilhas de suspense (aprovadas no remake do WeWork) em <projeto>/music/, onde as deixas apontam."""
+    (pn / "music").mkdir(exist_ok=True)
+    for f in MUSIC.values():
+        if not (pn / "music" / f).is_file(): shutil.copyfile(ROOT / "library" / "music" / "incompetech" / f, pn / "music" / f)
 
 
 def run_steps(new, steps, old=None):
@@ -323,6 +329,7 @@ def run_steps(new, steps, old=None):
         with projfile.edit(fn) as pj: print("convertido:", dict(convert(pj)))
     if "cues" in steps:
         with projfile.edit(fn) as pj: print("deixas musicais:", cues(pj))
+        copy_music(pn)  # projeto novo (produce) nao passa pelo copy: as deixas apontam para music/
     pj = projfile.read(fn)
     if "sheet" in steps:
         out = pn / "logs" / "logos-sheet.jpg"; out.parent.mkdir(exist_ok=True); print("folha de logos/fotos:", sheet(pn, pj, out), "->", out)

@@ -98,6 +98,7 @@ def _():
     tipos = [((s.get("ec") or {}).get("full") or {}).get("type") for s in d["scenes"]]
     assert tipos == ["counter", "timeline", "flow", "statement", None, None], tipos
     assert all("gfx_legacy" in s for s in d["scenes"]) and d.get("music_cues"), d.get("music_cues")
+    assert all((ROOT / "projects" / PID / c["file"]).is_file() for c in d["music_cues"])  # projeto novo tambem recebe as trilhas
 
 
 print(f"\n{'TUDO OK' if not FALHAS else f'{len(FALHAS)} FALHA(S): ' + ', '.join(FALHAS)}")
