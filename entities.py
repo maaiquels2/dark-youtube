@@ -37,11 +37,32 @@ def mentions(text, ents):
         if any(_pat(n).search(text or "") for n in _names(e)): found.append(e["name"])
     return found
 
+def ec_visuals(s):
+    """Graficos do EffectCraft (scenes[i]["ec"], tools/ec_gfx.py) no formato que a Validacao le em s["gfx"]:
+    tudo o que aparece escrito vai para "entity" (nomes visiveis) e os valores para "headline" (checagem de valores)."""
+    ec = s.get("ec") or {}; out = []
+    for e in ([ec["full"]] if ec.get("full") else []) + list(ec.get("overlay") or []):
+        subs = [x for k in ("items", "events", "nodes", "sats", "tiers", "edges") for x in (e.get(k) or []) if isinstance(x, dict)]
+        if isinstance(e.get("center"), dict): subs.append(e["center"])
+        vis = [str(x[k]) for x in [e] + subs for k in ("title", "text", "label", "name", "sub", "role", "date", "note", "link",
+                                                        "stop_label", "alert_label", "highlight_label") if x.get(k)]
+        vis += [str(p) for p in e.get("points") or []]
+        for f in [e.get("file"), e.get("photo")] + list(e.get("files") or []) + [x.get("file") for x in subs]:  # entities/<slug>-logo.png
+            if f: vis.append(re.sub(r"-(logo|seal|photo)$", "", Path(f).stem).replace("-", " ").upper())
+        amts = [f"{x.get('prefix', '')}{x['value']}{x.get('suffix', '')}" for x in [e] + subs if "value" in x]
+        g = dict(e, entity=" | ".join(vis))
+        if amts: g["headline"] = " ".join(amts)
+        out.append(g)
+    return out
+
+def visuals(s):
+    return list(s.get("gfx") or []) + ec_visuals(s)
+
 def _scene_visual_names(s):
     out = []
-    for g in s.get("gfx") or []:
+    for g in visuals(s):
         t = g.get("type")
-        for k in ("name", "company", "entity", "speaker", "center", "outlet"):
+        for k in ("name", "company", "entity", "speaker", "center", "outlet", "source"):  # a fonte aparece escrita no rodape do grafico
             if g.get(k): out.append(str(g[k]))
         for nd in g.get("nodes") or []: out.append(str(nd.get("name", "")))
         out += [str(x) for x in g.get("items") or []]
@@ -55,10 +76,11 @@ def coverage(pj, autofix=True, max_cards=3):
     ents = pj.get("entities") or []; by = {e["name"]: e for e in ents}
     seen, gaps, added, rows = set(), [], 0, []
     extra = pj.get("entity_mentions") or {}  # {scene_idx: [nomes extraidos por IA]}
+    lg = pj.get("logo") or {}; lg_ent = lg.get("entity") if lg.get("enabled") else None  # logo de canto da montagem (cenas com "logo")
     for i, s in enumerate(pj.get("scenes") or []):
         ms = mentions(s.get("narration", ""), ents)
         unknown = [n for n in extra.get(str(i), []) if not mentions(n, ents)]
-        vis = _scene_visual_names(s); missing = []
+        vis = _scene_visual_names(s) + (" | " + lg_ent if lg_ent and s.get("logo") else ""); missing = []
         for n in ms:
             ok = any(_pat(a).search(vis) for a in _names(by[n]))
             if not ok and autofix:

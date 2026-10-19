@@ -2,6 +2,10 @@
 import json, os, re, time, threading, urllib.request, urllib.error, urllib.parse, math
 from http.server import ThreadingHTTPServer, BaseHTTPRequestHandler
 from pathlib import Path
+import scenes  # o que cada cena e (grafico, foto real, local, IA)
+import projfile  # dono do arquivo do projeto: trava entre processos + gravacao atomica
+import timeline  # duracao estimada antes do audio
+import sys as _sys0; _sys0.path.append(str(Path(__file__).resolve().parent / "tools"))  # tools/montar.py (no fim: nao esconde modulo da raiz)
 
 ROOT = Path(__file__).resolve().parent
 STATIC = ROOT / "static"
@@ -80,7 +84,7 @@ def chat_json(system, user, max_tokens=8000):
 # ---------------- xAI (Cenas) ----------------
 XAI = "https://api.x.ai/v1"
 LOCK = threading.Lock()
-SERVER_FIELDS = ("status", "file", "error", "cost_usd", "gen_seconds", "request_id", "media_duration", "generated_with")
+SERVER_FIELDS = projfile.SERVER_FIELDS  # a lista mora em projfile.py
 
 def pricing():
     return json.loads((ROOT / "config" / "pricing.json").read_text(encoding="utf-8"))
@@ -240,14 +244,11 @@ def load_project(pid):
     return json.loads(proj_path(pid).read_text(encoding="utf-8"))
 
 def update_scene(pid, i, **fields):
-    with LOCK:
-        d = load_project(pid)
+    with LOCK, projfile.edit(pid) as d:
         d["scenes"][i].update(fields)
-        proj_path(pid).write_text(json.dumps(d, ensure_ascii=False, indent=2), encoding="utf-8")
 
 def scene_seconds(sc, cfg):
-    w = len((sc.get("narration") or "").split())
-    return max(1.0, w / cfg["words_per_minute"] * 60)
+    return timeline.estimate(sc.get("narration"), cfg["words_per_minute"])  # velocidade configuravel (precos da API)
 
 def generate_scene(pid, i):
     cfg = pricing()
@@ -310,8 +311,8 @@ def start_generation(pid, idxs):
     started = []
     for i in idxs:
         sc = d["scenes"][i]
-        if sc.get("source", "api") != "api" or sc.get("status") == "gerando":
-            continue
+        if sc.get("source", "api") != "api" or sc.get("status") == "gerando" or scenes.kind(sc) != "ia":
+            continue  # so cena de IA marcada para a API; grafico e foto real nunca (scenes.py)
         started.append(i)
     for i in started:
         update_scene(pid, i, status="gerando", error=None)
@@ -371,18 +372,36 @@ STORY_STANDARD = (
     "(4) a clear 3-act structure (setup / unraveling / reckoning) mapped onto 6-10 chapters; "
     "(5) emotional authenticity through affected people (employees, creditors, investors, customers) based on reported facts, never sensational; "
     "(6) show-don't-tell: every visual_prompt must literally match and EXPLAIN its narration, varied shot types (wide, close-up, macro, aerial, tracking) so consecutive scenes never look alike; "
-    "for abstract finance ideas (leverage, debt, funds moving, who owed whom) show a concrete physical metaphor or put the numbers in a gfx, never 'someone looking at screens or documents'. "
+    "for abstract finance ideas (leverage, debt, funds moving, who owed whom, who gets paid first) use a gfx (flow, relmap, stack, chart), "
+    "never a symbolic object standing for the idea (crates, keys, glass boxes, chess pieces) and never 'someone looking at screens or documents'. "
     "LEGAL: anyone charged but not convicted is presumed innocent: attribute every accusation ('prosecutors allege', 'according to the indictment', 'the company said'); never state guilt; "
     "include one explicit presumption-of-innocence line; report denials and not-guilty pleas. ")
 GFX_SPEC = (
     "GRAPHICS (gfx) - motion-graphics specs rendered from real data. Use only facts given above, with their source. Types:\n"
-    "FULL-SCREEN (replaces the AI visual for that scene; use on ~25-35% of scenes, never two identical types in a row):\n"
+    "VISUAL DECISION for every scene, in this order: a number -> chart/scale/collapse; money or obligations between parties, who owes whom, "
+    "a conflict of interest -> flow/relmap/moneyflow; an order, priority or process -> stack/timeline; questions, lessons or a thesis -> list/takeaway; "
+    "a real person or real building that is the subject -> real_photo; only a physical moment (people, streets, buildings, weather) is left to the AI visual. "
+    "Aim for 55-70% of scenes with a full-screen item, never two identical types in a row, and never more than 3 full-screen graphics in a row "
+    "without a real_photo or an AI scene between them. Write every \"say\" as 1-3 words copied from THIS scene's narration: the card appears when they are spoken. "
+    "When the narration states an amount that is in the verified facts, that scene MUST get a chart. Arrow labels 1-2 words, list items <= 8 words. "
+    "takeaway at most once per chapter: a short thesis in your own words, never a narration sentence copied onto the screen. "
+    "Each real_photo (same person or building) at most once per video. stack only when the tiers recover different shares (a process or steps go in timeline or list). "
+    "The same diagram (same parties) at most twice per video.\n"
+    "FULL-SCREEN (replaces the AI visual for that scene):\n"
     '- {"type":"chapter","number":1,"title":"..."} on the first scene of each chapter (matches YouTube chapters).\n'
     '- {"type":"timeline","title":"...","events":[{"date":"Sep 28, 2025","label":"<=6 words"}],"highlight":index,"source":"..."} 3-6 events.\n'
     '- {"type":"chart","title":"... ($B)","unit":"$B","series":[{"label":"...","value":6.1}],"highlight":index,"source":"..."} only real sourced numbers.\n'
     '- {"type":"document","doc":"Indictment, US v. X, 26 Cr. 29","header":"...","excerpt":"exact or near-exact public wording (<=45 words)","highlight":"key phrase inside excerpt","source":"..."}.\n'
     '- {"type":"quote","text":"verbatim quote","speaker":"Name","role":"...","source":"outlet, date"} only real verbatim quotes from the facts.\n'
-    '- {"type":"relmap","title":"Who owed whom","center":"Company","center_role":"...","nodes":[{"name":"Lender","relation":"$715M receivables"}],"source":"..."} 3-7 nodes.\n'
+    '- {"type":"relmap","title":"Who owed whom","center":"Company","center_role":"...","nodes":[{"name":"Lender","relation":"$715M receivables","say":"lender","alert_say":"","alert_label":""}],"source":"..."} 2-4 nodes (more parties: use parties); alert_say/alert_label (e.g. "SEVERE LOSSES") only when the narration names that consequence.\n'
+    '- {"type":"flow","label":"THE TIMING MISMATCH","nodes":[{"name":"Members","note":"wanted flexibility","say":"members"},{"name":"WeWork","say":"WeWork"},{"name":"Landlords","note":"wanted long leases","say":"landlords"}],'
+    '"edges":[{"from":0,"to":1,"label":"FEES","stop_say":"empty desk","stop_label":"EMPTY DESK"},{"from":1,"to":2,"label":"RENT","alert_say":"rent","alert_label":"RENT STILL DUE"}],"note":"optional one-line takeaway","source":"..."} '
+    '2-3 parties with money or obligations moving between them; stop_* only when the narration says a payment stops, alert_* when a payment becomes the problem.\n'
+    '- {"type":"stack","label":"IN BANKRUPTCY","title":"Who gets paid first","tiers":[{"label":"Secured creditors","note":"","fill":1.0,"say":"..."}],"highlight":2,"highlight_label":"PAID ONLY FROM WHAT REMAINS","highlight_say":"...","illustrative":true,"source":"..."} '
+    '2-4 tiers of an order or priority; fill = share recovered (0-1); illustrative:true unless every fill is a sourced number.\n'
+    '- {"type":"list","label":"THE ORDINARY QUESTIONS","items":["Who controls the company?","Where does the cash go?"]} 2-4 short items the narration says one after another, in its own words.\n'
+    '- {"type":"takeaway","label":"THE PATTERN","text":"<=12-word thesis taken from the narration","sub":"optional supporting line"} a scene that states a conclusion (not a quote).\n'
+    '- {"type":"real_photo","entity":"Exact person or company name","place":"CITY"} full-screen REAL photo (Wikimedia Commons, animated with camera parallax) when that real person or headquarters is the subject.\n'
     '- {"type":"scale","title":"...","amount":"$11.6B","comparison":"plain-language comparison that is arithmetically true","blocks":0,"source":"..."}.\n'
     '- {"type":"headline","outlet":"Reuters","date":"Jan 29, 2026","headline":"real published headline"}.\n'
     '- {"type":"moneyflow","title":"Follow the money","flows":[{"from":{"name":"Fund, New York","lon":-74.0,"lat":40.7},"to":{"name":"Company, City","lon":-81.7,"lat":41.5},"amount":"$715M","date":"..."}],"source":"..."} ANIMATED map: ONLY for a sourced transfer/financing between two real places (use real city coordinates).\n'
@@ -395,7 +414,9 @@ GFX_SPEC = (
     '- {"type":"citation","text":"DOJ SDNY, Jan 29 2026"} small corner source when a key number appears without a callout.\n'
     "A scene may combine one full-screen item with nothing else, or several overlays. ")
 
-def write_script(p):
+def write_script(p, gfx=True):
+    """gfx=False: so narracao e visual (os graficos vem depois em pipeline.plan_gfx, em lotes): o roteiro inteiro com as
+    regras de grafico estourou os 600 s da API em 18/10/2026; em duas etapas levou ~3 min."""
     mins = int(p.get("minutes") or 10)
     words = mins * 150
     sys = ("You are a researcher and scriptwriter for a faceless Business & Finance documentary YouTube channel. "
@@ -416,7 +437,8 @@ def write_script(p):
          "the meaning must read from objects, action and light, never from readable text, charts on screens, calendars or documents "
          "(no real person likeness, no logos or trademarks, no on-screen text); key_facts (list of factual claims in the scene); "
          "sources (list of {title, url}); needs_check (boolean); chapter (short chapter title, set ONLY on the first scene of each chapter, else empty); "
-         "gfx (list of on-screen graphics specs for this scene, see GRAPHICS below; [] when none).\n" + GFX_SPEC + "\n"
+         + ("gfx (list of on-screen graphics specs for this scene, see GRAPHICS below; [] when none).\n" + GFX_SPEC + "\n" if gfx else
+            "gfx (always [] here: graphics are planned in a second pass).\n") +
          '{"title":"...","description":"resumo em português","hook":"first 30 seconds summary",'
          '"retention_beats":["..."],"scenes":[{"narration":"...","visual_prompt":"...","key_facts":["..."],'
          '"sources":[{"title":"...","url":"verificar"}],"needs_check":true,"chapter":"","gfx":[]}]}')
@@ -428,19 +450,8 @@ def save_project(proj):
     pid = proj.get("id") or slug(proj.get("title", "projeto"))
     proj["id"] = pid
     proj["updated_at"] = time.strftime("%Y-%m-%d %H:%M:%S")
-    with LOCK:
-        f = PROJECTS / f"{Path(pid).name}.json"
-        if f.exists():
-            old = json.loads(f.read_text(encoding="utf-8")).get("scenes") or []
-            for i, sc in enumerate(proj.get("scenes") or []):
-                if i < len(old):
-                    for k in SERVER_FIELDS:
-                        if k in old[i]:
-                            sc[k] = old[i][k]
-                        else:
-                            sc.pop(k, None)
-        with_prompts(proj)
-        f.write_text(json.dumps(proj, ensure_ascii=False, indent=2), encoding="utf-8")
+    with LOCK:  # campos de servidor/ferramenta ficam como estao no disco (projfile.save)
+        projfile.save(proj, before_write=with_prompts)
     try:
         export_prompts(proj)
     except Exception:
@@ -475,12 +486,11 @@ def auto_start(pid, scenes=None, concurrency=None):
     if pr and pr.poll() is None:
         raise ApiError("A geração automática já está rodando neste projeto.")
     conc = int(concurrency or pricing().get("grok_auto_concurrency", 2))
-    with LOCK:  # cenas ainda sem midia usam o modelo de prompt atual (as prontas guardam o prompt com que foram geradas)
-        d = load_project(pid); cfg = pricing(); pdir = PROJECTS / pid
+    with LOCK, projfile.edit(pid) as d:  # cenas ainda sem midia usam o modelo de prompt atual (as prontas guardam o prompt com que foram geradas)
+        cfg = pricing(); pdir = PROJECTS / pid
         for sc in d.get("scenes") or []:
             if not (sc.get("file") and (pdir / sc["file"]).is_file()):
                 sc["grok_prompt"] = build_grok_prompt(sc, cfg)
-        proj_path(pid).write_text(json.dumps(d, ensure_ascii=False, indent=2), encoding="utf-8")
     args = [_venv_py(), str(Path(__file__).resolve().parent / "grok_worker.py"), pid, "--concurrency", str(conc)]
     if scenes:
         args += ["--scenes", ",".join(str(int(i)) for i in scenes)]
@@ -535,14 +545,15 @@ def mont_start(pid, step="all", force_tts=False):
     if pr and pr.poll() is None:
         raise ApiError("A montagem já está rodando.")
     if step != "tts":
-        import pipeline
-        v = pipeline.validate(pid, autofix=True)
+        import pipeline, montar
+        ec = montar.is_ec(load_project(pid))  # EffectCraft: correcao automatica poria cartoes antigos que a montagem EC nao desenha
+        v = pipeline.validate(pid, autofix=not ec)
         if not v["ok"]:
             g = "; ".join(f"cena {x['scene']}: {', '.join(x['missing'])}" for x in v["gaps"][:8])
             raise ApiError(f"Render bloqueado pela Validação: {len(v['gaps'])} cena(s) com lacunas. {g}")
-        gfx_render(pid)
     logs = PROJECTS / pid / "logs"; logs.mkdir(parents=True, exist_ok=True)
-    args = [_venv_py(), str(Path(__file__).resolve().parent / "montage.py"), pid, "--step", step]
+    # um caminho so (tools/montar.py): o proprio projeto escolhe antigo ou EffectCraft; os graficos sao desenhados la
+    args = [_venv_py(), str(Path(__file__).resolve().parent / "tools" / "montar.py"), pid, "--step", step]
     if force_tts: args.append("--force-tts")
     out = open(logs / "montage.out", "a", encoding="utf-8")
     MONT[pid] = subprocess.Popen(args, stdout=out, stderr=subprocess.STDOUT, cwd=str(Path(__file__).resolve().parent),
@@ -654,8 +665,8 @@ COVER_CANDIDATES = ("PUBLICAR/3-thumbnail.jpg", "PUBLICAR/thumbnail.jpg", "outpu
 def set_fair_use(b):
     """Per-person 'Uso justo' (fair use): news/agency photo of a verified person, shown only inside the person card,
     briefly, with transformative polaroid treatment and on-card credit. Requires image URL + article URL naming the person."""
-    with LOCK:
-        d = load_project(b["id"]); pdir = PROJECTS / Path(d["id"]).name
+    with LOCK, projfile.edit(b["id"]) as d:
+        pdir = PROJECTS / Path(d["id"]).name
         e = next((x for x in d.get("entities") or [] if x["name"] == b["name"]), None)
         if not e or e.get("kind") != "person": raise ApiError("Pessoa não encontrada.")
         cr = e.setdefault("credits", {})
@@ -677,7 +688,6 @@ def set_fair_use(b):
             cr.update(photo=f"{b['outlet']} (fair use, news photo)", photo_short=b["outlet"], photo_source=b["source_url"])
             if b.get("image_url"): cr["photo_image_url"] = b["image_url"]
             if b.get("role"): e["role"] = b["role"]
-        proj_path(d["id"]).write_text(json.dumps(d, ensure_ascii=False, indent=2), encoding="utf-8")
     return {"ok": True, "entity": e}
 
 def project_cover(d):
@@ -724,8 +734,7 @@ def decorate(d):
 
 def publish(pid, url, unpublish=False, scheduled_at=None):
     url = (url or "").strip()
-    with LOCK:
-        d = load_project(pid)
+    with LOCK, projfile.edit(pid) as d:
         if unpublish:
             d["status"] = "rascunho"
         else:
@@ -735,7 +744,6 @@ def publish(pid, url, unpublish=False, scheduled_at=None):
                 d.update(published_url=url, status="agendado", scheduled_at=scheduled_at.replace("T", " ")[:16])
             else:
                 d.update(published_url=url, status="publicado", published_at=time.strftime("%Y-%m-%d %H:%M:%S"))
-        proj_path(pid).write_text(json.dumps(d, ensure_ascii=False, indent=2), encoding="utf-8")
     return decorate(d)
 
 class H(BaseHTTPRequestHandler):
@@ -803,6 +811,10 @@ class H(BaseHTTPRequestHandler):
                 f = PROJECTS / Path(parts[0]).name / parts[1] / Path(parts[2]).name
                 if f.is_file():
                     return self._send_file(f)
+            if len(parts) == 3 and parts[1] == "shorts":
+                f = PROJECTS / Path(parts[0]).name / "output" / "shorts" / Path(parts[2]).name
+                if f.is_file():
+                    return self._send_file(f)
             return self._send(404, {"error": "não encontrado"})
         if p == "/api/pricing":
             return self._send(200, pricing())
@@ -823,9 +835,33 @@ class H(BaseHTTPRequestHandler):
                     st = project_stages(d)
                     items.append({"id": d["id"], "title": d.get("title"), "language": d.get("language"), "updated_at": d.get("updated_at"),
                                   "status": decorate(dict(d)).get("status") or "rascunho", "scheduled_at": d.get("scheduled_at"), "published_url": d.get("published_url"), "cover": project_cover(d),
-                                  "stages_done": sum(st.values()), "stages": st, "yt": {k: (yt_cached(d["id"]) or {}).get(k) for k in ("views", "likes", "comments", "fetched_at")}})
+                                  "stages_done": sum(st.values()), "stages": st, "yt": {k: (yt_cached(d["id"]) or {}).get(k) for k in ("views", "likes", "comments", "fetched_at")},
+                                  "pub_at": d.get("scheduled_at") or (d.get("published_at") or "")[:16] or None})
                 except Exception:
                     pass
+            # ordem de publicacao: com data primeiro (mais antigo -> mais novo), depois rascunhos por edicao recente
+            items.sort(key=lambda x: (0, x["pub_at"]) if x["pub_at"] else (1, ""))
+            return self._send(200, items)
+        if p == "/api/shorts":
+            items, now = [], time.strftime("%Y-%m-%d %H:%M")
+            social = {}  # (projeto, arquivo) -> {facebook: status, instagram: status}, da fila do tools/meta_publish.py
+            try:
+                for x in json.loads((ROOT / "social" / "queue.json").read_text(encoding="utf-8")):
+                    social.setdefault((x["project"], Path(x["file"].replace("\\", "/")).name), {})[x["platform"]] = "erro" if x.get("error") and x["status"] == "pendente" else x["status"]
+            except FileNotFoundError:
+                pass
+            for f in PROJECTS.glob("*/output/shorts/shorts.json"):
+                try:
+                    pid = f.parents[2].name; pj = json.loads((PROJECTS / f"{pid}.json").read_text(encoding="utf-8"))
+                    for s in json.loads(f.read_text(encoding="utf-8")):
+                        sch = s.get("scheduled"); url = s.get("youtube")
+                        stt = "publicado" if url and sch and sch <= now else "agendado" if url and sch else "publicado" if url else "rascunho"
+                        items.append({"project": pid, "project_title": pj.get("title"), "file": s.get("file"), "title": s.get("title"),
+                                      "seconds": s.get("seconds"), "published_url": url, "pub_at": sch, "status": stt,
+                                      "social": social.get((pid, s.get("file")), {})})
+                except Exception:
+                    pass
+            items.sort(key=lambda x: (0, x["pub_at"]) if x["pub_at"] else (1, x["project"], x["file"] or ""))
             return self._send(200, items)
         if p.startswith("/api/projects/"):
             f = PROJECTS / (Path(p).name + ".json")
@@ -888,7 +924,7 @@ class H(BaseHTTPRequestHandler):
                 st = self.path.rsplit("/", 1)[-1]
                 if st == "notes":
                     with LOCK:
-                        d = load_project(body["id"]); d["research_notes"] = body.get("notes", ""); proj_path(body["id"]).write_text(json.dumps(d, ensure_ascii=False, indent=2), encoding="utf-8")
+                        with projfile.edit(body["id"]) as d: d["research_notes"] = body.get("notes", "")
                     return self._send(200, {"ok": True})
                 if st == "fairuse":
                     return self._send(200, set_fair_use(body))
@@ -911,11 +947,11 @@ class H(BaseHTTPRequestHandler):
 if __name__ == "__main__":
     for f in PROJECTS.glob("*.json"):  # gerações interrompidas ao reiniciar
         try:
-            d = json.loads(f.read_text(encoding="utf-8")); ch = False
-            for sc in d.get("scenes") or []:
-                if sc.get("status") == "gerando":
-                    sc["status"] = "erro"; sc["error"] = "Interrompido (app reiniciado). Gere de novo."; ch = True
-            if ch: f.write_text(json.dumps(d, ensure_ascii=False, indent=2), encoding="utf-8")
+            d = json.loads(f.read_text(encoding="utf-8"))
+            if any(sc.get("status") == "gerando" for sc in d.get("scenes") or []):
+                with projfile.edit(f.stem) as d:
+                    for sc in d.get("scenes") or []:
+                        if sc.get("status") == "gerando": sc["status"] = "erro"; sc["error"] = "Interrompido (app reiniciado). Gere de novo."
         except Exception:
             pass
     print(f"Dark YouTube rodando em http://127.0.0.1:{PORT}  (chave OpenAI: {'OK' if api_key() else 'NÃO configurada'})")

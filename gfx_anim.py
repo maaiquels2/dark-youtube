@@ -2,7 +2,8 @@
   moneyflow: mapa escuro estilizado (Natural Earth, dominio publico) com rota brilhante e particulas de dinheiro
              {"type":"moneyflow","title","flows":[{"from":{"name","lon","lat"},"to":{...},"amount":"$715M","date":"Oct 2025"}],"bbox":[lon0,lat0,lon1,lat1],"source"}
   collapse:  queda de valor (linha ou barras), acento vermelho, marcadores de evento, contador final
-             {"type":"collapse","title","unit":"$B","mode":"line|bars","points":[{"label","value","event":""}],"final":{"label","value"},"source"}
+             {"type":"collapse","title","unit":"$B","mode":"line|bars","points":[{"label","value","event":""}],"final":{"label","value","from"},"source"}
+             linha: "axis_min" (piso do eixo, p/ quedas pequenas) e "ref":{"value","label"} (linha de referencia, ex.: $1.00)
 """
 import json, math, subprocess, shutil
 from pathlib import Path
@@ -124,9 +125,16 @@ def moneyflow_frames(s, dur=7.0, fps=30):
 # ---------- colapso ----------
 def collapse_frames(s, dur=7.0, fps=30):
     pts = s.get("points") or []; unit = s.get("unit", ""); mode = s.get("mode", "line"); n = int(dur * fps)
-    base = V.backdrop(57, leak=V.RED).convert("RGBA"); d0 = ImageDraw.Draw(base); V.kicker(d0, s.get("title", ""), color=(240, 96, 86))  # vermelho claro: contraste 5.4:1 (o RED puro da 3.7:1 em texto); V.source(d0, s.get("source"))
+    base = V.backdrop(57, leak=V.RED).convert("RGBA"); d0 = ImageDraw.Draw(base); V.kicker(d0, s.get("title", ""), color=(240, 96, 86)); V.source(d0, s.get("source"))  # kicker vermelho claro: contraste 5.4:1 (o RED puro da 3.7:1 em texto)
     x0, x1, yb, yt = 200, W - 520, 900, 260; mx = max([float(p["value"]) for p in pts] + [1e-9])
+    mn = float(s.get("axis_min") or 0) if mode != "bars" else 0.0  # barras sempre do zero
+    ref = s.get("ref") if mode != "bars" else None
+    if ref: mx = max(mx, float(ref["value"]))
     d0.line([(x0, yb), (x1 + 80, yb)], fill=(110, 104, 96), width=2)
+    if ref:  # linha de referencia tracejada (ex.: o "buck" de $1.00)
+        ry = yb - (yb - yt) * (float(ref["value"]) - mn) / (mx - mn)
+        for xx in range(x0, x1 + 80, 28): d0.line([(xx, ry), (min(xx + 16, x1 + 80), ry)], fill=V.AMBER, width=3)
+        d0.text((x0, ry - 42), ref.get("label", ""), font=V.F("sansm", 28), fill=(250, 206, 110))
     for g in range(1, 4):
         yy = yb - (yb - yt) * g / 4; d0.line([(x0, yy), (x1 + 80, yy)], fill=(48, 46, 44), width=1)
     def fmt(v):
@@ -146,7 +154,7 @@ def collapse_frames(s, dur=7.0, fps=30):
                     tx = p["display"] if p.get("display") and al >= 1 else fmt(v * _ease(al)); fv = V.fit(p.get("display") or fmt(v), "num", 60, bw + 60, True); V.draw_text(d, (bx + bw / 2 - V.text_w(tx, fv, True) / 2, yb - h - 78), tx, fv, V.WHITE, tabular=True)
                     for q, l in enumerate(V.wrap(d, p.get("label", ""), V.F("sansm", 26), bw + 40)[:2]): d.text((bx + bw / 2 - V.tw(d, l, V.F("sansm", 26)) / 2, yb + 16 + q * 32), l, font=V.F("sansm", 26), fill=V.MUTED)
         else:
-            xs = [x0 + (x1 - x0) * j / max(1, k - 1) for j in range(k)]; ys = [yb - (yb - yt) * float(p["value"]) / mx for p in pts]
+            xs = [x0 + (x1 - x0) * j / max(1, k - 1) for j in range(k)]; ys = [yb - (yb - yt) * (float(p["value"]) - mn) / (mx - mn) for p in pts]
             line = []
             for j in range(k):
                 if j <= prog: line.append((xs[j], ys[j]))
@@ -162,7 +170,8 @@ def collapse_frames(s, dur=7.0, fps=30):
                         d.text((xs[j] - 10, ys[j] - 130), p["event"], font=V.F("hand", 38), fill=(250, 206, 110))
         fin = s.get("final")
         if fin:  # contador final
-            al = max(0, min(1, (t - 0.45) / 0.45)); pre, v, suf = _money(fin.get("value", "")); txt = _fmtc(pre, v * _ease(al) if v > 0 else v, suf, v)
+            al = max(0, min(1, (t - 0.45) / 0.45)); pre, v, suf = _money(fin.get("value", "")); st = _money(fin["from"])[1] if fin.get("from") else 0.0  # "from": conta de cima p/ baixo (ex.: $1.00 -> $0.97)
+            txt = _fmtc(pre, st + (v - st) * _ease(al) if v > 0 else v, suf, v)
             fv = V.fit(_fmtc(pre, v, suf, v), "num", 120, 420, True); V.glow_text(im, (W - 470, 420), txt, fv, (255, 120, 108), V.RED, 24, tabular=True)
             for q, l in enumerate(V.wrap(d, fin.get("label", ""), V.F("sansm", 30), 400)[:3]): d.text((W - 470, 570 + q * 40), l, font=V.F("sansm", 30), fill=V.WHITE)
         im.alpha_composite(glow.filter(ImageFilter.GaussianBlur(12)))

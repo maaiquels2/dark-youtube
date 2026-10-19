@@ -2,11 +2,14 @@
 """Dark Studio - Montagem: narracao (OpenAI TTS) + ffmpeg -> output/final.mp4 + final.srt
 
 Uso: python montage.py <project_id> [--step tts|render|all] [--force-tts]
+Para montar um projeto use tools/montar.py: ele desenha os graficos antes e escolhe entre este modulo e o EffectCraft.
 Status: projects/<id>/logs/montage.json   Controle: logs/montage_control.txt (stop)
 """
 import argparse, json, math, os, re, shutil, subprocess, sys, threading, time, urllib.request, urllib.error
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
+
+import timeline  # duracao, inicio e ato de cada cena (fonte unica)
 
 ROOT = Path(__file__).resolve().parent
 PROJECTS = ROOT / "projects"
@@ -128,7 +131,12 @@ class Job:
             self.st.update(kw); self.st["updated_at"] = time.strftime("%H:%M:%S")
             tmp = self.status_f.with_suffix(".tmp")
             tmp.write_text(json.dumps(self.st, ensure_ascii=False, indent=1), encoding="utf-8")
-            os.replace(tmp, self.status_f)
+            for k in range(20):  # no Windows o replace falha se outro processo (painel, antivirus) estiver lendo o arquivo
+                try:
+                    os.replace(tmp, self.status_f); break
+                except PermissionError:
+                    if k == 19: raise
+                    time.sleep(0.05)
 
     def check_stop(self):
         try:
@@ -245,12 +253,6 @@ class Job:
                    "-r", str(self.c["fps"]), str(out)])
         return out
 
-    def render_gfx(self):
-        import gfx
-        nf, no = gfx.render_project(self.pfile, self.pdir)
-        self.log(f"graficos: {nf} telas cheias, {no} sobreposicoes")
-        return nf, no
-
     def render_clip(self, i, sc, D, L):
         fps = self.c["fps"]
         src = self.pdir / sc["file"]
@@ -351,21 +353,14 @@ class Job:
         sp = min(sps, key=cost)
         return c[:sp].strip() + "\n" + c[sp:].strip()
 
-    def run_render(self):
-        self.render_gfx()
+    def run_render(self):  # os graficos ja foram desenhados por tools/montar.py (gfx.py e, no caminho EffectCraft, ec_gfx)
         sc = self.scenes()
         missing = [i + 1 for i, s in enumerate(sc) if not s.get("file") or not (self.pdir / s["file"]).is_file()]
         if missing:
             raise RuntimeError(f"Cenas sem midia: {missing[:10]}")
-        amiss = [i + 1 for i in range(len(sc)) if not (self.pdir / "audio" / f"scene-{i+1:02d}.mp3").is_file()]
-        if amiss:
-            raise RuntimeError(f"Cenas sem narracao: {amiss[:10]} (gere a narracao primeiro)")
-        pad, XF, fps = self.c["pad_seconds"], self.c["crossfade_seconds"], self.c["fps"]
-        adurs = [probe_dur(self.pdir / "audio" / f"scene-{i+1:02d}.mp3") for i in range(len(sc))]
-        D = [round(a + pad, 3) for a in adurs]
-        L = [d + (XF if k < len(D) - 1 else 0) for k, d in enumerate(D)]
-        starts = [sum(D[:k]) for k in range(len(D))]
-        total = sum(D)
+        XF, fps = self.c["crossfade_seconds"], self.c["fps"]
+        tl = timeline.plan(self.pdir, len(sc), self.c)  # para com erro se faltar narracao de alguma cena
+        D, L, starts, total = tl["D"], tl["L"], tl["starts"], tl["total"]
         self.save(state="running", step="clipes", progress=0, total=len(sc), message="Renderizando clipes (Ken Burns / ajuste de video)",
                   duration_seconds=round(total, 1))
         t0 = time.time(); done = [0]; info = {}

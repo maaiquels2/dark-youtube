@@ -3,6 +3,7 @@ Usa app.chat_json (OpenAI, so texto). Imagens reais vem de fontes licenciadas (W
 import json, re, time, urllib.request, urllib.parse, urllib.error
 from pathlib import Path
 import entities as E
+import scenes
 
 def _app():
     import app; return app
@@ -11,10 +12,10 @@ def _load(pid):
     a = _app(); return a.load_project(pid)
 
 def _save(d):
-    a = _app()
-    with a.LOCK:
-        a.proj_path(d["id"]).write_text(json.dumps({k: v for k, v in d.items() if not k.startswith("_")}, ensure_ascii=False, indent=2), encoding="utf-8")
-    return d
+    """Documento inteiro, sem desfazer o que o worker/ferramentas gravaram enquanto a etapa rodava (projfile.save)."""
+    import projfile
+    with _app().LOCK:
+        return projfile.save(d)
 
 def url_ok(u):
     try:
@@ -62,15 +63,42 @@ def dossier_text(dos):
     return "\n".join(out)
 
 # ---------------- 2) Roteiro a partir do dossie ----------------
-def script_from_dossier(pid):
+def script_from_dossier(pid, gfx=True):
+    """gfx=False: so a narracao; os graficos vem em plan_gfx (duas etapas: o roteiro inteiro estourou o tempo da API)."""
     d = _load(pid); a = _app()
     if not d.get("dossier"): raise a.ApiError("Gere o dossie de pesquisa primeiro (etapa Pesquisa).")
     p = dict(d, facts=dossier_text(d["dossier"]))
-    r = a.write_script(p)
+    r = a.write_script(p, gfx=gfx)
     keep = {k: d[k] for k in d if k not in ("scenes", "hook", "retention_beats", "description", "validation", "prompts_enriched")}
     keep.update({k: r[k] for k in ("hook", "retention_beats", "description", "scenes") if k in r})
     keep["script_from_dossier"] = True
     return a.save_project(keep)
+
+def plan_gfx(pid, batch=20):
+    """Segunda etapa do roteiro: com a narracao pronta, o modelo escolhe os graficos de cada cena (app.GFX_SPEC), em lotes,
+    levando os tipos das 3 cenas anteriores para respeitar as regras de sequencia. Testado no WeWork em 18/10: ~3 min, 51% sem IA."""
+    d = _load(pid); a = _app(); sc = d["scenes"]
+    facts = dossier_text(d["dossier"]) if d.get("dossier") else "\n".join(
+        dict.fromkeys(f"- {f} (source: {(s.get('sources') or [{}])[0].get('title', '')})" for s in sc for f in s.get("key_facts") or []))
+    full = set(scenes.FULL) | {"real_photo"}; kinds = []
+    chapters = ", ".join(str(i + 1) for i, s in enumerate(sc) if s.get("chapter"))
+    sys_ = ("You are the graphics director of a faceless business documentary channel. Use only the verified facts given, with their source. "
+            "Never invent numbers, quotes or sources. Reply only in JSON (a single json object).")
+    for st in range(0, len(sc), batch):
+        prev = " ".join(f"#{k + 1}:{t}" for k, t in enumerate(kinds[-3:], len(kinds) - len(kinds[-3:])))
+        lines = "\n".join(f"{i + 1}: {s['narration']}" for i, s in enumerate(sc[st:st + batch], st))
+        u = ("Verified facts you may use (with sources):\n" + facts + "\n\n" + a.GFX_SPEC + "\n"
+             + (f"Full-screen types of the previous scenes (keep the sequence rules across batches): {prev}\n" if prev else "")
+             + (f"Chapters start at scenes {chapters}: put a chapter item on each of them.\n" if chapters else "")
+             + 'For each scene below choose its gfx list following the VISUAL DECISION.\njson: {"scenes":[{"i":<scene number>,"gfx":[...]}]}\n\n' + lines)
+        got = {int(x["i"]): x.get("gfx") or [] for x in a.chat_json(sys_, u, 12000).get("scenes") or [] if str(x.get("i", "")).isdigit()}
+        for i in range(st, min(st + batch, len(sc))):
+            g = [x for x in got.get(i + 1, []) if isinstance(x, dict) and x.get("type")]
+            if sc[i].get("chapter") and not any(x["type"] == "chapter" for x in g):  # capitulo do roteiro nunca se perde
+                g.insert(0, {"type": "chapter", "number": 1 + sum(1 for s in sc[:i] if s.get("chapter")), "title": sc[i]["chapter"]})
+            sc[i]["gfx"] = g; kinds.append(next((x["type"] for x in g if x["type"] in full), "IA"))
+    d["gfx_planned"] = True
+    return a.save_project(d)
 
 # ---------------- 3) Imagens reais ----------------
 def _commons_search(q, n=6):
@@ -135,19 +163,17 @@ ARC = {
  "act3": "ACT 3 collapse and human impact: anonymous workers leaving with boxes, idle workplaces, creditors waiting, empty offices, rain, harsh shadows, handheld unease",
  "after": "AFTERMATH: quiet, desaturated, reflective; empty courthouse steps at dawn, still warehouses, slow pull-backs, lingering silence",
 }
-def act_of(i, n):
-    r = i / max(1, n - 1)
-    return "act1" if r < 0.3 else "act2" if r < 0.62 else "act3" if r < 0.9 else "after"
+from timeline import act as act_of  # noqa: E402  mesmos cortes da montagem (timeline.py)
 
-FULL_GFX = ("timeline", "chart", "document", "quote", "relmap", "scale", "chapter", "headline", "photo", "entity_full", "moneyflow", "collapse")
-GFX_HINTS = ("timeline", "chart", "scale", "moneyflow", "collapse", "relmap", "document")
+FULL_GFX = tuple(sorted(scenes.FULL))  # tipos de tela cheia: a lista mora em scenes.py (capitulo e sobreposicao, nao entra)
+GFX_HINTS = ("timeline", "chart", "scale", "moneyflow", "collapse", "relmap", "document", "flow", "stack", "list")
 PROMPT_RULES = (
     "RULES FOR EVERY visual_prompt (40-70 words):\n"
     "1. EXPLAIN, don't decorate: a viewer with the sound off should understand the narration line from the picture. "
-    "Choose a device: 'reconstruction' (the real event in its real place and era), 'metaphor' (a concrete physical object stands for an abstract finance idea), "
-    "'human' (the people affected), or 'establishing' (place/time). For abstract ideas (leverage, debt, deposits, liquidity, funds moving, who owed whom, ratios) "
-    "use a physical METAPHOR built from real objects, e.g. 31 identical crates stacked on one thin plank for 31-to-1 leverage; water draining from one glass tank into another "
-    "for money moving; a borrowed key handed back and forth for a repo. Never explain with 'an analyst looking at screens/charts/documents'.\n"
+    "Choose a device: 'reconstruction' (the real event in its real place and era), 'human' (the people affected), or 'establishing' (place/time). "
+    "Abstract ideas (leverage, debt, deposits, liquidity, funds moving, who owed whom, who gets paid first, ratios) are NOT pictured: set gfx_hint (rule 8) "
+    "and still write a plain establishing or human visual_prompt as a fallback. Never a symbolic object standing for an idea (crates for leverage, keys for leases, "
+    "glass boxes, chess pieces, water tanks) and never 'an analyst looking at screens/charts/documents'.\n"
     "2. ONE clear subject doing ONE visible action that fits a ~6-second clip; say how the frame changes from start to end. No lists of three simultaneous actions.\n"
     "3. Never let the meaning depend on readable text, numbers, charts on screens, calendars, nameplates or signed papers: the generator garbles text. "
     "Papers and screens may appear only blank, out of focus or turned away.\n"
@@ -168,7 +194,7 @@ def enrich_prompts(pid):
     prev = []  # ultimas cenas do lote anterior: variedade tambem na emenda entre lotes
     for st in range(0, len(sc), 20):
         part = [(i, s) for i, s in enumerate(sc[st:st + 20], st)]
-        lines = "\n".join(f"{i} <{act_of(i, len(sc))}>: [{'GFX' if any(g.get('type') in FULL_GFX for g in s.get('gfx') or []) else 'AI'}] {s.get('narration')}" for i, s in part)
+        lines = "\n".join(f"{i} <{act_of(i, len(sc))}>: [{'GFX' if scenes.kind(s) == 'grafico' else 'AI'}] {s.get('narration')}" for i, s in part)
         ask_bible = "" if bible else (
             "First define a short VISUAL BIBLE for the whole video (json key visual_bible, 50-90 words): how the anonymous protagonist always looks "
             "(silhouette, build, clothing, seen from behind), the headquarters and 2-3 recurring places (architecture, era, materials, no signage), and the base palette. ")
@@ -181,7 +207,7 @@ def enrich_prompts(pid):
              "People are ALWAYS anonymous (seen from behind, silhouettes, hands, out of focus); never a real person's likeness. Emotion comes from lighting, camera movement and situations.\n"
              + PROMPT_RULES +
              "Skip scenes marked GFX (return them with empty visual_prompt). json: {" + ('' if bible else '"visual_bible":"...",') + "\"scenes\":[{\"i\":0,\"beat\":\"...\","
-             "\"device\":\"reconstruction|metaphor|human|establishing\",\"shot\":\"wide|medium|close-up|macro|aerial|overhead|tracking|over-the-shoulder|low-angle\","
+             "\"device\":\"reconstruction|human|establishing\",\"shot\":\"wide|medium|close-up|macro|aerial|overhead|tracking|over-the-shoulder|low-angle\","
              "\"setting\":\"2-5 words\",\"mood\":\"...\",\"camera\":\"lens + one move\",\"visual_prompt\":\"...\",\"gfx_hint\":\"\",\"gfx_why\":\"\"}]}\n\n" + lines)
         r = a.chat_json(sys, u, 12000)
         if not bible and r.get("visual_bible"):
@@ -190,7 +216,7 @@ def enrich_prompts(pid):
             i = int(x.get("i", -1))
             if 0 <= i < len(sc) and x.get("visual_prompt"):
                 ac = act_of(i, len(sc))
-                if ac == "act3" and sc[i].get("source") != "gfx": sc[i]["mode"] = "video"  # mais video no colapso
+                if ac == "act3" and scenes.kind(sc[i]) == "ia": sc[i]["mode"] = "video"  # mais video no colapso (so cena de IA)
                 sc[i].update(act=ac, beat=x.get("beat"), shot=x.get("shot"), mood=x.get("mood"), camera=x.get("camera"), visual_prompt=x["visual_prompt"],
                              device=x.get("device"), setting=x.get("setting"))
                 h = str(x.get("gfx_hint") or "").strip().lower()
@@ -204,7 +230,7 @@ def gfx_hints(d):
     """Cenas onde o diretor de fotografia sugeriu um grafico com dados no lugar (ou alem) do clipe. Aviso, nao bloqueia."""
     out = []
     for i, s in enumerate(d.get("scenes") or []):
-        if s.get("gfx_hint") and not any(g.get("type") in FULL_GFX for g in s.get("gfx") or []):
+        if s.get("gfx_hint") and scenes.kind(s) != "grafico":
             out.append({"scene": i + 1, "gfx": s["gfx_hint"], "why": s.get("gfx_why") or ""})
     return out
 
@@ -229,12 +255,14 @@ def _amt_val(s):
 
 def _gfx_amounts(s):
     vals = set()
-    for g in s.get("gfx") or []:
+    for g in E.visuals(s):
         unit = str(g.get("unit") or "")
         for k in ("text", "amount", "headline", "excerpt", "title"):
             for m in AMT.finditer(str(g.get(k) or "")): vals.add(_amt_val(m.group()))
         for nd in g.get("nodes") or []:
             for m in AMT.finditer(str(nd.get("relation") or "")): vals.add(_amt_val(m.group()))
+        for t in [p.get("display") for p in g.get("points") or [] if isinstance(p, dict)] + [(g.get("final") or {}).get("value")]:
+            for m in AMT.finditer(str(t or "")): vals.add(_amt_val(m.group()))  # rotulos das barras do grafico collapse
         for se in g.get("series") or []:
             try: vals.add(_amt_val(f"{se.get('value')}{' billion' if 'B' in unit else ' million' if 'M' in unit else ''}"))
             except Exception: pass
@@ -256,7 +284,7 @@ def validate(pid, autofix=True):
                 s.setdefault("gfx", []).append({"type": "callout", "text": m.group().strip(), "source": (src if len(src) <= 60 else src[:60].rsplit(" ", 1)[0] + "…"), "auto": True}); have.add(v); added += 1
             else: amt_gaps.append({"scene": i + 1, "amount": m.group().strip()})
         for a in set(re.findall(r"\b[A-Z]{2,6}\b", narr)) - ACR_SKIP:
-            if a not in names and not any(a in str(g.get("text", "")) + str(g.get("title", "")) for g in s.get("gfx") or []):
+            if a not in names and not any(a in str(g.get("text", "")) + str(g.get("title", "")) + str(g.get("entity", "")) for g in E.visuals(s)):
                 acr_gaps.append({"scene": i + 1, "acronym": a})
     gaps = rep["gaps"] + [{"scene": g["scene"], "missing": [g["amount"] + " (amount)"]} for g in amt_gaps] \
          + [{"scene": g["scene"], "missing": [g["acronym"] + " (acronym not in registry)"]} for g in acr_gaps]
@@ -297,7 +325,7 @@ def text_check(d):
     common = set("the a an and or of to in on for by with from at as is was were be been are it its this that these those not no than then into over under after before about against between during without within upon per via new old says said say alleged allegedly according court case filed filing billion million thousand percent former chief officer financial executive pleaded plead pleads guilty innocent charged charges counts count trial judge prosecutors prosecutor indictment bankruptcy chapter lenders lender debt cash liabilities assets company group fund funds bank banks timeline source sources photo key date dates amount amounts total owed collapse fraud case recreated illustration headline published jan feb mar apr may jun jul aug sep sept oct nov dec january february march april june july august september october november december".split())
     out = []
     for i, s in enumerate(d.get("scenes") or []):
-        for g in s.get("gfx") or []:
+        for g in E.visuals(s):
             for k, t in _gfx_texts(g):
                 if (k == "outlet" or (k == "name" and g.get("type") in ("entity", "lower_third", "entity_full"))) and t.strip() and t.strip().lower() not in low:
                     out.append({"scene": i + 1, "issue": f"{k} '{t}' not found in dossier/sources/registry"})

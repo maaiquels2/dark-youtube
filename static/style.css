@@ -231,11 +231,27 @@ table.dos td.u a{color:#7fd1d8;text-decoration:none}
 .proj .yt-btns{align-self:stretch;box-sizing:border-box}.proj .yt-watch{justify-content:center}
 /* Projetos: large full-width grid */
 .content:has(#projects){max-width:none}
-.projects{grid-template-columns:repeat(auto-fill,minmax(440px,1fr));gap:28px}
 .proj .cover{padding:0;aspect-ratio:16/9}.proj .cover img{border-radius:0}
-.proj .body{padding:20px 24px 24px;display:flex;flex-direction:column}
-.proj b{font-size:20px;line-height:1.3}
-.proj .yt-watch{height:46px;font-size:16px;padding:0 18px}.proj .yt-studio{height:46px;width:46px;justify-content:center;padding:0}
-.yt-ic{width:32px;height:23px}
-.st-chip{font-size:13px;padding:5px 12px;align-self:flex-start}
-.projects{grid-template-columns:repeat(auto-fill,minmax(400px,1fr))}.proj{padding:0!important}.proj .cover{margin:0;border-radius:0}
+.proj .body{padding:14px 16px;display:flex;flex-direction:column}
+.proj b{font-size:15px;line-height:1.3}
+.proj .yt-watch{height:40px;font-size:14px;padding:0 12px;gap:8px}.proj .yt-studio{height:40px;width:40px;justify-content:center;padding:0}
+.yt-ic{width:32px;height:23px}.proj .yt-ic{width:22px;height:16px}
+.st-chip{font-size:12px;padding:4px 10px;align-self:flex-start}
+/* videos na mesma grade dos Shorts (mesma largura de coluna) */
+.projects{grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:18px}.proj{padding:0!important}.proj .cover{margin:0;border-radius:0}
+.new-proj{min-height:0}
+.proj .meta{font-size:12px}.proj .meta .chip{font-size:12px}
+/* secoes Videos / Shorts na tela de projetos */
+.sec-h{font-size:18px;font-weight:600;margin:28px 0 14px}.sec-h:first-of-type{margin-top:4px}.sec-h span{font-size:13px;font-weight:400;color:var(--dim);margin-left:8px}
+.st-chip:not(.ok):not(.warn){background:var(--card2);color:var(--dim)}
+.shorts{grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:18px}
+.proj.short .cover{aspect-ratio:9/16}.proj.short .cover video{width:100%;height:100%;object-fit:cover;display:block}
+.proj.short b{font-size:15px}.proj.short .body{padding:14px 16px}
+/* Shorts: capa 4:5 (titulo ate a legenda) em vez de 9:16, e botoes do tamanho do cartao estreito */
+.proj.short .cover{aspect-ratio:4/5}.proj.short .cover video{object-position:center 45%}
+.proj.short .yt-watch{height:40px;font-size:14px;padding:0 12px;gap:8px}.proj.short .yt-studio{height:40px;width:40px}.proj.short .yt-ic{width:22px;height:16px}
+.proj.short .meta .chip{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%;box-sizing:border-box}
+/* onde cada Short esta postado: YouTube / Facebook / Instagram */
+.plats{display:flex;flex-wrap:wrap;gap:5px;margin:2px 0 10px}
+.plat{font-size:11px;font-weight:600;padding:3px 8px;border-radius:999px;background:var(--card2);color:var(--dim);white-space:nowrap}
+.plat.ok{background:#12351f;color:#5ee08f}.plat.warn{background:#3a2a0c;color:#ffc35a}.plat.err{background:#3a1212;color:#ff7a7a}.plat.off{opacity:.45;text-decoration:line-through}

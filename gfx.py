@@ -1,16 +1,19 @@
 """Dark Studio - motion graphics (Pillow). Gera PNGs 1920x1080 a partir de specs por cena.
 Tipos de tela cheia (substituem a midia da cena; o Ken Burns da montagem da o movimento):
-  timeline, chart, document, quote, relmap, scale, chapter, headline, photo (foto real licenciada), entity_full
+  timeline, chart, document, quote, relmap, scale, headline, photo (foto real licenciada), entity_full (lista em scenes.py)
 Tipos de sobreposicao (PNG transparente por cima do clipe):
-  lower_third, logo, callout, parties, citation, entity (card grande logo/selo/foto + nome)
+  chapter, lower_third, logo, callout, parties, citation, entity (card grande logo/selo/foto + nome)
+Cena com grafico EffectCraft (ec.full) fica de fora: quem desenha e tools/ec_gfx.py.
 """
 import math, textwrap, os as _os
 from pathlib import Path
 from PIL import Image, ImageDraw, ImageFont, ImageFilter
 
 W, H = 1920, 1080
-FULL = {"timeline", "chart", "document", "quote", "relmap", "scale", "chapter", "headline", "photo", "entity_full"}
-OVER = {"lower_third", "logo", "callout", "parties", "citation", "entity"}
+import scenes  # noqa: E402  dono das listas de tipos
+import timeline  # noqa: E402  duracao estimada antes do audio
+FULL = set(scenes.PIL_FULL) - {"moneyflow", "collapse"}  # tela cheia em PNG (os dois animados: gfx_anim.py)
+OVER = {"lower_third", "logo", "callout", "parties", "citation", "entity", "chapter"}  # capitulo e sobreposicao (scenes.py)
 BG, PANEL, LINE = (11, 14, 20), (22, 27, 37), (52, 60, 76)
 WHITE, MUTED, RED, GOLD, TEAL = (245, 246, 248), (160, 168, 182), (229, 72, 77), (255, 214, 10), (56, 189, 199)
 _FD = Path(__file__).resolve().parent / "fonts"  # fontes OFL do projeto primeiro (licenca livre p/ uso comercial); Windows so de reserva
@@ -365,25 +368,35 @@ def _typewriter(full, out, dur, ents=None, room=False):
     for k in range(1, steps + 1):
         sp = dict(full); sp[key] = " ".join(words[:max(1, round(len(words) * k / steps))])
         if full["type"] == "document" and k < steps: sp["highlight"] = ""
-        fimg = globals()["r_" + full["type"]](sp)
+        fimg = draw("r_" + full["type"])(sp)
         frames.append(_make_room(fimg) if room else fimg)
     def gen():
         for f in range(total):
             yield frames[min(steps - 1, int(f / max(1, reveal) * steps))]
     return gfx_anim.encode(gen(), out, fps)
 
+def o_chapter(im, g):
+    """Titulo do capitulo por cima da midia da cena (antes era um cartao de tela cheia no lugar da cena)."""
+    d = ImageDraw.Draw(im); d.rectangle([0, 0, W, H], fill=(0, 0, 0, 115))
+    n = g.get("number"); t = g.get("title", "")
+    if n: d.text((W // 2 - tw(d, f"CHAPTER {n}", F("bold", 40)) // 2, 380), f"CHAPTER {n}", font=F("bold", 40), fill=RED)
+    f = F("impact", 130); y = 450
+    for l in wrap(d, t.upper(), f, 1500): d.text((W // 2 - tw(d, l, f) // 2, y), l, font=f, fill=WHITE); y += 150
+    d.rectangle([W // 2 - 120, y + 20, W // 2 + 120, y + 28], fill=GOLD)
+
 def _draw_ov(g, photos, logos, ents, st):
     im = Image.new("RGBA", (W, H), (0, 0, 0, 0)); t = g["type"]
-    if t == "lower_third": o_lower_third(im, g, photos)
-    elif t == "callout": o_callout(im, g, st["kc"], st["ey"] if st["ey"] > 70 else 120); st["kc"] += 1
-    elif t == "parties": o_parties(im, g)
-    elif t == "citation": o_citation(im, g)
-    elif t == "logo": o_logo(im, g, logos)
-    elif t == "entity": st["ey"] = o_entity(im, g, ents, st["ey"])
+    if t == "chapter": draw("o_chapter")(im, g)
+    elif t == "lower_third": draw("o_lower_third")(im, g, photos)
+    elif t == "callout": draw("o_callout")(im, g, st["kc"], st["ey"] if st["ey"] > 70 else 120); st["kc"] += 1
+    elif t == "parties": draw("o_parties")(im, g)
+    elif t == "citation": draw("o_citation")(im, g)
+    elif t == "logo": draw("o_logo")(im, g, logos)
+    elif t == "entity": st["ey"] = draw("o_entity")(im, g, ents, st["ey"])
     return im
 
 # entrada animada por tipo (aplicada na montagem): slide da direita/esquerda/baixo + fade
-ENTER = {"entity": "right", "callout": "up", "parties": "left", "citation": "fade", "logo": "fade", "lower_third": "left"}
+ENTER = {"entity": "right", "callout": "up", "parties": "left", "citation": "fade", "logo": "fade", "lower_third": "left", "chapter": "fade"}
 
 def render_scene(spec_list, out_dir, idx, photos=None, logos=None, ents=None, dur=7.0):
     """Retorna (full_png/mp4 or None, overlay_png or None). Grava tambem camadas ov-NN-k.png + ov-NN.json p/ entradas animadas."""
@@ -402,7 +415,7 @@ def render_scene(spec_list, out_dir, idx, photos=None, logos=None, ents=None, du
             fp = _typewriter(full, out_dir / f"tw-{idx+1:02d}.mp4", max(4.0, dur), ents, room)
         else:
             fp = out_dir / f"full-{idx+1:02d}.png"
-            fn = globals()["r_" + full["type"]]
+            fn = draw("r_" + full["type"])
             fimg = fn(full, ents) if full["type"] in ("entity_full", "relmap") else fn(full)
             (_make_room(fimg) if room else fimg).save(fp)
     ov = [g for g in spec_list or [] if g.get("type") in OVER]
@@ -449,7 +462,7 @@ def render_project(pfile, pdir):
     """Renderiza todos os graficos do projeto. Tela cheia vira a midia da cena (source=gfx)."""
     import json
     pfile, pdir = Path(pfile), Path(pdir)
-    pj = json.loads(pfile.read_text(encoding="utf-8"))
+    pj = json.loads(pfile.read_text(encoding="utf-8")); import copy, projfile; before = copy.deepcopy(pj["scenes"])
     photos = {k: dict(v, file=str(pdir / v["file"])) for k, v in (pj.get("people_photos") or {}).items() if v.get("file")}
     logos = {k: str(pdir / v) for k, v in (pj.get("logos") or {}).items()}
     lg = (pj.get("logo") or {}).get("file")
@@ -466,22 +479,33 @@ def render_project(pfile, pdir):
     for f in list(gd.glob("ov-*.png")) + list(gd.glob("ov-*.json")): f.unlink()
     nf = no = 0
     for i, s in enumerate(pj["scenes"]):
+        if (s.get("ec") or {}).get("full"): continue  # grafico EffectCraft (tools/ec_gfx.py): aqui nao se desenha nem se desmarca
         spec = [dict(g, file=str(pdir / g["file"])) if g.get("type") == "photo" and g.get("file") else g for g in s.get("gfx") or []]
-        fp, op = render_scene(spec, gd, i, photos, logos, ents, max(4.0, len((s.get('narration') or '').split()) / 2.6))
+        fp, op = render_scene(spec, gd, i, photos, logos, ents, max(4.0, timeline.estimate(s.get('narration'))))
         if fp:
             s.update(file=fp.relative_to(pdir).as_posix(), status="pronto", source="gfx", error=None); nf += 1
         elif s.get("source") == "gfx":
             s.update(file=None, status="pendente", source="site")
         if op: no += 1
-    pfile.write_text(json.dumps(pj, ensure_ascii=False, indent=2), encoding="utf-8")
+    projfile.patch(pfile, projfile.changed(before, pj["scenes"], ("gfx", "file", "status", "source", "error")))
     return nf, no
 
 
-# estilo v2 (premium) por padrao; DS_GFX_STYLE=v1 volta ao estilo plano
-import os as _os
-if _os.environ.get("DS_GFX_STYLE", "v2") != "v1":
-    try:
-        import gfx2 as _g2
-        globals().update({_k: getattr(_g2, _k) for _k in _g2.OVERRIDES})
-    except Exception as _e:
-        print("[gfx] estilo v2 indisponivel:", _e)
+# estilo: v2 (premium, gfx2.py) por padrao; DS_GFX_STYLE=v1 usa os desenhos planos deste modulo.
+# Antes, carregar este modulo trocava as funcoes r_/o_ daqui pelas do gfx2 (e, se o gfx2 fosse importado primeiro, a troca
+# falhava em silencio e o video saia no estilo antigo). Agora a escolha e explicita: draw(nome) devolve o desenho do estilo ativo.
+_STYLE = []
+
+
+def draw(name):
+    """Funcao de desenho r_<tipo> / o_<tipo> do estilo ativo: a do gfx2.py quando ele a tem, senao a deste modulo."""
+    if not _STYLE:
+        st = None
+        if _os.environ.get("DS_GFX_STYLE", "v2") != "v1":
+            try:
+                import gfx2 as st
+            except Exception as e:
+                print("[gfx] estilo v2 indisponivel:", e)
+        _STYLE.append(st)
+    st = _STYLE[0]
+    return getattr(st, name) if st is not None and name in getattr(st, "OVERRIDES", ()) else globals()[name]
