@@ -53,10 +53,6 @@ class ECJob(montage.Job):
         except Exception as e:
             self.log(f"cena {i+1}: RIFE indisponivel ({str(e)[:120]}), desacelerando o original"); return src
 
-    def render_gfx(self):
-        self.log("graficos: EffectCraft (tools/ec_gfx.py), ja renderizados")
-        return 0, 0
-
     def apply_overlay(self, i, clip, L):
         sc = self.scenes(); s = sc[i]; ec = s.get("ec") or {}
         full = (ec.get("full") or {}).get("type")

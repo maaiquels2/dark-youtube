@@ -2,6 +2,7 @@
 """Dark Studio - Montagem: narracao (OpenAI TTS) + ffmpeg -> output/final.mp4 + final.srt
 
 Uso: python montage.py <project_id> [--step tts|render|all] [--force-tts]
+Para montar um projeto use tools/montar.py: ele desenha os graficos antes e escolhe entre este modulo e o EffectCraft.
 Status: projects/<id>/logs/montage.json   Controle: logs/montage_control.txt (stop)
 """
 import argparse, json, math, os, re, shutil, subprocess, sys, threading, time, urllib.request, urllib.error
@@ -252,12 +253,6 @@ class Job:
                    "-r", str(self.c["fps"]), str(out)])
         return out
 
-    def render_gfx(self):
-        import gfx
-        nf, no = gfx.render_project(self.pfile, self.pdir)
-        self.log(f"graficos: {nf} telas cheias, {no} sobreposicoes")
-        return nf, no
-
     def render_clip(self, i, sc, D, L):
         fps = self.c["fps"]
         src = self.pdir / sc["file"]
@@ -358,8 +353,7 @@ class Job:
         sp = min(sps, key=cost)
         return c[:sp].strip() + "\n" + c[sp:].strip()
 
-    def run_render(self):
-        self.render_gfx()
+    def run_render(self):  # os graficos ja foram desenhados por tools/montar.py (gfx.py e, no caminho EffectCraft, ec_gfx)
         sc = self.scenes()
         missing = [i + 1 for i, s in enumerate(sc) if not s.get("file") or not (self.pdir / s["file"]).is_file()]
         if missing:
