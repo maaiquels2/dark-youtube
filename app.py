@@ -4,6 +4,7 @@ from http.server import ThreadingHTTPServer, BaseHTTPRequestHandler
 from pathlib import Path
 import scenes  # o que cada cena e (grafico, foto real, local, IA)
 import projfile  # dono do arquivo do projeto: trava entre processos + gravacao atomica
+import sys as _sys0; _sys0.path.append(str(Path(__file__).resolve().parent / "tools"))  # tools/montar.py (no fim: nao esconde modulo da raiz)
 
 ROOT = Path(__file__).resolve().parent
 STATIC = ROOT / "static"
@@ -544,14 +545,15 @@ def mont_start(pid, step="all", force_tts=False):
     if pr and pr.poll() is None:
         raise ApiError("A montagem já está rodando.")
     if step != "tts":
-        import pipeline
-        v = pipeline.validate(pid, autofix=True)
+        import pipeline, montar
+        ec = montar.is_ec(load_project(pid))  # EffectCraft: correcao automatica poria cartoes antigos que a montagem EC nao desenha
+        v = pipeline.validate(pid, autofix=not ec)
         if not v["ok"]:
             g = "; ".join(f"cena {x['scene']}: {', '.join(x['missing'])}" for x in v["gaps"][:8])
             raise ApiError(f"Render bloqueado pela Validação: {len(v['gaps'])} cena(s) com lacunas. {g}")
-        gfx_render(pid)
     logs = PROJECTS / pid / "logs"; logs.mkdir(parents=True, exist_ok=True)
-    args = [_venv_py(), str(Path(__file__).resolve().parent / "montage.py"), pid, "--step", step]
+    # um caminho so (tools/montar.py): o proprio projeto escolhe antigo ou EffectCraft; os graficos sao desenhados la
+    args = [_venv_py(), str(Path(__file__).resolve().parent / "tools" / "montar.py"), pid, "--step", step]
     if force_tts: args.append("--force-tts")
     out = open(logs / "montage.out", "a", encoding="utf-8")
     MONT[pid] = subprocess.Popen(args, stdout=out, stderr=subprocess.STDOUT, cwd=str(Path(__file__).resolve().parent),

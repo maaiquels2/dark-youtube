@@ -9,7 +9,7 @@ Etapas (todas por padrao, ou --steps copy,convert,...):
   words     tempo de cada palavra (tools/words.py)        clean    apaga texto escrito pelo Grok (tools/media_ai.py)
   local     cenas ainda sem midia: imagem gerada na placa (tools/local_img.py, FLUX.2 Klein), depois o parallax anima
   parallax  fotos reais em tela cheia viram plano 2.5D    gfx      renderiza no EffectCraft (tools/ec_gfx.py)
-  validate  Validacao do pipeline (sem correcao automatica)          montage  tools/ec_montage.py
+  validate  Validacao do pipeline (sem correcao automatica)          montage  tools/montar.py (caminho EffectCraft)
 Uso: python tools/remake.py <projeto_original> [--steps convert,cues] [--new <id>]
 Video novo (roteiro com flow/relmap/stack/list/takeaway/real_photo), no proprio projeto, depois da narracao e ANTES do Grok/Flow:
   python tools/remake.py <id> --new <id> --steps convert,cues,sheet,words,gfx
@@ -306,7 +306,7 @@ def main():
         for d in ("media", "audio", "entities", "gfx", "music", "assets"):
             if (po / d).is_dir(): shutil.copytree(po / d, pn / d)
         for k, f in MUSIC.items():  # trilhas de suspense (aprovadas no remake do WeWork)
-            if not (pn / "music" / f).is_file(): shutil.copyfile(P / "the-rise-and-fall-of-wework-ec-20261017" / "music" / f, pn / "music" / f)
+            if not (pn / "music" / f).is_file(): shutil.copyfile(ROOT / "library" / "music" / "incompetech" / f, pn / "music" / f)
         pj = json.loads((P / f"{old}.json").read_text(encoding="utf-8"))
         pj.update(id=new, remake_of=old, status="draft")
         for k in ("published_url", "scheduled_at", "published_at", "legacy_complete", "validation"): pj.pop(k, None)
@@ -330,7 +330,7 @@ def main():
         import pipeline
         v = pipeline.validate(new, autofix=False); print("validacao ok:", v["ok"])
         for g in v["gaps"]: print("  cena", g["scene"], g["missing"])
-    if "montage" in steps: run("tools/ec_montage.py", new)
+    if "montage" in steps: run("tools/montar.py", new, "--step", "render", "--sem-graficos")
     if "kit" in steps:
         print("capitulos:\n" + kit(pn, pj, json.loads((P / f"{old}.json").read_text(encoding="utf-8"))))
 

@@ -100,7 +100,7 @@ ETAPAS = [  # (nome, funcao(pid, estado)) ou (PARADA, nome, mensagem(pid))
     ("PARADA", "cenas", lambda pid: f"Revise as cenas em projects/{pid}/logs/revisao/ (folha geral + tiras a 6 fps dos clipes). "
                                     f"Para gerar de novo: python tools/produce.py {pid} --refazer 12,30"),
     ("validacao", lambda pid, st: validar(pid)),
-    ("montagem", lambda pid, st: run("tools/ec_montage.py", pid)),
+    ("montagem", lambda pid, st: run("tools/montar.py", pid, "--step", "render", "--sem-graficos")),  # graficos: render_graficos
     ("PARADA", "final", lambda pid: f"Assista projects/{pid}/output/final.mp4 inteiro, como espectador. Depois: thumbnail, kit e envio "
                                     "(confira a conta do YouTube antes de enviar)."),
 ]
