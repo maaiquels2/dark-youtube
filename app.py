@@ -371,18 +371,36 @@ STORY_STANDARD = (
     "(4) a clear 3-act structure (setup / unraveling / reckoning) mapped onto 6-10 chapters; "
     "(5) emotional authenticity through affected people (employees, creditors, investors, customers) based on reported facts, never sensational; "
     "(6) show-don't-tell: every visual_prompt must literally match and EXPLAIN its narration, varied shot types (wide, close-up, macro, aerial, tracking) so consecutive scenes never look alike; "
-    "for abstract finance ideas (leverage, debt, funds moving, who owed whom) show a concrete physical metaphor or put the numbers in a gfx, never 'someone looking at screens or documents'. "
+    "for abstract finance ideas (leverage, debt, funds moving, who owed whom, who gets paid first) use a gfx (flow, relmap, stack, chart), "
+    "never a symbolic object standing for the idea (crates, keys, glass boxes, chess pieces) and never 'someone looking at screens or documents'. "
     "LEGAL: anyone charged but not convicted is presumed innocent: attribute every accusation ('prosecutors allege', 'according to the indictment', 'the company said'); never state guilt; "
     "include one explicit presumption-of-innocence line; report denials and not-guilty pleas. ")
 GFX_SPEC = (
     "GRAPHICS (gfx) - motion-graphics specs rendered from real data. Use only facts given above, with their source. Types:\n"
-    "FULL-SCREEN (replaces the AI visual for that scene; use on ~25-35% of scenes, never two identical types in a row):\n"
+    "VISUAL DECISION for every scene, in this order: a number -> chart/scale/collapse; money or obligations between parties, who owes whom, "
+    "a conflict of interest -> flow/relmap/moneyflow; an order, priority or process -> stack/timeline; questions, lessons or a thesis -> list/takeaway; "
+    "a real person or real building that is the subject -> real_photo; only a physical moment (people, streets, buildings, weather) is left to the AI visual. "
+    "Aim for 55-70% of scenes with a full-screen item, never two identical types in a row, and never more than 3 full-screen graphics in a row "
+    "without a real_photo or an AI scene between them. Write every \"say\" as 1-3 words copied from THIS scene's narration: the card appears when they are spoken. "
+    "When the narration states an amount that is in the verified facts, that scene MUST get a chart. Arrow labels 1-2 words, list items <= 8 words. "
+    "takeaway at most once per chapter: a short thesis in your own words, never a narration sentence copied onto the screen. "
+    "Each real_photo (same person or building) at most once per video. stack only when the tiers recover different shares (a process or steps go in timeline or list). "
+    "The same diagram (same parties) at most twice per video.\n"
+    "FULL-SCREEN (replaces the AI visual for that scene):\n"
     '- {"type":"chapter","number":1,"title":"..."} on the first scene of each chapter (matches YouTube chapters).\n'
     '- {"type":"timeline","title":"...","events":[{"date":"Sep 28, 2025","label":"<=6 words"}],"highlight":index,"source":"..."} 3-6 events.\n'
     '- {"type":"chart","title":"... ($B)","unit":"$B","series":[{"label":"...","value":6.1}],"highlight":index,"source":"..."} only real sourced numbers.\n'
     '- {"type":"document","doc":"Indictment, US v. X, 26 Cr. 29","header":"...","excerpt":"exact or near-exact public wording (<=45 words)","highlight":"key phrase inside excerpt","source":"..."}.\n'
     '- {"type":"quote","text":"verbatim quote","speaker":"Name","role":"...","source":"outlet, date"} only real verbatim quotes from the facts.\n'
-    '- {"type":"relmap","title":"Who owed whom","center":"Company","center_role":"...","nodes":[{"name":"Lender","relation":"$715M receivables"}],"source":"..."} 3-7 nodes.\n'
+    '- {"type":"relmap","title":"Who owed whom","center":"Company","center_role":"...","nodes":[{"name":"Lender","relation":"$715M receivables","say":"lender","alert_say":"","alert_label":""}],"source":"..."} 2-4 nodes (more parties: use parties); alert_say/alert_label (e.g. "SEVERE LOSSES") only when the narration names that consequence.\n'
+    '- {"type":"flow","label":"THE TIMING MISMATCH","nodes":[{"name":"Members","note":"wanted flexibility","say":"members"},{"name":"WeWork","say":"WeWork"},{"name":"Landlords","note":"wanted long leases","say":"landlords"}],'
+    '"edges":[{"from":0,"to":1,"label":"FEES","stop_say":"empty desk","stop_label":"EMPTY DESK"},{"from":1,"to":2,"label":"RENT","alert_say":"rent","alert_label":"RENT STILL DUE"}],"note":"optional one-line takeaway","source":"..."} '
+    '2-3 parties with money or obligations moving between them; stop_* only when the narration says a payment stops, alert_* when a payment becomes the problem.\n'
+    '- {"type":"stack","label":"IN BANKRUPTCY","title":"Who gets paid first","tiers":[{"label":"Secured creditors","note":"","fill":1.0,"say":"..."}],"highlight":2,"highlight_label":"PAID ONLY FROM WHAT REMAINS","highlight_say":"...","illustrative":true,"source":"..."} '
+    '2-4 tiers of an order or priority; fill = share recovered (0-1); illustrative:true unless every fill is a sourced number.\n'
+    '- {"type":"list","label":"THE ORDINARY QUESTIONS","items":["Who controls the company?","Where does the cash go?"]} 2-4 short items the narration says one after another, in its own words.\n'
+    '- {"type":"takeaway","label":"THE PATTERN","text":"<=12-word thesis taken from the narration","sub":"optional supporting line"} a scene that states a conclusion (not a quote).\n'
+    '- {"type":"real_photo","entity":"Exact person or company name","place":"CITY"} full-screen REAL photo (Wikimedia Commons, animated with camera parallax) when that real person or headquarters is the subject.\n'
     '- {"type":"scale","title":"...","amount":"$11.6B","comparison":"plain-language comparison that is arithmetically true","blocks":0,"source":"..."}.\n'
     '- {"type":"headline","outlet":"Reuters","date":"Jan 29, 2026","headline":"real published headline"}.\n'
     '- {"type":"moneyflow","title":"Follow the money","flows":[{"from":{"name":"Fund, New York","lon":-74.0,"lat":40.7},"to":{"name":"Company, City","lon":-81.7,"lat":41.5},"amount":"$715M","date":"..."}],"source":"..."} ANIMATED map: ONLY for a sourced transfer/financing between two real places (use real city coordinates).\n'
@@ -395,7 +413,9 @@ GFX_SPEC = (
     '- {"type":"citation","text":"DOJ SDNY, Jan 29 2026"} small corner source when a key number appears without a callout.\n'
     "A scene may combine one full-screen item with nothing else, or several overlays. ")
 
-def write_script(p):
+def write_script(p, gfx=True):
+    """gfx=False: so narracao e visual (os graficos vem depois em pipeline.plan_gfx, em lotes): o roteiro inteiro com as
+    regras de grafico estourou os 600 s da API em 18/10/2026; em duas etapas levou ~3 min."""
     mins = int(p.get("minutes") or 10)
     words = mins * 150
     sys = ("You are a researcher and scriptwriter for a faceless Business & Finance documentary YouTube channel. "
@@ -416,7 +436,8 @@ def write_script(p):
          "the meaning must read from objects, action and light, never from readable text, charts on screens, calendars or documents "
          "(no real person likeness, no logos or trademarks, no on-screen text); key_facts (list of factual claims in the scene); "
          "sources (list of {title, url}); needs_check (boolean); chapter (short chapter title, set ONLY on the first scene of each chapter, else empty); "
-         "gfx (list of on-screen graphics specs for this scene, see GRAPHICS below; [] when none).\n" + GFX_SPEC + "\n"
+         + ("gfx (list of on-screen graphics specs for this scene, see GRAPHICS below; [] when none).\n" + GFX_SPEC + "\n" if gfx else
+            "gfx (always [] here: graphics are planned in a second pass).\n") +
          '{"title":"...","description":"resumo em português","hook":"first 30 seconds summary",'
          '"retention_beats":["..."],"scenes":[{"narration":"...","visual_prompt":"...","key_facts":["..."],'
          '"sources":[{"title":"...","url":"verificar"}],"needs_check":true,"chapter":"","gfx":[]}]}')
@@ -803,6 +824,10 @@ class H(BaseHTTPRequestHandler):
                 f = PROJECTS / Path(parts[0]).name / parts[1] / Path(parts[2]).name
                 if f.is_file():
                     return self._send_file(f)
+            if len(parts) == 3 and parts[1] == "shorts":
+                f = PROJECTS / Path(parts[0]).name / "output" / "shorts" / Path(parts[2]).name
+                if f.is_file():
+                    return self._send_file(f)
             return self._send(404, {"error": "não encontrado"})
         if p == "/api/pricing":
             return self._send(200, pricing())
@@ -823,9 +848,33 @@ class H(BaseHTTPRequestHandler):
                     st = project_stages(d)
                     items.append({"id": d["id"], "title": d.get("title"), "language": d.get("language"), "updated_at": d.get("updated_at"),
                                   "status": decorate(dict(d)).get("status") or "rascunho", "scheduled_at": d.get("scheduled_at"), "published_url": d.get("published_url"), "cover": project_cover(d),
-                                  "stages_done": sum(st.values()), "stages": st, "yt": {k: (yt_cached(d["id"]) or {}).get(k) for k in ("views", "likes", "comments", "fetched_at")}})
+                                  "stages_done": sum(st.values()), "stages": st, "yt": {k: (yt_cached(d["id"]) or {}).get(k) for k in ("views", "likes", "comments", "fetched_at")},
+                                  "pub_at": d.get("scheduled_at") or (d.get("published_at") or "")[:16] or None})
                 except Exception:
                     pass
+            # ordem de publicacao: com data primeiro (mais antigo -> mais novo), depois rascunhos por edicao recente
+            items.sort(key=lambda x: (0, x["pub_at"]) if x["pub_at"] else (1, ""))
+            return self._send(200, items)
+        if p == "/api/shorts":
+            items, now = [], time.strftime("%Y-%m-%d %H:%M")
+            social = {}  # (projeto, arquivo) -> {facebook: status, instagram: status}, da fila do tools/meta_publish.py
+            try:
+                for x in json.loads((ROOT / "social" / "queue.json").read_text(encoding="utf-8")):
+                    social.setdefault((x["project"], Path(x["file"].replace("\\", "/")).name), {})[x["platform"]] = "erro" if x.get("error") and x["status"] == "pendente" else x["status"]
+            except FileNotFoundError:
+                pass
+            for f in PROJECTS.glob("*/output/shorts/shorts.json"):
+                try:
+                    pid = f.parents[2].name; pj = json.loads((PROJECTS / f"{pid}.json").read_text(encoding="utf-8"))
+                    for s in json.loads(f.read_text(encoding="utf-8")):
+                        sch = s.get("scheduled"); url = s.get("youtube")
+                        stt = "publicado" if url and sch and sch <= now else "agendado" if url and sch else "publicado" if url else "rascunho"
+                        items.append({"project": pid, "project_title": pj.get("title"), "file": s.get("file"), "title": s.get("title"),
+                                      "seconds": s.get("seconds"), "published_url": url, "pub_at": sch, "status": stt,
+                                      "social": social.get((pid, s.get("file")), {})})
+                except Exception:
+                    pass
+            items.sort(key=lambda x: (0, x["pub_at"]) if x["pub_at"] else (1, x["project"], x["file"] or ""))
             return self._send(200, items)
         if p.startswith("/api/projects/"):
             f = PROJECTS / (Path(p).name + ".json")

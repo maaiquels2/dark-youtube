@@ -111,8 +111,29 @@ def ensure_chrome(url=URL):
 FLOW_HOME = "https://flow.google.com/"
 FLOW_MODEL = os.environ.get("DS_FLOW_MODEL", "Omni 1.1 Flash")
 FLOW_CREDIT_RE = re.compile(r"cr[eé]ditos? insuficientes|sem cr[eé]ditos|not enough credits|out of credits|insufficient credits", re.I)
-FLOW_FAIL_RE = re.compile(r"falha na gera|n[aã]o foi poss[ií]vel gerar|generation failed|couldn.t generate|viol(a|ou) (a|as|nossas)|policy", re.I)
-FLOW_VIDS_JS = "() => [...document.querySelectorAll('video')].map(v => ({src: v.currentSrc || v.src, w: v.videoWidth, rs: v.readyState}))"
+FLOW_FAIL_RE = re.compile(r"falha na gera|n[aã]o foi poss[ií]vel gerar|n[aã]o [eé] poss[ií]vel gerar|generation failed|couldn.t generate|viol(a|ou) (a|as|nossas)|policy", re.I)
+# card pronto: <video>, ou so a miniatura do flow-video-tile (o <video> so aparece no hover)
+FLOW_VIDS_JS = """() => [...[...document.querySelectorAll('video')].map(v => ({src: v.currentSrc || v.src, video: true})),
+  ...[...document.querySelectorAll('flow-video-tile img.thumbnail, flow-image-tile img')].map(i => ({src: i.src, video: false}))]"""
+
+
+FLOW_DL_JS = r"""async (q) => {
+  const wait = ms => new Promise(r => setTimeout(r, ms));
+  let c = document.querySelector('flow-video-tile, flow-image-tile') || document.querySelector('video');
+  while (c && !c.querySelector('button[aria-label="Mais opções"]')) c = c.parentElement;
+  const b = c && c.querySelector('button[aria-label="Mais opções"]'); if (!b) return 'sem botao Mais opções';
+  b.click(); await wait(800);
+  const item = t => [...document.querySelectorAll('[role=menuitem]')].find(e => e.innerText.includes(t));
+  const d = item('Fazer o download') || item('Download'); if (!d) return 'sem item download';
+  d.click(); await wait(1000);
+  const qi = item(q); if (!qi) return 'sem ' + q;
+  qi.click(); return 'ok' }"""
+
+
+def video_height(path):
+    r = subprocess.run(["ffprobe", "-v", "error", "-select_streams", "v:0", "-show_entries", "stream=height",
+                        "-of", "csv=p=0", str(path)], capture_output=True, text=True)
+    return int(r.stdout.strip() or 0) if r.stdout.strip().isdigit() else 0
 
 
 class Worker:
@@ -197,7 +218,8 @@ class Worker:
 
     @staticmethod
     def is_gfx(sc):
-        return any((x or {}).get("type") in ("timeline", "chart", "document", "quote", "relmap", "scale", "chapter", "headline", "photo", "entity_full", "moneyflow", "collapse") for x in (sc.get("gfx") or []))
+        return any((x or {}).get("type") in ("timeline", "chart", "document", "quote", "relmap", "scale", "chapter", "headline", "photo", "entity_full", "moneyflow", "collapse",
+                                             "flow", "stack", "list", "takeaway") for x in (sc.get("gfx") or []))
 
     def handoff(self):
         """Entrega para a edicao/narracao: media/manifest.json, folha de quadros e media/PRONTO."""
@@ -463,14 +485,19 @@ class Worker:
             raise NeedsUser("login no Google Flow")
         await page.get_by_role("button", name=re.compile(r"Novo projeto|New project")).click(timeout=10000)
         await page.wait_for_url(re.compile(r"/project/"), timeout=30000)
+        self.log(f"Flow: projeto {page.url}")  # para achar o video a mao se o download falhar
         await page.wait_for_timeout(3000)
         if await page.locator("video").count():
             raise RuntimeError("Flow: projeto novo ja tem videos")
         await page.get_by_role("textbox").first.wait_for(timeout=20000)
 
-    async def flow_settings(self, page, dur):
+    async def flow_settings(self, page, dur, mode="video"):
         await page.get_by_role("button", name=re.compile(r"Gatilho de configura|Settings")).click(timeout=8000)
         await page.wait_for_timeout(800)
+        if mode == "image":
+            await self.flow_radio(page, "Imagem"); await self.flow_radio(page, "16:9"); await self.flow_radio(page, "x1")
+            await page.keyboard.press("Escape"); await page.wait_for_timeout(500)
+            return
         await self.flow_radio(page, "Vídeo"); await self.flow_radio(page, "Frames", False); await self.flow_radio(page, "16:9")
         dd = page.locator('[aria-label="Selecionar família de modelos"]')
         if self.flow_model not in await dd.inner_text():
@@ -486,9 +513,10 @@ class Worker:
         await self.flow_radio(page, "x1")
         await page.keyboard.press("Escape"); await page.wait_for_timeout(500)
 
-    async def flow_generate(self, page, prompt, dur):
+    async def flow_generate(self, page, prompt, dur, mode="video"):
+        await page.bring_to_front()  # aba escondida: o envio nao sai (projeto fica vazio, cena 55)
         await self.flow_open(page)
-        await self.flow_settings(page, dur)
+        await self.flow_settings(page, dur, mode)
         box = page.get_by_role("textbox", name=re.compile(r"O que voc|What do you want"))
         await box.click(); await page.keyboard.press("Control+A"); await page.keyboard.press("Delete")
         await page.keyboard.insert_text(prompt); await page.wait_for_timeout(500)
@@ -499,16 +527,57 @@ class Worker:
         while time.time() < deadline:
             await page.wait_for_timeout(5000)
             await self.gate()
+            await page.bring_to_front()  # aba escondida: o Flow nao atualiza o card e o video pronto nunca aparece
             txt = await page.evaluate("() => document.body.innerText")
             m = FLOW_CREDIT_RE.search(txt)
             if m:
                 raise NeedsUser(f"creditos do Flow: '{m.group(0)}'")
             if len(FLOW_FAIL_RE.findall(txt)) > fails0:
-                raise RuntimeError("Flow recusou o prompt: " + FLOW_FAIL_RE.findall(txt)[-1])
-            new = [v for v in await page.evaluate(FLOW_VIDS_JS) if v["src"] and v["src"] not in before and v["w"] and v["rs"] >= 2]
+                raise RuntimeError("Flow recusou o prompt: " + [m.group(0) for m in FLOW_FAIL_RE.finditer(txt)][-1])
+            new = [v for v in await page.evaluate(FLOW_VIDS_JS) if v["src"] and v["src"] not in before]
             if new:
-                return await self.fetch_bytes(page, new[0]["src"])
+                await page.wait_for_timeout(3000)
+                data = await self.flow_download(page, "2K" if mode == "image" else "1080p")
+                if data:
+                    return data
+                vid = [v for v in new if v["video"] or mode == "image"]  # imagem: o card ja e o arquivo (1K)
+                if vid:
+                    self.log("download 1080p do Flow falhou; usando o 720p do card")
+                    return await self.fetch_bytes(page, vid[0]["src"])
+                data = await self.flow_download(page, "720p")
+                if data:
+                    return data
+                # o video ficou pronto no Flow: nao gerar de novo (gastaria credito), so baixar a mao
+                raise NeedsUser(f"Flow gerou o video mas o download falhou ({page.url})")
         raise TimeoutError(f"Flow nao entregou o video em {GEN_TIMEOUT['video']}s")
+
+    async def flow_download(self, page, quality):
+        """Menu do card -> Fazer o download -> '1080p Aprimorada'. Devolve os bytes, ou None se nao vier em 4 min."""
+        dl = self.logs / "flow_dl"; dl.mkdir(exist_ok=True)
+        for f in dl.iterdir():
+            f.unlink()
+        try:
+            cdp = await page.context.browser.new_browser_cdp_session()
+            await cdp.send("Browser.setDownloadBehavior", {"behavior": "allowAndName", "downloadPath": str(dl), "eventsEnabled": True})
+            # cliques via JS: hover/click do Playwright travam nesse menu do Flow
+            r = await page.evaluate(FLOW_DL_JS, quality)
+            if r != "ok":
+                raise RuntimeError(r)
+            # o Flow as vezes entrega o original (720p) antes do aprimorado: espera o arquivo com a altura pedida
+            want = int(re.sub(r"\D", "", quality) or 0); first = None
+            for k in range(80):
+                await page.wait_for_timeout(3000)
+                done = [f for f in dl.iterdir() if f.is_file() and not f.name.endswith(".crdownload") and f.stat().st_size > 50_000]
+                for f in done:
+                    if video_height(f) >= want:
+                        return f.read_bytes()
+                first = first or (done[0] if done else None)
+                if first and k >= 30:  # ~90 s sem o aprimorado: fica com o que veio
+                    self.log(f"Flow nao entregou {quality}; usando {video_height(first)}p")
+                    return first.read_bytes()
+        except Exception as e:
+            self.log(f"download {quality} do Flow: {type(e).__name__}: {str(e)[:200]}")
+        return None
 
     # ---------- per scene ----------
     async def run_scene(self, ctx, i, mode, prompt, dur=8, name=None):
@@ -529,11 +598,12 @@ class Worker:
             page.on("response", lambda r: asyncio.ensure_future(_on_resp(r)))
             try:
                 self.scene_status(i, "gerando", None if attempt == 1 else f"tentativa {attempt}")
-                flow = mode == "video" and self.video_engine == "flow"
-                self.log(f"cena {i+1:02d} [{mode}{', flow ' + self.flow_model if flow else ''}] tentativa {attempt}")
+                flow = self.video_engine == "flow"  # Grok sem credito: imagem e video no Flow
+                fm = self.flow_model if mode == "video" else "Nano Banana"
+                self.log(f"cena {i+1:02d} [{mode}{', flow ' + fm if flow else ''}] tentativa {attempt}")
                 if flow:
-                    data = await self.flow_generate(page, prompt, dur)
-                    via = f"flow.google.com {self.flow_model}"
+                    data = await self.flow_generate(page, prompt, dur, mode)
+                    via = f"flow.google.com {fm}"
                 else:
                     await page.goto(URL, wait_until="domcontentloaded", timeout=60000)
                     await page.wait_for_timeout(2500)
@@ -605,7 +675,7 @@ class Worker:
         async with async_playwright() as p:
             browser = await p.chromium.connect_over_cdp(f"http://127.0.0.1:{PORT}")
             ctx = browser.contexts[0]
-            is_flow = lambda item: item[1] == "video" and self.video_engine == "flow"
+            is_flow = lambda item: self.video_engine == "flow"
             # checagem de login no Grok antes de comecar (o Flow checa o proprio login ao abrir)
             if not all(is_flow(x) for x in q):
                 page = await ctx.new_page()
@@ -672,7 +742,7 @@ def run(argv=None):
     ap.add_argument("--scenes", default="")
     ap.add_argument("--concurrency", type=int, default=2)
     ap.add_argument("--login", action="store_true", help="so abre o Chrome dedicado no Grok")
-    ap.add_argument("--video-engine", choices=["grok", "flow"], default="grok", help="flow: videos no Google Flow, imagens seguem no Grok")
+    ap.add_argument("--video-engine", choices=["grok", "flow"], default="grok", help="flow: videos e imagens no Google Flow (imagem: Nano Banana, 0 credito)")
     ap.add_argument("--flow-model", default=FLOW_MODEL, help="ex.: 'Omni 1.1 Flash' (4-10s) ou 'Veo 3.1 - Fast' (8s)")
     ap.add_argument("--only", choices=["video", "image"], help="so as cenas deste tipo")
     a = ap.parse_args(argv)

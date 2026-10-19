@@ -128,7 +128,12 @@ class Job:
             self.st.update(kw); self.st["updated_at"] = time.strftime("%H:%M:%S")
             tmp = self.status_f.with_suffix(".tmp")
             tmp.write_text(json.dumps(self.st, ensure_ascii=False, indent=1), encoding="utf-8")
-            os.replace(tmp, self.status_f)
+            for k in range(20):  # no Windows o replace falha se outro processo (painel, antivirus) estiver lendo o arquivo
+                try:
+                    os.replace(tmp, self.status_f); break
+                except PermissionError:
+                    if k == 19: raise
+                    time.sleep(0.05)
 
     def check_stop(self):
         try:
