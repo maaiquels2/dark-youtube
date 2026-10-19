@@ -165,6 +165,9 @@ def collapse_frames(s, dur=7.0, fps=30):
             for j, p in enumerate(pts):
                 if j <= prog:
                     d.ellipse([xs[j] - 9, ys[j] - 9, xs[j] + 9, ys[j] + 9], fill=V.WHITE); d.text((xs[j] - 40, yb + 16), p.get("label", ""), font=V.F("sansm", 24), fill=V.MUTED)
+                    if s.get("values"):  # valor de cada ponto: a queda aparece de onde ate onde (ex.: 11,143 -> 10,365)
+                        tv = fmt(float(p["value"])); fvv = V.F("sansm", 30); last = j == k - 1
+                        d.text((xs[j] - V.tw(d, tv, fvv) / 2, ys[j] + (22 if last else -54)), tv, font=fvv, fill=(255, 120, 108) if last else V.WHITE)
                     if p.get("event"):
                         d.line([(xs[j], ys[j] - 16), (xs[j], ys[j] - 90)], fill=V.AMBER, width=2)
                         d.text((xs[j] - 10, ys[j] - 130), p["event"], font=V.F("hand", 38), fill=(250, 206, 110))
