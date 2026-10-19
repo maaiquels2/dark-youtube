@@ -311,15 +311,16 @@ def main():
         pj.update(id=new, remake_of=old, status="draft")
         for k in ("published_url", "scheduled_at", "published_at", "legacy_complete", "validation"): pj.pop(k, None)
         fn.write_text(json.dumps(pj, ensure_ascii=False, indent=2), encoding="utf-8"); print("copia:", new)
-    pj = json.loads(fn.read_text(encoding="utf-8"))
+    import projfile
     if "convert" in steps:
-        print("convertido:", dict(convert(pj))); fn.write_text(json.dumps(pj, ensure_ascii=False, indent=2), encoding="utf-8")
+        with projfile.edit(fn) as pj: print("convertido:", dict(convert(pj)))
     if "cues" in steps:
-        print("deixas musicais:", cues(pj)); fn.write_text(json.dumps(pj, ensure_ascii=False, indent=2), encoding="utf-8")
+        with projfile.edit(fn) as pj: print("deixas musicais:", cues(pj))
+    pj = projfile.read(fn)
     if "sheet" in steps:
         out = pn / "logs" / "logos-sheet.jpg"; out.parent.mkdir(exist_ok=True); print("folha de logos/fotos:", sheet(pn, pj, out), "->", out)
     if "cards" in steps:
-        print("cartoes limpos:", cards(pn, pj)); fn.write_text(json.dumps(pj, ensure_ascii=False, indent=2), encoding="utf-8")
+        with projfile.edit(fn) as pj: print("cartoes limpos:", cards(pn, pj))
     if "words" in steps: run("tools/words.py", new)
     if "local" in steps: run("tools/local_img.py", new)  # cenas sem midia: FLUX na placa (antes do clean, que apaga texto escrito)
     if "clean" in steps: run("tools/media_ai.py", "clean", new)

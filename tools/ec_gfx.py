@@ -16,6 +16,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 import montage  # noqa: E402
+import copy, projfile  # noqa: E402
 
 CLI = os.environ.get("EFFECTCRAFT_CLI") or str(Path(os.environ.get("LOCALAPPDATA", "")) / "DarkStudio" / "effectcraft" / "effectcraft-cli.exe")
 FULL = {"counter", "versus", "timeline", "stamp", "person", "pair", "statement", "flow", "relmap", "stack", "list"}
@@ -610,7 +611,7 @@ def main():
     if not Path(CLI).is_file():
         sys.exit(f"effectcraft-cli nao encontrado em {CLI} (defina EFFECTCRAFT_CLI)")
     pfile = ROOT / "projects" / f"{a.project}.json"; pdir = ROOT / "projects" / a.project
-    pj = json.loads(pfile.read_text(encoding="utf-8")); sc = pj["scenes"]
+    pj = json.loads(pfile.read_text(encoding="utf-8")); sc = pj["scenes"]; before = copy.deepcopy(sc)
     only = {int(x) for x in a.only.split(",") if x.strip()}
     preview = [float(x) for x in a.preview.split(",") if x.strip()]
     L = durations(pdir, len(sc))
@@ -640,7 +641,8 @@ def main():
         f = gd / f"ec-{i+1:02d}.mp4"
         if (s.get("ec") or {}).get("full") and f.is_file():
             s.setdefault("orig_file", s.get("file")); s.update(file=f.relative_to(pdir).as_posix(), source="gfx", status="pronto")
-    pfile.write_text(json.dumps(pj, ensure_ascii=False, indent=2), encoding="utf-8")
+    # so os campos desta ferramenta, sobre a versao mais nova (o render leva minutos; o app/worker pode ter gravado nesse meio tempo)
+    projfile.patch(pfile, projfile.changed(before, sc, ("ec", "file", "source", "status", "orig_file")))
 
 
 if __name__ == "__main__":

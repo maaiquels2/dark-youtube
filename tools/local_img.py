@@ -13,6 +13,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 import scenes  # noqa: E402
+import copy, projfile  # noqa: E402
 
 FLUX_PY = Path(os.environ.get("LOCALAPPDATA", "")) / "DarkStudio" / "flux" / ".venv" / "Scripts" / "python.exe"
 STYLE = ("Photorealistic documentary still of the real place and era, natural film look, subtle film grain, moody low-key light with readable "
@@ -40,7 +41,7 @@ def main():
     a = ap.parse_args()
     pfile, pdir = ROOT / "projects" / f"{a.project}.json", ROOT / "projects" / a.project
     if not FLUX_PY.is_file(): sys.exit(f"ambiente do FLUX nao encontrado: {FLUX_PY}")
-    pj = json.loads(pfile.read_text(encoding="utf-8")); sc = pj["scenes"]
+    pj = json.loads(pfile.read_text(encoding="utf-8")); sc = pj["scenes"]; before = copy.deepcopy(sc)
     only = {int(x) for x in a.scenes.split(",") if x.strip()}
     idx = list(todo(sc, pdir, only, a.redo))
     if not idx: print("nenhuma cena para gerar"); return
@@ -60,7 +61,8 @@ def main():
         s.update(file=out.relative_to(pdir).as_posix(), source="local", mode="image", status="pronto", parallax=True, error=None, cost_usd=0,
                  generated_with="FLUX.2 klein 4B (local)")
         s.pop("photo_file", None); done += 1
-    pfile.write_text(json.dumps(pj, ensure_ascii=False, indent=2), encoding="utf-8")
+    projfile.patch(pfile, projfile.changed(before, sc, ("file", "source", "mode", "status", "parallax", "error", "cost_usd",
+                                                       "generated_with", "orig_file", "photo_file")))
     print(f"{done}/{len(jobs)} imagens prontas; proximo passo: python tools/parallax.py {a.project}", flush=True)
     if r.returncode: sys.exit(f"gerador saiu com codigo {r.returncode}")
 

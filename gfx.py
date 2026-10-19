@@ -462,7 +462,7 @@ def render_project(pfile, pdir):
     """Renderiza todos os graficos do projeto. Tela cheia vira a midia da cena (source=gfx)."""
     import json
     pfile, pdir = Path(pfile), Path(pdir)
-    pj = json.loads(pfile.read_text(encoding="utf-8"))
+    pj = json.loads(pfile.read_text(encoding="utf-8")); import copy, projfile; before = copy.deepcopy(pj["scenes"])
     photos = {k: dict(v, file=str(pdir / v["file"])) for k, v in (pj.get("people_photos") or {}).items() if v.get("file")}
     logos = {k: str(pdir / v) for k, v in (pj.get("logos") or {}).items()}
     lg = (pj.get("logo") or {}).get("file")
@@ -487,7 +487,7 @@ def render_project(pfile, pdir):
         elif s.get("source") == "gfx":
             s.update(file=None, status="pendente", source="site")
         if op: no += 1
-    pfile.write_text(json.dumps(pj, ensure_ascii=False, indent=2), encoding="utf-8")
+    projfile.patch(pfile, projfile.changed(before, pj["scenes"], ("gfx", "file", "status", "source", "error")))
     return nf, no
 
 

@@ -15,6 +15,7 @@ from pathlib import Path
 
 import scenes  # noqa: E402  o que cada cena e (grafico, foto real, local, IA)
 import timeline  # noqa: E402
+import projfile  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent
 PROJECTS = ROOT / "projects"
@@ -200,14 +201,10 @@ class Worker:
     async def mark_done(self, i, rel, mode, via="grok.com/imagine"):
         async with self.flock:
             for _ in range(5):
-                try:
-                    d = self.load()
-                    d["scenes"][i].update(status="pronto", file=rel, error=None, cost_usd=0,
-                                          generated_with=f"{via} ({mode}, auto)")
-                    tmp = self.pfile.with_suffix(".tmp")
-                    tmp.write_text(json.dumps(d, ensure_ascii=False, indent=2), encoding="utf-8")
-                    os.replace(tmp, self.pfile); return
-                except (OSError, json.JSONDecodeError):
+                try:  # projfile: trava entre processos (app e ferramentas gravam o mesmo arquivo) + gravacao atomica
+                    projfile.patch(self.pfile, {i: dict(status="pronto", file=rel, error=None, cost_usd=0, generated_with=f"{via} ({mode}, auto)")})
+                    return
+                except (OSError, json.JSONDecodeError, TimeoutError):
                     await asyncio.sleep(0.5)
 
     def file_hashes(self):

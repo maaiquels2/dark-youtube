@@ -18,6 +18,8 @@ from PIL import Image, ImageDraw, ImageFilter
 BASE = Path(os.environ.get("LOCALAPPDATA", "")) / "DarkStudio"
 MODELS, BIN = BASE / "models", BASE / "bin"
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT))
+import copy, projfile  # noqa: E402
 _S = {}
 
 
@@ -114,7 +116,7 @@ def clean_project(pid, dry=None):
     """Cenas do Grok (media/): imagem com texto escrito -> apaga com LaMa e troca a midia (guarda a original);
     video com texto -> so avisa (apagar quadro a quadro tremula)."""
     pfile, pdir = ROOT / "projects" / f"{pid}.json", ROOT / "projects" / pid
-    pj = json.loads(pfile.read_text(encoding="utf-8")); rep = []
+    pj = json.loads(pfile.read_text(encoding="utf-8")); rep = []; before = copy.deepcopy(pj["scenes"])
     ff = shutil.which("ffmpeg")
     for i, s in enumerate(pj["scenes"]):
         f = s.get("file") or ""
@@ -142,7 +144,7 @@ def clean_project(pid, dry=None):
             dst = src.with_name(src.stem + "-clean.jpg"); out.save(dst, quality=94)
             s.setdefault("orig_file", f); s["file"] = dst.relative_to(pdir).as_posix(); s["cleaned_text"] = [b[1] for b in boxes]
     if not dry:
-        pj["text_clean"] = rep; pfile.write_text(json.dumps(pj, ensure_ascii=False, indent=2), encoding="utf-8")
+        projfile.patch(pfile, projfile.changed(before, pj["scenes"], ("orig_file", "file", "cleaned_text")), top={"text_clean": rep})
     return rep
 
 

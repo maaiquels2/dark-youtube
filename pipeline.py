@@ -12,10 +12,10 @@ def _load(pid):
     a = _app(); return a.load_project(pid)
 
 def _save(d):
-    a = _app()
-    with a.LOCK:
-        a.proj_path(d["id"]).write_text(json.dumps({k: v for k, v in d.items() if not k.startswith("_")}, ensure_ascii=False, indent=2), encoding="utf-8")
-    return d
+    """Documento inteiro, sem desfazer o que o worker/ferramentas gravaram enquanto a etapa rodava (projfile.save)."""
+    import projfile
+    with _app().LOCK:
+        return projfile.save(d)
 
 def url_ok(u):
     try:

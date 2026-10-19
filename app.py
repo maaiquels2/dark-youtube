@@ -3,6 +3,7 @@ import json, os, re, time, threading, urllib.request, urllib.error, urllib.parse
 from http.server import ThreadingHTTPServer, BaseHTTPRequestHandler
 from pathlib import Path
 import scenes  # o que cada cena e (grafico, foto real, local, IA)
+import projfile  # dono do arquivo do projeto: trava entre processos + gravacao atomica
 
 ROOT = Path(__file__).resolve().parent
 STATIC = ROOT / "static"
@@ -81,7 +82,7 @@ def chat_json(system, user, max_tokens=8000):
 # ---------------- xAI (Cenas) ----------------
 XAI = "https://api.x.ai/v1"
 LOCK = threading.Lock()
-SERVER_FIELDS = ("status", "file", "error", "cost_usd", "gen_seconds", "request_id", "media_duration", "generated_with")
+SERVER_FIELDS = projfile.SERVER_FIELDS  # a lista mora em projfile.py
 
 def pricing():
     return json.loads((ROOT / "config" / "pricing.json").read_text(encoding="utf-8"))
@@ -241,10 +242,8 @@ def load_project(pid):
     return json.loads(proj_path(pid).read_text(encoding="utf-8"))
 
 def update_scene(pid, i, **fields):
-    with LOCK:
-        d = load_project(pid)
+    with LOCK, projfile.edit(pid) as d:
         d["scenes"][i].update(fields)
-        proj_path(pid).write_text(json.dumps(d, ensure_ascii=False, indent=2), encoding="utf-8")
 
 def scene_seconds(sc, cfg):
     w = len((sc.get("narration") or "").split())
@@ -450,19 +449,8 @@ def save_project(proj):
     pid = proj.get("id") or slug(proj.get("title", "projeto"))
     proj["id"] = pid
     proj["updated_at"] = time.strftime("%Y-%m-%d %H:%M:%S")
-    with LOCK:
-        f = PROJECTS / f"{Path(pid).name}.json"
-        if f.exists():
-            old = json.loads(f.read_text(encoding="utf-8")).get("scenes") or []
-            for i, sc in enumerate(proj.get("scenes") or []):
-                if i < len(old):
-                    for k in SERVER_FIELDS:
-                        if k in old[i]:
-                            sc[k] = old[i][k]
-                        else:
-                            sc.pop(k, None)
-        with_prompts(proj)
-        f.write_text(json.dumps(proj, ensure_ascii=False, indent=2), encoding="utf-8")
+    with LOCK:  # campos de servidor/ferramenta ficam como estao no disco (projfile.save)
+        projfile.save(proj, before_write=with_prompts)
     try:
         export_prompts(proj)
     except Exception:
@@ -497,12 +485,11 @@ def auto_start(pid, scenes=None, concurrency=None):
     if pr and pr.poll() is None:
         raise ApiError("A geração automática já está rodando neste projeto.")
     conc = int(concurrency or pricing().get("grok_auto_concurrency", 2))
-    with LOCK:  # cenas ainda sem midia usam o modelo de prompt atual (as prontas guardam o prompt com que foram geradas)
-        d = load_project(pid); cfg = pricing(); pdir = PROJECTS / pid
+    with LOCK, projfile.edit(pid) as d:  # cenas ainda sem midia usam o modelo de prompt atual (as prontas guardam o prompt com que foram geradas)
+        cfg = pricing(); pdir = PROJECTS / pid
         for sc in d.get("scenes") or []:
             if not (sc.get("file") and (pdir / sc["file"]).is_file()):
                 sc["grok_prompt"] = build_grok_prompt(sc, cfg)
-        proj_path(pid).write_text(json.dumps(d, ensure_ascii=False, indent=2), encoding="utf-8")
     args = [_venv_py(), str(Path(__file__).resolve().parent / "grok_worker.py"), pid, "--concurrency", str(conc)]
     if scenes:
         args += ["--scenes", ",".join(str(int(i)) for i in scenes)]
@@ -676,8 +663,8 @@ COVER_CANDIDATES = ("PUBLICAR/3-thumbnail.jpg", "PUBLICAR/thumbnail.jpg", "outpu
 def set_fair_use(b):
     """Per-person 'Uso justo' (fair use): news/agency photo of a verified person, shown only inside the person card,
     briefly, with transformative polaroid treatment and on-card credit. Requires image URL + article URL naming the person."""
-    with LOCK:
-        d = load_project(b["id"]); pdir = PROJECTS / Path(d["id"]).name
+    with LOCK, projfile.edit(b["id"]) as d:
+        pdir = PROJECTS / Path(d["id"]).name
         e = next((x for x in d.get("entities") or [] if x["name"] == b["name"]), None)
         if not e or e.get("kind") != "person": raise ApiError("Pessoa não encontrada.")
         cr = e.setdefault("credits", {})
@@ -699,7 +686,6 @@ def set_fair_use(b):
             cr.update(photo=f"{b['outlet']} (fair use, news photo)", photo_short=b["outlet"], photo_source=b["source_url"])
             if b.get("image_url"): cr["photo_image_url"] = b["image_url"]
             if b.get("role"): e["role"] = b["role"]
-        proj_path(d["id"]).write_text(json.dumps(d, ensure_ascii=False, indent=2), encoding="utf-8")
     return {"ok": True, "entity": e}
 
 def project_cover(d):
@@ -746,8 +732,7 @@ def decorate(d):
 
 def publish(pid, url, unpublish=False, scheduled_at=None):
     url = (url or "").strip()
-    with LOCK:
-        d = load_project(pid)
+    with LOCK, projfile.edit(pid) as d:
         if unpublish:
             d["status"] = "rascunho"
         else:
@@ -757,7 +742,6 @@ def publish(pid, url, unpublish=False, scheduled_at=None):
                 d.update(published_url=url, status="agendado", scheduled_at=scheduled_at.replace("T", " ")[:16])
             else:
                 d.update(published_url=url, status="publicado", published_at=time.strftime("%Y-%m-%d %H:%M:%S"))
-        proj_path(pid).write_text(json.dumps(d, ensure_ascii=False, indent=2), encoding="utf-8")
     return decorate(d)
 
 class H(BaseHTTPRequestHandler):
@@ -938,7 +922,7 @@ class H(BaseHTTPRequestHandler):
                 st = self.path.rsplit("/", 1)[-1]
                 if st == "notes":
                     with LOCK:
-                        d = load_project(body["id"]); d["research_notes"] = body.get("notes", ""); proj_path(body["id"]).write_text(json.dumps(d, ensure_ascii=False, indent=2), encoding="utf-8")
+                        with projfile.edit(body["id"]) as d: d["research_notes"] = body.get("notes", "")
                     return self._send(200, {"ok": True})
                 if st == "fairuse":
                     return self._send(200, set_fair_use(body))
@@ -961,11 +945,11 @@ class H(BaseHTTPRequestHandler):
 if __name__ == "__main__":
     for f in PROJECTS.glob("*.json"):  # gerações interrompidas ao reiniciar
         try:
-            d = json.loads(f.read_text(encoding="utf-8")); ch = False
-            for sc in d.get("scenes") or []:
-                if sc.get("status") == "gerando":
-                    sc["status"] = "erro"; sc["error"] = "Interrompido (app reiniciado). Gere de novo."; ch = True
-            if ch: f.write_text(json.dumps(d, ensure_ascii=False, indent=2), encoding="utf-8")
+            d = json.loads(f.read_text(encoding="utf-8"))
+            if any(sc.get("status") == "gerando" for sc in d.get("scenes") or []):
+                with projfile.edit(f.stem) as d:
+                    for sc in d.get("scenes") or []:
+                        if sc.get("status") == "gerando": sc["status"] = "erro"; sc["error"] = "Interrompido (app reiniciado). Gere de novo."
         except Exception:
             pass
     print(f"Dark YouTube rodando em http://127.0.0.1:{PORT}  (chave OpenAI: {'OK' if api_key() else 'NÃO configurada'})")

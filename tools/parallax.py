@@ -14,6 +14,7 @@ from PIL import Image, ImageFilter
 sys.path.insert(0, str(Path(__file__).resolve().parent)); sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 import media_ai as M  # noqa: E402
 import scenes  # noqa: E402
+import copy, projfile  # noqa: E402
 
 W, H, FPS = 1920, 1080, 30
 MOVES = [  # (fundo: zoom ini/fim, deslocamento x px) (frente: idem) - alterna para nao repetir o mesmo movimento
@@ -74,7 +75,7 @@ def main():
     a = ap.parse_args()
     root = Path(__file__).resolve().parents[1]
     pfile, pdir = root / "projects" / f"{a.project}.json", root / "projects" / a.project
-    pj = json.loads(pfile.read_text(encoding="utf-8")); sc = pj["scenes"]
+    pj = json.loads(pfile.read_text(encoding="utf-8")); sc = pj["scenes"]; before = copy.deepcopy(sc)
     import ec_gfx
     L = ec_gfx.durations(pdir, len(sc))
     only = {int(x) for x in a.scenes.split(",") if x.strip()}
@@ -91,7 +92,7 @@ def main():
             real = k == "foto_real"  # imagem gerada (local/IA) nao vira "foto real"
             s["photo_file"] = photo; s.update(file=out.relative_to(pdir).as_posix(), mode="video", source="real_photo_parallax" if real else s.get("source"))
     if not a.preview:
-        pfile.write_text(json.dumps(pj, ensure_ascii=False, indent=2), encoding="utf-8")
+        projfile.patch(pfile, projfile.changed(before, sc, ("photo_file", "file", "mode", "source")))
 
 
 if __name__ == "__main__":
