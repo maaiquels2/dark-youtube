@@ -77,6 +77,21 @@ def _():
         assert list(local_img.todo(sc, Path(d), set(), False)) == [2, 3, 4, 5]
 
 
+@caso("convert nao deixa sobreposicao no formato antigo (a montagem EC nao as desenha)")
+def _():
+    import remake
+    ents = [{"name": "WeWork", "kind": "company", "aliases": ["The We Company"], "logo": "entities/wework-logo.png"}]
+    tipos = [{"type": "logo", "company": "WeWork"}, {"type": "logo", "company": "Sem Logo Inc"}, {"type": "chapter", "number": 1, "title": "X"},
+             {"type": "lower_third", "name": "A", "role": "B"}, {"type": "callout", "text": "$1B", "source": "x"},
+             {"type": "parties", "items": ["WeWork"]}, {"type": "entity", "name": "WeWork"}, {"type": "citation", "text": "x"}]
+    pj = {"entities": ents, "scenes": [{"narration": "a", "gfx": [g], "sources": []} for g in tipos]}
+    remake.convert(pj)
+    for s, g in zip(pj["scenes"], tipos):
+        assert not s.get("gfx"), (g["type"], s.get("gfx"))
+    ov = pj["scenes"][0]["ec"]["overlay"]; assert ov == [{"type": "chip", "files": ["entities/wework-logo.png"]}], ov
+    assert any(o.get("text") == "Sem Logo Inc" for o in pj["scenes"][1]["ec"]["overlay"]), pj["scenes"][1]
+
+
 @caso("worker do Grok/Flow pula grafico, foto real e local; pega IA")
 def _():
     import grok_worker

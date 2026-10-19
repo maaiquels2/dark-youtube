@@ -100,6 +100,11 @@ def convert(pj):
                     if asset(n): chips.append(asset(n))
                     else: others.append((n, "ALSO INVOLVED"))
                 stat[t] += 1
+            elif t == "logo":  # logo da empresa citada: o mesmo selo do canto (antes ficava como PNG antigo que a montagem EC nao desenha)
+                n = g.get("company") or g.get("name") or ""; e = alias.get(n.lower()) or {}
+                if e.get("logo") or e.get("seal"): chips.append(e.get("logo") or e.get("seal"))
+                elif n: others.append((n, "ALSO INVOLVED"))
+                stat[t] += 1
             elif t in ("callout", "citation"):
                 callouts.append({"type": "callout", "label": cut(src_title(g.get("source"), s).upper(), 46) or ("SOURCE" if t == "citation" else "KEY FACT"),
                                  "text": g.get("text", ""), "_citation": t == "citation"}); stat[t] += 1
