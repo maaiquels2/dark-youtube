@@ -1,0 +1,33 @@
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>10 exemplos de motion</title>
+<style>
+:root{--bg:#f4ecd8;--ink:#1c1c1c;--red:#d62828;--blue:#1f5fbf;--grn:#2a9d5c;--or:#e07a00}
+body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.5 ui-monospace,Consolas,monospace;padding:18px}
+h1{font-size:24px;margin:0 0 4px}p{margin:0 0 14px;opacity:.7}
+.g{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px}
+.c{border:1.5px solid var(--ink);border-radius:12px;padding:8px;background:#fbf7ea}
+canvas{width:100%;display:block;border-radius:8px;background:#f4ecd8}.c b{display:block;margin-top:6px}.c i{opacity:.65;font-style:normal;font-size:12px}
+</style></head><body>
+<h1>10 exemplos de motion feitos em código</h1><p>Tudo aqui é canvas + matemática, o mesmo princípio do HyperFrames que já usamos. Cada quadro é função do tempo, então renderiza igual toda vez.</p>
+<div class="g" id="g"></div>
+<script>
+const W=280,H=200,INK="#1c1c1c",RED="#d62828",BLU="#1f5fbf",GRN="#2a9d5c",OR="#e07a00";
+const ease=v=>{v=Math.max(0,Math.min(1,v));return v*v*(3-2*v)}, bounce=v=>{v=Math.max(0,Math.min(1,v));const n=7.5625,d=2.75;if(v<1/d)return n*v*v;if(v<2/d)return n*(v-=1.5/d)*v+.75;if(v<2.5/d)return n*(v-=2.25/d)*v+.9375;return n*(v-=2.625/d)*v+.984375};
+const T=(x,s,px,py,sz,c,al)=>{x.font="bold "+sz+"px monospace";x.fillStyle=c||INK;x.textAlign=al||"center";x.textBaseline="middle";x.fillText(s,px,py)};
+const L=(x,a,b,c,d,col,w)=>{x.strokeStyle=col||INK;x.lineWidth=w||2;x.beginPath();x.moveTo(a,b);x.lineTo(c,d);x.stroke()};
+const C=(x,cx,cy,r,f,s)=>{x.beginPath();x.arc(cx,cy,r,0,7);if(f){x.fillStyle=f;x.fill()}if(s){x.strokeStyle=s;x.lineWidth=3;x.stroke()}};
+const D=[
+["Contador que sobe","número com ease","Em geral usado em KPI e estatística",(x,u)=>{T(x,Math.round(ease(u)*1000000).toLocaleString("en-US"),W/2,H/2-8,34,RED);T(x,"views",W/2,H/2+30,16)}],
+["Barras crescendo","gráfico de barras",(0),(x,u)=>{[.5,.8,.35,.95,.65].forEach((v,i)=>{const h=ease(u*1.6-i*.15)*v*140;x.fillStyle=i==3?RED:BLU;x.fillRect(30+i*46,175-h,32,h)});L(x,20,175,260,175)}],
+["Linha desenhando","queda de índice",(0),(x,u)=>{const P=[[20,60],[70,50],[120,70],[170,40],[210,150],[260,170]];x.strokeStyle=RED;x.lineWidth=4;x.beginPath();const n=ease(u)*(P.length-1);x.moveTo(...P[0]);for(let i=1;i<P.length;i++){const f=Math.min(1,Math.max(0,n-(i-1)));if(f<=0)break;x.lineTo(P[i-1][0]+(P[i][0]-P[i-1][0])*f,P[i-1][1]+(P[i][1]-P[i-1][1])*f)}x.stroke()}],
+["Texto digitando","legenda palavra a palavra",(0),(x,u)=>{const s="Show your work.";T(x,s.slice(0,Math.floor(u*s.length)*1)+(u<1&&Math.floor(u*20)%2?"|":""),W/2,H/2,24,INK)}],
+["Bola quicando","bounce físico",(0),(x,u)=>{const y=40+bounce(((u*2)%1))*110;L(x,20,175,260,175);C(x,W/2,y,18,OR,INK)}],
+["Pontos em órbita","rotação",(0),(x,u)=>{C(x,W/2,H/2,10,RED);for(let i=0;i<6;i++){const a=u*6.283+i*1.047;C(x,W/2+Math.cos(a)*(40+i*10),H/2+Math.sin(a)*(40+i*10),5+i,BLU)}}],
+["Revelação por máscara","linha que revela",(0),(x,u)=>{x.save();x.beginPath();x.rect(0,0,ease(u)*W,H);x.clip();T(x,"REVEAL",W/2,H/2,40,RED);x.restore();L(x,ease(u)*W,40,ease(u)*W,160,INK,3)}],
+["Onda senoidal","onda animada",(0),(x,u)=>{x.strokeStyle=BLU;x.lineWidth=3;x.beginPath();for(let i=0;i<=W;i+=4){const y=H/2+Math.sin(i/22+u*6.283)*40;i?x.lineTo(i,y):x.moveTo(i,y)}x.stroke()}],
+["Grade de pontos","ondulação em grade",(0),(x,u)=>{for(let r=0;r<8;r++)for(let c=0;c<11;c++){const d=Math.hypot(c-5,r-3.5),s=3+3*Math.max(0,Math.sin(d*.9-u*6.283));C(x,22+c*24,22+r*22,s,d<1?RED:INK)}}],
+["Paralaxe em camadas","3 camadas",(0),(x,u)=>{[[.3,"#c9bf9f",60],[.6,"#a89f82",90],[1,"#6e6753",120]].forEach(([k,c,h],i)=>{for(let j=-1;j<5;j++){const px=((j*90-u*180*k)%450+450)%450-90;x.fillStyle=c;x.fillRect(px,H-h-i*8,60,h+i*8)}});C(x,230,40,16,OR)}]
+];
+const g=document.getElementById("g"),cv=[];
+D.forEach(d=>{const c=document.createElement("div");c.className="c";const k=document.createElement("canvas");k.width=W*2;k.height=H*2;c.appendChild(k);c.insertAdjacentHTML("beforeend",`<b>${d[0]}</b><i>${d[1]}</i>`);g.appendChild(c);cv.push(k)});
+function f(ms){const u=(ms/3500)%1;cv.forEach((k,i)=>{const x=k.getContext("2d");x.setTransform(2,0,0,2,0,0);x.clearRect(0,0,W,H);x.fillStyle="#f4ecd8";x.fillRect(0,0,W,H);D[i][3](x,u)});requestAnimationFrame(f)}requestAnimationFrame(f);
+</script></body></html>

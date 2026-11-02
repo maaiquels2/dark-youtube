@@ -1,0 +1,20 @@
+{
+  "title": "64 disks. How <span style=\"color:#d62828\">long</span>?",
+  "keys": [
+    "doubles",
+    "billion",
+    "585",
+    "moves",
+    "universe",
+    "exponential"
+  ],
+  "blocks": [
+    "There are sixty-four golden disks on three pegs. Move them one at a time, never putting a big disk on a small one. How long will it take? Longer than the age of the universe.",
+    "Here are the rules. There are three pegs, and a stack of disks on the first one, biggest at the bottom. Move one disk at a time. Never put a bigger disk on a smaller one. The goal is to move the whole stack to the last peg.",
+    "One disk takes one move. Two disks take three. Three disks take seven.",
+    "Here's the pattern. To move a stack, move everything above the biggest disk out of the way, move the big one, then move the stack back on top. So the work doubles, plus one. Four disks take fifteen moves. Five take thirty-one. Ten take one thousand twenty-three. Twenty disks take over a million.",
+    "Every extra disk doubles the work. The formula is two to the power of n, minus one. For sixty-four disks, that's about eighteen quintillion moves. At one move per second, that's about five hundred eighty-five billion years.",
+    "The universe is about fourteen billion years old. So the job would take more than forty times longer than the universe has existed.",
+    "Doubling looks tiny at first, and then it swallows everything. That's why exponential growth feels slow, right until it doesn't."
+  ]
+}

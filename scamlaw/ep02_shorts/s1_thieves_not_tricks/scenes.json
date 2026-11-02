@@ -1,0 +1,554 @@
+{
+ "theme": "rulechanged",
+ "format": "vertical",
+ "comp": "main",
+ "out": "s1_thieves_not_tricks",
+ "music": "library/music/incompetech/interloper.mp3",
+ "music_gain": 0.14,
+ "lufs": -14,
+ "tail": 1.0,
+ "captions": true,
+ "blocks": [
+  {
+   "act": "scam",
+   "scenes": [
+    {
+     "t": "organ_focus",
+     "image": "phone_ear.jpg",
+     "screen": false,
+     "photo": true,
+     "zoom": [
+      100,
+      108
+     ],
+     "illustration": true
+    },
+    {
+     "t": "impact_title",
+     "at": "start",
+     "fade": [
+      0.15,
+      0.25
+     ],
+     "lines": [
+      {
+       "text": "REFUNDED?",
+       "size": 120,
+       "y": 820,
+       "color": [
+        1,
+        0.96,
+        0.9
+       ],
+       "font": "Anton"
+      },
+      {
+       "text": "NOT THIS ONE.",
+       "size": 120,
+       "y": 960,
+       "color": [
+        0.82,
+        0.25,
+        0.18
+       ],
+       "font": "Anton"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "act": "scam",
+   "scenes": [
+    {
+     "t": "organ_focus",
+     "image": "lights_off.jpg",
+     "screen": false,
+     "photo": true,
+     "zoom": [
+      100,
+      108
+     ],
+     "illustration": true,
+     "until": "He-0.1"
+    },
+    {
+     "t": "fact_card",
+     "big": "$1,476.89",
+     "size": 130,
+     "at": "He",
+     "image": "thumb_send.jpg",
+     "text": "sent by Zelle to a scammer, as described by New York's attorney general",
+     "source": "Source: New York Attorney General, Aug 13, 2025",
+     "until": "Con-0.1"
+    },
+    {
+     "t": "organ_focus",
+     "image": "wallet_phone.jpg",
+     "screen": false,
+     "photo": true,
+     "zoom": [
+      100,
+      108
+     ],
+     "illustration": true,
+     "at": "Con-0.1"
+    },
+    {
+     "t": "impact_title",
+     "at": "Con",
+     "fade": [
+      0.15,
+      0.25
+     ],
+     "lines": [
+      {
+       "text": "\"CONED BILLING\"",
+       "size": 84,
+       "y": 840,
+       "color": [
+        1,
+        0.96,
+        0.9
+       ],
+       "font": "Anton"
+      },
+      {
+       "text": "IT WASN'T THE POWER COMPANY",
+       "size": 66,
+       "y": 950,
+       "color": [
+        1,
+        0.7,
+        0.22
+       ],
+       "font": "Anton"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "act": "scam",
+   "scenes": [
+    {
+     "t": "organ_focus",
+     "image": "empty_account.jpg",
+     "screen": false,
+     "photo": true,
+     "zoom": [
+      100,
+      108
+     ],
+     "illustration": true,
+     "until": "his-0.1"
+    },
+    {
+     "t": "impact_title",
+     "at": "start",
+     "fade": [
+      0.15,
+      0.25
+     ],
+     "lines": [
+      {
+       "text": "IT WAS A SCAM",
+       "size": 110,
+       "y": 900,
+       "color": [
+        0.82,
+        0.25,
+        0.18
+       ],
+       "font": "Anton"
+      }
+     ],
+     "until": "his-0.1"
+    },
+    {
+     "t": "quote_card",
+     "quote": "can't get [him] that money back",
+     "by": "JPMorgan Chase, as quoted by New York's Attorney General",
+     "header": "NY AG · AUG 13, 2025",
+     "source": "Source: New York Attorney General, Aug 13, 2025",
+     "at": "his-0.1"
+    }
+   ]
+  },
+  {
+   "act": "rule",
+   "scenes": [
+    {
+     "t": "organ_focus",
+     "image": "bank_lobby.jpg",
+     "screen": false,
+     "photo": true,
+     "zoom": [
+      100,
+      108
+     ],
+     "illustration": true,
+     "until": "That's-0.1"
+    },
+    {
+     "t": "impact_title",
+     "at": "rules",
+     "fade": [
+      0.15,
+      0.25
+     ],
+     "lines": [
+      {
+       "text": "PROTECTED",
+       "size": 110,
+       "y": 900,
+       "color": [
+        0.5,
+        0.69,
+        0.54
+       ],
+       "font": "Anton"
+      }
+     ],
+     "until": "That's-0.1"
+    },
+    {
+     "t": "web_clip",
+     "image": "ecfr_1005_2.png",
+     "site": "ECFR.GOV",
+     "date": "12 CFR 1005.2(m)",
+     "source": "Source: 12 CFR 1005.2(m)",
+     "marks": [
+      {
+       "box": [
+        860,
+        968,
+        1500,
+        90
+       ],
+       "at": "unauthorized"
+      }
+     ],
+     "at": "That's-0.1"
+    }
+   ]
+  },
+  {
+   "act": "scam",
+   "scenes": [
+    {
+     "t": "organ_focus",
+     "image": "thumb_send.jpg",
+     "screen": false,
+     "photo": true,
+     "zoom": [
+      100,
+      108
+     ],
+     "illustration": true,
+     "until": "authorized-0.1"
+    },
+    {
+     "t": "impact_title",
+     "at": "start",
+     "fade": [
+      0.15,
+      0.25
+     ],
+     "lines": [
+      {
+       "text": "HE PRESSED SEND",
+       "size": 96,
+       "y": 900,
+       "color": [
+        1,
+        0.96,
+        0.9
+       ],
+       "font": "Anton"
+      }
+     ],
+     "until": "So-0.1"
+    },
+    {
+     "t": "impact_title",
+     "at": "So",
+     "fade": [
+      0.15,
+      0.25
+     ],
+     "lines": [
+      {
+       "text": "UNAUTHORIZED",
+       "size": 96,
+       "y": 820,
+       "color": [
+        0.5,
+        0.69,
+        0.54
+       ],
+       "font": "Anton"
+      },
+      {
+       "text": "= PROTECTED",
+       "size": 70,
+       "y": 930,
+       "color": [
+        0.5,
+        0.69,
+        0.54
+       ],
+       "font": "Anton"
+      }
+     ],
+     "until": "authorized-0.1"
+    },
+    {
+     "t": "organ_focus",
+     "image": "empty_account.jpg",
+     "screen": false,
+     "photo": true,
+     "zoom": [
+      100,
+      108
+     ],
+     "illustration": true,
+     "at": "authorized-0.1"
+    },
+    {
+     "t": "impact_title",
+     "at": "authorized",
+     "fade": [
+      0.15,
+      0.25
+     ],
+     "lines": [
+      {
+       "text": "AUTHORIZED",
+       "size": 110,
+       "y": 860,
+       "color": [
+        0.82,
+        0.25,
+        0.18
+       ],
+       "font": "Anton"
+      },
+      {
+       "text": "EVEN IF YOU WERE TRICKED",
+       "size": 66,
+       "y": 980,
+       "color": [
+        1,
+        0.96,
+        0.9
+       ],
+       "font": "Anton"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "act": "rule",
+   "scenes": [
+    {
+     "t": "organ_focus",
+     "image": "hands_phone_old.jpg",
+     "screen": false,
+     "photo": true,
+     "zoom": [
+      100,
+      108
+     ],
+     "illustration": true,
+     "until": "Britain-0.1"
+    },
+    {
+     "t": "impact_title",
+     "at": "start",
+     "fade": [
+      0.15,
+      0.25
+     ],
+     "lines": [
+      {
+       "text": "WRITTEN FOR THIEVES,",
+       "size": 84,
+       "y": 820,
+       "color": [
+        1,
+        0.96,
+        0.9
+       ],
+       "font": "Anton"
+      },
+      {
+       "text": "NOT FOR TRICKS",
+       "size": 84,
+       "y": 930,
+       "color": [
+        0.82,
+        0.25,
+        0.18
+       ],
+       "font": "Anton"
+      }
+     ],
+     "until": "Britain-0.1"
+    },
+    {
+     "t": "organ_focus",
+     "image": "london_street.jpg",
+     "screen": false,
+     "photo": true,
+     "zoom": [
+      100,
+      108
+     ],
+     "illustration": true,
+     "at": "Britain-0.1",
+     "until": "America-0.1"
+    },
+    {
+     "t": "impact_title",
+     "at": "Britain",
+     "fade": [
+      0.15,
+      0.25
+     ],
+     "lines": [
+      {
+       "text": "BRITAIN CHANGED IT",
+       "size": 90,
+       "y": 900,
+       "color": [
+        0.5,
+        0.69,
+        0.54
+       ],
+       "font": "Anton"
+      }
+     ],
+     "until": "America-0.1"
+    },
+    {
+     "t": "organ_focus",
+     "image": "capitol.jpg",
+     "screen": false,
+     "photo": true,
+     "zoom": [
+      100,
+      108
+     ],
+     "illustration": true,
+     "at": "America-0.1"
+    },
+    {
+     "t": "impact_title",
+     "at": "America",
+     "fade": [
+      0.15,
+      0.25
+     ],
+     "lines": [
+      {
+       "text": "AMERICA HASN'T",
+       "size": 100,
+       "y": 900,
+       "color": [
+        0.82,
+        0.25,
+        0.18
+       ],
+       "font": "Anton"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "act": "case",
+   "scenes": [
+    {
+     "t": "organ_focus",
+     "image": "law_books.jpg",
+     "screen": false,
+     "photo": true,
+     "zoom": [
+      100,
+      108
+     ],
+     "illustration": true,
+     "until": "is-0.1"
+    },
+    {
+     "t": "impact_title",
+     "at": "start",
+     "fade": [
+      0.15,
+      0.25
+     ],
+     "lines": [
+      {
+       "text": "THIEVES, NOT TRICKS",
+       "size": 100,
+       "y": 860,
+       "color": [
+        1,
+        0.96,
+        0.9
+       ],
+       "font": "Anton"
+      }
+     ],
+     "until": "is-0.1"
+    },
+    {
+     "t": "impact_title",
+     "at": "is",
+     "fade": [
+      0.15,
+      0.25
+     ],
+     "lines": [
+      {
+       "text": "FULL CASE",
+       "size": 150,
+       "y": 900,
+       "color": [
+        1,
+        0.96,
+        0.9
+       ],
+       "font": "Anton"
+      }
+     ],
+     "until": "dur"
+    },
+    {
+     "t": "impact_title",
+     "at": "is+0.15",
+     "fade": [
+      0.15,
+      0.25
+     ],
+     "lines": [
+      {
+       "text": "ON THE RULE CHANGED",
+       "size": 66,
+       "y": 1010,
+       "color": [
+        1,
+        0.7,
+        0.22
+       ],
+       "font": "Anton"
+      }
+     ],
+     "until": "dur"
+    }
+   ]
+  }
+ ]
+}

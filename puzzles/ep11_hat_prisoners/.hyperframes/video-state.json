@@ -1,0 +1,333 @@
+{
+  "version": 1,
+  "historyId": "e0235745-c890-42d7-b417-2ed75b86efc8",
+  "currentRevision": null,
+  "pendingChanges": false,
+  "files": {
+    "assets/timing.json": {
+      "hash": "1e7ea633180134bfcd054531eb972fa2296dd8802ea94238264c4eaa8c0b6d25",
+      "content": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\e0235745-c890-42d7-b417-2ed75b86efc8\\blobs\\1e\\1e7ea633180134bfcd054531eb972fa2296dd8802ea94238264c4eaa8c0b6d25"
+    },
+    "ep.json": {
+      "hash": "00212e3d89ee0e9ee02f6260f9da2e4739aac69bcfc9b3257015158ed6b13c2e",
+      "content": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\e0235745-c890-42d7-b417-2ed75b86efc8\\blobs\\00\\00212e3d89ee0e9ee02f6260f9da2e4739aac69bcfc9b3257015158ed6b13c2e"
+    },
+    "hyperframes.json": {
+      "hash": "c7a3009d23e471acfb1ca9ec252ea16a0ca4dfe55e3b3b9d7089c8f0764f4a43",
+      "content": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\e0235745-c890-42d7-b417-2ed75b86efc8\\blobs\\c7\\c7a3009d23e471acfb1ca9ec252ea16a0ca4dfe55e3b3b9d7089c8f0764f4a43"
+    },
+    "index.html": {
+      "hash": "07e838f2b66840ae6446596fb83a03b6497b7994ddad9f5dacb3c2613ec5fda5",
+      "content": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\e0235745-c890-42d7-b417-2ed75b86efc8\\blobs\\07\\07e838f2b66840ae6446596fb83a03b6497b7994ddad9f5dacb3c2613ec5fda5"
+    },
+    "package.json": {
+      "hash": "8da60419b4d3e53b8f9c37ec5ea705760b0602e4993838faa6c2a1dfce6a978d",
+      "content": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\e0235745-c890-42d7-b417-2ed75b86efc8\\blobs\\8d\\8da60419b4d3e53b8f9c37ec5ea705760b0602e4993838faa6c2a1dfce6a978d"
+    },
+    "scene.js": {
+      "hash": "bc4669f88df766ab88eb6c5ad7c7e6c5ccee68ce26977664c25c32433b42438d",
+      "content": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\e0235745-c890-42d7-b417-2ed75b86efc8\\blobs\\bc\\bc4669f88df766ab88eb6c5ad7c7e6c5ccee68ce26977664c25c32433b42438d"
+    },
+    "assets/voice.mp3": {
+      "hash": "41acd2210e6e7e198f2e9d91d8b2c23b276a024f868a6c513d02973cbb901a3f",
+      "content": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\e0235745-c890-42d7-b417-2ed75b86efc8\\blobs\\41\\41acd2210e6e7e198f2e9d91d8b2c23b276a024f868a6c513d02973cbb901a3f"
+    }
+  },
+  "revisions": {},
+  "checks": {
+    "latest": {
+      "revision": null,
+      "id": "d7aef40c-8b00-4d50-8567-a10284dc5a79"
+    },
+    "revisions": {},
+    "unversioned": [
+      {
+        "id": "d7aef40c-8b00-4d50-8567-a10284dc5a79",
+        "scope": "project",
+        "report": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\puzzles\\ep11_hat_prisoners\\.hyperframes\\artifacts\\checks\\d7aef40c-8b00-4d50-8567-a10284dc5a79.json",
+        "metadata": {
+          "ok": true,
+          "browserSkipped": false,
+          "options": {
+            "samples": 9,
+            "atTransitions": false,
+            "maxIssues": 80,
+            "collapseStatic": true,
+            "tolerance": 2,
+            "timeout": 3000,
+            "contrast": true,
+            "strict": false,
+            "snapshots": false,
+            "browserGpuMode": "auto"
+          }
+        },
+        "createdAt": 1792969945671,
+        "contentHash": "44cca79567e17e28c660860797ad833ca72f6747a42d6dd8fc4b28459769abc4",
+        "revision": null,
+        "inputFingerprint": "4ad05c51617911bcc2a881737053d591d5e430a40b95edecf096ef56f8b9af3e",
+        "inputScope": "local-project-files",
+        "attribution": "unversioned"
+      }
+    ]
+  },
+  "snapshots": {
+    "latest": {
+      "revision": null,
+      "id": "16f470e5-f81e-40a3-9569-85082d254787-11"
+    },
+    "revisions": {},
+    "unversioned": [
+      {
+        "scope": "full",
+        "id": "16f470e5-f81e-40a3-9569-85082d254787-0",
+        "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\w2_ep11_hat_prisoners\\frame-00-at-0s.png",
+        "time": 0,
+        "metadata": {
+          "width": 1080,
+          "height": 1920,
+          "zoomScale": 1,
+          "browserGpuMode": "auto",
+          "warnings": [],
+          "partial": false
+        },
+        "createdAt": 1792969951799,
+        "contentHash": "c17eda7e39a87e003e8bc186fd046b273b8ea523597952b69190f75c396751d6",
+        "revision": null,
+        "inputFingerprint": "4ad05c51617911bcc2a881737053d591d5e430a40b95edecf096ef56f8b9af3e",
+        "inputScope": "local-project-files",
+        "attribution": "unversioned"
+      },
+      {
+        "scope": "full",
+        "id": "16f470e5-f81e-40a3-9569-85082d254787-1",
+        "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\w2_ep11_hat_prisoners\\frame-01-at-7.16s.png",
+        "time": 7.16,
+        "metadata": {
+          "width": 1080,
+          "height": 1920,
+          "zoomScale": 1,
+          "browserGpuMode": "auto",
+          "warnings": [],
+          "partial": false
+        },
+        "createdAt": 1792969951800,
+        "contentHash": "0a26f8619b4c9ad6c003817572777decfda69f66c6d42054e223ee9559f460e3",
+        "revision": null,
+        "inputFingerprint": "4ad05c51617911bcc2a881737053d591d5e430a40b95edecf096ef56f8b9af3e",
+        "inputScope": "local-project-files",
+        "attribution": "unversioned"
+      },
+      {
+        "scope": "full",
+        "id": "16f470e5-f81e-40a3-9569-85082d254787-2",
+        "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\w2_ep11_hat_prisoners\\frame-02-at-14.32s.png",
+        "time": 14.32,
+        "metadata": {
+          "width": 1080,
+          "height": 1920,
+          "zoomScale": 1,
+          "browserGpuMode": "auto",
+          "warnings": [],
+          "partial": false
+        },
+        "createdAt": 1792969951800,
+        "contentHash": "8a381122cf55b189d63c5fbcf2eb69db8138e88f1006425c9c9525aaa6a7184f",
+        "revision": null,
+        "inputFingerprint": "4ad05c51617911bcc2a881737053d591d5e430a40b95edecf096ef56f8b9af3e",
+        "inputScope": "local-project-files",
+        "attribution": "unversioned"
+      },
+      {
+        "scope": "full",
+        "id": "16f470e5-f81e-40a3-9569-85082d254787-3",
+        "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\w2_ep11_hat_prisoners\\frame-03-at-21.479s.png",
+        "time": 21.479,
+        "metadata": {
+          "width": 1080,
+          "height": 1920,
+          "zoomScale": 1,
+          "browserGpuMode": "auto",
+          "warnings": [],
+          "partial": false
+        },
+        "createdAt": 1792969951800,
+        "contentHash": "3da2c99c32efb988aa72056476c623e575c791393fb751810b65ffe97a1f3ae6",
+        "revision": null,
+        "inputFingerprint": "4ad05c51617911bcc2a881737053d591d5e430a40b95edecf096ef56f8b9af3e",
+        "inputScope": "local-project-files",
+        "attribution": "unversioned"
+      },
+      {
+        "scope": "full",
+        "id": "16f470e5-f81e-40a3-9569-85082d254787-4",
+        "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\w2_ep11_hat_prisoners\\frame-04-at-28.639s.png",
+        "time": 28.639,
+        "metadata": {
+          "width": 1080,
+          "height": 1920,
+          "zoomScale": 1,
+          "browserGpuMode": "auto",
+          "warnings": [],
+          "partial": false
+        },
+        "createdAt": 1792969951800,
+        "contentHash": "2abfb7455bee64b0ded390562b16d7ede04247a94a5e01454b3d5ed1bc0ee1e7",
+        "revision": null,
+        "inputFingerprint": "4ad05c51617911bcc2a881737053d591d5e430a40b95edecf096ef56f8b9af3e",
+        "inputScope": "local-project-files",
+        "attribution": "unversioned"
+      },
+      {
+        "scope": "full",
+        "id": "16f470e5-f81e-40a3-9569-85082d254787-5",
+        "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\w2_ep11_hat_prisoners\\frame-05-at-35.799s.png",
+        "time": 35.799,
+        "metadata": {
+          "width": 1080,
+          "height": 1920,
+          "zoomScale": 1,
+          "browserGpuMode": "auto",
+          "warnings": [],
+          "partial": false
+        },
+        "createdAt": 1792969951800,
+        "contentHash": "435febe5fdb2897aa7059424bcb1ddfc93bbda4423e031f95c42317752812dba",
+        "revision": null,
+        "inputFingerprint": "4ad05c51617911bcc2a881737053d591d5e430a40b95edecf096ef56f8b9af3e",
+        "inputScope": "local-project-files",
+        "attribution": "unversioned"
+      },
+      {
+        "scope": "full",
+        "id": "16f470e5-f81e-40a3-9569-85082d254787-6",
+        "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\w2_ep11_hat_prisoners\\frame-06-at-42.959s.png",
+        "time": 42.959,
+        "metadata": {
+          "width": 1080,
+          "height": 1920,
+          "zoomScale": 1,
+          "browserGpuMode": "auto",
+          "warnings": [],
+          "partial": false
+        },
+        "createdAt": 1792969951801,
+        "contentHash": "55ab33d3c5840453d1180e778bcb1bab66a80d9e7a1966a450e7daa07ed76061",
+        "revision": null,
+        "inputFingerprint": "4ad05c51617911bcc2a881737053d591d5e430a40b95edecf096ef56f8b9af3e",
+        "inputScope": "local-project-files",
+        "attribution": "unversioned"
+      },
+      {
+        "scope": "full",
+        "id": "16f470e5-f81e-40a3-9569-85082d254787-7",
+        "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\w2_ep11_hat_prisoners\\frame-07-at-50.119s.png",
+        "time": 50.119,
+        "metadata": {
+          "width": 1080,
+          "height": 1920,
+          "zoomScale": 1,
+          "browserGpuMode": "auto",
+          "warnings": [],
+          "partial": false
+        },
+        "createdAt": 1792969951801,
+        "contentHash": "4af27a822dd95e0f153cf517b246206ed825a7b0dae236a9367d08f758bc353d",
+        "revision": null,
+        "inputFingerprint": "4ad05c51617911bcc2a881737053d591d5e430a40b95edecf096ef56f8b9af3e",
+        "inputScope": "local-project-files",
+        "attribution": "unversioned"
+      },
+      {
+        "scope": "full",
+        "id": "16f470e5-f81e-40a3-9569-85082d254787-8",
+        "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\w2_ep11_hat_prisoners\\frame-08-at-57.279s.png",
+        "time": 57.279,
+        "metadata": {
+          "width": 1080,
+          "height": 1920,
+          "zoomScale": 1,
+          "browserGpuMode": "auto",
+          "warnings": [],
+          "partial": false
+        },
+        "createdAt": 1792969951802,
+        "contentHash": "a68336c83febe6c1cb4a723c40a4bc1bf8eed5155e487de28bd8aff2cbd26b26",
+        "revision": null,
+        "inputFingerprint": "4ad05c51617911bcc2a881737053d591d5e430a40b95edecf096ef56f8b9af3e",
+        "inputScope": "local-project-files",
+        "attribution": "unversioned"
+      },
+      {
+        "scope": "full",
+        "id": "16f470e5-f81e-40a3-9569-85082d254787-9",
+        "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\w2_ep11_hat_prisoners\\frame-09-at-64.438s.png",
+        "time": 64.438,
+        "metadata": {
+          "width": 1080,
+          "height": 1920,
+          "zoomScale": 1,
+          "browserGpuMode": "auto",
+          "warnings": [],
+          "partial": false
+        },
+        "createdAt": 1792969951803,
+        "contentHash": "b2514b8f4a399e66708ef4a6170710d2c329e9616cef450fa195c22ca9f579a8",
+        "revision": null,
+        "inputFingerprint": "4ad05c51617911bcc2a881737053d591d5e430a40b95edecf096ef56f8b9af3e",
+        "inputScope": "local-project-files",
+        "attribution": "unversioned"
+      },
+      {
+        "scope": "full",
+        "id": "16f470e5-f81e-40a3-9569-85082d254787-10",
+        "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\w2_ep11_hat_prisoners\\frame-10-at-71.598s.png",
+        "time": 71.598,
+        "metadata": {
+          "width": 1080,
+          "height": 1920,
+          "zoomScale": 1,
+          "browserGpuMode": "auto",
+          "warnings": [],
+          "partial": false
+        },
+        "createdAt": 1792969951803,
+        "contentHash": "f85dbd5666bfd7d83e8c7a7dfcf785fe4dc98be68f0c8b4e58356de3e1a642a5",
+        "revision": null,
+        "inputFingerprint": "4ad05c51617911bcc2a881737053d591d5e430a40b95edecf096ef56f8b9af3e",
+        "inputScope": "local-project-files",
+        "attribution": "unversioned"
+      },
+      {
+        "scope": "full",
+        "id": "16f470e5-f81e-40a3-9569-85082d254787-11",
+        "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\w2_ep11_hat_prisoners\\frame-11-at-78.758s.png",
+        "time": 78.758,
+        "metadata": {
+          "width": 1080,
+          "height": 1920,
+          "zoomScale": 1,
+          "browserGpuMode": "auto",
+          "warnings": [],
+          "partial": false
+        },
+        "createdAt": 1792969951804,
+        "contentHash": "4f38b8e62a01fc53b7e4c71ab305bc7403bdeda9a177f59d8fe9372d2294cd55",
+        "revision": null,
+        "inputFingerprint": "4ad05c51617911bcc2a881737053d591d5e430a40b95edecf096ef56f8b9af3e",
+        "inputScope": "local-project-files",
+        "attribution": "unversioned"
+      }
+    ]
+  },
+  "renders": {
+    "latest": {
+      "id": "9a08b055-3c7c-4de6-958c-49bfa0c45e3e",
+      "completedAt": 1792970913871,
+      "output": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\puzzles\\ep11_hat_prisoners\\renders\\ep11_hat_prisoners.mp4",
+      "status": "completed",
+      "revision": null
+    },
+    "retainedRevisions": []
+  },
+  "pendingArtifactCleanup": []
+}

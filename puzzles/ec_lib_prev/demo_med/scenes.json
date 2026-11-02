@@ -1,0 +1,49 @@
+{
+  "comp": "demo_med",
+  "out": "demo_med",
+  "blocks": [
+    {"scenes": [
+      {"t": "body_map", "image": "body.jpg", "spots": [
+        {"x": 450, "y": 125, "at": "one", "label": "BRAIN"},
+        {"x": 500, "y": 560, "at": "hunger", "label": "STOMACH", "dy": -60},
+        {"x": 420, "y": 640, "at": "quiet", "label": "PANCREAS", "color": [1, 0.7, 0.22]},
+        {"x": 455, "y": 730, "at": "here", "label": "GUT", "dy": 60, "color": [1, 0.3, 0.72]}
+      ], "focus": {"spot": 3, "at": "inside"}}
+    ]},
+    {"cut": "whoosh", "scenes": [
+      {"t": "molecule_dock", "dissolve_at": "arrived", "ligands": [
+        {"at": "glp1", "label": "GLP-1"},
+        {"at": "gip", "label": "GIP"}
+      ]}
+    ]},
+    {"scenes": [
+      {"t": "molecule_build", "at": "copies", "tail_at": "fatty", "ride_at": "blood",
+       "labels": {"a": "GLP-1", "b": "GIP", "joined": "ONE MOLECULE", "tail": "FATTY TAIL", "ride": "DAYS IN THE BLOOD"}}
+    ]},
+    {"scenes": [
+      {"t": "organ_focus", "image": "organ.jpg", "label": {"text": "PANCREAS"},
+       "emit": {"at": "insulin", "from": [430, 600], "dir": [0.3, -1]},
+       "hold": {"at": "glucagon", "x": 432, "y": 1060, "text": "GLUCAGON"}}
+    ]},
+    {"scenes": [
+      {"t": "flow_valve", "slow_at": "slows", "label": {"text": "STOMACH EXIT"}}
+    ]},
+    {"scenes": [
+      {"t": "meter", "dir": "h", "at": "reaches", "reach": "weaker+0.4", "suffix": "%", "meters": [
+        {"label": "HUNGER", "from": 85, "to": 25},
+        {"label": "FULLNESS", "from": 20, "to": 80, "colors": [[1, 0.3, 0.72], [1, 0.7, 0.22], [0.3, 0.9, 1]]}
+      ]}
+    ]},
+    {"cut": "whoosh", "scenes": [
+      {"t": "bars", "down": true, "at": "lost", "reach": "weeks", "decimals": 1, "prefix": "-",
+       "title": "WEIGHT LOST IN 72 WEEKS", "source": "Demo data. Source line goes here (trial, journal, year)",
+       "bars": [
+         {"label": "HIGHEST DOSE", "value": 20.9, "color": [1, 0.7, 0.22]},
+         {"label": "PLACEBO", "value": 3.1, "color": [0.55, 0.68, 0.72]}
+       ]}
+    ]},
+    {"scenes": [
+      {"t": "end_card", "until": "dur", "lines": ["NOT MEDICAL ADVICE", "This is a prescription drug.", "The dose is your doctor's call."]}
+    ]}
+  ]
+}

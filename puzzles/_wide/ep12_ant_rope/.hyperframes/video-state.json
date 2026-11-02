@@ -1,0 +1,54 @@
+{
+  "version": 1,
+  "historyId": "e7b12ef8-f5c4-46b6-b992-d3484580e5ee",
+  "currentRevision": null,
+  "pendingChanges": false,
+  "files": {
+    "assets/timing.json": {
+      "hash": "8ee98d107523ae962dad20fe9f11fdf543c3392125b166d1c7770b8d059db37b",
+      "content": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\e7b12ef8-f5c4-46b6-b992-d3484580e5ee\\blobs\\8e\\8ee98d107523ae962dad20fe9f11fdf543c3392125b166d1c7770b8d059db37b"
+    },
+    "hyperframes.json": {
+      "hash": "c7a3009d23e471acfb1ca9ec252ea16a0ca4dfe55e3b3b9d7089c8f0764f4a43",
+      "content": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\e7b12ef8-f5c4-46b6-b992-d3484580e5ee\\blobs\\c7\\c7a3009d23e471acfb1ca9ec252ea16a0ca4dfe55e3b3b9d7089c8f0764f4a43"
+    },
+    "index.html": {
+      "hash": "7a576bcdf5aadc5f516447e5d9b398eabe4946b2041703803771a12e88cdab16",
+      "content": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\e7b12ef8-f5c4-46b6-b992-d3484580e5ee\\blobs\\7a\\7a576bcdf5aadc5f516447e5d9b398eabe4946b2041703803771a12e88cdab16"
+    },
+    "package.json": {
+      "hash": "4c2e9bb7552648b1f59f34507104197f69e6d549241252e85039f5764485a91c",
+      "content": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\e7b12ef8-f5c4-46b6-b992-d3484580e5ee\\blobs\\4c\\4c2e9bb7552648b1f59f34507104197f69e6d549241252e85039f5764485a91c"
+    },
+    "scene.js": {
+      "hash": "58fd9985aea45b82ac2ccec08b753654d42a628fe9b55fb1469c003d2810c6b2",
+      "content": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\e7b12ef8-f5c4-46b6-b992-d3484580e5ee\\blobs\\58\\58fd9985aea45b82ac2ccec08b753654d42a628fe9b55fb1469c003d2810c6b2"
+    },
+    "assets/voice.mp3": {
+      "hash": "71ef2270ded4639b334506b7bbb4a93f7c044ed1eac34ab0650066ca08d625fa",
+      "content": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\e7b12ef8-f5c4-46b6-b992-d3484580e5ee\\blobs\\71\\71ef2270ded4639b334506b7bbb4a93f7c044ed1eac34ab0650066ca08d625fa"
+    }
+  },
+  "revisions": {},
+  "checks": {
+    "latest": null,
+    "revisions": {},
+    "unversioned": []
+  },
+  "snapshots": {
+    "latest": null,
+    "revisions": {},
+    "unversioned": []
+  },
+  "renders": {
+    "latest": {
+      "id": "5eb495fc-8178-4c94-ada8-dc1283274f85",
+      "completedAt": 1792971971054,
+      "output": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\puzzles\\_wide\\ep12_ant_rope\\renders\\ep12_ant_rope.mp4",
+      "status": "completed",
+      "revision": null
+    },
+    "retainedRevisions": []
+  },
+  "pendingArtifactCleanup": []
+}

@@ -1,0 +1,19 @@
+[
+ {
+  "file": "blumenthal.jpg",
+  "entity": "Richard Blumenthal",
+  "source_url": "https://commons.wikimedia.org/wiki/File:Richard_Blumenthal_in_2025.jpg",
+  "author": "U.S. Embassy Kyiv Ukraine",
+  "license": "Public domain",
+  "size": "791x1002",
+  "nota": "791x1002, abaixo de 1000 px de largura; usar so se precisar"
+ },
+ {
+  "file": "warren.jpg",
+  "entity": "Elizabeth Warren",
+  "source_url": "https://commons.wikimedia.org/wiki/File:Elizabeth_Warren%2C_official_portrait%2C_114th_Congress.jpg",
+  "author": "United States Senate",
+  "license": "Public domain",
+  "size": "1908x2385"
+ }
+]

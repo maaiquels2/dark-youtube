@@ -1,0 +1,19 @@
+{
+ "title": "100 prisoners. <span style=\"color:#d62828\">100</span> boxes.",
+ "keys": [
+  "loops",
+  "loop",
+  "fifty",
+  "thirty-one",
+  "zero",
+  "chain"
+ ],
+ "blocks": [
+  "A hundred prisoners, a hundred boxes. Each box hides a random prisoner's number. Each prisoner may open fifty boxes. If everyone finds his own number, all go free. If one fails, all are lost.",
+  "Opening boxes at random, each prisoner succeeds half the time. All hundred succeeding is one in two to the power of a hundred. Essentially zero.",
+  "But there is a plan. Each prisoner opens the box with his own number first. Inside is another number. He opens that box next, and so on, following the chain, up to fifty boxes.",
+  "Every box points to another one, so the numbers form loops. A prisoner finds his number if his loop has fifty boxes or fewer.",
+  "So everyone survives exactly when no loop is longer than fifty. For a random arrangement of a hundred, that happens about thirty-one percent of the time.",
+  "From odds of basically zero to nearly one in three, just by using the numbers inside the boxes as directions. Structure beats luck."
+ ]
+}

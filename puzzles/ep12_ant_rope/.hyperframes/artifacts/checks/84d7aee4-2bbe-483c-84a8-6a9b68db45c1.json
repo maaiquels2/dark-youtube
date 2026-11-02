@@ -1,0 +1,890 @@
+{
+  "ok": true,
+  "strict": false,
+  "browserSkipped": false,
+  "lint": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 1,
+    "infoCount": 0,
+    "findings": [
+      {
+        "code": "nested_structure_needs_subcomposition",
+        "severity": "warning",
+        "message": "<div id=\"end\"> is a timeline element that contains nested <div>. The timeline shows one row per top-level element, and the root composition is built only from sub-compositions.",
+        "selector": "#end",
+        "dataAttributes": {},
+        "sourceFile": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\puzzles\\ep12_ant_rope\\index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Move <div id=\"end\"> and its contents into a sub-composition file and mount it with data-composition-src."
+      }
+    ],
+    "filesScanned": 1
+  },
+  "runtime": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 1,
+    "infoCount": 0,
+    "findings": [
+      {
+        "code": "clip_media_fit",
+        "severity": "warning",
+        "message": "Audio \"voice\" is 77.69s but its slot (data-duration) is 82.19s — the slot is shortened to the media length when rendered. Set data-duration to ~77.69s if that isn't intended.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {
+          "data-composition-id": "main",
+          "data-start": "0",
+          "data-duration": "82.193",
+          "data-width": "1080",
+          "data-height": "1920"
+        },
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 1080,
+          "height": 1920
+        },
+        "time": 0
+      }
+    ]
+  },
+  "layout": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": [],
+    "duration": 82.193,
+    "samples": [
+      4.566,
+      13.699,
+      22.831,
+      31.964,
+      41.097,
+      50.229,
+      59.362,
+      68.494,
+      77.627
+    ],
+    "transitionSamples": [],
+    "transitionSamplesDropped": 0,
+    "tolerance": 2,
+    "totalIssueCount": 0,
+    "truncated": false
+  },
+  "motion": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": [],
+    "enabled": false,
+    "samples": 0
+  },
+  "contrast": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": [],
+    "enabled": true,
+    "samples": [
+      4.566,
+      22.831,
+      41.097,
+      59.362,
+      77.627
+    ],
+    "checked": 33,
+    "passed": 33
+  },
+  "craft": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 40,
+    "infoCount": 0,
+    "findings": [
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"An ant starts walking\" (4 words) is on screen 1.20 s (±0.01 s), under its 1.27 s floor: hold it about 0.5 s + 0.3 s a word (1.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "An ant starts walking",
+        "selector": "#g0",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 225,
+          "y": 1121,
+          "width": 90,
+          "height": 66
+        },
+        "time": 0,
+        "words": 4,
+        "seconds": 1.196,
+        "floorSeconds": 1.275
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"along a rubber rope\" (4 words) is on screen 0.97 s (±0.01 s), under its 1.27 s floor: hold it about 0.5 s + 0.3 s a word (1.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "along a rubber rope",
+        "selector": "#g1",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 255,
+          "y": 1121,
+          "width": 180,
+          "height": 66
+        },
+        "time": 1.235,
+        "words": 4,
+        "seconds": 0.969,
+        "floorSeconds": 1.275
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"at one centimeter per\" (4 words) is on screen 1.11 s (±0.01 s), under its 1.27 s floor: hold it about 0.5 s + 0.3 s a word (1.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "at one centimeter per",
+        "selector": "#g3",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 225,
+          "y": 1121,
+          "width": 90,
+          "height": 66
+        },
+        "time": 3.602,
+        "words": 4,
+        "seconds": 1.106,
+        "floorSeconds": 1.275
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"At the same time,\" (4 words) is on screen 1.13 s (±0.01 s), under its 1.27 s floor: hold it about 0.5 s + 0.3 s a word (1.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "At the same time,",
+        "selector": "#g5",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 285,
+          "y": 1121,
+          "width": 90,
+          "height": 66
+        },
+        "time": 5.575,
+        "words": 4,
+        "seconds": 1.132,
+        "floorSeconds": 1.275
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"the rope starts\" (3 words) is on screen 0.67 s (±0.01 s), under its 1.05 s floor: hold it about 0.5 s + 0.3 s a word (1.40 s here) before it leaves or changes; see references/motion.md.",
+        "text": "the rope starts",
+        "selector": "#g6",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 315,
+          "y": 1121,
+          "width": 120,
+          "height": 66
+        },
+        "time": 6.767,
+        "words": 3,
+        "seconds": 0.669,
+        "floorSeconds": 1.05
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"stretching by one\" (3 words) is on screen 0.90 s (±0.01 s), under its 1.05 s floor: hold it about 0.5 s + 0.3 s a word (1.40 s here) before it leaves or changes; see references/motion.md.",
+        "text": "stretching by one",
+        "selector": "#g7",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 285,
+          "y": 1121,
+          "width": 330,
+          "height": 66
+        },
+        "time": 7.504,
+        "words": 3,
+        "seconds": 0.9,
+        "floorSeconds": 1.05
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"Can the ant ever\" (4 words) is on screen 0.83 s (±0.01 s), under its 1.27 s floor: hold it about 0.5 s + 0.3 s a word (1.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "Can the ant ever",
+        "selector": "#g9",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 300,
+          "y": 1121,
+          "width": 120,
+          "height": 66
+        },
+        "time": 10.402,
+        "words": 4,
+        "seconds": 0.833,
+        "floorSeconds": 1.275
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"so the ant\" (3 words) is on screen 0.69 s (±0.01 s), under its 1.05 s floor: hold it about 0.5 s + 0.3 s a word (1.40 s here) before it leaves or changes; see references/motion.md.",
+        "text": "so the ant",
+        "selector": "#g14",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 345,
+          "y": 1121,
+          "width": 90,
+          "height": 66
+        },
+        "time": 15.874,
+        "words": 3,
+        "seconds": 0.695,
+        "floorSeconds": 1.05
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"carried forward as\" (3 words) is on screen 0.90 s (±0.01 s), under its 1.05 s floor: hold it about 0.5 s + 0.3 s a word (1.40 s here) before it leaves or changes; see references/motion.md.",
+        "text": "carried forward as",
+        "selector": "#g15",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 225,
+          "y": 1121,
+          "width": 240,
+          "height": 66
+        },
+        "time": 16.603,
+        "words": 3,
+        "seconds": 0.901,
+        "floorSeconds": 1.05
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"Its own speed never\" (4 words) is on screen 1.04 s (±0.01 s), under its 1.27 s floor: hold it about 0.5 s + 0.3 s a word (1.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "Its own speed never",
+        "selector": "#g17",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 255,
+          "y": 1121,
+          "width": 120,
+          "height": 66
+        },
+        "time": 18.705,
+        "words": 4,
+        "seconds": 1.037,
+        "floorSeconds": 1.275
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"Does it get there?\" (4 words) is on screen 1.13 s (±0.01 s), under its 1.27 s floor: hold it about 0.5 s + 0.3 s a word (1.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "Does it get there?",
+        "selector": "#g19",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 270,
+          "y": 1121,
+          "width": 150,
+          "height": 66
+        },
+        "time": 20.703,
+        "words": 4,
+        "seconds": 1.132,
+        "floorSeconds": 1.275
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"The ant moves one\" (4 words) is on screen 0.94 s (±0.01 s), under its 1.27 s floor: hold it about 0.5 s + 0.3 s a word (1.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "The ant moves one",
+        "selector": "#g21",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 285,
+          "y": 1121,
+          "width": 120,
+          "height": 66
+        },
+        "time": 23.601,
+        "words": 4,
+        "seconds": 0.935,
+        "floorSeconds": 1.275
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"and the end\" (3 words) is on screen 0.47 s (±0.01 s), under its 1.05 s floor: hold it about 0.5 s + 0.3 s a word (1.40 s here) before it leaves or changes; see references/motion.md.",
+        "text": "and the end",
+        "selector": "#g23",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 330,
+          "y": 1121,
+          "width": 120,
+          "height": 66
+        },
+        "time": 26.003,
+        "words": 3,
+        "seconds": 0.472,
+        "floorSeconds": 1.05
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"the rope runs away\" (4 words) is on screen 0.87 s (±0.01 s), under its 1.27 s floor: hold it about 0.5 s + 0.3 s a word (1.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "the rope runs away",
+        "selector": "#g24",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 270,
+          "y": 1121,
+          "width": 120,
+          "height": 66
+        },
+        "time": 26.5,
+        "words": 4,
+        "seconds": 0.874,
+        "floorSeconds": 1.275
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"a hundred thousand times\" (4 words) is on screen 1.07 s (±0.01 s), under its 1.27 s floor: hold it about 0.5 s + 0.3 s a word (1.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "a hundred thousand times",
+        "selector": "#g25",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 180,
+          "y": 1121,
+          "width": 60,
+          "height": 66
+        },
+        "time": 27.434,
+        "words": 4,
+        "seconds": 1.072,
+        "floorSeconds": 1.275
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"But the ant does\" (4 words) is on screen 0.83 s (±0.01 s), under its 1.27 s floor: hold it about 0.5 s + 0.3 s a word (1.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "But the ant does",
+        "selector": "#g27",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 300,
+          "y": 1121,
+          "width": 120,
+          "height": 66
+        },
+        "time": 29.87,
+        "words": 4,
+        "seconds": 0.832,
+        "floorSeconds": 1.275
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"reach the end.\" (3 words) is on screen 0.74 s (±0.01 s), under its 1.05 s floor: hold it about 0.5 s + 0.3 s a word (1.40 s here) before it leaves or changes; see references/motion.md.",
+        "text": "reach the end.",
+        "selector": "#g28",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 330,
+          "y": 1121,
+          "width": 180,
+          "height": 66
+        },
+        "time": 30.737,
+        "words": 3,
+        "seconds": 0.737,
+        "floorSeconds": 1.05
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"The trick is to\" (4 words) is on screen 0.63 s (±0.01 s), under its 1.27 s floor: hold it about 0.5 s + 0.3 s a word (1.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "The trick is to",
+        "selector": "#g29",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 315,
+          "y": 1121,
+          "width": 120,
+          "height": 66
+        },
+        "time": 31.5,
+        "words": 4,
+        "seconds": 0.635,
+        "floorSeconds": 1.275
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"track the fraction\" (3 words) is on screen 1.00 s (±0.01 s), under its 1.05 s floor: hold it about 0.5 s + 0.3 s a word (1.40 s here) before it leaves or changes; see references/motion.md.",
+        "text": "track the fraction",
+        "selector": "#g30",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 225,
+          "y": 1121,
+          "width": 180,
+          "height": 66
+        },
+        "time": 32.203,
+        "words": 3,
+        "seconds": 1.004,
+        "floorSeconds": 1.05
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"the rope it has\" (4 words) is on screen 0.66 s (±0.01 s), under its 1.27 s floor: hold it about 0.5 s + 0.3 s a word (1.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "the rope it has",
+        "selector": "#g31",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 315,
+          "y": 1121,
+          "width": 120,
+          "height": 66
+        },
+        "time": 33.241,
+        "words": 4,
+        "seconds": 0.66,
+        "floorSeconds": 1.275
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"After the first second,\" (4 words) is on screen 1.10 s (±0.07 s), under its 1.27 s floor: hold it about 0.5 s + 0.3 s a word (1.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "After the first second,",
+        "selector": "#g33",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 195,
+          "y": 1121,
+          "width": 180,
+          "height": 66
+        },
+        "time": 34.853,
+        "words": 4,
+        "seconds": 1.098,
+        "floorSeconds": 1.275
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"it has covered one\" (4 words) is on screen 0.96 s (±0.07 s), under its 1.27 s floor: hold it about 0.5 s + 0.3 s a word (1.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "it has covered one",
+        "selector": "#g34",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 270,
+          "y": 1121,
+          "width": 90,
+          "height": 66
+        },
+        "time": 36.088,
+        "words": 4,
+        "seconds": 0.961,
+        "floorSeconds": 1.275
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"hundred-thousandth of\" (3 words) is on screen 0.96 s (±0.07 s), under its 1.05 s floor: hold it about 0.5 s + 0.3 s a word (1.40 s here) before it leaves or changes; see references/motion.md.",
+        "text": "hundred-thousandth of",
+        "selector": "#g35",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 165,
+          "y": 1121,
+          "width": 570,
+          "height": 66
+        },
+        "time": 37.049,
+        "words": 3,
+        "seconds": 0.96,
+        "floorSeconds": 1.05
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"the rope is longer,\" (4 words) is on screen 1.10 s (±0.07 s), under its 1.27 s floor: hold it about 0.5 s + 0.3 s a word (1.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "the rope is longer,",
+        "selector": "#g38",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 255,
+          "y": 1121,
+          "width": 120,
+          "height": 66
+        },
+        "time": 39.93,
+        "words": 4,
+        "seconds": 1.098,
+        "floorSeconds": 1.275
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"so the same step\" (4 words) is on screen 0.82 s (±0.07 s), under its 1.27 s floor: hold it about 0.5 s + 0.3 s a word (1.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "so the same step",
+        "selector": "#g39",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 300,
+          "y": 1121,
+          "width": 90,
+          "height": 66
+        },
+        "time": 41.165,
+        "words": 4,
+        "seconds": 0.823,
+        "floorSeconds": 1.275
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"covers a smaller\" (3 words) is on screen 0.69 s (±0.07 s), under its 1.05 s floor: hold it about 0.5 s + 0.3 s a word (1.40 s here) before it leaves or changes; see references/motion.md.",
+        "text": "covers a smaller",
+        "selector": "#g40",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 300,
+          "y": 1121,
+          "width": 210,
+          "height": 66
+        },
+        "time": 42.126,
+        "words": 3,
+        "seconds": 0.686,
+        "floorSeconds": 1.05
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"but the ant keeps\" (4 words) is on screen 0.96 s (±0.07 s), under its 1.27 s floor: hold it about 0.5 s + 0.3 s a word (1.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "but the ant keeps",
+        "selector": "#g42",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 285,
+          "y": 1121,
+          "width": 120,
+          "height": 66
+        },
+        "time": 43.772,
+        "words": 4,
+        "seconds": 0.961,
+        "floorSeconds": 1.275
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"it has covered about\" (4 words) is on screen 0.96 s (±0.07 s), under its 1.27 s floor: hold it about 0.5 s + 0.3 s a word (1.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "it has covered about",
+        "selector": "#g45",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 240,
+          "y": 1121,
+          "width": 90,
+          "height": 66
+        },
+        "time": 48.163,
+        "words": 4,
+        "seconds": 0.961,
+        "floorSeconds": 1.275
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"seven thousandths of a\" (4 words) is on screen 1.10 s (±0.07 s), under its 1.27 s floor: hold it about 0.5 s + 0.3 s a word (1.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "seven thousandths of a",
+        "selector": "#g46",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 210,
+          "y": 1121,
+          "width": 180,
+          "height": 66
+        },
+        "time": 49.124,
+        "words": 4,
+        "seconds": 1.098,
+        "floorSeconds": 1.275
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"The fractions add up\" (4 words) is on screen 1.23 s (±0.07 s), under its 1.27 s floor: hold it about 0.5 s + 0.3 s a word (1.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "The fractions add up",
+        "selector": "#g51",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 240,
+          "y": 1121,
+          "width": 120,
+          "height": 66
+        },
+        "time": 55.298,
+        "words": 4,
+        "seconds": 1.235,
+        "floorSeconds": 1.275
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"as one plus one\" (4 words) is on screen 0.96 s (±0.07 s), under its 1.27 s floor: hold it about 0.5 s + 0.3 s a word (1.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "as one plus one",
+        "selector": "#g52",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 315,
+          "y": 1121,
+          "width": 90,
+          "height": 66
+        },
+        "time": 56.671,
+        "words": 4,
+        "seconds": 0.96,
+        "floorSeconds": 1.275
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"and so on,\" (3 words) is on screen 0.69 s (±0.07 s), under its 1.05 s floor: hold it about 0.5 s + 0.3 s a word (1.40 s here) before it leaves or changes; see references/motion.md.",
+        "text": "and so on,",
+        "selector": "#g54",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 390,
+          "y": 1121,
+          "width": 120,
+          "height": 66
+        },
+        "time": 59.141,
+        "words": 3,
+        "seconds": 0.686,
+        "floorSeconds": 1.05
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"which never stops\" (3 words) is on screen 0.96 s (±0.07 s), under its 1.05 s floor: hold it about 0.5 s + 0.3 s a word (1.40 s here) before it leaves or changes; see references/motion.md.",
+        "text": "which never stops",
+        "selector": "#g56",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 285,
+          "y": 1121,
+          "width": 180,
+          "height": 66
+        },
+        "time": 61.199,
+        "words": 3,
+        "seconds": 0.96,
+        "floorSeconds": 1.05
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"So the ant arrives,\" (4 words) is on screen 1.10 s (±0.07 s), under its 1.27 s floor: hold it about 0.5 s + 0.3 s a word (1.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "So the ant arrives,",
+        "selector": "#g58",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 255,
+          "y": 1121,
+          "width": 90,
+          "height": 66
+        },
+        "time": 63.257,
+        "words": 4,
+        "seconds": 1.098,
+        "floorSeconds": 1.275
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"after about e to\" (4 words) is on screen 1.23 s (±0.07 s), under its 1.27 s floor: hold it about 0.5 s + 0.3 s a word (1.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "after about e to",
+        "selector": "#g59",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 300,
+          "y": 1121,
+          "width": 180,
+          "height": 66
+        },
+        "time": 64.355,
+        "words": 4,
+        "seconds": 1.235,
+        "floorSeconds": 1.275
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"the power of one\" (4 words) is on screen 0.69 s (±0.07 s), under its 1.27 s floor: hold it about 0.5 s + 0.3 s a word (1.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "the power of one",
+        "selector": "#g60",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 300,
+          "y": 1121,
+          "width": 120,
+          "height": 66
+        },
+        "time": 65.59,
+        "words": 4,
+        "seconds": 0.686,
+        "floorSeconds": 1.275
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"That's a number with\" (5 words) is on screen 0.82 s (±0.07 s), under its 1.50 s floor: hold it about 0.5 s + 0.3 s a word (2.00 s here) before it leaves or changes; see references/motion.md.",
+        "text": "That's a number with",
+        "selector": "#g62",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 240,
+          "y": 1121,
+          "width": 210,
+          "height": 66
+        },
+        "time": 67.922,
+        "words": 5,
+        "seconds": 0.824,
+        "floorSeconds": 1.5
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"Infinite doesn't mean\" (4 words) is on screen 1.10 s (±0.07 s), under its 1.27 s floor: hold it about 0.5 s + 0.3 s a word (1.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "Infinite doesn't mean",
+        "selector": "#g65",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 225,
+          "y": 1121,
+          "width": 270,
+          "height": 66
+        },
+        "time": 71.078,
+        "words": 4,
+        "seconds": 1.098,
+        "floorSeconds": 1.275
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"and slow doesn't mean\" (5 words) is on screen 1.10 s (±0.07 s), under its 1.50 s floor: hold it about 0.5 s + 0.3 s a word (2.00 s here) before it leaves or changes; see references/motion.md.",
+        "text": "and slow doesn't mean",
+        "selector": "#g67",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 225,
+          "y": 1121,
+          "width": 120,
+          "height": 66
+        },
+        "time": 72.725,
+        "words": 5,
+        "seconds": 1.098,
+        "floorSeconds": 1.5
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"Even the slowest growth\" (4 words) is on screen 1.10 s (±0.07 s), under its 1.27 s floor: hold it about 0.5 s + 0.3 s a word (1.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "Even the slowest growth",
+        "selector": "#g69",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 195,
+          "y": 1121,
+          "width": 150,
+          "height": 66
+        },
+        "time": 74.783,
+        "words": 4,
+        "seconds": 1.098,
+        "floorSeconds": 1.275
+      }
+    ],
+    "enabled": true,
+    "step": 0.13700000000000045,
+    "samples": 599
+  },
+  "hdr": {
+    "autoPromotion": null,
+    "inspection": "available"
+  },
+  "snapshots": {
+    "enabled": false,
+    "files": [],
+    "times": [],
+    "findingFiles": []
+  }
+}

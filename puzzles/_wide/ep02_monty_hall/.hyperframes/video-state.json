@@ -1,0 +1,54 @@
+{
+  "version": 1,
+  "historyId": "6a14b75d-7d31-40c7-bde5-c2b9c0c59055",
+  "currentRevision": null,
+  "pendingChanges": false,
+  "files": {
+    "assets/timing.json": {
+      "hash": "b8d8dbb78fd4381a75b1741de6d1f53a6d73dd88ea9f5c8666807edfa739a28a",
+      "content": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\6a14b75d-7d31-40c7-bde5-c2b9c0c59055\\blobs\\b8\\b8d8dbb78fd4381a75b1741de6d1f53a6d73dd88ea9f5c8666807edfa739a28a"
+    },
+    "hyperframes.json": {
+      "hash": "c7a3009d23e471acfb1ca9ec252ea16a0ca4dfe55e3b3b9d7089c8f0764f4a43",
+      "content": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\6a14b75d-7d31-40c7-bde5-c2b9c0c59055\\blobs\\c7\\c7a3009d23e471acfb1ca9ec252ea16a0ca4dfe55e3b3b9d7089c8f0764f4a43"
+    },
+    "index.html": {
+      "hash": "6b36db60e6b1e1e41119878792ab7e15219924c01db35386a7f3a97fbffb415f",
+      "content": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\6a14b75d-7d31-40c7-bde5-c2b9c0c59055\\blobs\\6b\\6b36db60e6b1e1e41119878792ab7e15219924c01db35386a7f3a97fbffb415f"
+    },
+    "package.json": {
+      "hash": "5827b2eba550ff0f6fc88ee7cf82d228a6bec8dc45111567c3209db8df77720e",
+      "content": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\6a14b75d-7d31-40c7-bde5-c2b9c0c59055\\blobs\\58\\5827b2eba550ff0f6fc88ee7cf82d228a6bec8dc45111567c3209db8df77720e"
+    },
+    "scene.js": {
+      "hash": "940bb066fc1b3a936a8a27325c70368616bd6abaf44c596b533c58a60747baf0",
+      "content": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\6a14b75d-7d31-40c7-bde5-c2b9c0c59055\\blobs\\94\\940bb066fc1b3a936a8a27325c70368616bd6abaf44c596b533c58a60747baf0"
+    },
+    "assets/voice.mp3": {
+      "hash": "63a816c7936484dc540e4cb3b44d493c316eb1a0942c07ac1c5b39fab4e14f14",
+      "content": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\6a14b75d-7d31-40c7-bde5-c2b9c0c59055\\blobs\\63\\63a816c7936484dc540e4cb3b44d493c316eb1a0942c07ac1c5b39fab4e14f14"
+    }
+  },
+  "revisions": {},
+  "checks": {
+    "latest": null,
+    "revisions": {},
+    "unversioned": []
+  },
+  "snapshots": {
+    "latest": null,
+    "revisions": {},
+    "unversioned": []
+  },
+  "renders": {
+    "latest": {
+      "id": "9113a7ed-a195-413a-85cb-b38533334e22",
+      "completedAt": 1792959173107,
+      "output": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\puzzles\\_wide\\ep02_monty_hall\\renders\\ep02_monty_hall.mp4",
+      "status": "completed",
+      "revision": null
+    },
+    "retainedRevisions": []
+  },
+  "pendingArtifactCleanup": []
+}

@@ -1,0 +1,662 @@
+{
+  "ok": true,
+  "strict": false,
+  "browserSkipped": false,
+  "lint": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 1,
+    "infoCount": 0,
+    "findings": [
+      {
+        "code": "nested_structure_needs_subcomposition",
+        "severity": "warning",
+        "message": "<div id=\"end\"> is a timeline element that contains nested <div>. The timeline shows one row per top-level element, and the root composition is built only from sub-compositions.",
+        "selector": "#end",
+        "dataAttributes": {},
+        "sourceFile": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\puzzles\\ep10_simpson\\index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Move <div id=\"end\"> and its contents into a sub-composition file and mount it with data-composition-src."
+      }
+    ],
+    "filesScanned": 1
+  },
+  "runtime": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 1,
+    "infoCount": 0,
+    "findings": [
+      {
+        "code": "clip_media_fit",
+        "severity": "warning",
+        "message": "Audio \"voice\" is 66.41s but its slot (data-duration) is 70.91s — the slot is shortened to the media length when rendered. Set data-duration to ~66.41s if that isn't intended.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {
+          "data-composition-id": "main",
+          "data-start": "0",
+          "data-duration": "70.909",
+          "data-width": "1080",
+          "data-height": "1920"
+        },
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 1080,
+          "height": 1920
+        },
+        "time": 0
+      }
+    ]
+  },
+  "layout": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": [],
+    "duration": 70.909,
+    "samples": [
+      3.939,
+      11.818,
+      19.697,
+      27.576,
+      35.455,
+      43.333,
+      51.212,
+      59.091,
+      66.97
+    ],
+    "transitionSamples": [],
+    "transitionSamplesDropped": 0,
+    "tolerance": 2,
+    "totalIssueCount": 0,
+    "truncated": false
+  },
+  "motion": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": [],
+    "enabled": false,
+    "samples": 0
+  },
+  "contrast": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": [],
+    "enabled": true,
+    "samples": [
+      3.939,
+      19.697,
+      35.455,
+      51.212,
+      66.97
+    ],
+    "checked": 29,
+    "passed": 29
+  },
+  "craft": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 28,
+    "infoCount": 0,
+    "findings": [
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"Two treatments for kidney\" (4 words) is on screen 1.14 s (±0.01 s), under its 1.27 s floor: hold it about 0.5 s + 0.3 s a word (1.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "Two treatments for kidney",
+        "selector": "#g0",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 165,
+          "y": 1121,
+          "width": 120,
+          "height": 66
+        },
+        "time": 0,
+        "words": 4,
+        "seconds": 1.136,
+        "floorSeconds": 1.275
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"Treatment A beats\" (3 words) is on screen 1.00 s (±0.01 s), under its 1.05 s floor: hold it about 0.5 s + 0.3 s a word (1.40 s here) before it leaves or changes; see references/motion.md.",
+        "text": "Treatment A beats",
+        "selector": "#g2",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 285,
+          "y": 1121,
+          "width": 300,
+          "height": 66
+        },
+        "time": 2.005,
+        "words": 3,
+        "seconds": 0.999,
+        "floorSeconds": 1.05
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"and A beats B\" (4 words) is on screen 0.87 s (±0.01 s), under its 1.27 s floor: hold it about 0.5 s + 0.3 s a word (1.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "and A beats B",
+        "selector": "#g5",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 345,
+          "y": 1121,
+          "width": 120,
+          "height": 66
+        },
+        "time": 5.072,
+        "words": 4,
+        "seconds": 0.866,
+        "floorSeconds": 1.275
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"But when you add\" (4 words) is on screen 0.70 s (±0.01 s), under its 1.27 s floor: hold it about 0.5 s + 0.3 s a word (1.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "But when you add",
+        "selector": "#g7",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 300,
+          "y": 1121,
+          "width": 120,
+          "height": 66
+        },
+        "time": 7.171,
+        "words": 4,
+        "seconds": 0.702,
+        "floorSeconds": 1.275
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"Here's the real data\" (5 words) is on screen 0.90 s (±0.01 s), under its 1.50 s floor: hold it about 0.5 s + 0.3 s a word (2.00 s here) before it leaves or changes; see references/motion.md.",
+        "text": "Here's the real data",
+        "selector": "#g11",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 240,
+          "y": 1121,
+          "width": 210,
+          "height": 66
+        },
+        "time": 11.103,
+        "words": 5,
+        "seconds": 0.897,
+        "floorSeconds": 1.5
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"percent of patients and\" (4 words) is on screen 1.13 s (±0.01 s), under its 1.27 s floor: hold it about 0.5 s + 0.3 s a word (1.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "percent of patients and",
+        "selector": "#g15",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 195,
+          "y": 1121,
+          "width": 240,
+          "height": 66
+        },
+        "time": 15.839,
+        "words": 4,
+        "seconds": 1.131,
+        "floorSeconds": 1.275
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"For large stones,\" (3 words) is on screen 0.97 s (±0.01 s), under its 1.05 s floor: hold it about 0.5 s + 0.3 s a word (1.40 s here) before it leaves or changes; see references/motion.md.",
+        "text": "For large stones,",
+        "selector": "#g17",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 285,
+          "y": 1121,
+          "width": 120,
+          "height": 66
+        },
+        "time": 18.57,
+        "words": 3,
+        "seconds": 0.968,
+        "floorSeconds": 1.05
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"A cured seventy-three\" (4 words) is on screen 1.20 s (±0.01 s), under its 1.27 s floor: hold it about 0.5 s + 0.3 s a word (1.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "A cured seventy-three",
+        "selector": "#g18",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 225,
+          "y": 1121,
+          "width": 60,
+          "height": 66
+        },
+        "time": 19.569,
+        "words": 4,
+        "seconds": 1.201,
+        "floorSeconds": 1.275
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"percent and B cured\" (4 words) is on screen 1.16 s (±0.01 s), under its 1.27 s floor: hold it about 0.5 s + 0.3 s a word (1.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "percent and B cured",
+        "selector": "#g19",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 255,
+          "y": 1121,
+          "width": 240,
+          "height": 66
+        },
+        "time": 20.84,
+        "words": 4,
+        "seconds": 1.163,
+        "floorSeconds": 1.275
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"A treated three hundred\" (4 words) is on screen 0.94 s (±0.01 s), under its 1.27 s floor: hold it about 0.5 s + 0.3 s a word (1.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "A treated three hundred",
+        "selector": "#g22",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 195,
+          "y": 1121,
+          "width": 60,
+          "height": 66
+        },
+        "time": 24.57,
+        "words": 4,
+        "seconds": 0.936,
+        "floorSeconds": 1.275
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"that's seventy-eight\" (4 words) is on screen 0.70 s (±0.01 s), under its 1.27 s floor: hold it about 0.5 s + 0.3 s a word (1.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "that's seventy-eight",
+        "selector": "#g26",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 240,
+          "y": 1121,
+          "width": 210,
+          "height": 66
+        },
+        "time": 28.541,
+        "words": 4,
+        "seconds": 0.695,
+        "floorSeconds": 1.275
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"B also treated three\" (4 words) is on screen 1.04 s (±0.01 s), under its 1.27 s floor: hold it about 0.5 s + 0.3 s a word (1.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "B also treated three",
+        "selector": "#g28",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 240,
+          "y": 1121,
+          "width": 60,
+          "height": 66
+        },
+        "time": 30.102,
+        "words": 4,
+        "seconds": 1.038,
+        "floorSeconds": 1.275
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"hundred fifty and cured\" (4 words) is on screen 0.97 s (±0.01 s), under its 1.27 s floor: hold it about 0.5 s + 0.3 s a word (1.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "hundred fifty and cured",
+        "selector": "#g29",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 195,
+          "y": 1121,
+          "width": 240,
+          "height": 66
+        },
+        "time": 31.171,
+        "words": 4,
+        "seconds": 0.968,
+        "floorSeconds": 1.275
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"that's eighty-three\" (4 words) is on screen 0.69 s (±0.01 s), under its 1.27 s floor: hold it about 0.5 s + 0.3 s a word (1.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "that's eighty-three",
+        "selector": "#g31",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 255,
+          "y": 1121,
+          "width": 210,
+          "height": 66
+        },
+        "time": 33.707,
+        "words": 4,
+        "seconds": 0.694,
+        "floorSeconds": 1.275
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"Look at who got\" (4 words) is on screen 0.62 s (±0.06 s), under its 1.27 s floor: hold it about 0.5 s + 0.3 s a word (1.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "Look at who got",
+        "selector": "#g34",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 315,
+          "y": 1121,
+          "width": 150,
+          "height": 66
+        },
+        "time": 36.453,
+        "words": 4,
+        "seconds": 0.624,
+        "floorSeconds": 1.275
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"Treatment A was used\" (4 words) is on screen 1.12 s (±0.06 s), under its 1.27 s floor: hold it about 0.5 s + 0.3 s a word (1.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "Treatment A was used",
+        "selector": "#g36",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 240,
+          "y": 1121,
+          "width": 300,
+          "height": 66
+        },
+        "time": 38.076,
+        "words": 4,
+        "seconds": 1.124,
+        "floorSeconds": 1.275
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"hundred sixty-three of\" (4 words) is on screen 0.87 s (±0.06 s), under its 1.27 s floor: hold it about 0.5 s + 0.3 s a word (1.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "hundred sixty-three of",
+        "selector": "#g39",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 210,
+          "y": 1121,
+          "width": 240,
+          "height": 66
+        },
+        "time": 42.321,
+        "words": 4,
+        "seconds": 0.874,
+        "floorSeconds": 1.275
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"its three hundred fifty\" (4 words) is on screen 1.00 s (±0.06 s), under its 1.27 s floor: hold it about 0.5 s + 0.3 s a word (1.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "its three hundred fifty",
+        "selector": "#g40",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 195,
+          "y": 1121,
+          "width": 120,
+          "height": 66
+        },
+        "time": 43.195,
+        "words": 4,
+        "seconds": 0.998,
+        "floorSeconds": 1.275
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"Treatment B was used\" (4 words) is on screen 1.12 s (±0.06 s), under its 1.27 s floor: hold it about 0.5 s + 0.3 s a word (1.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "Treatment B was used",
+        "selector": "#g42",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 240,
+          "y": 1121,
+          "width": 300,
+          "height": 66
+        },
+        "time": 45.192,
+        "words": 4,
+        "seconds": 1.124,
+        "floorSeconds": 1.275
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"hundred seventy of its\" (4 words) is on screen 1.00 s (±0.06 s), under its 1.27 s floor: hold it about 0.5 s + 0.3 s a word (1.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "hundred seventy of its",
+        "selector": "#g45",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 210,
+          "y": 1121,
+          "width": 240,
+          "height": 66
+        },
+        "time": 49.561,
+        "words": 4,
+        "seconds": 0.999,
+        "floorSeconds": 1.275
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"So A looked worse\" (4 words) is on screen 0.87 s (±0.06 s), under its 1.27 s floor: hold it about 0.5 s + 0.3 s a word (1.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "So A looked worse",
+        "selector": "#g47",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 285,
+          "y": 1121,
+          "width": 90,
+          "height": 66
+        },
+        "time": 52.058,
+        "words": 4,
+        "seconds": 0.874,
+        "floorSeconds": 1.275
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"The groups were not\" (4 words) is on screen 0.87 s (±0.06 s), under its 1.27 s floor: hold it about 0.5 s + 0.3 s a word (1.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "The groups were not",
+        "selector": "#g50",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 255,
+          "y": 1121,
+          "width": 120,
+          "height": 66
+        },
+        "time": 55.803,
+        "words": 4,
+        "seconds": 0.874,
+        "floorSeconds": 1.275
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"the same size,\" (3 words) is on screen 0.62 s (±0.06 s), under its 1.05 s floor: hold it about 0.5 s + 0.3 s a word (1.40 s here) before it leaves or changes; see references/motion.md.",
+        "text": "the same size,",
+        "selector": "#g51",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 330,
+          "y": 1121,
+          "width": 120,
+          "height": 66
+        },
+        "time": 56.677,
+        "words": 3,
+        "seconds": 0.625,
+        "floorSeconds": 1.05
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"so the average hid\" (4 words) is on screen 0.75 s (±0.06 s), under its 1.27 s floor: hold it about 0.5 s + 0.3 s a word (1.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "so the average hid",
+        "selector": "#g52",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 270,
+          "y": 1121,
+          "width": 90,
+          "height": 66
+        },
+        "time": 57.426,
+        "words": 4,
+        "seconds": 0.749,
+        "floorSeconds": 1.275
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"Whenever an average hides\" (4 words) is on screen 1.12 s (±0.06 s), under its 1.27 s floor: hold it about 0.5 s + 0.3 s a word (1.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "Whenever an average hides",
+        "selector": "#g54",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 165,
+          "y": 1121,
+          "width": 270,
+          "height": 66
+        },
+        "time": 59.174,
+        "words": 4,
+        "seconds": 1.124,
+        "floorSeconds": 1.275
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"ask who is\" (3 words) is on screen 0.62 s (±0.06 s), under its 1.05 s floor: hold it about 0.5 s + 0.3 s a word (1.40 s here) before it leaves or changes; see references/motion.md.",
+        "text": "ask who is",
+        "selector": "#g56",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 345,
+          "y": 1121,
+          "width": 120,
+          "height": 66
+        },
+        "time": 60.797,
+        "words": 3,
+        "seconds": 0.624,
+        "floorSeconds": 1.05
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"the trend can flip\" (4 words) is on screen 1.00 s (±0.06 s), under its 1.27 s floor: hold it about 0.5 s + 0.3 s a word (1.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "the trend can flip",
+        "selector": "#g59",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 270,
+          "y": 1121,
+          "width": 120,
+          "height": 66
+        },
+        "time": 64.043,
+        "words": 4,
+        "seconds": 0.999,
+        "floorSeconds": 1.275
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"when you combine\" (3 words) is on screen 0.75 s (±0.06 s), under its 1.05 s floor: hold it about 0.5 s + 0.3 s a word (1.40 s here) before it leaves or changes; see references/motion.md.",
+        "text": "when you combine",
+        "selector": "#g60",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 240,
+          "y": 1121,
+          "width": 150,
+          "height": 66
+        },
+        "time": 65.042,
+        "words": 3,
+        "seconds": 0.749,
+        "floorSeconds": 1.05
+      }
+    ],
+    "enabled": true,
+    "step": 0.125,
+    "samples": 568
+  },
+  "hdr": {
+    "autoPromotion": null,
+    "inspection": "available"
+  },
+  "snapshots": {
+    "enabled": false,
+    "files": [],
+    "times": [],
+    "findingFiles": []
+  }
+}

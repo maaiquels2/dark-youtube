@@ -1,0 +1,426 @@
+{
+ "theme": "rulechanged",
+ "format": "vertical",
+ "comp": "main",
+ "out": "s3_case_dropped",
+ "music": "library/music/incompetech/interloper.mp3",
+ "music_gain": 0.14,
+ "lufs": -14,
+ "tail": 1.0,
+ "captions": true,
+ "blocks": [
+  {
+   "act": "scam",
+   "scenes": [
+    {
+     "t": "organ_focus",
+     "image": "courthouse.jpg",
+     "screen": false,
+     "photo": true,
+     "zoom": [
+      100,
+      108
+     ],
+     "illustration": true
+    },
+    {
+     "t": "impact_title",
+     "at": "start",
+     "fade": [
+      0.15,
+      0.25
+     ],
+     "lines": [
+      {
+       "text": "THEY SUED.",
+       "size": 120,
+       "y": 780,
+       "color": [
+        1,
+        0.96,
+        0.9
+       ],
+       "font": "Anton"
+      },
+      {
+       "text": "THEN THEY",
+       "size": 96,
+       "y": 910,
+       "color": [
+        1,
+        0.96,
+        0.9
+       ],
+       "font": "Anton"
+      },
+      {
+       "text": "DROPPED IT.",
+       "size": 120,
+       "y": 1030,
+       "color": [
+        0.82,
+        0.25,
+        0.18
+       ],
+       "font": "Anton"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "act": "case",
+   "scenes": [
+    {
+     "t": "web_clip",
+     "image": "cfpb_sues_2024.png",
+     "site": "CONSUMERFINANCE.GOV",
+     "date": "DEC 20, 2024",
+     "source": "Source: CFPB, Dec 20, 2024",
+     "marks": [
+      {
+       "box": [
+        270,
+        742,
+        1540,
+        170
+       ],
+       "at": "sued"
+      }
+     ],
+     "until": "JPMorgan-0.1"
+    },
+    {
+     "t": "organ_focus",
+     "image": "l_banks_v.jpg",
+     "screen": false,
+     "photo": true,
+     "zoom": [
+      100,
+      108
+     ],
+     "illustration": false,
+     "at": "JPMorgan-0.1"
+    }
+   ]
+  },
+  {
+   "act": "scam",
+   "scenes": [
+    {
+     "t": "bars",
+     "title": "FRAUD LOSSES IN CUSTOMER COMPLAINTS ($M)",
+     "source": "Source: CFPB complaint, Dec 2024 (alleged)",
+     "prefix": "$",
+     "suffix": "M",
+     "at": "start+0.3",
+     "stagger": 1.2,
+     "color": [
+      0.82,
+      0.25,
+      0.18
+     ],
+     "bars": [
+      {
+       "label": "CHASE",
+       "value": 360
+      },
+      {
+       "label": "BANK OF AMERICA",
+       "value": 290
+      },
+      {
+       "label": "WELLS FARGO",
+       "value": 220
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "act": "case",
+   "scenes": [
+    {
+     "t": "timeline",
+     "title": "THE FEDERAL CASE",
+     "color": [
+      0.82,
+      0.25,
+      0.18
+     ],
+     "items": [
+      {
+       "date": "DEC 20 2024",
+       "label": "CFPB sues",
+       "at": 0.4
+      },
+      {
+       "date": "MAR 4 2025",
+       "label": "CFPB drops it",
+       "at": "March"
+      },
+      {
+       "date": "MAR 5 2025",
+       "label": "Dismissed with prejudice",
+       "at": "dismissed"
+      }
+     ],
+     "until": "No-0.1"
+    },
+    {
+     "t": "organ_focus",
+     "image": "courtroom.jpg",
+     "screen": false,
+     "photo": true,
+     "zoom": [
+      100,
+      108
+     ],
+     "illustration": true,
+     "at": "No-0.1"
+    },
+    {
+     "t": "impact_title",
+     "at": "No",
+     "fade": [
+      0.15,
+      0.25
+     ],
+     "lines": [
+      {
+       "text": "NO COURT EVER RULED",
+       "size": 84,
+       "y": 860,
+       "color": [
+        1,
+        0.96,
+        0.9
+       ],
+       "font": "Anton"
+      },
+      {
+       "text": "WHETHER BANKS DID WRONG",
+       "size": 60,
+       "y": 970,
+       "color": [
+        1,
+        0.7,
+        0.22
+       ],
+       "font": "Anton"
+      }
+     ]
+    },
+    {
+     "t": "lower_third",
+     "text": "Source: CFPB; court order, D. Ariz."
+    }
+   ]
+  },
+  {
+   "act": "case",
+   "scenes": [
+    {
+     "t": "organ_focus",
+     "image": "p_james.jpg",
+     "screen": false,
+     "photo": true,
+     "zoom": [
+      100,
+      108
+     ],
+     "label": {
+      "text": "LETITIA JAMES",
+      "at": 0.3
+     },
+     "until": "alleging-0.1"
+    },
+    {
+     "t": "lower_third",
+     "text": "New York Attorney General",
+     "sub": "Photo: Matthew Cohen (2013), CC BY 2.0",
+     "until": "alleging-0.1"
+    },
+    {
+     "t": "web_clip",
+     "image": "nyag_sues_2025.png",
+     "site": "AG.NY.GOV",
+     "date": "AUG 13, 2025",
+     "source": "Source: New York Attorney General, Aug 13, 2025",
+     "marks": [
+      {
+       "box": [
+        672,
+        955,
+        205,
+        55
+       ],
+       "at": "one"
+      }
+     ],
+     "crop": [
+      110,
+      700,
+      2560,
+      380
+     ],
+     "at": "alleging-0.1"
+    }
+   ]
+  },
+  {
+   "act": "case",
+   "scenes": [
+    {
+     "t": "organ_focus",
+     "image": "law_books.jpg",
+     "screen": false,
+     "photo": true,
+     "zoom": [
+      100,
+      108
+     ],
+     "illustration": true,
+     "until": "lawsuit-0.1"
+    },
+    {
+     "t": "impact_title",
+     "at": "start",
+     "fade": [
+      0.15,
+      0.25
+     ],
+     "lines": [
+      {
+       "text": "ALLEGATIONS",
+       "size": 110,
+       "y": 900,
+       "color": [
+        1,
+        0.96,
+        0.9
+       ],
+       "font": "Anton"
+      }
+     ],
+     "until": "lawsuit-0.1"
+    },
+    {
+     "t": "impact_title",
+     "at": "lawsuit",
+     "fade": [
+      0.15,
+      0.25
+     ],
+     "lines": [
+      {
+       "text": "ALLEGATIONS",
+       "size": 110,
+       "y": 820,
+       "color": [
+        1,
+        0.96,
+        0.9
+       ],
+       "font": "Anton"
+      },
+      {
+       "text": "NOT A VERDICT",
+       "size": 110,
+       "y": 960,
+       "color": [
+        0.82,
+        0.25,
+        0.18
+       ],
+       "font": "Anton"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "act": "case",
+   "scenes": [
+    {
+     "t": "organ_focus",
+     "image": "courthouse.jpg",
+     "screen": false,
+     "photo": true,
+     "zoom": [
+      100,
+      108
+     ],
+     "illustration": true,
+     "until": "is-0.1"
+    },
+    {
+     "t": "impact_title",
+     "at": "start",
+     "fade": [
+      0.15,
+      0.25
+     ],
+     "lines": [
+      {
+       "text": "THEY DROPPED IT.",
+       "size": 100,
+       "y": 860,
+       "color": [
+        1,
+        0.96,
+        0.9
+       ],
+       "font": "Anton"
+      }
+     ],
+     "until": "is-0.1"
+    },
+    {
+     "t": "impact_title",
+     "at": "is",
+     "fade": [
+      0.15,
+      0.25
+     ],
+     "lines": [
+      {
+       "text": "FULL CASE",
+       "size": 150,
+       "y": 900,
+       "color": [
+        1,
+        0.96,
+        0.9
+       ],
+       "font": "Anton"
+      }
+     ],
+     "until": "dur"
+    },
+    {
+     "t": "impact_title",
+     "at": "is+0.15",
+     "fade": [
+      0.15,
+      0.25
+     ],
+     "lines": [
+      {
+       "text": "ON THE RULE CHANGED",
+       "size": 66,
+       "y": 1010,
+       "color": [
+        1,
+        0.7,
+        0.22
+       ],
+       "font": "Anton"
+      }
+     ],
+     "until": "dur"
+    }
+   ]
+  }
+ ]
+}

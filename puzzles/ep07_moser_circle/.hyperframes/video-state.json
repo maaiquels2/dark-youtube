@@ -1,0 +1,398 @@
+{
+  "version": 1,
+  "historyId": "87bd2108-e841-4a03-a77d-77b306d9c56c",
+  "currentRevision": "918a44bb-4b82-4cd3-9a5a-b9d4cc737400",
+  "pendingChanges": false,
+  "files": {
+    "assets/timing.json": {
+      "hash": "8ea053dab6a66ecf7c9d355fc8397b186b3f26f73f17419c50ccca04d1f2ee75",
+      "content": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\87bd2108-e841-4a03-a77d-77b306d9c56c\\blobs\\8e\\8ea053dab6a66ecf7c9d355fc8397b186b3f26f73f17419c50ccca04d1f2ee75"
+    },
+    "assets/voice.mp3": {
+      "hash": "e6525e0fcccc3cce51c3ad7a4819265bcd3cab354f5dea9166a55797cb657a7d",
+      "content": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\87bd2108-e841-4a03-a77d-77b306d9c56c\\blobs\\e6\\e6525e0fcccc3cce51c3ad7a4819265bcd3cab354f5dea9166a55797cb657a7d"
+    },
+    "ep.json": {
+      "hash": "9ed8a63160bdd29c116d4952233c803a1f9fd73b368a02c12a51d4658e45da85",
+      "content": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\87bd2108-e841-4a03-a77d-77b306d9c56c\\blobs\\9e\\9ed8a63160bdd29c116d4952233c803a1f9fd73b368a02c12a51d4658e45da85"
+    },
+    "hyperframes.json": {
+      "hash": "c7a3009d23e471acfb1ca9ec252ea16a0ca4dfe55e3b3b9d7089c8f0764f4a43",
+      "content": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\87bd2108-e841-4a03-a77d-77b306d9c56c\\blobs\\c7\\c7a3009d23e471acfb1ca9ec252ea16a0ca4dfe55e3b3b9d7089c8f0764f4a43"
+    },
+    "index.html": {
+      "hash": "05062321d91ae51ab3f5e8c70b163c3340964a9f6e6b944b7e457969d384ccb4",
+      "content": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\87bd2108-e841-4a03-a77d-77b306d9c56c\\blobs\\05\\05062321d91ae51ab3f5e8c70b163c3340964a9f6e6b944b7e457969d384ccb4"
+    },
+    "package.json": {
+      "hash": "a4c3700c641961f350fb083f19e9c6d99ddc1977b9fa16885d2da984e9f83a07",
+      "content": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\87bd2108-e841-4a03-a77d-77b306d9c56c\\blobs\\a4\\a4c3700c641961f350fb083f19e9c6d99ddc1977b9fa16885d2da984e9f83a07"
+    },
+    "scene.js": {
+      "hash": "e22bc4ad1796496635a45be6b9c6d49b63463bcd6e2144ebdde4bb83a20b815d",
+      "content": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\87bd2108-e841-4a03-a77d-77b306d9c56c\\blobs\\e2\\e22bc4ad1796496635a45be6b9c6d49b63463bcd6e2144ebdde4bb83a20b815d"
+    }
+  },
+  "revisions": {
+    "918a44bb-4b82-4cd3-9a5a-b9d4cc737400": {
+      "actor": {
+        "kind": "outside",
+        "name": "Outside"
+      },
+      "label": "Changed outside the app",
+      "startedAt": 1792970137663,
+      "endedAt": 1792970137699,
+      "files": {
+        "index.html": {
+          "before": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\87bd2108-e841-4a03-a77d-77b306d9c56c\\blobs\\07\\0762dbbde4ec098d33f2e09834faa049aa09e6c772086b35cc0e5da3127b0957",
+          "after": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\87bd2108-e841-4a03-a77d-77b306d9c56c\\blobs\\05\\05062321d91ae51ab3f5e8c70b163c3340964a9f6e6b944b7e457969d384ccb4"
+        },
+        "scene.js": {
+          "before": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\87bd2108-e841-4a03-a77d-77b306d9c56c\\blobs\\07\\07b5e2ef6768643557a43b4e443aacc23063e3742cdb1aaa40acf1bf39b627ff",
+          "after": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\87bd2108-e841-4a03-a77d-77b306d9c56c\\blobs\\e2\\e22bc4ad1796496635a45be6b9c6d49b63463bcd6e2144ebdde4bb83a20b815d"
+        }
+      }
+    }
+  },
+  "checks": {
+    "latest": {
+      "revision": null,
+      "id": "5063a701-e5b3-4422-9cc3-a84d9ecaef74"
+    },
+    "revisions": {},
+    "unversioned": [
+      {
+        "id": "5063a701-e5b3-4422-9cc3-a84d9ecaef74",
+        "scope": "project",
+        "report": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\puzzles\\ep07_moser_circle\\.hyperframes\\artifacts\\checks\\5063a701-e5b3-4422-9cc3-a84d9ecaef74.json",
+        "metadata": {
+          "ok": true,
+          "browserSkipped": false,
+          "options": {
+            "samples": 9,
+            "atTransitions": false,
+            "maxIssues": 80,
+            "collapseStatic": true,
+            "tolerance": 2,
+            "timeout": 3000,
+            "contrast": true,
+            "strict": false,
+            "snapshots": false,
+            "browserGpuMode": "auto"
+          }
+        },
+        "createdAt": 1792969827157,
+        "contentHash": "8dbcaa60b92ee38b90f4af38d49b6eb119b4d086a0334c1c8d8c8e030b4f8a73",
+        "revision": null,
+        "inputFingerprint": "cd19f82b1da0d2deb716230ed80c3effe78cfbb70d6ef61e0a8313b95f019e47",
+        "inputScope": "local-project-files",
+        "attribution": "unversioned"
+      }
+    ]
+  },
+  "snapshots": {
+    "latest": {
+      "revision": "918a44bb-4b82-4cd3-9a5a-b9d4cc737400",
+      "id": "a72e06cb-9772-4101-8092-e162ac90aedd-1"
+    },
+    "revisions": {
+      "918a44bb-4b82-4cd3-9a5a-b9d4cc737400": [
+        {
+          "scope": "full",
+          "id": "a72e06cb-9772-4101-8092-e162ac90aedd-0",
+          "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\w2fix7\\frame-00-at-46s.png",
+          "time": 46,
+          "metadata": {
+            "width": 1080,
+            "height": 1920,
+            "zoomScale": 1,
+            "browserGpuMode": "auto",
+            "warnings": [],
+            "partial": false
+          },
+          "createdAt": 1792970146069,
+          "contentHash": "05771c37625a72b263fbde1f863095a7a04dfc93f8699ba3befac304502ccfe4",
+          "revision": "918a44bb-4b82-4cd3-9a5a-b9d4cc737400",
+          "inputFingerprint": "7823ca0082ba499a1d33374988b528d2a822eddf4e395b88e624b1d2f88c5a95",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        },
+        {
+          "scope": "full",
+          "id": "a72e06cb-9772-4101-8092-e162ac90aedd-1",
+          "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\w2fix7\\frame-01-at-58s.png",
+          "time": 58,
+          "metadata": {
+            "width": 1080,
+            "height": 1920,
+            "zoomScale": 1,
+            "browserGpuMode": "auto",
+            "warnings": [],
+            "partial": false
+          },
+          "createdAt": 1792970146071,
+          "contentHash": "8667c03c94a65911dbc728e83a7bc589de569458b1c8a9e2c7126ab424be6a90",
+          "revision": "918a44bb-4b82-4cd3-9a5a-b9d4cc737400",
+          "inputFingerprint": "7823ca0082ba499a1d33374988b528d2a822eddf4e395b88e624b1d2f88c5a95",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        }
+      ]
+    },
+    "unversioned": [
+      {
+        "scope": "full",
+        "id": "07716420-e5dc-4a94-a644-af3acb9554f2-0",
+        "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\w2_ep07_moser_circle\\frame-00-at-0s.png",
+        "time": 0,
+        "metadata": {
+          "width": 1080,
+          "height": 1920,
+          "zoomScale": 1,
+          "browserGpuMode": "auto",
+          "warnings": [],
+          "partial": false
+        },
+        "createdAt": 1792969834459,
+        "contentHash": "f6700d3add87f322d54c47977da3f6cb228c7b1312f666ca47446985cc18ca98",
+        "revision": null,
+        "inputFingerprint": "cd19f82b1da0d2deb716230ed80c3effe78cfbb70d6ef61e0a8313b95f019e47",
+        "inputScope": "local-project-files",
+        "attribution": "unversioned"
+      },
+      {
+        "scope": "full",
+        "id": "07716420-e5dc-4a94-a644-af3acb9554f2-1",
+        "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\w2_ep07_moser_circle\\frame-01-at-5.872s.png",
+        "time": 5.872,
+        "metadata": {
+          "width": 1080,
+          "height": 1920,
+          "zoomScale": 1,
+          "browserGpuMode": "auto",
+          "warnings": [],
+          "partial": false
+        },
+        "createdAt": 1792969834459,
+        "contentHash": "1c7fc61584c53b49339903a5fe8dd884e0457fb4938538c44aa4500d8d3506c8",
+        "revision": null,
+        "inputFingerprint": "cd19f82b1da0d2deb716230ed80c3effe78cfbb70d6ef61e0a8313b95f019e47",
+        "inputScope": "local-project-files",
+        "attribution": "unversioned"
+      },
+      {
+        "scope": "full",
+        "id": "07716420-e5dc-4a94-a644-af3acb9554f2-2",
+        "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\w2_ep07_moser_circle\\frame-02-at-11.744s.png",
+        "time": 11.744,
+        "metadata": {
+          "width": 1080,
+          "height": 1920,
+          "zoomScale": 1,
+          "browserGpuMode": "auto",
+          "warnings": [],
+          "partial": false
+        },
+        "createdAt": 1792969834459,
+        "contentHash": "c27cec9a2501a5c9e509ceb8f8ba45f79dcc8b8c668f5bb256c3973bc1509c80",
+        "revision": null,
+        "inputFingerprint": "cd19f82b1da0d2deb716230ed80c3effe78cfbb70d6ef61e0a8313b95f019e47",
+        "inputScope": "local-project-files",
+        "attribution": "unversioned"
+      },
+      {
+        "scope": "full",
+        "id": "07716420-e5dc-4a94-a644-af3acb9554f2-3",
+        "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\w2_ep07_moser_circle\\frame-03-at-17.616s.png",
+        "time": 17.616,
+        "metadata": {
+          "width": 1080,
+          "height": 1920,
+          "zoomScale": 1,
+          "browserGpuMode": "auto",
+          "warnings": [],
+          "partial": false
+        },
+        "createdAt": 1792969834460,
+        "contentHash": "0ffe8285fba378f3a9ab08406a57a8385a7f033c79cda20c007c486dad597828",
+        "revision": null,
+        "inputFingerprint": "cd19f82b1da0d2deb716230ed80c3effe78cfbb70d6ef61e0a8313b95f019e47",
+        "inputScope": "local-project-files",
+        "attribution": "unversioned"
+      },
+      {
+        "scope": "full",
+        "id": "07716420-e5dc-4a94-a644-af3acb9554f2-4",
+        "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\w2_ep07_moser_circle\\frame-04-at-23.488s.png",
+        "time": 23.488,
+        "metadata": {
+          "width": 1080,
+          "height": 1920,
+          "zoomScale": 1,
+          "browserGpuMode": "auto",
+          "warnings": [],
+          "partial": false
+        },
+        "createdAt": 1792969834460,
+        "contentHash": "1988845f47ca5fdb83632b6d559f03c19d47f09bc529c05f1524e29f98bf0177",
+        "revision": null,
+        "inputFingerprint": "cd19f82b1da0d2deb716230ed80c3effe78cfbb70d6ef61e0a8313b95f019e47",
+        "inputScope": "local-project-files",
+        "attribution": "unversioned"
+      },
+      {
+        "scope": "full",
+        "id": "07716420-e5dc-4a94-a644-af3acb9554f2-5",
+        "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\w2_ep07_moser_circle\\frame-05-at-29.36s.png",
+        "time": 29.36,
+        "metadata": {
+          "width": 1080,
+          "height": 1920,
+          "zoomScale": 1,
+          "browserGpuMode": "auto",
+          "warnings": [],
+          "partial": false
+        },
+        "createdAt": 1792969834460,
+        "contentHash": "79db43830331a4d8b1f2db8dc05e4f859dd0c9719b3b4647e4e14c53d2bdcc1e",
+        "revision": null,
+        "inputFingerprint": "cd19f82b1da0d2deb716230ed80c3effe78cfbb70d6ef61e0a8313b95f019e47",
+        "inputScope": "local-project-files",
+        "attribution": "unversioned"
+      },
+      {
+        "scope": "full",
+        "id": "07716420-e5dc-4a94-a644-af3acb9554f2-6",
+        "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\w2_ep07_moser_circle\\frame-06-at-35.233s.png",
+        "time": 35.233,
+        "metadata": {
+          "width": 1080,
+          "height": 1920,
+          "zoomScale": 1,
+          "browserGpuMode": "auto",
+          "warnings": [],
+          "partial": false
+        },
+        "createdAt": 1792969834461,
+        "contentHash": "0bb01c1317d175f5ecb43a79a84934f4a79150918a7d4e3f1b418bb521c541f1",
+        "revision": null,
+        "inputFingerprint": "cd19f82b1da0d2deb716230ed80c3effe78cfbb70d6ef61e0a8313b95f019e47",
+        "inputScope": "local-project-files",
+        "attribution": "unversioned"
+      },
+      {
+        "scope": "full",
+        "id": "07716420-e5dc-4a94-a644-af3acb9554f2-7",
+        "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\w2_ep07_moser_circle\\frame-07-at-41.105s.png",
+        "time": 41.105,
+        "metadata": {
+          "width": 1080,
+          "height": 1920,
+          "zoomScale": 1,
+          "browserGpuMode": "auto",
+          "warnings": [],
+          "partial": false
+        },
+        "createdAt": 1792969834462,
+        "contentHash": "a5f6ae37174118692d7618ad8b546e54e8aa5458be2243ffaa4afd6b4bdff4e8",
+        "revision": null,
+        "inputFingerprint": "cd19f82b1da0d2deb716230ed80c3effe78cfbb70d6ef61e0a8313b95f019e47",
+        "inputScope": "local-project-files",
+        "attribution": "unversioned"
+      },
+      {
+        "scope": "full",
+        "id": "07716420-e5dc-4a94-a644-af3acb9554f2-8",
+        "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\w2_ep07_moser_circle\\frame-08-at-46.977s.png",
+        "time": 46.977,
+        "metadata": {
+          "width": 1080,
+          "height": 1920,
+          "zoomScale": 1,
+          "browserGpuMode": "auto",
+          "warnings": [],
+          "partial": false
+        },
+        "createdAt": 1792969834462,
+        "contentHash": "74e72e7925cd9ab6325fd26a7ae66e5b8a87f9c13bb670b57a8b06a2eec28f7d",
+        "revision": null,
+        "inputFingerprint": "cd19f82b1da0d2deb716230ed80c3effe78cfbb70d6ef61e0a8313b95f019e47",
+        "inputScope": "local-project-files",
+        "attribution": "unversioned"
+      },
+      {
+        "scope": "full",
+        "id": "07716420-e5dc-4a94-a644-af3acb9554f2-9",
+        "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\w2_ep07_moser_circle\\frame-09-at-52.849s.png",
+        "time": 52.849,
+        "metadata": {
+          "width": 1080,
+          "height": 1920,
+          "zoomScale": 1,
+          "browserGpuMode": "auto",
+          "warnings": [],
+          "partial": false
+        },
+        "createdAt": 1792969834463,
+        "contentHash": "78247991725de6974c199531689971a71f62622e26000973d39b802458573de9",
+        "revision": null,
+        "inputFingerprint": "cd19f82b1da0d2deb716230ed80c3effe78cfbb70d6ef61e0a8313b95f019e47",
+        "inputScope": "local-project-files",
+        "attribution": "unversioned"
+      },
+      {
+        "scope": "full",
+        "id": "07716420-e5dc-4a94-a644-af3acb9554f2-10",
+        "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\w2_ep07_moser_circle\\frame-10-at-58.721s.png",
+        "time": 58.721,
+        "metadata": {
+          "width": 1080,
+          "height": 1920,
+          "zoomScale": 1,
+          "browserGpuMode": "auto",
+          "warnings": [],
+          "partial": false
+        },
+        "createdAt": 1792969834464,
+        "contentHash": "423db0b6f41dc6a1039588a8bd79b446149070b90dbed489e1a7330031dc267e",
+        "revision": null,
+        "inputFingerprint": "cd19f82b1da0d2deb716230ed80c3effe78cfbb70d6ef61e0a8313b95f019e47",
+        "inputScope": "local-project-files",
+        "attribution": "unversioned"
+      },
+      {
+        "scope": "full",
+        "id": "07716420-e5dc-4a94-a644-af3acb9554f2-11",
+        "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\w2_ep07_moser_circle\\frame-11-at-64.593s.png",
+        "time": 64.593,
+        "metadata": {
+          "width": 1080,
+          "height": 1920,
+          "zoomScale": 1,
+          "browserGpuMode": "auto",
+          "warnings": [],
+          "partial": false
+        },
+        "createdAt": 1792969834465,
+        "contentHash": "4f38b8e62a01fc53b7e4c71ab305bc7403bdeda9a177f59d8fe9372d2294cd55",
+        "revision": null,
+        "inputFingerprint": "cd19f82b1da0d2deb716230ed80c3effe78cfbb70d6ef61e0a8313b95f019e47",
+        "inputScope": "local-project-files",
+        "attribution": "unversioned"
+      }
+    ]
+  },
+  "renders": {
+    "latest": {
+      "id": "e9790d60-cf7e-484d-af82-63ea6c3d4c5d",
+      "completedAt": 1792970345093,
+      "output": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\puzzles\\ep07_moser_circle\\renders\\ep07_moser_circle.mp4",
+      "status": "completed",
+      "revision": "918a44bb-4b82-4cd3-9a5a-b9d4cc737400"
+    },
+    "retainedRevisions": [
+      "918a44bb-4b82-4cd3-9a5a-b9d4cc737400"
+    ]
+  },
+  "pendingArtifactCleanup": []
+}

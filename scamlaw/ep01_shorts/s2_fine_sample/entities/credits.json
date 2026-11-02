@@ -1,0 +1,155 @@
+[
+ {
+  "file": "pallone.jpg",
+  "entity": "Frank Pallone",
+  "source_url": "https://commons.wikimedia.org/wiki/File:Frank_Pallone%2C_Official_Portrait%2C_113th_Congress.jpg",
+  "author": "US House of Representatives",
+  "license": "Public domain",
+  "size": "2848x4288"
+ },
+ {
+  "file": "thune.jpg",
+  "entity": "John Thune",
+  "source_url": "https://commons.wikimedia.org/wiki/File:John_Thune_117th_Congress_portrait.jpg",
+  "author": "U.S. Senate Photographic Studio",
+  "license": "Public domain",
+  "size": "2604x3255"
+ },
+ {
+  "file": "pai.jpg",
+  "entity": "Ajit Pai",
+  "source_url": "https://commons.wikimedia.org/wiki/File:Ajit_Pai_portrait_2018.jpg",
+  "author": "FCC",
+  "license": "Public domain",
+  "size": "3014x4016"
+ },
+ {
+  "file": "fcc_seal.svg",
+  "entity": "FCC",
+  "source_url": "https://commons.wikimedia.org/wiki/File:Seal_of_the_Federal_Communications_Commission.svg",
+  "author": "Umasankar Arumugam",
+  "license": "Public domain",
+  "size": "512x512",
+  "file_png": "fcc_seal.png"
+ },
+ {
+  "file": "ftc_seal.svg",
+  "entity": "FTC",
+  "source_url": "https://commons.wikimedia.org/wiki/File:Seal_of_the_United_States_Federal_Trade_Commission.svg",
+  "author": "Tiffany &amp; Co.",
+  "license": "Public domain",
+  "size": "720x720",
+  "file_png": "ftc_seal.png"
+ },
+ {
+  "file": "rosenworcel.jpg",
+  "entity": "Jessica Rosenworcel",
+  "source_url": "https://commons.wikimedia.org/wiki/File:Jessica_Rosenworcel_portrait_2018_%28cropped%29%28b%29.jpg",
+  "author": "FCC",
+  "license": "Public domain",
+  "size": "2182x2467"
+ },
+ {
+  "file": "clyburn.jpg",
+  "entity": "Mignon Clyburn",
+  "source_url": "https://commons.wikimedia.org/wiki/File:Mignon_Clyburn_official_photo.jpg",
+  "author": "FCC",
+  "license": "Public domain",
+  "size": "2136x3216"
+ },
+ {
+  "file": "orielly.jpg",
+  "entity": "Michael O'Rielly",
+  "source_url": "https://commons.wikimedia.org/wiki/File:Michael_O%27Rielly_official_photo.jpg",
+  "author": "FCC",
+  "license": "Public domain",
+  "size": "1084x1392"
+ },
+ {
+  "file": "randpaul.jpg",
+  "entity": "Rand Paul",
+  "source_url": "https://commons.wikimedia.org/wiki/File:Rand_Paul_Portrait_%283x4_cropped%29.jpg",
+  "author": "US Senate Photography Office",
+  "license": "Public domain",
+  "size": "1263x1679"
+ },
+ {
+  "file": "blumenthal.jpg",
+  "entity": "Richard Blumenthal",
+  "source_url": "https://commons.wikimedia.org/wiki/File:Richard_Blumenthal_in_2025.jpg",
+  "author": "U.S. Embassy Kyiv Ukraine",
+  "license": "Public domain",
+  "size": "791x1002",
+  "nota": "791x1002, abaixo de 1000 px de largura; usar so se precisar"
+ },
+ {
+  "file": "marriott_logo.svg",
+  "entity": "Marriott",
+  "source_url": "https://commons.wikimedia.org/wiki/File:Marriott_Logo.svg",
+  "author": "Unknown authorUnknown author",
+  "license": "Public domain",
+  "size": "744x384",
+  "file_png": "marriott_logo.png",
+  "nota": "Logo em dominio publico no Commons (texto/forma simples), mas marca registrada: usar so para identificar a empresa citada, sem sugerir endosso"
+ },
+ {
+  "file": "tripadvisor_logo.svg",
+  "entity": "TripAdvisor",
+  "source_url": "https://commons.wikimedia.org/wiki/File:TripAdvisor_Logo.svg",
+  "author": "Tripadvisor",
+  "license": "Public domain",
+  "size": "3354x713",
+  "file_png": "tripadvisor_logo.png",
+  "nota": "Logo em dominio publico no Commons (texto/forma simples), mas marca registrada: usar so para identificar a empresa citada, sem sugerir endosso"
+ },
+ {
+  "file": "expedia_logo.svg",
+  "entity": "Expedia",
+  "source_url": "https://commons.wikimedia.org/wiki/File:Expedia_Group_logo.svg",
+  "author": "Expedia Group",
+  "license": "Public domain",
+  "size": "836x664",
+  "file_png": "expedia_logo.png",
+  "nota": "Logo em dominio publico no Commons (texto/forma simples), mas marca registrada: usar so para identificar a empresa citada, sem sugerir endosso"
+ },
+ {
+  "file": "ftc_building.jpg",
+  "entity": "FTC (prédio)",
+  "source_url": "https://commons.wikimedia.org/wiki/File:Federal_Trade_Commission_Building_2.jpg",
+  "author": "Kurt Kaiser",
+  "license": "Public domain",
+  "size": "4608x3456"
+ },
+ {
+  "file": null,
+  "entity": "Adrian Abramovich",
+  "source_url": null,
+  "author": null,
+  "license": null,
+  "reason": "Nenhuma foto livre encontrada no Commons/.gov. Fotos de imprensa (CBS, WaPo, AARP) sao protegidas. Usar cartao com monograma + trecho do depoimento no Senado (govinfo, dominio publico)."
+ },
+ {
+  "file": null,
+  "entity": "Hilton",
+  "source_url": null,
+  "author": null,
+  "license": null,
+  "reason": "Unico logo no Commons e CC BY-SA 4.0 e pequeno (676 px); descartado. Usar cartao de texto."
+ },
+ {
+  "file": null,
+  "entity": "Marketing Strategy Leaders, Inc. / Marketing Leaders, Inc.",
+  "source_url": null,
+  "author": null,
+  "license": null,
+  "reason": "Empresas de Abramovich, sem logo livre; usar cartao com monograma."
+ },
+ {
+  "file": null,
+  "entity": "Senate Commerce Committee",
+  "source_url": null,
+  "author": null,
+  "license": null,
+  "reason": "Nao baixado; usar cartao ou tela do govinfo (dominio publico)."
+ }
+]

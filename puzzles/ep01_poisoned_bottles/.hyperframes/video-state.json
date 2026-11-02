@@ -1,0 +1,773 @@
+{
+  "version": 1,
+  "historyId": "a5685eb9-0822-4a66-b23d-0fcdd43756b1",
+  "currentRevision": "7bb9bd96-f728-47a5-bad0-9c6b36337b0e",
+  "pendingChanges": false,
+  "files": {
+    "assets/timing.json": {
+      "hash": "f0b4112de03a6a1585006dba4f3e16d918c085c84ae37cb20e391f03e48792eb",
+      "content": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\a5685eb9-0822-4a66-b23d-0fcdd43756b1\\blobs\\f0\\f0b4112de03a6a1585006dba4f3e16d918c085c84ae37cb20e391f03e48792eb"
+    },
+    "build.py": {
+      "hash": "5037eddb5c476847e6270b330d0d365bbcfd9a78e548561433d44036eed8f427",
+      "content": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\a5685eb9-0822-4a66-b23d-0fcdd43756b1\\blobs\\50\\5037eddb5c476847e6270b330d0d365bbcfd9a78e548561433d44036eed8f427"
+    },
+    "hyperframes.json": {
+      "hash": "53dbce1e19aa713cbb12ee0bc4d206143b45ab15e6ffbfcaa8f69572d4d24d50",
+      "content": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\a5685eb9-0822-4a66-b23d-0fcdd43756b1\\blobs\\53\\53dbce1e19aa713cbb12ee0bc4d206143b45ab15e6ffbfcaa8f69572d4d24d50"
+    },
+    "index.html": {
+      "hash": "9a2e62a3ee4a41174005962cd2aa6d784d9edd905875c5d8739128b00e21925c",
+      "content": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\a5685eb9-0822-4a66-b23d-0fcdd43756b1\\blobs\\9a\\9a2e62a3ee4a41174005962cd2aa6d784d9edd905875c5d8739128b00e21925c"
+    },
+    "package.json": {
+      "hash": "108182bfc221812833152a811fe1656ab070f880eebfd8de417c4e2e25c57d43",
+      "content": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\a5685eb9-0822-4a66-b23d-0fcdd43756b1\\blobs\\10\\108182bfc221812833152a811fe1656ab070f880eebfd8de417c4e2e25c57d43"
+    },
+    "assets/voice.mp3": {
+      "hash": "3f2bc02f848ee293f08e0cc5c1f4a5fb53403347404358667dad310b4e512445",
+      "content": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\a5685eb9-0822-4a66-b23d-0fcdd43756b1\\blobs\\3f\\3f2bc02f848ee293f08e0cc5c1f4a5fb53403347404358667dad310b4e512445"
+    },
+    "src/template.html": {
+      "hash": "145a8ec151c18363b6f7d30f75df11ef25c42f5fc7cba2bfbe1b49702503fad0",
+      "content": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\a5685eb9-0822-4a66-b23d-0fcdd43756b1\\blobs\\14\\145a8ec151c18363b6f7d30f75df11ef25c42f5fc7cba2bfbe1b49702503fad0"
+    },
+    "ep.json": {
+      "hash": "93561fecad4fdc72a48402ce00eae630582700c320585625d4847c628c30cd94",
+      "content": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\a5685eb9-0822-4a66-b23d-0fcdd43756b1\\blobs\\93\\93561fecad4fdc72a48402ce00eae630582700c320585625d4847c628c30cd94"
+    },
+    "scene.js": {
+      "hash": "39c841419e030df18d6f9a1a0033547fc55eb14ade422cb62aac484938146032",
+      "content": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\a5685eb9-0822-4a66-b23d-0fcdd43756b1\\blobs\\39\\39c841419e030df18d6f9a1a0033547fc55eb14ade422cb62aac484938146032"
+    }
+  },
+  "revisions": {
+    "807323f6-b6c4-4221-a1e7-53f083a7e207": {
+      "actor": {
+        "kind": "outside",
+        "name": "Outside"
+      },
+      "label": "Changed outside the app",
+      "startedAt": 1792903748733,
+      "endedAt": 1792903748759,
+      "files": {
+        "build.py": {
+          "before": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\a5685eb9-0822-4a66-b23d-0fcdd43756b1\\blobs\\82\\827ff123d94b6dde219f5b741c4b1311ee8ef4089eacfab9e5620a5af781ae4d",
+          "after": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\a5685eb9-0822-4a66-b23d-0fcdd43756b1\\blobs\\50\\5037eddb5c476847e6270b330d0d365bbcfd9a78e548561433d44036eed8f427"
+        },
+        "src/template.html": {
+          "before": null,
+          "after": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\a5685eb9-0822-4a66-b23d-0fcdd43756b1\\blobs\\39\\39c670711762549c61f50ab2565c9234965155a1a58e104be3f763a7eae89068"
+        },
+        "template.html": {
+          "before": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\a5685eb9-0822-4a66-b23d-0fcdd43756b1\\blobs\\39\\39c670711762549c61f50ab2565c9234965155a1a58e104be3f763a7eae89068",
+          "after": null
+        }
+      }
+    },
+    "0e742080-51dd-4a4e-99d9-7de369a13e0e": {
+      "actor": {
+        "kind": "outside",
+        "name": "Outside"
+      },
+      "label": "Changed outside the app",
+      "startedAt": 1792903887113,
+      "endedAt": 1792903887155,
+      "files": {
+        "index.html": {
+          "before": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\a5685eb9-0822-4a66-b23d-0fcdd43756b1\\blobs\\cc\\cccc9f25a2efcaf61a59d74c7aff6ad5e4cc6cd4b54005cd1811c140973076aa",
+          "after": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\a5685eb9-0822-4a66-b23d-0fcdd43756b1\\blobs\\b1\\b1847110174651b2084e23c821b0d69cc359f5d6fc7353540ad047dbf16c9965"
+        },
+        "src/template.html": {
+          "before": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\a5685eb9-0822-4a66-b23d-0fcdd43756b1\\blobs\\39\\39c670711762549c61f50ab2565c9234965155a1a58e104be3f763a7eae89068",
+          "after": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\a5685eb9-0822-4a66-b23d-0fcdd43756b1\\blobs\\9e\\9eca0bc20cd8452ca681794039c9de20b65de540989ab9245ff896398f59e434"
+        }
+      }
+    },
+    "f5377629-0afd-445a-bfdf-a57c3646e032": {
+      "actor": {
+        "kind": "outside",
+        "name": "Outside"
+      },
+      "label": "Changed outside the app",
+      "startedAt": 1792904143314,
+      "endedAt": 1792904143326,
+      "files": {
+        "index.html": {
+          "before": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\a5685eb9-0822-4a66-b23d-0fcdd43756b1\\blobs\\b1\\b1847110174651b2084e23c821b0d69cc359f5d6fc7353540ad047dbf16c9965",
+          "after": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\a5685eb9-0822-4a66-b23d-0fcdd43756b1\\blobs\\97\\977980d5e0a3ff94a91ef0b5713053aeb10d86ff2b08e4ee0abab09e3023adc7"
+        },
+        "src/template.html": {
+          "before": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\a5685eb9-0822-4a66-b23d-0fcdd43756b1\\blobs\\9e\\9eca0bc20cd8452ca681794039c9de20b65de540989ab9245ff896398f59e434",
+          "after": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\a5685eb9-0822-4a66-b23d-0fcdd43756b1\\blobs\\14\\145a8ec151c18363b6f7d30f75df11ef25c42f5fc7cba2bfbe1b49702503fad0"
+        }
+      }
+    },
+    "8dddb403-a5ed-4e38-8f86-edd52451a228": {
+      "actor": {
+        "kind": "outside",
+        "name": "Outside"
+      },
+      "label": "Changed outside the app",
+      "startedAt": 1792955878754,
+      "endedAt": 1792955878770,
+      "files": {
+        "ep.json": {
+          "before": null,
+          "after": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\a5685eb9-0822-4a66-b23d-0fcdd43756b1\\blobs\\93\\93561fecad4fdc72a48402ce00eae630582700c320585625d4847c628c30cd94"
+        },
+        "index.html": {
+          "before": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\a5685eb9-0822-4a66-b23d-0fcdd43756b1\\blobs\\97\\977980d5e0a3ff94a91ef0b5713053aeb10d86ff2b08e4ee0abab09e3023adc7",
+          "after": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\a5685eb9-0822-4a66-b23d-0fcdd43756b1\\blobs\\e2\\e276790c4f8b4128086a77eb474b789f680f707ac886b34002bee4e6fc26cc85"
+        },
+        "scene.js": {
+          "before": null,
+          "after": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\a5685eb9-0822-4a66-b23d-0fcdd43756b1\\blobs\\1c\\1c48509f01e275bcd64b9c4fa4cdd4eb652199f9a899a224371465be81ef5433"
+        }
+      }
+    },
+    "7bb9bd96-f728-47a5-bad0-9c6b36337b0e": {
+      "actor": {
+        "kind": "outside",
+        "name": "Outside"
+      },
+      "label": "Changed outside the app",
+      "startedAt": 1792955934506,
+      "endedAt": 1792955934517,
+      "files": {
+        "index.html": {
+          "before": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\a5685eb9-0822-4a66-b23d-0fcdd43756b1\\blobs\\e2\\e276790c4f8b4128086a77eb474b789f680f707ac886b34002bee4e6fc26cc85",
+          "after": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\a5685eb9-0822-4a66-b23d-0fcdd43756b1\\blobs\\9a\\9a2e62a3ee4a41174005962cd2aa6d784d9edd905875c5d8739128b00e21925c"
+        },
+        "scene.js": {
+          "before": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\a5685eb9-0822-4a66-b23d-0fcdd43756b1\\blobs\\1c\\1c48509f01e275bcd64b9c4fa4cdd4eb652199f9a899a224371465be81ef5433",
+          "after": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\a5685eb9-0822-4a66-b23d-0fcdd43756b1\\blobs\\39\\39c841419e030df18d6f9a1a0033547fc55eb14ade422cb62aac484938146032"
+        }
+      }
+    }
+  },
+  "checks": {
+    "latest": {
+      "revision": null,
+      "id": "32b400a9-0c0a-4396-9a92-6d7a90a8307c"
+    },
+    "revisions": {
+      "807323f6-b6c4-4221-a1e7-53f083a7e207": [
+        {
+          "id": "1f89e1b8-9228-4eba-b1e0-634be5d7866c",
+          "scope": "project",
+          "metadata": {
+            "ok": true,
+            "browserSkipped": false,
+            "options": {
+              "samples": 9,
+              "atTransitions": false,
+              "maxIssues": 80,
+              "collapseStatic": true,
+              "tolerance": 2,
+              "timeout": 3000,
+              "contrast": true,
+              "strict": false,
+              "snapshots": false,
+              "browserGpuMode": "auto"
+            }
+          },
+          "createdAt": 1792903783186,
+          "contentHash": "a656111bfd3375923b453192f973aae48cc4a8c08026f8400c30d669e52d31fe",
+          "revision": "807323f6-b6c4-4221-a1e7-53f083a7e207",
+          "inputFingerprint": "e95f867e794594ca5edf26d22df4fc2d82ea2f9cedcd9841778cd35babf22532",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision",
+          "status": "cleaned",
+          "cleanedAfterRender": "bb8a770c-3826-4571-a847-5d6fb4eb9012"
+        },
+        {
+          "id": "13b124a3-30d8-4e18-8933-2f806d31a73b",
+          "scope": "project",
+          "metadata": {
+            "ok": true,
+            "browserSkipped": false,
+            "options": {
+              "samples": 9,
+              "atTransitions": false,
+              "maxIssues": 80,
+              "collapseStatic": true,
+              "tolerance": 2,
+              "timeout": 3000,
+              "contrast": true,
+              "strict": false,
+              "snapshots": false,
+              "browserGpuMode": "auto"
+            }
+          },
+          "createdAt": 1792903832110,
+          "contentHash": "a656111bfd3375923b453192f973aae48cc4a8c08026f8400c30d669e52d31fe",
+          "revision": "807323f6-b6c4-4221-a1e7-53f083a7e207",
+          "inputFingerprint": "e95f867e794594ca5edf26d22df4fc2d82ea2f9cedcd9841778cd35babf22532",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision",
+          "status": "cleaned",
+          "cleanedAfterRender": "bb8a770c-3826-4571-a847-5d6fb4eb9012"
+        }
+      ]
+    },
+    "unversioned": [
+      {
+        "id": "32b400a9-0c0a-4396-9a92-6d7a90a8307c",
+        "scope": "project",
+        "report": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\puzzles\\ep01_poisoned_bottles\\.hyperframes\\artifacts\\checks\\32b400a9-0c0a-4396-9a92-6d7a90a8307c.json",
+        "metadata": {
+          "ok": false,
+          "browserSkipped": true,
+          "options": {
+            "samples": 9,
+            "atTransitions": false,
+            "maxIssues": 80,
+            "collapseStatic": true,
+            "tolerance": 2,
+            "timeout": 3000,
+            "contrast": true,
+            "strict": false,
+            "snapshots": false,
+            "browserGpuMode": "auto"
+          }
+        },
+        "createdAt": 1792903734106,
+        "contentHash": "6608540b5bd519bd859261ce27a7a44d2cdbab94a29f7d00b7c496ff31f763b7",
+        "revision": null,
+        "inputFingerprint": "a0e689af87ff28cbc10a8e73e03508dc5dff6fc099341af9feced52f844e72de",
+        "inputScope": "local-project-files",
+        "attribution": "unversioned"
+      }
+    ]
+  },
+  "snapshots": {
+    "latest": {
+      "revision": "8dddb403-a5ed-4e38-8f86-edd52451a228",
+      "id": "7ad2043a-3258-4bc6-a720-8b5bda9f3ca6-7"
+    },
+    "revisions": {
+      "807323f6-b6c4-4221-a1e7-53f083a7e207": [
+        {
+          "scope": "full",
+          "id": "abcbcbfd-cff9-4c63-8d25-353c5f9788cb-0",
+          "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\ep01_snap\\frame-00-at-0.3s.png",
+          "time": 0.3,
+          "metadata": {
+            "width": 1080,
+            "height": 1920,
+            "zoomScale": 1,
+            "browserGpuMode": "auto",
+            "warnings": [],
+            "partial": false
+          },
+          "createdAt": 1792903853987,
+          "contentHash": "19b52dcce1a26e57f2455df34d60e2c09dd3363e39c36144777c406c003c2931",
+          "revision": "807323f6-b6c4-4221-a1e7-53f083a7e207",
+          "inputFingerprint": "e95f867e794594ca5edf26d22df4fc2d82ea2f9cedcd9841778cd35babf22532",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        },
+        {
+          "scope": "full",
+          "id": "abcbcbfd-cff9-4c63-8d25-353c5f9788cb-1",
+          "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\ep01_snap\\frame-01-at-6s.png",
+          "time": 6,
+          "metadata": {
+            "width": 1080,
+            "height": 1920,
+            "zoomScale": 1,
+            "browserGpuMode": "auto",
+            "warnings": [],
+            "partial": false
+          },
+          "createdAt": 1792903853987,
+          "contentHash": "4cc04d3a30b87b9e2a26129b35a40c44e2c6c2b45562de8ce3810b597b03cf67",
+          "revision": "807323f6-b6c4-4221-a1e7-53f083a7e207",
+          "inputFingerprint": "e95f867e794594ca5edf26d22df4fc2d82ea2f9cedcd9841778cd35babf22532",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        },
+        {
+          "scope": "full",
+          "id": "abcbcbfd-cff9-4c63-8d25-353c5f9788cb-2",
+          "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\ep01_snap\\frame-02-at-14s.png",
+          "time": 14,
+          "metadata": {
+            "width": 1080,
+            "height": 1920,
+            "zoomScale": 1,
+            "browserGpuMode": "auto",
+            "warnings": [],
+            "partial": false
+          },
+          "createdAt": 1792903853987,
+          "contentHash": "88009d7831e9535d1e5d2a8c19e3d77c1c1f2c981a64237567ac1fd2bd9715ca",
+          "revision": "807323f6-b6c4-4221-a1e7-53f083a7e207",
+          "inputFingerprint": "e95f867e794594ca5edf26d22df4fc2d82ea2f9cedcd9841778cd35babf22532",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        },
+        {
+          "scope": "full",
+          "id": "abcbcbfd-cff9-4c63-8d25-353c5f9788cb-3",
+          "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\ep01_snap\\frame-03-at-27s.png",
+          "time": 27,
+          "metadata": {
+            "width": 1080,
+            "height": 1920,
+            "zoomScale": 1,
+            "browserGpuMode": "auto",
+            "warnings": [],
+            "partial": false
+          },
+          "createdAt": 1792903853987,
+          "contentHash": "e884604903646b2eaf3d5746e28190a50c759f8a9424cc39fc0a42ce0538e4ae",
+          "revision": "807323f6-b6c4-4221-a1e7-53f083a7e207",
+          "inputFingerprint": "e95f867e794594ca5edf26d22df4fc2d82ea2f9cedcd9841778cd35babf22532",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        },
+        {
+          "scope": "full",
+          "id": "abcbcbfd-cff9-4c63-8d25-353c5f9788cb-4",
+          "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\ep01_snap\\frame-04-at-33s.png",
+          "time": 33,
+          "metadata": {
+            "width": 1080,
+            "height": 1920,
+            "zoomScale": 1,
+            "browserGpuMode": "auto",
+            "warnings": [],
+            "partial": false
+          },
+          "createdAt": 1792903853987,
+          "contentHash": "02a5a5d54b3a5ed06df417c9d919611f70af03914351125de8541d267ccd4283",
+          "revision": "807323f6-b6c4-4221-a1e7-53f083a7e207",
+          "inputFingerprint": "e95f867e794594ca5edf26d22df4fc2d82ea2f9cedcd9841778cd35babf22532",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        },
+        {
+          "scope": "full",
+          "id": "abcbcbfd-cff9-4c63-8d25-353c5f9788cb-5",
+          "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\ep01_snap\\frame-05-at-40s.png",
+          "time": 40,
+          "metadata": {
+            "width": 1080,
+            "height": 1920,
+            "zoomScale": 1,
+            "browserGpuMode": "auto",
+            "warnings": [],
+            "partial": false
+          },
+          "createdAt": 1792903853988,
+          "contentHash": "f1547850acb4f0de4e120be2dc4069564f2bbd7e3c49fb1def86f13e319df009",
+          "revision": "807323f6-b6c4-4221-a1e7-53f083a7e207",
+          "inputFingerprint": "e95f867e794594ca5edf26d22df4fc2d82ea2f9cedcd9841778cd35babf22532",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        },
+        {
+          "scope": "full",
+          "id": "abcbcbfd-cff9-4c63-8d25-353c5f9788cb-6",
+          "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\ep01_snap\\frame-06-at-47s.png",
+          "time": 47,
+          "metadata": {
+            "width": 1080,
+            "height": 1920,
+            "zoomScale": 1,
+            "browserGpuMode": "auto",
+            "warnings": [],
+            "partial": false
+          },
+          "createdAt": 1792903853989,
+          "contentHash": "bfb9e500bf3000b9636ff47c7645ef86601dfd09a2f40aa8d66632b328d1cd06",
+          "revision": "807323f6-b6c4-4221-a1e7-53f083a7e207",
+          "inputFingerprint": "e95f867e794594ca5edf26d22df4fc2d82ea2f9cedcd9841778cd35babf22532",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        },
+        {
+          "scope": "full",
+          "id": "abcbcbfd-cff9-4c63-8d25-353c5f9788cb-7",
+          "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\ep01_snap\\frame-07-at-55s.png",
+          "time": 55,
+          "metadata": {
+            "width": 1080,
+            "height": 1920,
+            "zoomScale": 1,
+            "browserGpuMode": "auto",
+            "warnings": [],
+            "partial": false
+          },
+          "createdAt": 1792903853991,
+          "contentHash": "4884672a48fe84ff045bf70e393641017101d3fee523db369e2361bd2738cbc8",
+          "revision": "807323f6-b6c4-4221-a1e7-53f083a7e207",
+          "inputFingerprint": "e95f867e794594ca5edf26d22df4fc2d82ea2f9cedcd9841778cd35babf22532",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        },
+        {
+          "scope": "full",
+          "id": "abcbcbfd-cff9-4c63-8d25-353c5f9788cb-8",
+          "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\ep01_snap\\frame-08-at-68s.png",
+          "time": 68,
+          "metadata": {
+            "width": 1080,
+            "height": 1920,
+            "zoomScale": 1,
+            "browserGpuMode": "auto",
+            "warnings": [],
+            "partial": false
+          },
+          "createdAt": 1792903853993,
+          "contentHash": "954b6cb023faf06d96c101a25fd15b5ad6d5cf2bd382300e950b0fd7c90df710",
+          "revision": "807323f6-b6c4-4221-a1e7-53f083a7e207",
+          "inputFingerprint": "e95f867e794594ca5edf26d22df4fc2d82ea2f9cedcd9841778cd35babf22532",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        },
+        {
+          "scope": "full",
+          "id": "abcbcbfd-cff9-4c63-8d25-353c5f9788cb-9",
+          "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\ep01_snap\\frame-09-at-74s.png",
+          "time": 74,
+          "metadata": {
+            "width": 1080,
+            "height": 1920,
+            "zoomScale": 1,
+            "browserGpuMode": "auto",
+            "warnings": [],
+            "partial": false
+          },
+          "createdAt": 1792903853994,
+          "contentHash": "3541888b0c6075480ae10fb979268660467ab898d55db86f5e77e18ab80bfa70",
+          "revision": "807323f6-b6c4-4221-a1e7-53f083a7e207",
+          "inputFingerprint": "e95f867e794594ca5edf26d22df4fc2d82ea2f9cedcd9841778cd35babf22532",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        },
+        {
+          "scope": "full",
+          "id": "abcbcbfd-cff9-4c63-8d25-353c5f9788cb-10",
+          "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\ep01_snap\\frame-10-at-84s.png",
+          "time": 84,
+          "metadata": {
+            "width": 1080,
+            "height": 1920,
+            "zoomScale": 1,
+            "browserGpuMode": "auto",
+            "warnings": [],
+            "partial": false
+          },
+          "createdAt": 1792903853995,
+          "contentHash": "dd60e50b0a3cb0e6253ff4bd0ce255616ea34a775314b22917084aaa8d8fee50",
+          "revision": "807323f6-b6c4-4221-a1e7-53f083a7e207",
+          "inputFingerprint": "e95f867e794594ca5edf26d22df4fc2d82ea2f9cedcd9841778cd35babf22532",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        },
+        {
+          "scope": "full",
+          "id": "abcbcbfd-cff9-4c63-8d25-353c5f9788cb-11",
+          "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\ep01_snap\\frame-11-at-96s.png",
+          "time": 96,
+          "metadata": {
+            "width": 1080,
+            "height": 1920,
+            "zoomScale": 1,
+            "browserGpuMode": "auto",
+            "warnings": [],
+            "partial": false
+          },
+          "createdAt": 1792903853997,
+          "contentHash": "7f6806f08b3a4221b8705b0b581032532028adc6a7255bac4feae76f22321492",
+          "revision": "807323f6-b6c4-4221-a1e7-53f083a7e207",
+          "inputFingerprint": "e95f867e794594ca5edf26d22df4fc2d82ea2f9cedcd9841778cd35babf22532",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        },
+        {
+          "scope": "full",
+          "id": "abcbcbfd-cff9-4c63-8d25-353c5f9788cb-12",
+          "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\ep01_snap\\frame-12-at-106s.png",
+          "time": 106,
+          "metadata": {
+            "width": 1080,
+            "height": 1920,
+            "zoomScale": 1,
+            "browserGpuMode": "auto",
+            "warnings": [],
+            "partial": false
+          },
+          "createdAt": 1792903853999,
+          "contentHash": "4f38b8e62a01fc53b7e4c71ab305bc7403bdeda9a177f59d8fe9372d2294cd55",
+          "revision": "807323f6-b6c4-4221-a1e7-53f083a7e207",
+          "inputFingerprint": "e95f867e794594ca5edf26d22df4fc2d82ea2f9cedcd9841778cd35babf22532",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        }
+      ],
+      "0e742080-51dd-4a4e-99d9-7de369a13e0e": [
+        {
+          "scope": "full",
+          "id": "ec657f83-34d9-4eed-9c88-700df9c9af47-0",
+          "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\ep01_snap2\\frame-00-at-27s.png",
+          "time": 27,
+          "metadata": {
+            "width": 1080,
+            "height": 1920,
+            "zoomScale": 1,
+            "browserGpuMode": "auto",
+            "warnings": [],
+            "partial": false
+          },
+          "createdAt": 1792903895214,
+          "contentHash": "521556b94fa2810f9c05bfa29f445a2828c49c29c408404d1b98c0c163253b67",
+          "revision": "0e742080-51dd-4a4e-99d9-7de369a13e0e",
+          "inputFingerprint": "1f4543c4ccd9055e7b978ee4aa168a73d281e830c3110000347d51799125641f",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        },
+        {
+          "scope": "full",
+          "id": "ec657f83-34d9-4eed-9c88-700df9c9af47-1",
+          "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\ep01_snap2\\frame-01-at-34s.png",
+          "time": 34,
+          "metadata": {
+            "width": 1080,
+            "height": 1920,
+            "zoomScale": 1,
+            "browserGpuMode": "auto",
+            "warnings": [],
+            "partial": false
+          },
+          "createdAt": 1792903895216,
+          "contentHash": "98f4a3356b8b366dd0ca546982a1d344196f5e7d9b834aefbbca3bfbce922732",
+          "revision": "0e742080-51dd-4a4e-99d9-7de369a13e0e",
+          "inputFingerprint": "1f4543c4ccd9055e7b978ee4aa168a73d281e830c3110000347d51799125641f",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        },
+        {
+          "scope": "full",
+          "id": "ec657f83-34d9-4eed-9c88-700df9c9af47-2",
+          "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\ep01_snap2\\frame-02-at-82s.png",
+          "time": 82,
+          "metadata": {
+            "width": 1080,
+            "height": 1920,
+            "zoomScale": 1,
+            "browserGpuMode": "auto",
+            "warnings": [],
+            "partial": false
+          },
+          "createdAt": 1792903895218,
+          "contentHash": "6b9a1a5b1fb970072e1d9e686582ac0ab528d259ccbb37e8c71e40f87b0f0e4d",
+          "revision": "0e742080-51dd-4a4e-99d9-7de369a13e0e",
+          "inputFingerprint": "1f4543c4ccd9055e7b978ee4aa168a73d281e830c3110000347d51799125641f",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        },
+        {
+          "scope": "full",
+          "id": "ec657f83-34d9-4eed-9c88-700df9c9af47-3",
+          "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\ep01_snap2\\frame-03-at-84s.png",
+          "time": 84,
+          "metadata": {
+            "width": 1080,
+            "height": 1920,
+            "zoomScale": 1,
+            "browserGpuMode": "auto",
+            "warnings": [],
+            "partial": false
+          },
+          "createdAt": 1792903895223,
+          "contentHash": "ba3117c97e8efeea6cf711f3795cbc3caf4c9766e9cbf14e3b2eb0b70b2b747c",
+          "revision": "0e742080-51dd-4a4e-99d9-7de369a13e0e",
+          "inputFingerprint": "1f4543c4ccd9055e7b978ee4aa168a73d281e830c3110000347d51799125641f",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        }
+      ],
+      "8dddb403-a5ed-4e38-8f86-edd52451a228": [
+        {
+          "scope": "full",
+          "id": "7ad2043a-3258-4bc6-a720-8b5bda9f3ca6-0",
+          "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\safe_ep01_poisoned_bottles\\frame-00-at-0s.png",
+          "time": 0,
+          "metadata": {
+            "width": 1080,
+            "height": 1920,
+            "zoomScale": 1,
+            "browserGpuMode": "auto",
+            "warnings": [],
+            "partial": false
+          },
+          "createdAt": 1792955884528,
+          "contentHash": "51b602dad29d036bb2b5d95c8063bc64cdbddfcef51d0e0f95d4d8a76f6f753c",
+          "revision": "8dddb403-a5ed-4e38-8f86-edd52451a228",
+          "inputFingerprint": "bb829832898113c35bde31a3679a53cf968001c58fb331450b055fd4d5b944cb",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        },
+        {
+          "scope": "full",
+          "id": "7ad2043a-3258-4bc6-a720-8b5bda9f3ca6-1",
+          "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\safe_ep01_poisoned_bottles\\frame-01-at-15.358s.png",
+          "time": 15.358,
+          "metadata": {
+            "width": 1080,
+            "height": 1920,
+            "zoomScale": 1,
+            "browserGpuMode": "auto",
+            "warnings": [],
+            "partial": false
+          },
+          "createdAt": 1792955884530,
+          "contentHash": "a7e65e380c20b144860c1cc473bb53282287d5397e30c6184c23b885a6155613",
+          "revision": "8dddb403-a5ed-4e38-8f86-edd52451a228",
+          "inputFingerprint": "bb829832898113c35bde31a3679a53cf968001c58fb331450b055fd4d5b944cb",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        },
+        {
+          "scope": "full",
+          "id": "7ad2043a-3258-4bc6-a720-8b5bda9f3ca6-2",
+          "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\safe_ep01_poisoned_bottles\\frame-02-at-30.715s.png",
+          "time": 30.715,
+          "metadata": {
+            "width": 1080,
+            "height": 1920,
+            "zoomScale": 1,
+            "browserGpuMode": "auto",
+            "warnings": [],
+            "partial": false
+          },
+          "createdAt": 1792955884531,
+          "contentHash": "94577bf29db1a124c57df0bafb8364c35958527ba71801471e3cac93587816e4",
+          "revision": "8dddb403-a5ed-4e38-8f86-edd52451a228",
+          "inputFingerprint": "bb829832898113c35bde31a3679a53cf968001c58fb331450b055fd4d5b944cb",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        },
+        {
+          "scope": "full",
+          "id": "7ad2043a-3258-4bc6-a720-8b5bda9f3ca6-3",
+          "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\safe_ep01_poisoned_bottles\\frame-03-at-46.073s.png",
+          "time": 46.073,
+          "metadata": {
+            "width": 1080,
+            "height": 1920,
+            "zoomScale": 1,
+            "browserGpuMode": "auto",
+            "warnings": [],
+            "partial": false
+          },
+          "createdAt": 1792955884532,
+          "contentHash": "ae96fe9f6912e8b4cec69899c4b0248651ce625a18e6b4be406fca309361e670",
+          "revision": "8dddb403-a5ed-4e38-8f86-edd52451a228",
+          "inputFingerprint": "bb829832898113c35bde31a3679a53cf968001c58fb331450b055fd4d5b944cb",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        },
+        {
+          "scope": "full",
+          "id": "7ad2043a-3258-4bc6-a720-8b5bda9f3ca6-4",
+          "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\safe_ep01_poisoned_bottles\\frame-04-at-61.43s.png",
+          "time": 61.43,
+          "metadata": {
+            "width": 1080,
+            "height": 1920,
+            "zoomScale": 1,
+            "browserGpuMode": "auto",
+            "warnings": [],
+            "partial": false
+          },
+          "createdAt": 1792955884533,
+          "contentHash": "3ac4ed33a0b4b9ecd3aa359d81e9af4001ba95c91f8f5e19f5b733884c3a24c0",
+          "revision": "8dddb403-a5ed-4e38-8f86-edd52451a228",
+          "inputFingerprint": "bb829832898113c35bde31a3679a53cf968001c58fb331450b055fd4d5b944cb",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        },
+        {
+          "scope": "full",
+          "id": "7ad2043a-3258-4bc6-a720-8b5bda9f3ca6-5",
+          "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\safe_ep01_poisoned_bottles\\frame-05-at-76.788s.png",
+          "time": 76.788,
+          "metadata": {
+            "width": 1080,
+            "height": 1920,
+            "zoomScale": 1,
+            "browserGpuMode": "auto",
+            "warnings": [],
+            "partial": false
+          },
+          "createdAt": 1792955884534,
+          "contentHash": "75fbe27623f0b55c837e7a86392a2f7d3cc32b2b3d9710e3ca33e91aafe250eb",
+          "revision": "8dddb403-a5ed-4e38-8f86-edd52451a228",
+          "inputFingerprint": "bb829832898113c35bde31a3679a53cf968001c58fb331450b055fd4d5b944cb",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        },
+        {
+          "scope": "full",
+          "id": "7ad2043a-3258-4bc6-a720-8b5bda9f3ca6-6",
+          "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\safe_ep01_poisoned_bottles\\frame-06-at-92.145s.png",
+          "time": 92.145,
+          "metadata": {
+            "width": 1080,
+            "height": 1920,
+            "zoomScale": 1,
+            "browserGpuMode": "auto",
+            "warnings": [],
+            "partial": false
+          },
+          "createdAt": 1792955884535,
+          "contentHash": "ba19fab8ae01f55be904496e9f5e99ac052845a9d5a26af263b9bb6eff5c65fe",
+          "revision": "8dddb403-a5ed-4e38-8f86-edd52451a228",
+          "inputFingerprint": "bb829832898113c35bde31a3679a53cf968001c58fb331450b055fd4d5b944cb",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        },
+        {
+          "scope": "full",
+          "id": "7ad2043a-3258-4bc6-a720-8b5bda9f3ca6-7",
+          "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\safe_ep01_poisoned_bottles\\frame-07-at-107.503s.png",
+          "time": 107.503,
+          "metadata": {
+            "width": 1080,
+            "height": 1920,
+            "zoomScale": 1,
+            "browserGpuMode": "auto",
+            "warnings": [],
+            "partial": false
+          },
+          "createdAt": 1792955884537,
+          "contentHash": "4f38b8e62a01fc53b7e4c71ab305bc7403bdeda9a177f59d8fe9372d2294cd55",
+          "revision": "8dddb403-a5ed-4e38-8f86-edd52451a228",
+          "inputFingerprint": "bb829832898113c35bde31a3679a53cf968001c58fb331450b055fd4d5b944cb",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        }
+      ]
+    },
+    "unversioned": []
+  },
+  "renders": {
+    "latest": {
+      "id": "1a58057c-6cbf-4163-989c-40cfd6763a65",
+      "completedAt": 1792956054667,
+      "output": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\puzzles\\ep01_poisoned_bottles\\renders\\ep01_poisoned_bottles.mp4",
+      "status": "completed",
+      "revision": "7bb9bd96-f728-47a5-bad0-9c6b36337b0e"
+    },
+    "retainedRevisions": [
+      "7bb9bd96-f728-47a5-bad0-9c6b36337b0e",
+      "f5377629-0afd-445a-bfdf-a57c3646e032"
+    ]
+  },
+  "pendingArtifactCleanup": []
+}

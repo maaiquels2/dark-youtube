@@ -1,0 +1,54 @@
+{
+  "version": 1,
+  "historyId": "41221c1d-697e-4361-bd82-8d1d69541672",
+  "currentRevision": null,
+  "pendingChanges": false,
+  "files": {
+    "assets/timing.json": {
+      "hash": "a79187d24b9a95e2d05aa2c1b81526ec32f8bf4e53d1b7eb68b5bd59263742ab",
+      "content": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\41221c1d-697e-4361-bd82-8d1d69541672\\blobs\\a7\\a79187d24b9a95e2d05aa2c1b81526ec32f8bf4e53d1b7eb68b5bd59263742ab"
+    },
+    "hyperframes.json": {
+      "hash": "c7a3009d23e471acfb1ca9ec252ea16a0ca4dfe55e3b3b9d7089c8f0764f4a43",
+      "content": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\41221c1d-697e-4361-bd82-8d1d69541672\\blobs\\c7\\c7a3009d23e471acfb1ca9ec252ea16a0ca4dfe55e3b3b9d7089c8f0764f4a43"
+    },
+    "index.html": {
+      "hash": "026d977ceee1571b39d1b96ba4fea33e39816bafe67ba252bac06bda02aa8519",
+      "content": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\41221c1d-697e-4361-bd82-8d1d69541672\\blobs\\02\\026d977ceee1571b39d1b96ba4fea33e39816bafe67ba252bac06bda02aa8519"
+    },
+    "package.json": {
+      "hash": "62e06a160ef29576126dcb469b1c829edd88fcdfe4de9453eb4269d3836f2608",
+      "content": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\41221c1d-697e-4361-bd82-8d1d69541672\\blobs\\62\\62e06a160ef29576126dcb469b1c829edd88fcdfe4de9453eb4269d3836f2608"
+    },
+    "scene.js": {
+      "hash": "5f07cf6e1bd3a2e7212daf938bc56e233c884e860783f603987a1306cbba280a",
+      "content": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\41221c1d-697e-4361-bd82-8d1d69541672\\blobs\\5f\\5f07cf6e1bd3a2e7212daf938bc56e233c884e860783f603987a1306cbba280a"
+    },
+    "assets/voice.mp3": {
+      "hash": "3020e3a5c8f71c54707dc1d7a0601b7abe0a0f75585e1b9e89c9dc17faf6bbd5",
+      "content": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\41221c1d-697e-4361-bd82-8d1d69541672\\blobs\\30\\3020e3a5c8f71c54707dc1d7a0601b7abe0a0f75585e1b9e89c9dc17faf6bbd5"
+    }
+  },
+  "revisions": {},
+  "checks": {
+    "latest": null,
+    "revisions": {},
+    "unversioned": []
+  },
+  "snapshots": {
+    "latest": null,
+    "revisions": {},
+    "unversioned": []
+  },
+  "renders": {
+    "latest": {
+      "id": "f172e064-86e1-40bc-9259-5ce0212cc1b7",
+      "completedAt": 1792959410861,
+      "output": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\puzzles\\_wide\\ep04_josephus\\renders\\ep04_josephus.mp4",
+      "status": "completed",
+      "revision": null
+    },
+    "retainedRevisions": []
+  },
+  "pendingArtifactCleanup": []
+}

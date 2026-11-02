@@ -1,0 +1,86 @@
+[
+ {
+  "out": "C:/Users/Admin/Documents/Codex/2026-09-10/Dark YouTube/scamlaw/ep02_zelle/assets/img/lights_off.jpg",
+  "prompt": "a dark city apartment living room with all the lights off at dusk, only a smartphone glowing on the coffee table, 2023, United States, documentary photograph, 35mm, shallow depth of field, moody low-key lighting, realistic, no text, no logos, no watermark, screens blurred and unreadable, no faces visible",
+  "seed": 61,
+  "w": 864,
+  "h": 1536
+ },
+ {
+  "out": "C:/Users/Admin/Documents/Codex/2026-09-10/Dark YouTube/scamlaw/ep02_zelle/assets/img/meter.jpg",
+  "prompt": "an old electric meter mounted on a brick wall of a New York apartment building at dusk, close-up, no readable numbers, 2023, United States, documentary photograph, 35mm, shallow depth of field, moody low-key lighting, realistic, no text, no logos, no watermark, screens blurred and unreadable, no faces visible",
+  "seed": 62,
+  "w": 864,
+  "h": 1536
+ },
+ {
+  "out": "C:/Users/Admin/Documents/Codex/2026-09-10/Dark YouTube/scamlaw/ep02_zelle/assets/img/wallet_phone.jpg",
+  "prompt": "a leather wallet and a smartphone side by side on a kitchen table, a hand reaching for the phone, warm lamp light, 2023, United States, documentary photograph, 35mm, shallow depth of field, moody low-key lighting, realistic, no text, no logos, no watermark, screens blurred and unreadable, no faces visible",
+  "seed": 63,
+  "w": 864,
+  "h": 1536
+ },
+ {
+  "out": "C:/Users/Admin/Documents/Codex/2026-09-10/Dark YouTube/scamlaw/ep02_zelle/assets/img/clock.jpg",
+  "prompt": "a simple wall clock in a dim kitchen at night, a smartphone lying on the counter in the foreground out of focus, clock face without numbers, 2023, United States, documentary photograph, 35mm, shallow depth of field, moody low-key lighting, realistic, no text, no logos, no watermark, screens blurred and unreadable, no faces visible",
+  "seed": 64,
+  "w": 864,
+  "h": 1536
+ },
+ {
+  "out": "C:/Users/Admin/Documents/Codex/2026-09-10/Dark YouTube/scamlaw/ep02_zelle/assets/img/headsets.jpg",
+  "prompt": "a row of cheap call-center headsets lying on a cluttered desk in a dim room, tangled cables, closed blinds, no people, 2023, United States, documentary photograph, 35mm, shallow depth of field, moody low-key lighting, realistic, no text, no logos, no watermark, screens blurred and unreadable, no faces visible",
+  "seed": 65,
+  "w": 864,
+  "h": 1536
+ },
+ {
+  "out": "C:/Users/Admin/Documents/Codex/2026-09-10/Dark YouTube/scamlaw/ep02_zelle/assets/img/bank_lobby.jpg",
+  "prompt": "the empty lobby of a generic American bank at night, marble floor, teller counter, soft overhead lights, no signage, no lettering, 2023, United States, documentary photograph, 35mm, shallow depth of field, moody low-key lighting, realistic, no text, no logos, no watermark, screens blurred and unreadable, no faces visible",
+  "seed": 66,
+  "w": 864,
+  "h": 1536
+ },
+ {
+  "out": "C:/Users/Admin/Documents/Codex/2026-09-10/Dark YouTube/scamlaw/ep02_zelle/assets/img/courtroom.jpg",
+  "prompt": "an empty wood-paneled courtroom in New York, rows of benches, judge's bench in the distance, daylight through tall windows, 2023, United States, documentary photograph, 35mm, shallow depth of field, moody low-key lighting, realistic, no text, no logos, no watermark, screens blurred and unreadable, no faces visible",
+  "seed": 67,
+  "w": 864,
+  "h": 1536
+ },
+ {
+  "out": "C:/Users/Admin/Documents/Codex/2026-09-10/Dark YouTube/scamlaw/ep02_zelle/assets/img/uk_phone.jpg",
+  "prompt": "a hand holding a smartphone at a rainy London bus stop, blurred red bus passing in the background, raindrops on the shelter glass, 2023, United States, documentary photograph, 35mm, shallow depth of field, moody low-key lighting, realistic, no text, no logos, no watermark, screens blurred and unreadable, no faces visible",
+  "seed": 68,
+  "w": 864,
+  "h": 1536
+ },
+ {
+  "out": "C:/Users/Admin/Documents/Codex/2026-09-10/Dark YouTube/scamlaw/ep02_zelle/assets/img/senate_hall.jpg",
+  "prompt": "a long marble corridor of a U.S. Senate office building, tall doors, polished floor, distant blurred figures, 2023, United States, documentary photograph, 35mm, shallow depth of field, moody low-key lighting, realistic, no text, no logos, no watermark, screens blurred and unreadable, no faces visible",
+  "seed": 69,
+  "w": 864,
+  "h": 1536
+ },
+ {
+  "out": "C:/Users/Admin/Documents/Codex/2026-09-10/Dark YouTube/scamlaw/ep02_zelle/assets/img/law_books.jpg",
+  "prompt": "shelves of old leather-bound law books in a dim law library, a reading lamp glowing, 2023, United States, documentary photograph, 35mm, shallow depth of field, moody low-key lighting, realistic, no text, no logos, no watermark, screens blurred and unreadable, no faces visible",
+  "seed": 70,
+  "w": 864,
+  "h": 1536
+ },
+ {
+  "out": "C:/Users/Admin/Documents/Codex/2026-09-10/Dark YouTube/scamlaw/ep02_zelle/assets/img/dial_phone.jpg",
+  "prompt": "close-up of a thumb dialing on a smartphone keypad, digits blurred and unreadable, dark kitchen, 2023, United States, documentary photograph, 35mm, shallow depth of field, moody low-key lighting, realistic, no text, no logos, no watermark, screens blurred and unreadable, no faces visible",
+  "seed": 71,
+  "w": 864,
+  "h": 1536
+ },
+ {
+  "out": "C:/Users/Admin/Documents/Codex/2026-09-10/Dark YouTube/scamlaw/ep02_zelle/assets/img/dispute_letter.jpg",
+  "prompt": "close-up of hands writing a letter with a pen on paper at a desk, a smartphone and an envelope nearby, words unreadable, 2023, United States, documentary photograph, 35mm, shallow depth of field, moody low-key lighting, realistic, no text, no logos, no watermark, screens blurred and unreadable, no faces visible",
+  "seed": 72,
+  "w": 864,
+  "h": 1536
+ }
+]

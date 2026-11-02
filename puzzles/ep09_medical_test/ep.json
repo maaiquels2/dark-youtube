@@ -1,0 +1,12 @@
+{
+  "title": "A 99% test says <span style=\"color:#d62828\">positive</span>.",
+  "keys": ["fifty", "ninety-nine", "rare", "false", "positive"],
+  "blocks": [
+    "A rare disease affects one person in a hundred. You take a test that is ninety-nine percent accurate, and it comes back positive. What's the chance you're actually sick? Most people say ninety-nine percent.",
+    "Here's what ninety-nine percent accurate means. If you're sick, the test catches it ninety-nine times out of a hundred. If you're healthy, it wrongly says positive only one time out of a hundred.",
+    "Picture a thousand people. One percent are sick, and that's ten people. The test catches nearly all of them, so about ten true positives.",
+    "Now the healthy ones. There are nine hundred ninety of them, and one percent get a false alarm. That's about ten more positives.",
+    "So about twenty people test positive. Ten are sick, and ten are healthy. If you test positive, your chance of being sick is about fifty percent. Not ninety-nine.",
+    "The test is accurate, but the disease is rare. When something is rare, even a small error rate makes as many false alarms as real cases. That's why a positive result is a reason to test again, not to panic."
+  ]
+}

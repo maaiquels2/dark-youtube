@@ -1,0 +1,29 @@
+{
+ "url": "https://www.theregister.com/2018/05/10/robocall_kingpin_120m/",
+ "captured": "2026-11-02",
+ "mark": "FCC sets a record|Published Thu 10 May 2018",
+ "box": [
+  262,
+  358,
+  2355,
+  101
+ ],
+ "boxes": [
+  [
+   262,
+   358,
+   2355,
+   101
+  ],
+  [
+   262,
+   691,
+   547,
+   32
+  ]
+ ],
+ "size": [
+  2880,
+  1800
+ ]
+}

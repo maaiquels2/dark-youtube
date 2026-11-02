@@ -1,0 +1,13 @@
+{
+  "title": "1,000 bottles. One is <span style=\"color:#d62828\">poison</span>.",
+  "keys": ["poisoned", "testers", "binary", "dead", "618", "1,024"],
+  "blocks": [
+    "One of these 1,000 bottles is poisoned. You have one hour to find it. How many testers do you need? The answer is smaller than you think.",
+    "Here are the rules. The poison kills in exactly one hour. You get one round of testing, and each tester can drink from as many bottles as you like. Whoever drinks the poisoned one dies at the hour mark.",
+    "The obvious plan is one tester per bottle. That's 1,000 testers. Too many. With a single tester, you can only split the bottles in two: the ones he drinks, and the ones he doesn't. If he dies, the poison is in the first half. If he lives, it's in the second.",
+    "Add a second tester and you get four groups. Three testers, eight groups. Every new tester doubles the groups. So ten testers? Two to the tenth. 1,024 groups. That's more than 1,000 bottles. Ten testers are enough.",
+    "Here's how. Give every bottle a number in binary, ten digits long. Bottle 618 is one-zero-zero-one-one-zero-one-zero-one-zero. Tester one drinks every bottle whose first digit is a one. Tester two drinks every bottle whose second digit is a one. And so on, ten testers, ten digits. After an hour, look at who died. Dead is a one. Alive is a zero.",
+    "Say testers one, four, five, seven and nine die. That spells one-zero-zero-one-one-zero-one-zero-one-zero. Convert it, and the poisoned bottle is number 618.",
+    "Every tester is one yes-or-no question, and ten yes-or-no questions are enough to pick one thing out of a thousand. So next time you need to find something fast, don't search one by one. Ask questions that cut the problem in half."
+  ]
+}

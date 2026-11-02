@@ -1,0 +1,50 @@
+{
+  "comp": "bigbang",
+  "out": "bigbang_lib",
+  "music": "library/music/incompetech/echoes-of-time-v2.mp3",
+  "music_gain": 0.22,
+  "blocks": [
+    {"scenes": [
+      {"t": "bang", "at": 0.8, "grid_at": "itself-0.5"}
+    ]},
+    {"cut": "whoosh", "scenes": [
+      {"t": "starfield", "until": "smaller+0.3"},
+      {"t": "impact_title", "at": "thirteen", "until": "smaller-0.3", "pop": 0.25, "lines": [
+        {"text": "13.8 BILLION", "size": 170, "y": 900, "color": [1, 0.93, 0.8], "track": 20, "scale": [80, 104, 118]},
+        {"text": "YEARS AGO", "size": 86, "y": 1010, "color": [1, 0.6, 0.25], "track": 300, "scale": [80, 100, 112]}
+      ]},
+      {"t": "dive_into", "at": "smaller-0.3", "hot": "hot-0.3", "until": "stretched"}
+    ]},
+    {"cut": "flash", "scenes": [
+      {"t": "impact_title", "at": "trillionth", "until": "stretched", "fade": [0.3, 0.2], "lines": [
+        {"text": "0.000 000 000 000 000 000 000 000 000 000 001", "size": 32, "y": 420, "color": [0.75, 0.9, 1], "font": "Inter"},
+        {"text": "SECONDS", "size": 64, "y": 510, "color": [0.75, 0.9, 1], "track": 400, "delay": 0.4}
+      ]},
+      {"t": "grid_expand", "at": "stretched"},
+      {"t": "impact_title", "at": "inflation", "until": "end+0.2", "fade": [0.15, 0.3], "lines": [
+        {"text": "INFLATION", "size": 200, "y": 1010, "color": [0.65, 0.88, 1], "track": 60, "scale": [150, 100, 92]}
+      ]}
+    ]},
+    {"cut": "whoosh", "scenes": [
+      {"t": "collide", "at": "fuse", "solo": {"text": "H", "at": "hydrogen"}, "label": {"text": "He", "at": "helium"}},
+      {"t": "counter", "at": 0.2, "reach": "fuse", "to": 180, "format": "clock", "label": "FIRST THREE MINUTES"}
+    ]},
+    {"scenes": [
+      {"t": "fog_clear", "at": "light", "electrons": "electrons", "light_until": "detect"},
+      {"t": "impact_title", "at": "start+0.4", "until": "electrons", "fade": [0.3, 0.3], "lines": [
+        {"text": "380,000 YEARS", "size": 150, "y": 980, "color": [1, 0.95, 0.85], "track": 30}
+      ]},
+      {"t": "oval_map", "at": "detect", "label": "COSMIC MICROWAVE BACKGROUND", "label_at": "cosmic"}
+    ]},
+    {"scenes": [
+      {"t": "clumps_stars", "at": "ignited", "image": "06_web.jpg", "image_at": "galaxies-0.3"}
+    ]},
+    {"scenes": [
+      {"t": "recede", "image": "07_stars.jpg", "redshift_at": "away", "center_label": "US"},
+      {"t": "impact_title", "at": "vend-0.4", "until": "dur", "fade": [0.15, 0.5], "sfx": {"k": "thud", "g": 0.7}, "lines": [
+        {"text": "STILL", "size": 120, "y": 860, "track": 200, "scale": [130, 100, 106]},
+        {"text": "EXPANDING", "size": 180, "y": 1060, "color": [1, 0.6, 0.35], "track": 40, "delay": 0.2, "scale": [130, 100, 112]}
+      ]}
+    ]}
+  ]
+}

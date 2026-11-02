@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=1920, height=1080" />
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 1920px; height: 1080px; overflow: hidden; background: #f4ecd8; }
+  #root { position: relative; width: 1920px; height: 1080px; overflow: hidden; background: #f4ecd8;
+    font-family: "JetBrains Mono", monospace; color: #1c1c1c; }
+  #cv { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; }
+  .t { position: absolute; left: 0; width: 1920px; text-align: center; font-weight: 700; }
+  #title { top: 26px; font-size: 52px; white-space: nowrap; }
+  #stat { top: 92px; font-size: 28px; opacity: .7; letter-spacing: 2px; }
+  #cap { top: 958px; left: 260px; width: 1400px; font-size: 52px; line-height: 62px; height: 124px; }
+  .g { position: absolute; left: 0; top: 0; width: 1400px; text-align: center; opacity: 0; }
+  .w { opacity: .22; }
+  .w.on { opacity: 1; }
+  .w.k.on { color: #d62828; }
+</style>
+</head>
+<body>
+<div id="root" data-composition-id="main" data-start="0" data-duration="77.658" data-width="1920" data-height="1080">
+  <canvas id="cv" class="clip" data-start="0" data-duration="77.658" width="1920" height="1080"></canvas>
+  <div id="title" class="clip t" data-start="0" data-duration="77.658">100 hats. How many <span style="color:#d62828">survive</span>?</div>
+  <div id="stat" class="clip t" data-start="0" data-duration="77.658"></div>
+  <div id="cap" class="clip t" data-start="0" data-duration="77.658"></div>
+  <audio id="voice" src="assets/voice.mp3" data-start="2.8" data-duration="77.658" data-volume="1"></audio>
+</div>
+<script>
+const LEAD = 2.8, CHAPTER = "PUZZLE 5 OF 6|100 hats", WORDS = [{"w": "A", "s": 2.8, "e": 2.904}, {"w": "hundred", "s": 2.974, "e": 3.23}, {"w": "prisoners", "s": 3.276, "e": 3.648}, {"w": "stand", "s": 3.682, "e": 3.891}, {"w": "in", "s": 3.938, "e": 3.984}, {"w": "a", "s": 4.031, "e": 4.054}, {"w": "line,", "s": 4.112, "e": 4.53}, {"w": "each", "s": 4.75, "e": 4.936}, {"w": "wearing", "s": 4.983, "e": 5.226}, {"w": "a", "s": 5.273, "e": 5.296}, {"w": "red", "s": 5.366, "e": 5.517}, {"w": "or", "s": 5.552, "e": 5.61}, {"w": "blue", "s": 5.656, "e": 5.853}, {"w": "hat.", "s": 5.9, "e": 6.271}, {"w": "Each", "s": 6.678, "e": 6.875}, {"w": "one", "s": 6.945, "e": 7.119}, {"w": "sees", "s": 7.154, "e": 7.34}, {"w": "only", "s": 7.386, "e": 7.548}, {"w": "the", "s": 7.595, "e": 7.665}, {"w": "hats", "s": 7.723, "e": 7.943}, {"w": "in", "s": 7.978, "e": 8.036}, {"w": "front", "s": 8.094, "e": 8.257}, {"w": "of", "s": 8.292, "e": 8.338}, {"w": "him.", "s": 8.384, "e": 8.617}, {"w": "From", "s": 9.023, "e": 9.197}, {"w": "the", "s": 9.244, "e": 9.313}, {"w": "back,", "s": 9.36, "e": 9.638}, {"w": "each", "s": 9.685, "e": 9.87}, {"w": "guesses", "s": 9.917, "e": 10.242}, {"w": "his", "s": 10.312, "e": 10.428}, {"w": "own", "s": 10.497, "e": 10.672}, {"w": "color,", "s": 10.741, "e": 11.217}, {"w": "and", "s": 11.438, "e": 11.577}, {"w": "a", "s": 11.635, "e": 11.67}, {"w": "wrong", "s": 11.74, "e": 12.03}, {"w": "guess", "s": 12.088, "e": 12.309}, {"w": "means", "s": 12.378, "e": 12.599}, {"w": "execution.", "s": 12.657, "e": 13.33}, {"w": "They", "s": 13.69, "e": 13.853}, {"w": "can", "s": 13.888, "e": 13.992}, {"w": "plan", "s": 14.05, "e": 14.247}, {"w": "together", "s": 14.294, "e": 14.619}, {"w": "first.", "s": 14.677, "e": 15.153}, {"w": "How", "s": 15.513, "e": 15.676}, {"w": "many", "s": 15.734, "e": 15.908}, {"w": "can", "s": 15.943, "e": 16.059}, {"w": "they", "s": 16.082, "e": 16.187}, {"w": "save", "s": 16.221, "e": 16.419}, {"w": "for", "s": 16.442, "e": 16.547}, {"w": "certain?", "s": 16.605, "e": 17.057}, {"w": "Here", "s": 17.464, "e": 17.65}, {"w": "are", "s": 17.684, "e": 17.789}, {"w": "the", "s": 17.824, "e": 17.893}, {"w": "rules.", "s": 17.951, "e": 18.393}, {"w": "They", "s": 18.462, "e": 18.636}, {"w": "agree", "s": 18.683, "e": 18.95}, {"w": "on", "s": 18.985, "e": 19.054}, {"w": "a", "s": 19.101, "e": 19.124}, {"w": "plan", "s": 19.182, "e": 19.379}, {"w": "in", "s": 19.437, "e": 19.507}, {"w": "advance.", "s": 19.565, "e": 20.122}, {"w": "Then,", "s": 20.378, "e": 20.633}, {"w": "starting", "s": 20.668, "e": 20.982}, {"w": "at", "s": 21.016, "e": 21.074}, {"w": "the", "s": 21.109, "e": 21.179}, {"w": "back,", "s": 21.225, "e": 21.632}, {"w": "each", "s": 21.794, "e": 21.992}, {"w": "prisoner", "s": 22.05, "e": 22.41}, {"w": "says", "s": 22.479, "e": 22.7}, {"w": "one", "s": 22.804, "e": 23.037}, {"w": "word,", "s": 23.071, "e": 23.42}, {"w": "red", "s": 23.582, "e": 23.745}, {"w": "or", "s": 23.791, "e": 23.872}, {"w": "blue,", "s": 23.919, "e": 24.198}, {"w": "out", "s": 24.232, "e": 24.372}, {"w": "loud,", "s": 24.418, "e": 24.836}, {"w": "and", "s": 24.975, "e": 25.15}, {"w": "everyone", "s": 25.208, "e": 25.544}, {"w": "hears", "s": 25.579, "e": 25.811}, {"w": "it.", "s": 25.858, "e": 26.032}, {"w": "Start", "s": 26.438, "e": 26.705}, {"w": "with", "s": 26.74, "e": 26.868}, {"w": "just", "s": 26.914, "e": 27.077}, {"w": "two", "s": 27.112, "e": 27.263}, {"w": "prisoners.", "s": 27.332, "e": 27.982}, {"w": "The", "s": 28.284, "e": 28.412}, {"w": "one", "s": 28.482, "e": 28.61}, {"w": "in", "s": 28.645, "e": 28.703}, {"w": "back", "s": 28.772, "e": 28.993}, {"w": "says", "s": 29.051, "e": 29.214}, {"w": "the", "s": 29.248, "e": 29.318}, {"w": "color", "s": 29.376, "e": 29.597}, {"w": "of", "s": 29.632, "e": 29.678}, {"w": "the", "s": 29.713, "e": 29.782}, {"w": "hat", "s": 29.84, "e": 30.026}, {"w": "in", "s": 30.073, "e": 30.142}, {"w": "front", "s": 30.189, "e": 30.351}, {"w": "of", "s": 30.386, "e": 30.444}, {"w": "him.", "s": 30.491, "e": 30.758}, {"w": "The", "s": 31.118, "e": 31.245}, {"w": "prisoner", "s": 31.315, "e": 31.745}, {"w": "in", "s": 31.814, "e": 31.907}, {"w": "front", "s": 31.988, "e": 32.221}, {"w": "hears", "s": 32.279, "e": 32.534}, {"w": "it", "s": 32.592, "e": 32.697}, {"w": "and", "s": 32.801, "e": 32.975}, {"w": "knows", "s": 33.022, "e": 33.231}, {"w": "his", "s": 33.277, "e": 33.37}, {"w": "own", "s": 33.416, "e": 33.556}, {"w": "hat.", "s": 33.614, "e": 33.985}, {"w": "So", "s": 34.287, "e": 34.426}, {"w": "one", "s": 34.484, "e": 34.612}, {"w": "is", "s": 34.647, "e": 34.717}, {"w": "saved", "s": 34.775, "e": 35.042}, {"w": "for", "s": 35.065, "e": 35.169}, {"w": "sure,", "s": 35.228, "e": 35.692}, {"w": "and", "s": 35.889, "e": 36.04}, {"w": "the", "s": 36.087, "e": 36.156}, {"w": "other", "s": 36.226, "e": 36.412}, {"w": "is", "s": 36.47, "e": 36.563}, {"w": "a", "s": 36.609, "e": 36.644}, {"w": "coin", "s": 36.714, "e": 36.957}, {"w": "flip.", "s": 37.015, "e": 37.364}, {"w": "For", "s": 37.724, "e": 37.909}, {"w": "a", "s": 37.967, "e": 38.002}, {"w": "hundred,", "s": 38.084, "e": 38.467}, {"w": "the", "s": 38.49, "e": 38.571}, {"w": "prisoner", "s": 38.618, "e": 38.966}, {"w": "at", "s": 39.024, "e": 39.094}, {"w": "the", "s": 39.14, "e": 39.21}, {"w": "back", "s": 39.268, "e": 39.477}, {"w": "counts", "s": 39.546, "e": 39.802}, {"w": "the", "s": 39.86, "e": 39.93}, {"w": "red", "s": 39.988, "e": 40.127}, {"w": "hats", "s": 40.185, "e": 40.417}, {"w": "he", "s": 40.464, "e": 40.533}, {"w": "sees.", "s": 40.591, "e": 41.067}, {"w": "If", "s": 41.473, "e": 41.601}, {"w": "the", "s": 41.647, "e": 41.717}, {"w": "number", "s": 41.775, "e": 42.007}, {"w": "is", "s": 42.065, "e": 42.147}, {"w": "even,", "s": 42.216, "e": 42.588}, {"w": "he", "s": 42.657, "e": 42.739}, {"w": "says", "s": 42.797, "e": 42.994}, {"w": "red.", "s": 43.099, "e": 43.505}, {"w": "If", "s": 43.807, "e": 43.935}, {"w": "it's", "s": 43.993, "e": 44.12}, {"w": "odd,", "s": 44.19, "e": 44.55}, {"w": "he", "s": 44.585, "e": 44.643}, {"w": "says", "s": 44.701, "e": 44.898}, {"w": "blue.", "s": 44.968, "e": 45.455}, {"w": "That", "s": 45.862, "e": 46.048}, {"w": "word", "s": 46.094, "e": 46.257}, {"w": "is", "s": 46.303, "e": 46.373}, {"w": "not", "s": 46.442, "e": 46.616}, {"w": "a", "s": 46.651, "e": 46.675}, {"w": "guess", "s": 46.733, "e": 46.93}, {"w": "about", "s": 46.965, "e": 47.151}, {"w": "his", "s": 47.185, "e": 47.267}, {"w": "hat.", "s": 47.313, "e": 47.638}, {"w": "It's", "s": 47.661, "e": 47.847}, {"w": "a", "s": 47.882, "e": 47.905}, {"w": "code.", "s": 47.975, "e": 48.439}, {"w": "The", "s": 48.846, "e": 48.962}, {"w": "next", "s": 49.031, "e": 49.24}, {"w": "prisoner", "s": 49.298, "e": 49.647}, {"w": "hears", "s": 49.705, "e": 49.914}, {"w": "the", "s": 49.972, "e": 50.041}, {"w": "code", "s": 50.088, "e": 50.332}, {"w": "and", "s": 50.355, "e": 50.425}, {"w": "counts", "s": 50.471, "e": 50.703}, {"w": "the", "s": 50.761, "e": 50.831}, {"w": "red", "s": 50.889, "e": 51.04}, {"w": "hats", "s": 51.098, "e": 51.307}, {"w": "he", "s": 51.353, "e": 51.411}, {"w": "sees.", "s": 51.481, "e": 51.934}, {"w": "If", "s": 52.34, "e": 52.468}, {"w": "the", "s": 52.514, "e": 52.584}, {"w": "parity", "s": 52.642, "e": 52.979}, {"w": "matches", "s": 53.037, "e": 53.35}, {"w": "the", "s": 53.397, "e": 53.466}, {"w": "code,", "s": 53.524, "e": 53.989}, {"w": "his", "s": 54.291, "e": 54.442}, {"w": "own", "s": 54.511, "e": 54.732}, {"w": "hat", "s": 54.79, "e": 54.941}, {"w": "is", "s": 54.987, "e": 55.069}, {"w": "blue.", "s": 55.127, "e": 55.556}, {"w": "If", "s": 55.916, "e": 56.044}, {"w": "it", "s": 56.114, "e": 56.183}, {"w": "doesn't,", "s": 56.241, "e": 56.659}, {"w": "it's", "s": 56.706, "e": 56.892}, {"w": "red.", "s": 56.996, "e": 57.414}, {"w": "He", "s": 57.82, "e": 57.96}, {"w": "says", "s": 58.029, "e": 58.308}, {"w": "it,", "s": 58.378, "e": 58.529}, {"w": "and", "s": 58.563, "e": 58.726}, {"w": "everyone", "s": 58.83, "e": 59.306}, {"w": "behind", "s": 59.341, "e": 59.701}, {"w": "updates", "s": 59.782, "e": 60.154}, {"w": "the", "s": 60.189, "e": 60.258}, {"w": "count.", "s": 60.316, "e": 60.723}, {"w": "Each", "s": 61.129, "e": 61.373}, {"w": "prisoner", "s": 61.443, "e": 61.861}, {"w": "repeats", "s": 61.942, "e": 62.279}, {"w": "the", "s": 62.337, "e": 62.406}, {"w": "same", "s": 62.453, "e": 62.685}, {"w": "step.", "s": 62.708, "e": 63.103}, {"w": "Everyone", "s": 63.66, "e": 64.09}, {"w": "except", "s": 64.125, "e": 64.392}, {"w": "the", "s": 64.426, "e": 64.496}, {"w": "first", "s": 64.566, "e": 64.844}, {"w": "is", "s": 64.902, "e": 64.984}, {"w": "saved.", "s": 65.03, "e": 65.518}, {"w": "Ninety-nine", "s": 65.924, "e": 66.563}, {"w": "for", "s": 66.609, "e": 66.725}, {"w": "sure,", "s": 66.783, "e": 67.248}, {"w": "and", "s": 67.41, "e": 67.561}, {"w": "the", "s": 67.608, "e": 67.677}, {"w": "first", "s": 67.747, "e": 68.025}, {"w": "has", "s": 68.072, "e": 68.223}, {"w": "a", "s": 68.269, "e": 68.304}, {"w": "fifty-fifty", "s": 68.385, "e": 69.059}, {"w": "chance.", "s": 69.117, "e": 69.686}, {"w": "The", "s": 70.092, "e": 70.22}, {"w": "whole", "s": 70.278, "e": 70.51}, {"w": "trick", "s": 70.545, "e": 70.765}, {"w": "is", "s": 70.812, "e": 70.905}, {"w": "one", "s": 71.009, "e": 71.242}, {"w": "bit", "s": 71.276, "e": 71.404}, {"w": "of", "s": 71.439, "e": 71.497}, {"w": "information,", "s": 71.543, "e": 72.252}, {"w": "passed", "s": 72.449, "e": 72.751}, {"w": "down", "s": 72.774, "e": 72.925}, {"w": "the", "s": 72.96, "e": 73.029}, {"w": "line.", "s": 73.076, "e": 73.436}, {"w": "It's", "s": 73.912, "e": 74.109}, {"w": "the", "s": 74.167, "e": 74.248}, {"w": "same", "s": 74.318, "e": 74.585}, {"w": "idea", "s": 74.632, "e": 74.933}, {"w": "as", "s": 74.98, "e": 75.061}, {"w": "the", "s": 75.108, "e": 75.177}, {"w": "binary", "s": 75.235, "e": 75.711}, {"w": "in", "s": 75.758, "e": 75.816}, {"w": "the", "s": 75.851, "e": 75.92}, {"w": "poisoned", "s": 75.967, "e": 76.338}, {"w": "bottles.", "s": 76.362, "e": 77.058}], B = [2.8, 17.464, 26.438, 37.724, 48.846, 63.66, 77.358], VEND = 77.058, DUR = 77.658, NB = B.length - 1;
+const KEYS = new Set(["ninety-nine", "parity", "bit", "code", "one"]);
+const INK = "#1c1c1c", RED = "#d62828", OR = "#e07a00", GRN = "#2a9d5c", DOT = "#4a4a4a";
+const clamp = v => Math.max(0, Math.min(1, v));
+const ease = v => { v = clamp(v); return v * v * (3 - 2 * v); };
+const bit = (i, k) => (i >> k) & 1;
+const cvs = document.getElementById("cv"), x = cvs.getContext("2d");
+const stat = document.getElementById("stat"), cap = document.getElementById("cap");
+const FONT = "'JetBrains Mono', monospace";
+function txt(s, px, py, size, col, align, weight) {
+  x.font = (weight || "bold") + " " + Math.round(size * 1.12) + "px " + FONT; x.fillStyle = col || INK;
+  x.textAlign = align || "center"; x.textBaseline = "middle"; x.fillText(s, px, py);
+}
+function circ(cx, cy, r, fill, stroke, lw, alpha) {
+  x.globalAlpha = alpha == null ? 1 : alpha; x.beginPath(); x.arc(cx, cy, r, 0, 6.283);
+  if (fill) { x.fillStyle = fill; x.fill(); } if (stroke) { x.strokeStyle = stroke; x.lineWidth = lw || 4; x.stroke(); }
+  x.globalAlpha = 1;
+}
+function rect(px, py, w, h, fill, stroke, lw, alpha) {
+  x.globalAlpha = alpha == null ? 1 : alpha;
+  if (fill) { x.fillStyle = fill; x.fillRect(px, py, w, h); }
+  if (stroke) { x.strokeStyle = stroke; x.lineWidth = lw || 4; x.strokeRect(px, py, w, h); }
+  x.globalAlpha = 1;
+}
+function line(x1, y1, x2, y2, col, lw, alpha) {
+  x.globalAlpha = alpha == null ? 1 : alpha; x.strokeStyle = col || INK; x.lineWidth = lw || 3;
+  x.beginPath(); x.moveTo(x1, y1); x.lineTo(x2, y2); x.stroke(); x.globalAlpha = 1;
+}
+function show(w) {
+  const m = w.match(/^((?:one|zero)(?:-(?:one|zero))+)([.,?!]*)$/i);
+  if (m) return m[1].toLowerCase().split("-").map(p => p === "one" ? 1 : 0).join("") + m[2];
+  return w;
+}
+const groups = []; {
+  let g = [];
+  const flush = () => { if (g.length) { groups.push(g); g = []; } };
+  WORDS.forEach((w, i) => {
+    const t = show(w.w);
+    if (g.length && (g.length >= 4 || g.map(o => show(o.w)).join(" ").length + t.length > 24)) flush();
+    g.push({ ...w, i, txt: t });
+    if (/[.?!]$/.test(w.w) || /,$/.test(w.w)) flush();
+  });
+  flush();
+}
+groups.forEach((g, gi) => {
+  const el = document.createElement("div"); el.className = "g"; el.id = "g" + gi;
+  g.forEach(w => {
+    const s = document.createElement("span");
+    s.className = "w" + (KEYS.has(w.txt.toLowerCase().replace(/[.,?!]/g, "")) ? " k" : "");
+    s.textContent = w.txt + " "; w.el = s; el.appendChild(s);
+  });
+  cap.appendChild(el); g.el = el;
+  g.start = g[0].s - 0.05; g.end = DUR;
+});
+groups.forEach((g, gi) => { if (gi + 1 < groups.length) g.end = Math.min(g[g.length - 1].e + 0.25, groups[gi + 1][0].s - 0.05); });
+function blockOf(t) { let b = 0; for (let i = 0; i < NB; i++) if (t >= B[i]) b = i; return b; }
+
+const HAT = [0, 1, 1, 0, 1, 0, 0, 1, 0, 1], BLU = "#1f5fbf";   // 1 = red; index 0 = back of the line
+const HX = i => 110 + i * 96, HY = 640;
+const REDS_AHEAD = HAT.slice(1).reduce((s, v) => s + v, 0), CODE = REDS_AHEAD % 2;   // 1 = odd
+function person(i, st, hide) {
+  const x0 = HX(i);
+  circ(x0, HY, 30, "#e8dcbc", st === "ok" ? GRN : st === "back" ? OR : INK, 5);
+  line(x0, HY + 30, x0, HY + 120, INK, 5);
+  if (!hide) { x.fillStyle = HAT[i] ? RED : BLU; x.fillRect(x0 - 26, HY - 62, 52, 28); }
+  else { txt("?", x0, HY - 46, 34, INK); }
+}
+function line10(sts, hideBack) { for (let i = 0; i < 10; i++) person(i, sts[i] || "", false); }
+function deduce(p) {          // what prisoner p announces, using the code and the answers already heard
+  const seen = HAT.slice(p + 1).reduce((s, v) => s + v, 0), heard = HAT.slice(1, p).reduce((s, v) => s + v, 0);
+  const remaining = (CODE - heard % 2 + 2) % 2;
+  return { seen, red: ((remaining - seen % 2) + 2) % 2 === 1 };
+}
+function scene(t, b, u) {
+  if (b === 0) { line10({ 0: "back" }); txt("each sees only the hats ahead", 540, 900, 40, INK); return u < 0.5 ? "100 PRISONERS · RED OR BLUE" : "HOW MANY CAN BE SAVED FOR SURE?"; }
+  if (b === 1) { line10({ 0: "back" }); txt("1 word each, heard by everyone", 540, 900, 44, INK); return "PLAN FIRST, THEN SPEAK"; }
+  if (b === 2) {
+    [0, 1].forEach((i, k) => { const x0 = 330 + k * 420; circ(x0, 600, 50, "#e8dcbc", INK, 6); line(x0, 650, x0, 790, INK, 6); x.fillStyle = HAT[i] ? RED : BLU; x.fillRect(x0 - 44, 520, 88, 40); });
+    if (u > 0.35) txt("\"" + (HAT[1] ? "red" : "blue") + "\"", 330, 900, 56, HAT[1] ? RED : BLU);
+    if (u > 0.7) { txt("my hat is " + (HAT[1] ? "red" : "blue") + "!", 750, 900, 44, GRN); }
+    return "2 PRISONERS: 1 SAVED FOR SURE";
+  }
+  if (b === 3) {
+    line10({ 0: "back" });
+    txt("reds ahead: " + REDS_AHEAD + (REDS_AHEAD % 2 ? " (odd)" : " (even)"), 540, 900, 44, INK);
+    if (u > 0.5) txt("says \"" + (CODE ? "blue" : "red") + "\"  (a code)", 540, 990, 52, OR);
+    return "THE BACK PRISONER SAYS PARITY";
+  }
+  if (b === 4) {
+    const p = Math.min(9, 1 + Math.floor(u * 9)), st = { 0: "back" };
+    for (let i = 1; i < p; i++) st[i] = "ok"; st[p] = "back";
+    line10(st); const d = deduce(p);
+    txt("prisoner " + (p + 1) + " sees " + d.seen + " red", 540, 900, 44, INK);
+    txt("code + answers heard → mine is " + (d.red ? "red" : "blue"), 540, 980, 38, d.red ? RED : BLU);
+    return "EACH ONE UPDATES THE COUNT";
+  }
+  const st = { 0: "back" }; for (let i = 1; i < 10; i++) st[i] = "ok";
+  line10(st); txt("99 saved for sure", 540, 900, 70, GRN); txt("the first: 50 / 50", 540, 1000, 44, OR);
+  return "ONE BIT, PASSED DOWN THE LINE";
+}
+
+
+function renderAt(t) {
+  x.fillStyle = "#f4ecd8"; x.fillRect(0, 0, 1920, 1080);
+  x.strokeStyle = "rgba(60,90,140,0.16)"; x.lineWidth = 2;
+  for (let g = 0; g <= 1920; g += 40) { x.beginPath(); x.moveTo(g, 0); x.lineTo(g, 1080); x.stroke(); }
+  for (let g = 0; g <= 1080; g += 40) { x.beginPath(); x.moveTo(0, g); x.lineTo(1920, g); x.stroke(); }
+  const b = blockOf(t), u = clamp((t - B[b]) / (B[b + 1] - B[b]));
+  if (t < LEAD) {
+    stat.textContent = ""; x.textAlign = "center"; x.textBaseline = "middle";
+    x.fillStyle = RED; x.font = "bold 44px " + FONT; x.fillText(CHAPTER.split("|")[0], 960, 430);
+    x.fillStyle = INK; x.font = "bold 84px " + FONT; x.fillText(CHAPTER.split("|")[1], 960, 540);
+    groups.forEach(g => { g.el.style.opacity = 0; });
+    return;
+  }
+  x.save(); x.translate(463, -126); x.scale(0.92, 0.92);
+  stat.textContent = scene(t, b, u) || "";
+  x.restore();
+  groups.forEach(g => {
+    const on = t >= g.start && t < g.end;
+    g.el.style.opacity = on ? 1 : 0;
+    if (on) g.forEach(w => w.el.classList.toggle("on", t >= w.s));
+  });
+}
+window.addEventListener("hf-seek", e => renderAt(e.detail.time));
+renderAt(0);
+const tl = gsap.timeline({ paused: true });
+tl.fromTo("#title", { opacity: 0 }, { opacity: 1, duration: 0.5, ease: "power2.out" }, 0);
+window.__timelines = window.__timelines || {};
+window.__timelines["main"] = tl;
+</script>
+</body>
+</html>

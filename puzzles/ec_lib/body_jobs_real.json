@@ -1,0 +1,17 @@
+[
+ {"out": "C:/Users/Admin/Documents/Codex/2026-09-10/Dark YouTube/puzzles/ec_lib/body/real_r1_man_front.png",
+  "prompt": "Photorealistic medical 3D render of a real adult man standing, full body from head to feet, front view, relaxed natural pose, realistic human face and skin texture, wearing plain dark grey athletic shorts. His skin is semi-transparent on the chest and abdomen, revealing anatomically correct organs inside: heart, lungs, liver, stomach and intestines, softly glowing. Cinematic studio lighting, soft rim light, pure black background, subject centered with empty dark margin around it, ultra detailed, vertical 9:16 composition. No text, no letters, no labels, no watermark, no logo.",
+  "seed": 11},
+ {"out": "C:/Users/Admin/Documents/Codex/2026-09-10/Dark YouTube/puzzles/ec_lib/body/real_r2_woman_front.png",
+  "prompt": "Photorealistic medical 3D render of a real adult woman standing, full body from head to feet, front view, relaxed natural pose, realistic human face and skin texture, wearing a plain dark grey sports top and athletic shorts. Her skin is semi-transparent on the torso, revealing anatomically correct organs inside: heart, lungs, liver, stomach and intestines, softly glowing. Cinematic studio lighting, soft rim light, pure black background, subject centered with empty dark margin around it, ultra detailed, vertical 9:16 composition. No text, no letters, no labels, no watermark, no logo.",
+  "seed": 11},
+ {"out": "C:/Users/Admin/Documents/Codex/2026-09-10/Dark YouTube/puzzles/ec_lib/body/real_r3_man_torso.png",
+  "prompt": "Photorealistic close-up of a real adult man's upper body from the head to the waist, front view, realistic face looking at the camera, realistic skin. The skin of his chest and belly is semi-transparent like glass, showing his real internal organs in place: beating heart, lungs, liver, stomach, intestines, with fine blood vessels. Cinematic medical documentary look, warm key light, pure black background, subject centered, ultra detailed, vertical 9:16 composition. No text, no letters, no labels, no watermark, no logo.",
+  "seed": 11},
+ {"out": "C:/Users/Admin/Documents/Codex/2026-09-10/Dark YouTube/puzzles/ec_lib/body/real_r4_side_profile.png",
+  "prompt": "Photorealistic medical 3D render of a real adult man seen from the side in profile, full body from head to feet, standing, realistic face and skin, wearing plain dark grey athletic shorts. His skin is semi-transparent, revealing the brain, spine, heart, lungs and digestive organs inside, softly glowing. Cinematic studio lighting, pure black background, subject centered with empty dark margin around it, ultra detailed, vertical 9:16 composition. No text, no letters, no labels, no watermark, no logo.",
+  "seed": 11},
+ {"out": "C:/Users/Admin/Documents/Codex/2026-09-10/Dark YouTube/puzzles/ec_lib/body/real_r5_head_brain.png",
+  "prompt": "Photorealistic close-up portrait of a real adult person, head and shoulders, three-quarter view, realistic face and skin, the top and side of the head semi-transparent like glass revealing the real human brain inside with fine blood vessels, softly glowing. Cinematic medical documentary look, soft key light, pure black background, subject centered, ultra detailed, vertical 9:16 composition. No text, no letters, no labels, no watermark, no logo.",
+  "seed": 11}
+]

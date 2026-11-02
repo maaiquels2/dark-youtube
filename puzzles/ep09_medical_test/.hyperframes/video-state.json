@@ -1,0 +1,355 @@
+{
+  "version": 1,
+  "historyId": "206b7555-2d89-4236-b0bb-2c7fd245543a",
+  "currentRevision": "4d6579ea-7f86-4c03-b51b-57ca31c46e11",
+  "pendingChanges": false,
+  "files": {
+    "assets/timing.json": {
+      "hash": "c04a620934384f2a3922d2c137a6d065ec1e82f0fcdcf28d6ced91197865533a",
+      "content": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\206b7555-2d89-4236-b0bb-2c7fd245543a\\blobs\\c0\\c04a620934384f2a3922d2c137a6d065ec1e82f0fcdcf28d6ced91197865533a"
+    },
+    "assets/voice.mp3": {
+      "hash": "ab6d960cc71aee13e643738fdae1ee9feb290b7c99655d004b5ea885498257dc",
+      "content": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\206b7555-2d89-4236-b0bb-2c7fd245543a\\blobs\\ab\\ab6d960cc71aee13e643738fdae1ee9feb290b7c99655d004b5ea885498257dc"
+    },
+    "ep.json": {
+      "hash": "a697b5526eb234da81a48dfba009e387ae0b6e9af323f2743a05c198e31eac11",
+      "content": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\206b7555-2d89-4236-b0bb-2c7fd245543a\\blobs\\a6\\a697b5526eb234da81a48dfba009e387ae0b6e9af323f2743a05c198e31eac11"
+    },
+    "hyperframes.json": {
+      "hash": "c7a3009d23e471acfb1ca9ec252ea16a0ca4dfe55e3b3b9d7089c8f0764f4a43",
+      "content": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\206b7555-2d89-4236-b0bb-2c7fd245543a\\blobs\\c7\\c7a3009d23e471acfb1ca9ec252ea16a0ca4dfe55e3b3b9d7089c8f0764f4a43"
+    },
+    "index.html": {
+      "hash": "151f4291d41eb0424abd0823ee5bb2097890a5bcdb284de8ae9025ff00d535b4",
+      "content": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\206b7555-2d89-4236-b0bb-2c7fd245543a\\blobs\\15\\151f4291d41eb0424abd0823ee5bb2097890a5bcdb284de8ae9025ff00d535b4"
+    },
+    "package.json": {
+      "hash": "82567e3572c00ca9eef66b7b7f345dfb2ba54b2ebffcfdd209ec09921b724e94",
+      "content": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\206b7555-2d89-4236-b0bb-2c7fd245543a\\blobs\\82\\82567e3572c00ca9eef66b7b7f345dfb2ba54b2ebffcfdd209ec09921b724e94"
+    },
+    "scene.js": {
+      "hash": "9040f1273ba4af2bd67ca84f1edc0dc62c584e0ef73df73be0df25451c655c02",
+      "content": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\206b7555-2d89-4236-b0bb-2c7fd245543a\\blobs\\90\\9040f1273ba4af2bd67ca84f1edc0dc62c584e0ef73df73be0df25451c655c02"
+    }
+  },
+  "revisions": {
+    "4d6579ea-7f86-4c03-b51b-57ca31c46e11": {
+      "actor": {
+        "kind": "outside",
+        "name": "Outside"
+      },
+      "label": "Changed outside the app",
+      "startedAt": 1792970540779,
+      "endedAt": 1792970540800,
+      "files": {
+        "index.html": {
+          "before": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\206b7555-2d89-4236-b0bb-2c7fd245543a\\blobs\\ff\\ff66d727d24819d50266a39ee4a4c09add29c35feff2909d8efb19dda0a03a59",
+          "after": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\206b7555-2d89-4236-b0bb-2c7fd245543a\\blobs\\15\\151f4291d41eb0424abd0823ee5bb2097890a5bcdb284de8ae9025ff00d535b4"
+        },
+        "scene.js": {
+          "before": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\206b7555-2d89-4236-b0bb-2c7fd245543a\\blobs\\c5\\c5a868c357a171c6e25ccdeb7e68f8163b261622e4a18de958dc6c3d206173f3",
+          "after": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\206b7555-2d89-4236-b0bb-2c7fd245543a\\blobs\\90\\9040f1273ba4af2bd67ca84f1edc0dc62c584e0ef73df73be0df25451c655c02"
+        }
+      }
+    }
+  },
+  "checks": {
+    "latest": {
+      "revision": null,
+      "id": "d8918af2-8164-48cf-b5d6-35cf11b4c6ba"
+    },
+    "revisions": {},
+    "unversioned": [
+      {
+        "id": "d8918af2-8164-48cf-b5d6-35cf11b4c6ba",
+        "scope": "project",
+        "report": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\puzzles\\ep09_medical_test\\.hyperframes\\artifacts\\checks\\d8918af2-8164-48cf-b5d6-35cf11b4c6ba.json",
+        "metadata": {
+          "ok": true,
+          "browserSkipped": false,
+          "options": {
+            "samples": 9,
+            "atTransitions": false,
+            "maxIssues": 80,
+            "collapseStatic": true,
+            "tolerance": 2,
+            "timeout": 3000,
+            "contrast": true,
+            "strict": false,
+            "snapshots": false,
+            "browserGpuMode": "auto"
+          }
+        },
+        "createdAt": 1792969889368,
+        "contentHash": "f0c5380925d0772ee2327054e780a5edd8f3996507ae378d02d2c971634ee5f2",
+        "revision": null,
+        "inputFingerprint": "fe930e49affcf39e30485f08d273c33c8f383d11f3de05e384b90ac09a83ddb2",
+        "inputScope": "local-project-files",
+        "attribution": "unversioned"
+      }
+    ]
+  },
+  "snapshots": {
+    "latest": {
+      "revision": null,
+      "id": "b36e7e6b-97a3-49ac-86ab-48cc16740772-11"
+    },
+    "revisions": {},
+    "unversioned": [
+      {
+        "scope": "full",
+        "id": "b36e7e6b-97a3-49ac-86ab-48cc16740772-0",
+        "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\w2_ep09_medical_test\\frame-00-at-0s.png",
+        "time": 0,
+        "metadata": {
+          "width": 1080,
+          "height": 1920,
+          "zoomScale": 1,
+          "browserGpuMode": "auto",
+          "warnings": [],
+          "partial": false
+        },
+        "createdAt": 1792969896287,
+        "contentHash": "c45e812d8c6adc768f2cf98b137e28c67fc1e76ba6cc64c5e92ea1c3e0b1b777",
+        "revision": null,
+        "inputFingerprint": "fe930e49affcf39e30485f08d273c33c8f383d11f3de05e384b90ac09a83ddb2",
+        "inputScope": "local-project-files",
+        "attribution": "unversioned"
+      },
+      {
+        "scope": "full",
+        "id": "b36e7e6b-97a3-49ac-86ab-48cc16740772-1",
+        "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\w2_ep09_medical_test\\frame-01-at-5.919s.png",
+        "time": 5.919,
+        "metadata": {
+          "width": 1080,
+          "height": 1920,
+          "zoomScale": 1,
+          "browserGpuMode": "auto",
+          "warnings": [],
+          "partial": false
+        },
+        "createdAt": 1792969896287,
+        "contentHash": "581e8fb3f81e3908d02f60a9c7c0dd8dcd60c19753360f377baf9e29b23445bf",
+        "revision": null,
+        "inputFingerprint": "fe930e49affcf39e30485f08d273c33c8f383d11f3de05e384b90ac09a83ddb2",
+        "inputScope": "local-project-files",
+        "attribution": "unversioned"
+      },
+      {
+        "scope": "full",
+        "id": "b36e7e6b-97a3-49ac-86ab-48cc16740772-2",
+        "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\w2_ep09_medical_test\\frame-02-at-11.837s.png",
+        "time": 11.837,
+        "metadata": {
+          "width": 1080,
+          "height": 1920,
+          "zoomScale": 1,
+          "browserGpuMode": "auto",
+          "warnings": [],
+          "partial": false
+        },
+        "createdAt": 1792969896287,
+        "contentHash": "29811b416c170aaa8b4db44148a487c4993b519765e7a19def7c14865c25ab55",
+        "revision": null,
+        "inputFingerprint": "fe930e49affcf39e30485f08d273c33c8f383d11f3de05e384b90ac09a83ddb2",
+        "inputScope": "local-project-files",
+        "attribution": "unversioned"
+      },
+      {
+        "scope": "full",
+        "id": "b36e7e6b-97a3-49ac-86ab-48cc16740772-3",
+        "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\w2_ep09_medical_test\\frame-03-at-17.756s.png",
+        "time": 17.756,
+        "metadata": {
+          "width": 1080,
+          "height": 1920,
+          "zoomScale": 1,
+          "browserGpuMode": "auto",
+          "warnings": [],
+          "partial": false
+        },
+        "createdAt": 1792969896288,
+        "contentHash": "90217cdbefd41bd89c7489c201f78a130406041c7ea4f8fde29303e406abbf7d",
+        "revision": null,
+        "inputFingerprint": "fe930e49affcf39e30485f08d273c33c8f383d11f3de05e384b90ac09a83ddb2",
+        "inputScope": "local-project-files",
+        "attribution": "unversioned"
+      },
+      {
+        "scope": "full",
+        "id": "b36e7e6b-97a3-49ac-86ab-48cc16740772-4",
+        "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\w2_ep09_medical_test\\frame-04-at-23.674s.png",
+        "time": 23.674,
+        "metadata": {
+          "width": 1080,
+          "height": 1920,
+          "zoomScale": 1,
+          "browserGpuMode": "auto",
+          "warnings": [],
+          "partial": false
+        },
+        "createdAt": 1792969896288,
+        "contentHash": "45d91fd06bf8acc33180ac0d77b06211f2ef989e691c39dec69e26a5ab23118d",
+        "revision": null,
+        "inputFingerprint": "fe930e49affcf39e30485f08d273c33c8f383d11f3de05e384b90ac09a83ddb2",
+        "inputScope": "local-project-files",
+        "attribution": "unversioned"
+      },
+      {
+        "scope": "full",
+        "id": "b36e7e6b-97a3-49ac-86ab-48cc16740772-5",
+        "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\w2_ep09_medical_test\\frame-05-at-29.593s.png",
+        "time": 29.593,
+        "metadata": {
+          "width": 1080,
+          "height": 1920,
+          "zoomScale": 1,
+          "browserGpuMode": "auto",
+          "warnings": [],
+          "partial": false
+        },
+        "createdAt": 1792969896288,
+        "contentHash": "08c184c8235c330c09b20cebc11efd63f1dbd8933eb84c244792cb35ee638d32",
+        "revision": null,
+        "inputFingerprint": "fe930e49affcf39e30485f08d273c33c8f383d11f3de05e384b90ac09a83ddb2",
+        "inputScope": "local-project-files",
+        "attribution": "unversioned"
+      },
+      {
+        "scope": "full",
+        "id": "b36e7e6b-97a3-49ac-86ab-48cc16740772-6",
+        "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\w2_ep09_medical_test\\frame-06-at-35.511s.png",
+        "time": 35.511,
+        "metadata": {
+          "width": 1080,
+          "height": 1920,
+          "zoomScale": 1,
+          "browserGpuMode": "auto",
+          "warnings": [],
+          "partial": false
+        },
+        "createdAt": 1792969896289,
+        "contentHash": "74a897437369b1d15661ea59d141a0b98ee83f449a1700c8c9e65302d4026276",
+        "revision": null,
+        "inputFingerprint": "fe930e49affcf39e30485f08d273c33c8f383d11f3de05e384b90ac09a83ddb2",
+        "inputScope": "local-project-files",
+        "attribution": "unversioned"
+      },
+      {
+        "scope": "full",
+        "id": "b36e7e6b-97a3-49ac-86ab-48cc16740772-7",
+        "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\w2_ep09_medical_test\\frame-07-at-41.43s.png",
+        "time": 41.43,
+        "metadata": {
+          "width": 1080,
+          "height": 1920,
+          "zoomScale": 1,
+          "browserGpuMode": "auto",
+          "warnings": [],
+          "partial": false
+        },
+        "createdAt": 1792969896290,
+        "contentHash": "9aba6a2ea25068e9105a23257743ab2b2deffaa234603b8683a689b3867bec60",
+        "revision": null,
+        "inputFingerprint": "fe930e49affcf39e30485f08d273c33c8f383d11f3de05e384b90ac09a83ddb2",
+        "inputScope": "local-project-files",
+        "attribution": "unversioned"
+      },
+      {
+        "scope": "full",
+        "id": "b36e7e6b-97a3-49ac-86ab-48cc16740772-8",
+        "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\w2_ep09_medical_test\\frame-08-at-47.348s.png",
+        "time": 47.348,
+        "metadata": {
+          "width": 1080,
+          "height": 1920,
+          "zoomScale": 1,
+          "browserGpuMode": "auto",
+          "warnings": [],
+          "partial": false
+        },
+        "createdAt": 1792969896290,
+        "contentHash": "b5489bf8fc2261231a34713f13af84e309f582752a87c4828e5e560ebb4303ca",
+        "revision": null,
+        "inputFingerprint": "fe930e49affcf39e30485f08d273c33c8f383d11f3de05e384b90ac09a83ddb2",
+        "inputScope": "local-project-files",
+        "attribution": "unversioned"
+      },
+      {
+        "scope": "full",
+        "id": "b36e7e6b-97a3-49ac-86ab-48cc16740772-9",
+        "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\w2_ep09_medical_test\\frame-09-at-53.267s.png",
+        "time": 53.267,
+        "metadata": {
+          "width": 1080,
+          "height": 1920,
+          "zoomScale": 1,
+          "browserGpuMode": "auto",
+          "warnings": [],
+          "partial": false
+        },
+        "createdAt": 1792969896291,
+        "contentHash": "19e862ebc67d27fe823783ffacde6686e73cc1361c735735f1d891c97cc92d30",
+        "revision": null,
+        "inputFingerprint": "fe930e49affcf39e30485f08d273c33c8f383d11f3de05e384b90ac09a83ddb2",
+        "inputScope": "local-project-files",
+        "attribution": "unversioned"
+      },
+      {
+        "scope": "full",
+        "id": "b36e7e6b-97a3-49ac-86ab-48cc16740772-10",
+        "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\w2_ep09_medical_test\\frame-10-at-59.185s.png",
+        "time": 59.185,
+        "metadata": {
+          "width": 1080,
+          "height": 1920,
+          "zoomScale": 1,
+          "browserGpuMode": "auto",
+          "warnings": [],
+          "partial": false
+        },
+        "createdAt": 1792969896292,
+        "contentHash": "88188f17d6acebe70a2e72faf094352502f3d9ca3d300376360b67dd9e03bf54",
+        "revision": null,
+        "inputFingerprint": "fe930e49affcf39e30485f08d273c33c8f383d11f3de05e384b90ac09a83ddb2",
+        "inputScope": "local-project-files",
+        "attribution": "unversioned"
+      },
+      {
+        "scope": "full",
+        "id": "b36e7e6b-97a3-49ac-86ab-48cc16740772-11",
+        "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\w2_ep09_medical_test\\frame-11-at-65.104s.png",
+        "time": 65.104,
+        "metadata": {
+          "width": 1080,
+          "height": 1920,
+          "zoomScale": 1,
+          "browserGpuMode": "auto",
+          "warnings": [],
+          "partial": false
+        },
+        "createdAt": 1792969896293,
+        "contentHash": "4f38b8e62a01fc53b7e4c71ab305bc7403bdeda9a177f59d8fe9372d2294cd55",
+        "revision": null,
+        "inputFingerprint": "fe930e49affcf39e30485f08d273c33c8f383d11f3de05e384b90ac09a83ddb2",
+        "inputScope": "local-project-files",
+        "attribution": "unversioned"
+      }
+    ]
+  },
+  "renders": {
+    "latest": {
+      "id": "59ecd59f-f335-41b4-ae11-e6efd884e25d",
+      "completedAt": 1792970657533,
+      "output": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\puzzles\\ep09_medical_test\\renders\\ep09_medical_test.mp4",
+      "status": "completed",
+      "revision": "4d6579ea-7f86-4c03-b51b-57ca31c46e11"
+    },
+    "retainedRevisions": [
+      "4d6579ea-7f86-4c03-b51b-57ca31c46e11"
+    ]
+  },
+  "pendingArtifactCleanup": []
+}

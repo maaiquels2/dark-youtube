@@ -1,0 +1,21 @@
+<!doctype html><html><body style="margin:0;background:#000"><canvas id="c" width="1080" height="1920"></canvas>
+<script>
+const x=document.getElementById("c").getContext("2d"),img=new Image();img.src="../img/01_bang.png";
+const clamp=v=>Math.max(0,Math.min(1,v)),ease=v=>{v=clamp(v);return v*v*(3-2*v)},hash=n=>{const s=Math.sin(n*127.1+311.7)*43758.5453;return s-Math.floor(s)};
+const CX=540,CY=840;
+function draw(t){
+ const sh=Math.max(0,1-t/1.6),dx=Math.sin(t*63)*20*sh,dy=Math.cos(t*55)*14*sh;
+ x.setTransform(1,0,0,1,0,0);x.fillStyle="#000";x.fillRect(0,0,1080,1920);
+ x.save();x.translate(540+dx,960+dy);x.rotate(ease(t/6)*.035);const z=1.05+.35*ease(t/6);x.scale(z,z);
+ x.drawImage(img,-540,-960,1080,1920);
+ x.globalCompositeOperation="lighter";x.globalAlpha=.30+.10*Math.sin(t*9);x.scale(1.09,1.09);x.drawImage(img,-540,-960,1080,1920);x.restore();
+ x.save();x.globalCompositeOperation="lighter";
+ for(let k=0;k<4;k++){const p=clamp((t-.15-k*.7)/2.4);if(p<=0||p>=1)continue;x.strokeStyle=`rgba(255,200,130,${.55*(1-p)})`;x.lineWidth=10*(1-p)+2;x.shadowColor="#ffb060";x.shadowBlur=30;x.beginPath();x.arc(CX,CY,ease(p)*900,0,6.283);x.stroke()}
+ for(let i=0;i<160;i++){const a=hash(i)*6.283,sp=.3+hash(i+5)*1.2,ph=(hash(i+9)+t*.18*sp)%1,r=ph*ph*1100+20,len=14+ph*70;
+  x.strokeStyle=`rgba(255,${170+hash(i+3)*70|0},90,${.9*(1-ph)})`;x.lineWidth=1.5+2*(1-ph);x.beginPath();x.moveTo(CX+Math.cos(a)*(r-len),CY+Math.sin(a)*(r-len));x.lineTo(CX+Math.cos(a)*r,CY+Math.sin(a)*r);x.stroke()}
+ x.restore();
+ if(t<.7){const f=1-t/.7;const g=x.createRadialGradient(CX,CY,0,CX,CY,900);g.addColorStop(0,`rgba(255,255,255,${f})`);g.addColorStop(1,`rgba(255,200,120,${f*.5})`);x.fillStyle=g;x.fillRect(0,0,1080,1920);
+  const c=x.canvas;x.save();x.globalCompositeOperation="screen";x.globalAlpha=.4*f;x.drawImage(c,10*f*3,0);x.drawImage(c,-10*f*3,0);x.restore()}
+ const v=x.createRadialGradient(540,960,500,540,960,1250);v.addColorStop(0,"rgba(0,0,0,0)");v.addColorStop(1,"rgba(0,0,0,.65)");x.fillStyle=v;x.fillRect(0,0,1080,1920);
+}
+</script></body></html>

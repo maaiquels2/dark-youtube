@@ -1,0 +1,62 @@
+[
+ {
+  "out": "C:/Users/Admin/Documents/Codex/2026-09-10/Dark YouTube/puzzles/mounjaro/img/01_body_a.png",
+  "prompt": "A full human body seen from the front, translucent glowing wireframe, internal organs faintly visible (brain, stomach, pancreas), arms resting at the sides, the entire body from head to feet fits inside the frame. Medical hologram visualization, translucent glowing anatomy, cyan and teal light with warm amber accents, pure black background, subject centered with empty dark margin around it, clean, ultra detailed, vertical 9:16 composition. No text, no letters, no numbers, no labels, no watermark, no logo.",
+  "seed": 11
+ },
+ {
+  "out": "C:/Users/Admin/Documents/Codex/2026-09-10/Dark YouTube/puzzles/mounjaro/img/01_body_b.png",
+  "prompt": "A full human body seen from the front, translucent glowing wireframe, internal organs faintly visible (brain, stomach, pancreas), arms resting at the sides, the entire body from head to feet fits inside the frame. Medical hologram visualization, translucent glowing anatomy, cyan and teal light with warm amber accents, pure black background, subject centered with empty dark margin around it, clean, ultra detailed, vertical 9:16 composition. No text, no letters, no numbers, no labels, no watermark, no logo.",
+  "seed": 22
+ },
+ {
+  "out": "C:/Users/Admin/Documents/Codex/2026-09-10/Dark YouTube/puzzles/mounjaro/img/02_gut_a.png",
+  "prompt": "Extreme close-up of small intestine villi, finger-like glowing projections, with tiny bright particles being released from them. Medical hologram visualization, translucent glowing anatomy, cyan and teal light with warm amber accents, pure black background, subject centered with empty dark margin around it, clean, ultra detailed, vertical 9:16 composition. No text, no letters, no numbers, no labels, no watermark, no logo.",
+  "seed": 11
+ },
+ {
+  "out": "C:/Users/Admin/Documents/Codex/2026-09-10/Dark YouTube/puzzles/mounjaro/img/02_gut_b.png",
+  "prompt": "Extreme close-up of small intestine villi, finger-like glowing projections, with tiny bright particles being released from them. Medical hologram visualization, translucent glowing anatomy, cyan and teal light with warm amber accents, pure black background, subject centered with empty dark margin around it, clean, ultra detailed, vertical 9:16 composition. No text, no letters, no numbers, no labels, no watermark, no logo.",
+  "seed": 22
+ },
+ {
+  "out": "C:/Users/Admin/Documents/Codex/2026-09-10/Dark YouTube/puzzles/mounjaro/img/03_pancreas_a.png",
+  "prompt": "A human pancreas isolated, horizontal, in the center of the frame. Medical hologram visualization, translucent glowing anatomy, cyan and teal light with warm amber accents, pure black background, subject centered with empty dark margin around it, clean, ultra detailed, vertical 9:16 composition. No text, no letters, no numbers, no labels, no watermark, no logo.",
+  "seed": 11
+ },
+ {
+  "out": "C:/Users/Admin/Documents/Codex/2026-09-10/Dark YouTube/puzzles/mounjaro/img/03_pancreas_b.png",
+  "prompt": "A human pancreas isolated, horizontal, in the center of the frame. Medical hologram visualization, translucent glowing anatomy, cyan and teal light with warm amber accents, pure black background, subject centered with empty dark margin around it, clean, ultra detailed, vertical 9:16 composition. No text, no letters, no numbers, no labels, no watermark, no logo.",
+  "seed": 22
+ },
+ {
+  "out": "C:/Users/Admin/Documents/Codex/2026-09-10/Dark YouTube/puzzles/mounjaro/img/04_stomach_a.png",
+  "prompt": "A human stomach isolated, anatomically correct, with the outlet (pylorus) visible at the bottom right. Medical hologram visualization, translucent glowing anatomy, cyan and teal light with warm amber accents, pure black background, subject centered with empty dark margin around it, clean, ultra detailed, vertical 9:16 composition. No text, no letters, no numbers, no labels, no watermark, no logo.",
+  "seed": 11
+ },
+ {
+  "out": "C:/Users/Admin/Documents/Codex/2026-09-10/Dark YouTube/puzzles/mounjaro/img/04_stomach_b.png",
+  "prompt": "A human stomach isolated, anatomically correct, with the outlet (pylorus) visible at the bottom right. Medical hologram visualization, translucent glowing anatomy, cyan and teal light with warm amber accents, pure black background, subject centered with empty dark margin around it, clean, ultra detailed, vertical 9:16 composition. No text, no letters, no numbers, no labels, no watermark, no logo.",
+  "seed": 22
+ },
+ {
+  "out": "C:/Users/Admin/Documents/Codex/2026-09-10/Dark YouTube/puzzles/mounjaro/img/05_brain_a.png",
+  "prompt": "A human brain seen from the side, with the hypothalamus region (center, bottom) glowing bright orange. Medical hologram visualization, translucent glowing anatomy, cyan and teal light with warm amber accents, pure black background, subject centered with empty dark margin around it, clean, ultra detailed, vertical 9:16 composition. No text, no letters, no numbers, no labels, no watermark, no logo.",
+  "seed": 11
+ },
+ {
+  "out": "C:/Users/Admin/Documents/Codex/2026-09-10/Dark YouTube/puzzles/mounjaro/img/05_brain_b.png",
+  "prompt": "A human brain seen from the side, with the hypothalamus region (center, bottom) glowing bright orange. Medical hologram visualization, translucent glowing anatomy, cyan and teal light with warm amber accents, pure black background, subject centered with empty dark margin around it, clean, ultra detailed, vertical 9:16 composition. No text, no letters, no numbers, no labels, no watermark, no logo.",
+  "seed": 22
+ },
+ {
+  "out": "C:/Users/Admin/Documents/Codex/2026-09-10/Dark YouTube/puzzles/mounjaro/img/06_pen_a.png",
+  "prompt": "A modern generic injection pen in the style of an insulin pen, white and purple, unbranded, lying diagonally, studio lighting, realistic product photo on black background, centered with empty dark margin. No text, no letters, no numbers, no labels, no watermark, no logo.",
+  "seed": 11
+ },
+ {
+  "out": "C:/Users/Admin/Documents/Codex/2026-09-10/Dark YouTube/puzzles/mounjaro/img/06_pen_b.png",
+  "prompt": "A modern generic injection pen in the style of an insulin pen, white and purple, unbranded, lying diagonally, studio lighting, realistic product photo on black background, centered with empty dark margin. No text, no letters, no numbers, no labels, no watermark, no logo.",
+  "seed": 22
+ }
+]

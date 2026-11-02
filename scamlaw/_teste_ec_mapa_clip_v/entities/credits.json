@@ -1,0 +1,9 @@
+[
+ {
+  "file": "us_states.json",
+  "entity": "US state boundaries (us_map)",
+  "source_url": "https://www.census.gov/geographies/mapping-files/time-series/geo/cartographic-boundary.html",
+  "author": "U.S. Census Bureau (via library/maps/us-states.json)",
+  "license": "Public domain"
+ }
+]

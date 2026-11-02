@@ -1,0 +1,17 @@
+[
+ {
+  "out": "C:/Users/Admin/Documents/Codex/2026-09-10/Dark YouTube/puzzles/_mid_style/m1_3d_medical.png",
+  "prompt": "clean 3D medical animation still, like a professional pharmaceutical explainer, smooth glossy surfaces, soft studio lighting, shallow depth of field, deep blue background, a large round cell with small doorways opening on its surface, glowing golden sugar particles flowing from a blood vessel into the cell, small key-shaped insulin molecules docked on the cell surface, no faces, no characters, not childish, vertical 9:16 composition, empty space at the top. No text, no letters, no logo, no watermark.",
+  "seed": 11
+ },
+ {
+  "out": "C:/Users/Admin/Documents/Codex/2026-09-10/Dark YouTube/puzzles/_mid_style/m2_flat_vector.png",
+  "prompt": "modern flat vector infographic illustration for an adult science explainer channel, geometric shapes, limited palette of teal, navy and warm gold, subtle gradients, a large round cell with small doorways opening on its surface, glowing golden sugar particles flowing from a blood vessel into the cell, small key-shaped insulin molecules docked on the cell surface, no faces, no characters, not childish, vertical 9:16 composition, empty space at the top. No text, no letters, no logo, no watermark.",
+  "seed": 22
+ },
+ {
+  "out": "C:/Users/Admin/Documents/Codex/2026-09-10/Dark YouTube/puzzles/_mid_style/m3_soft_3d.png",
+  "prompt": "stylized soft 3D illustration, matte clay-like materials, rounded simplified shapes, warm cinematic lighting, dark teal background, a large round cell with small doorways opening on its surface, glowing golden sugar particles flowing from a blood vessel into the cell, small key-shaped insulin molecules docked on the cell surface, no faces, no characters, not childish, vertical 9:16 composition, empty space at the top. No text, no letters, no logo, no watermark.",
+  "seed": 33
+ }
+]

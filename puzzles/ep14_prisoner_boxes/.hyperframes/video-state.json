@@ -1,0 +1,58 @@
+{
+  "version": 1,
+  "historyId": "bf0f215a-fd5e-4c1c-836a-1eecf97cd543",
+  "currentRevision": null,
+  "pendingChanges": false,
+  "files": {
+    "assets/timing.json": {
+      "hash": "1ca0053d1e3b8211f3b3ccaab13ff50f51eb73d7fa5d7ee71232b0fdd87c15e4",
+      "content": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\bf0f215a-fd5e-4c1c-836a-1eecf97cd543\\blobs\\1c\\1ca0053d1e3b8211f3b3ccaab13ff50f51eb73d7fa5d7ee71232b0fdd87c15e4"
+    },
+    "assets/voice.mp3": {
+      "hash": "966dbc367cef608c3f123f80415c5e73161d26873349870bb200d1d3bf6598b8",
+      "content": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\bf0f215a-fd5e-4c1c-836a-1eecf97cd543\\blobs\\96\\966dbc367cef608c3f123f80415c5e73161d26873349870bb200d1d3bf6598b8"
+    },
+    "ep.json": {
+      "hash": "2067ed51267afa15baefc0d3963b7441d5aaebb5612f5eede26be09cf78230dd",
+      "content": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\bf0f215a-fd5e-4c1c-836a-1eecf97cd543\\blobs\\20\\2067ed51267afa15baefc0d3963b7441d5aaebb5612f5eede26be09cf78230dd"
+    },
+    "hyperframes.json": {
+      "hash": "c7a3009d23e471acfb1ca9ec252ea16a0ca4dfe55e3b3b9d7089c8f0764f4a43",
+      "content": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\bf0f215a-fd5e-4c1c-836a-1eecf97cd543\\blobs\\c7\\c7a3009d23e471acfb1ca9ec252ea16a0ca4dfe55e3b3b9d7089c8f0764f4a43"
+    },
+    "index.html": {
+      "hash": "077a167e3d017c375aacee2e4de4dea49f21e1caa152607d707cd4954c39452e",
+      "content": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\bf0f215a-fd5e-4c1c-836a-1eecf97cd543\\blobs\\07\\077a167e3d017c375aacee2e4de4dea49f21e1caa152607d707cd4954c39452e"
+    },
+    "package.json": {
+      "hash": "726c446e026300a687343c240ead6cf55842d8f197169b8efc0fbe3df864574e",
+      "content": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\bf0f215a-fd5e-4c1c-836a-1eecf97cd543\\blobs\\72\\726c446e026300a687343c240ead6cf55842d8f197169b8efc0fbe3df864574e"
+    },
+    "scene.js": {
+      "hash": "a50bce6bb1b4f898cfbcde93ccbb4ab29aa6357f8ff3315b727ac213e0617154",
+      "content": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\bf0f215a-fd5e-4c1c-836a-1eecf97cd543\\blobs\\a5\\a50bce6bb1b4f898cfbcde93ccbb4ab29aa6357f8ff3315b727ac213e0617154"
+    }
+  },
+  "revisions": {},
+  "checks": {
+    "latest": null,
+    "revisions": {},
+    "unversioned": []
+  },
+  "snapshots": {
+    "latest": null,
+    "revisions": {},
+    "unversioned": []
+  },
+  "renders": {
+    "latest": {
+      "id": "53468967-6e6f-4ead-90e6-bfb8ee30758d",
+      "completedAt": 1793063458090,
+      "output": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\puzzles\\ep14_prisoner_boxes\\renders\\ep14_prisoner_boxes.mp4",
+      "status": "completed",
+      "revision": null
+    },
+    "retainedRevisions": []
+  },
+  "pendingArtifactCleanup": []
+}

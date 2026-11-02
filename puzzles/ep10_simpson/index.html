@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=1080, height=1920" />
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 1080px; height: 1920px; overflow: hidden; background: #f4ecd8; }
+  #root { position: relative; width: 1080px; height: 1920px; overflow: hidden; background: #f4ecd8;
+    font-family: "JetBrains Mono", monospace; color: #1c1c1c; }
+  #cv { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; }
+  .t { position: absolute; left: 0; width: 1080px; text-align: center; font-weight: 700; }
+  #title { top: 292px; font-size: 46px; white-space: nowrap; }
+  #stat { top: 356px; font-size: 28px; opacity: .7; letter-spacing: 2px; }
+  #cap { top: 1124px; left: 120px; width: 840px; font-size: 50px; line-height: 60px; height: 120px; }
+  .g { position: absolute; left: 0; top: 0; width: 840px; text-align: center; opacity: 0; }
+  .w { opacity: .22; }
+  .w.on { opacity: 1; }
+  .w.k.on { color: #d62828; }
+  #end { position: absolute; inset: 0; background: #f4ecd8; opacity: 0; }
+  #end .a { position: absolute; left: 0; width: 1080px; text-align: center; font-weight: 700; }
+</style>
+</head>
+<body>
+<div id="root" data-composition-id="main" data-start="0" data-duration="70.909" data-width="1080" data-height="1920">
+  <canvas id="cv" class="clip" data-start="0" data-duration="70.909" width="1080" height="1920"></canvas>
+  <div id="title" class="clip t" data-start="0" data-duration="70.909">A beats B twice. B <span style="color:#d62828">wins</span>.</div>
+  <div id="stat" class="clip t" data-start="0" data-duration="70.909"></div>
+  <div id="cap" class="clip t" data-start="0" data-duration="70.909"></div>
+  <div id="end" class="clip" data-start="0" data-duration="70.909">
+    <div class="a" style="top:700px;font-size:96px;">Show Your Work</div>
+    <div class="a" style="top:850px;font-size:40px;opacity:.7;">one puzzle at a time</div>
+    <div class="a" style="top:1000px;font-size:44px;color:#d62828;">Follow for the next one</div>
+  </div>
+  <audio id="voice" src="assets/voice.mp3" data-start="0" data-duration="70.909" data-volume="1"></audio>
+</div>
+<script>
+const WORDS = [{"w": "Two", "s": 0.0, "e": 0.221}, {"w": "treatments", "s": 0.279, "e": 0.662}, {"w": "for", "s": 0.697, "e": 0.801}, {"w": "kidney", "s": 0.859, "e": 1.138}, {"w": "stones.", "s": 1.173, "e": 1.695}, {"w": "Treatment", "s": 1.997, "e": 2.415}, {"w": "A", "s": 2.485, "e": 2.589}, {"w": "beats", "s": 2.752, "e": 2.995}, {"w": "Treatment", "s": 3.042, "e": 3.448}, {"w": "B", "s": 3.518, "e": 3.657}, {"w": "for", "s": 3.855, "e": 3.971}, {"w": "small", "s": 4.029, "e": 4.307}, {"w": "stones,", "s": 4.365, "e": 4.923}, {"w": "and", "s": 5.062, "e": 5.213}, {"w": "A", "s": 5.283, "e": 5.364}, {"w": "beats", "s": 5.468, "e": 5.689}, {"w": "B", "s": 5.735, "e": 5.84}, {"w": "for", "s": 5.979, "e": 6.084}, {"w": "large", "s": 6.142, "e": 6.374}, {"w": "stones.", "s": 6.397, "e": 6.861}, {"w": "But", "s": 7.163, "e": 7.314}, {"w": "when", "s": 7.338, "e": 7.454}, {"w": "you", "s": 7.488, "e": 7.57}, {"w": "add", "s": 7.651, "e": 7.848}, {"w": "everyone", "s": 7.895, "e": 8.255}, {"w": "up,", "s": 8.29, "e": 8.475}, {"w": "B", "s": 8.51, "e": 8.626}, {"w": "wins.", "s": 8.766, "e": 9.3}, {"w": "How", "s": 9.462, "e": 9.648}, {"w": "is", "s": 9.706, "e": 9.787}, {"w": "that", "s": 9.834, "e": 9.961}, {"w": "possible?", "s": 10.031, "e": 10.681}, {"w": "Here's", "s": 11.088, "e": 11.366}, {"w": "the", "s": 11.401, "e": 11.471}, {"w": "real", "s": 11.54, "e": 11.714}, {"w": "data", "s": 11.773, "e": 11.993}, {"w": "from", "s": 12.04, "e": 12.167}, {"w": "a", "s": 12.214, "e": 12.249}, {"w": "famous", "s": 12.307, "e": 12.608}, {"w": "study.", "s": 12.643, "e": 13.096}, {"w": "For", "s": 13.398, "e": 13.549}, {"w": "small", "s": 13.607, "e": 13.908}, {"w": "stones,", "s": 13.966, "e": 14.466}, {"w": "A", "s": 14.524, "e": 14.744}, {"w": "cured", "s": 14.907, "e": 15.232}, {"w": "ninety-three", "s": 15.313, "e": 15.789}, {"w": "percent", "s": 15.824, "e": 16.08}, {"w": "of", "s": 16.114, "e": 16.161}, {"w": "patients", "s": 16.207, "e": 16.625}, {"w": "and", "s": 16.764, "e": 16.915}, {"w": "B", "s": 16.985, "e": 17.055}, {"w": "cured", "s": 17.194, "e": 17.426}, {"w": "eighty-seven.", "s": 17.496, "e": 18.193}, {"w": "For", "s": 18.552, "e": 18.703}, {"w": "large", "s": 18.773, "e": 19.052}, {"w": "stones,", "s": 19.075, "e": 19.504}, {"w": "A", "s": 19.562, "e": 19.725}, {"w": "cured", "s": 19.888, "e": 20.201}, {"w": "seventy-three", "s": 20.271, "e": 20.77}, {"w": "percent", "s": 20.816, "e": 21.176}, {"w": "and", "s": 21.281, "e": 21.455}, {"w": "B", "s": 21.513, "e": 21.583}, {"w": "cured", "s": 21.722, "e": 21.966}, {"w": "sixty-nine.", "s": 22.024, "e": 22.744}, {"w": "Now", "s": 23.15, "e": 23.324}, {"w": "add", "s": 23.405, "e": 23.591}, {"w": "up", "s": 23.649, "e": 23.73}, {"w": "everyone.", "s": 23.789, "e": 24.241}, {"w": "A", "s": 24.543, "e": 24.624}, {"w": "treated", "s": 24.694, "e": 25.008}, {"w": "three", "s": 25.054, "e": 25.24}, {"w": "hundred", "s": 25.286, "e": 25.495}, {"w": "fifty", "s": 25.542, "e": 25.797}, {"w": "patients", "s": 25.867, "e": 26.331}, {"w": "and", "s": 26.401, "e": 26.552}, {"w": "cured", "s": 26.61, "e": 26.865}, {"w": "two", "s": 26.912, "e": 27.063}, {"w": "hundred", "s": 27.132, "e": 27.376}, {"w": "seventy-three,", "s": 27.481, "e": 28.317}, {"w": "that's", "s": 28.514, "e": 28.711}, {"w": "seventy-eight", "s": 28.735, "e": 29.234}, {"w": "percent.", "s": 29.269, "e": 29.768}, {"w": "B", "s": 30.07, "e": 30.232}, {"w": "also", "s": 30.337, "e": 30.592}, {"w": "treated", "s": 30.65, "e": 30.917}, {"w": "three", "s": 30.952, "e": 31.126}, {"w": "hundred", "s": 31.161, "e": 31.37}, {"w": "fifty", "s": 31.428, "e": 31.742}, {"w": "and", "s": 31.8, "e": 31.881}, {"w": "cured", "s": 31.927, "e": 32.148}, {"w": "two", "s": 32.183, "e": 32.334}, {"w": "hundred", "s": 32.403, "e": 32.694}, {"w": "eighty-nine,", "s": 32.763, "e": 33.379}, {"w": "that's", "s": 33.68, "e": 33.913}, {"w": "eighty-three", "s": 33.982, "e": 34.389}, {"w": "percent.", "s": 34.435, "e": 34.865}, {"w": "B", "s": 35.225, "e": 35.387}, {"w": "wins", "s": 35.55, "e": 35.77}, {"w": "overall.", "s": 35.828, "e": 36.339}, {"w": "Look", "s": 36.409, "e": 36.583}, {"w": "at", "s": 36.618, "e": 36.664}, {"w": "who", "s": 36.687, "e": 36.78}, {"w": "got", "s": 36.838, "e": 36.989}, {"w": "what.", "s": 37.047, "e": 37.43}, {"w": "Treatment", "s": 37.988, "e": 38.371}, {"w": "A", "s": 38.441, "e": 38.58}, {"w": "was", "s": 38.684, "e": 38.812}, {"w": "used", "s": 38.882, "e": 39.067}, {"w": "mostly", "s": 39.137, "e": 39.509}, {"w": "on", "s": 39.578, "e": 39.671}, {"w": "large", "s": 39.741, "e": 40.008}, {"w": "stones,", "s": 40.043, "e": 40.507}, {"w": "the", "s": 40.577, "e": 40.681}, {"w": "hard", "s": 40.739, "e": 40.948}, {"w": "cases:", "s": 40.995, "e": 41.564}, {"w": "two", "s": 41.97, "e": 42.121}, {"w": "hundred", "s": 42.167, "e": 42.376}, {"w": "sixty-three", "s": 42.481, "e": 43.015}, {"w": "of", "s": 43.05, "e": 43.096}, {"w": "its", "s": 43.143, "e": 43.259}, {"w": "three", "s": 43.317, "e": 43.502}, {"w": "hundred", "s": 43.549, "e": 43.769}, {"w": "fifty", "s": 43.851, "e": 44.106}, {"w": "patients.", "s": 44.164, "e": 44.721}, {"w": "Treatment", "s": 45.128, "e": 45.534}, {"w": "B", "s": 45.592, "e": 45.697}, {"w": "was", "s": 45.859, "e": 45.999}, {"w": "used", "s": 46.068, "e": 46.254}, {"w": "mostly", "s": 46.324, "e": 46.649}, {"w": "on", "s": 46.707, "e": 46.8}, {"w": "small", "s": 46.869, "e": 47.171}, {"w": "stones,", "s": 47.218, "e": 47.798}, {"w": "the", "s": 48.019, "e": 48.123}, {"w": "easy", "s": 48.193, "e": 48.437}, {"w": "ones:", "s": 48.506, "e": 48.924}, {"w": "two", "s": 49.226, "e": 49.389}, {"w": "hundred", "s": 49.447, "e": 49.679}, {"w": "seventy", "s": 49.783, "e": 50.213}, {"w": "of", "s": 50.271, "e": 50.317}, {"w": "its", "s": 50.364, "e": 50.468}, {"w": "three", "s": 50.503, "e": 50.677}, {"w": "hundred", "s": 50.712, "e": 50.921}, {"w": "fifty.", "s": 50.968, "e": 51.432}, {"w": "So", "s": 51.989, "e": 52.14}, {"w": "A", "s": 52.222, "e": 52.303}, {"w": "looked", "s": 52.384, "e": 52.593}, {"w": "worse", "s": 52.616, "e": 52.848}, {"w": "overall", "s": 52.895, "e": 53.394}, {"w": "only", "s": 53.533, "e": 53.812}, {"w": "because", "s": 53.87, "e": 54.218}, {"w": "it", "s": 54.253, "e": 54.311}, {"w": "got", "s": 54.358, "e": 54.509}, {"w": "the", "s": 54.543, "e": 54.613}, {"w": "hard", "s": 54.671, "e": 54.857}, {"w": "cases.", "s": 54.915, "e": 55.437}, {"w": "The", "s": 55.797, "e": 55.913}, {"w": "groups", "s": 55.96, "e": 56.215}, {"w": "were", "s": 56.262, "e": 56.389}, {"w": "not", "s": 56.436, "e": 56.575}, {"w": "the", "s": 56.622, "e": 56.691}, {"w": "same", "s": 56.738, "e": 56.947}, {"w": "size,", "s": 56.982, "e": 57.283}, {"w": "so", "s": 57.307, "e": 57.411}, {"w": "the", "s": 57.469, "e": 57.539}, {"w": "average", "s": 57.608, "e": 57.934}, {"w": "hid", "s": 57.968, "e": 58.108}, {"w": "the", "s": 58.143, "e": 58.212}, {"w": "truth.", "s": 58.247, "e": 58.688}, {"w": "Whenever", "s": 59.095, "e": 59.454}, {"w": "an", "s": 59.501, "e": 59.571}, {"w": "average", "s": 59.629, "e": 59.93}, {"w": "hides", "s": 59.965, "e": 60.232}, {"w": "groups,", "s": 60.279, "e": 60.662}, {"w": "ask", "s": 60.72, "e": 60.999}, {"w": "who", "s": 61.033, "e": 61.138}, {"w": "is", "s": 61.196, "e": 61.277}, {"w": "in", "s": 61.324, "e": 61.382}, {"w": "each", "s": 61.417, "e": 61.567}, {"w": "group.", "s": 61.602, "e": 61.939}, {"w": "That's", "s": 62.241, "e": 62.508}, {"w": "Simpson's", "s": 62.543, "e": 62.961}, {"w": "paradox:", "s": 63.007, "e": 63.634}, {"w": "the", "s": 63.994, "e": 64.098}, {"w": "trend", "s": 64.145, "e": 64.412}, {"w": "can", "s": 64.482, "e": 64.609}, {"w": "flip", "s": 64.679, "e": 64.934}, {"w": "when", "s": 64.981, "e": 65.085}, {"w": "you", "s": 65.12, "e": 65.19}, {"w": "combine", "s": 65.259, "e": 65.643}, {"w": "the", "s": 65.677, "e": 65.747}, {"w": "data.", "s": 65.793, "e": 66.409}], B = [0.0, 11.088, 23.15, 36.409, 51.989, 59.095, 66.709], VEND = 66.409, DUR = 70.909, NB = B.length - 1;
+const KEYS = new Set(["simpson", "wins", "groups", "average", "who"]);
+const INK = "#1c1c1c", RED = "#d62828", OR = "#e07a00", GRN = "#2a9d5c", DOT = "#4a4a4a";
+const clamp = v => Math.max(0, Math.min(1, v));
+const ease = v => { v = clamp(v); return v * v * (3 - 2 * v); };
+const bit = (i, k) => (i >> k) & 1;
+const cvs = document.getElementById("cv"), x = cvs.getContext("2d");
+const stat = document.getElementById("stat"), cap = document.getElementById("cap");
+const FONT = "'JetBrains Mono', monospace";
+function txt(s, px, py, size, col, align, weight) {
+  x.font = (weight || "bold") + " " + Math.round(size * 1.12) + "px " + FONT; x.fillStyle = col || INK;
+  x.textAlign = align || "center"; x.textBaseline = "middle"; x.fillText(s, px, py);
+}
+function circ(cx, cy, r, fill, stroke, lw, alpha) {
+  x.globalAlpha = alpha == null ? 1 : alpha; x.beginPath(); x.arc(cx, cy, r, 0, 6.283);
+  if (fill) { x.fillStyle = fill; x.fill(); } if (stroke) { x.strokeStyle = stroke; x.lineWidth = lw || 4; x.stroke(); }
+  x.globalAlpha = 1;
+}
+function rect(px, py, w, h, fill, stroke, lw, alpha) {
+  x.globalAlpha = alpha == null ? 1 : alpha;
+  if (fill) { x.fillStyle = fill; x.fillRect(px, py, w, h); }
+  if (stroke) { x.strokeStyle = stroke; x.lineWidth = lw || 4; x.strokeRect(px, py, w, h); }
+  x.globalAlpha = 1;
+}
+function line(x1, y1, x2, y2, col, lw, alpha) {
+  x.globalAlpha = alpha == null ? 1 : alpha; x.strokeStyle = col || INK; x.lineWidth = lw || 3;
+  x.beginPath(); x.moveTo(x1, y1); x.lineTo(x2, y2); x.stroke(); x.globalAlpha = 1;
+}
+function show(w) {
+  const m = w.match(/^((?:one|zero)(?:-(?:one|zero))+)([.,?!]*)$/i);
+  if (m) return m[1].toLowerCase().split("-").map(p => p === "one" ? 1 : 0).join("") + m[2];
+  return w;
+}
+const groups = []; {
+  let g = [];
+  const flush = () => { if (g.length) { groups.push(g); g = []; } };
+  WORDS.forEach((w, i) => {
+    const t = show(w.w);
+    if (g.length && (g.length >= 4 || g.map(o => show(o.w)).join(" ").length + t.length > 24)) flush();
+    g.push({ ...w, i, txt: t });
+    if (/[.?!]$/.test(w.w) || /,$/.test(w.w)) flush();
+  });
+  flush();
+}
+groups.forEach((g, gi) => {
+  const el = document.createElement("div"); el.className = "g"; el.id = "g" + gi;
+  g.forEach(w => {
+    const s = document.createElement("span");
+    s.className = "w" + (KEYS.has(w.txt.toLowerCase().replace(/[.,?!]/g, "")) ? " k" : "");
+    s.textContent = w.txt + " "; w.el = s; el.appendChild(s);
+  });
+  cap.appendChild(el); g.el = el;
+  g.start = g[0].s - 0.05; g.end = DUR;
+});
+groups.forEach((g, gi) => { if (gi + 1 < groups.length) g.end = Math.min(g[g.length - 1].e + 0.25, groups[gi + 1][0].s - 0.05); });
+function blockOf(t) { let b = 0; for (let i = 0; i < NB; i++) if (t >= B[i]) b = i; return b; }
+
+const CA = OR, CB = "#1f5fbf";
+function bar(y, label, pa, pb, ta, tb, show) {
+  txt(label, 540, y - 70, 44, INK);
+  const k = ease(show); const w = 640 * k;
+  txt("A", 150, y, 40, CA, "center"); rect(190, y - 30, w * pa, 60, CA, null, 0, 1);
+  txt("B", 150, y + 80, 40, CB, "center"); rect(190, y + 50, w * pb, 60, CB, null, 0, 1);
+  if (k > 0.98) { txt(ta, 190 + 640 * pa + 20, y, 38, CA, "left"); txt(tb, 190 + 640 * pb + 20, y + 80, 38, CB, "left"); }
+}
+function stack(y, label, small, large, c, show) {
+  const k = ease(show), tot = 350, W = 640;
+  txt(label, 120, y, 40, c, "center");
+  rect(190, y - 30, W * small / tot * k, 60, c, null, 0, 0.45); rect(190 + W * small / tot * k, y - 30, W * large / tot * k, 60, c, null, 0, 1);
+  if (k > 0.98) { txt("small " + small, 190 + W * small / tot / 2, y + 62, 28, INK); txt("large " + large, 190 + W * (small + large / 2) / tot, y + 62, 28, INK); }
+}
+function scene(t, b, u) {
+  if (b === 0) {
+    txt("A beats B on small stones", 540, 520, 46, INK); txt("A beats B on large stones", 540, 620, 46, INK);
+    if (u > 0.55) txt("but B wins overall?", 540, 780, 64, RED);
+    return "SAME DATA, TWO ANSWERS";
+  }
+  if (b === 1) { bar(520, "SMALL STONES", 0.93, 0.87, "93%", "87%", u / 0.4); if (u > 0.5) bar(840, "LARGE STONES", 0.73, 0.69, "73%", "69%", (u - 0.5) / 0.4); return "CURE RATES BY GROUP"; }
+  if (b === 2) {
+    bar(470, "ALL PATIENTS", 0.78, 0.826, "78%", "83%", u / 0.5);
+    if (u > 0.55) { txt("A: 273 of 350", 300, 800, 40, CA); txt("B: 289 of 350", 780, 800, 40, CB); }
+    return "ADD EVERYONE UP";
+  }
+  if (b === 3) { stack(520, "A", 87, 263, CA, u / 0.4); if (u > 0.4) stack(760, "B", 270, 80, CB, (u - 0.4) / 0.4); return "WHO GOT WHICH CASES"; }
+  if (b === 4) {
+    stack(520, "A", 87, 263, CA, 1); stack(760, "B", 270, 80, CB, 1);
+    txt("A got the hard cases", 540, 950, 54, CA); if (u > 0.5) txt("so its average looks worse", 540, 1030, 44, INK);
+    return "THE AVERAGE HID THE GROUPS";
+  }
+  txt("ask: who is in each group?", 540, 700, 56, RED); txt("the trend can flip when you combine data", 540, 820, 38, INK);
+  return "SIMPSON'S PARADOX";
+}
+
+
+function renderAt(t) {
+  x.fillStyle = "#f4ecd8"; x.fillRect(0, 0, 1080, 1920);
+  x.strokeStyle = "rgba(60,90,140,0.16)"; x.lineWidth = 2;
+  for (let g = 0; g <= 1080; g += 40) { x.beginPath(); x.moveTo(g, 0); x.lineTo(g, 1920); x.stroke(); }
+  for (let g = 0; g <= 1920; g += 40) { x.beginPath(); x.moveTo(0, g); x.lineTo(1080, g); x.stroke(); }
+  const b = blockOf(t), u = clamp((t - B[b]) / (B[b + 1] - B[b]));
+  x.save(); x.translate(130, 216.7); x.scale(0.78, 0.78);
+  stat.textContent = scene(t, b, u) || "";
+  x.restore();
+  groups.forEach(g => {
+    const on = t >= g.start && t < g.end;
+    g.el.style.opacity = on ? 1 : 0;
+    if (on) g.forEach(w => w.el.classList.toggle("on", t >= w.s));
+  });
+}
+window.addEventListener("hf-seek", e => renderAt(e.detail.time));
+renderAt(0);
+const tl = gsap.timeline({ paused: true });
+tl.fromTo("#end", { opacity: 0 }, { opacity: 1, duration: 0.6, ease: "power2.out" }, VEND + 0.6);
+window.__timelines = window.__timelines || {};
+window.__timelines["main"] = tl;
+</script>
+</body>
+</html>

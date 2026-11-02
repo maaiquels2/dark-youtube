@@ -1,0 +1,1006 @@
+{
+  "ok": true,
+  "strict": false,
+  "browserSkipped": false,
+  "lint": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 1,
+    "infoCount": 0,
+    "findings": [
+      {
+        "code": "nested_structure_needs_subcomposition",
+        "severity": "warning",
+        "message": "<div id=\"end\"> is a timeline element that contains nested <div>. The timeline shows one row per top-level element, and the root composition is built only from sub-compositions.",
+        "selector": "#end",
+        "dataAttributes": {},
+        "sourceFile": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\puzzles\\ep09_medical_test\\index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Move <div id=\"end\"> and its contents into a sub-composition file and mount it with data-composition-src."
+      }
+    ],
+    "filesScanned": 1
+  },
+  "runtime": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 1,
+    "infoCount": 0,
+    "findings": [
+      {
+        "code": "clip_media_fit",
+        "severity": "warning",
+        "message": "Audio \"voice\" is 60.60s but its slot (data-duration) is 65.10s — the slot is shortened to the media length when rendered. Set data-duration to ~60.60s if that isn't intended.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {
+          "data-composition-id": "main",
+          "data-start": "0",
+          "data-duration": "65.104",
+          "data-width": "1080",
+          "data-height": "1920"
+        },
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 1080,
+          "height": 1920
+        },
+        "time": 0
+      }
+    ]
+  },
+  "layout": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 6,
+    "findings": [
+      {
+        "code": "text_occluded",
+        "severity": "info",
+        "time": 61.487,
+        "selector": "#title",
+        "message": "Text is hidden beneath an opaque element.",
+        "rect": {
+          "left": 194.98,
+          "top": 292,
+          "right": 885.02,
+          "bottom": 353,
+          "width": 690.03,
+          "height": 61
+        },
+        "containerSelector": "#end",
+        "text": "A 99% test says .",
+        "fixHint": "Give the text its own zone, raise its stacking order above the covering element, or mark intentional layering with data-layout-allow-occlusion.",
+        "coveredFraction": 1,
+        "dataAttributes": {
+          "data-start": "0",
+          "data-duration": "65.104"
+        },
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 194.98,
+          "y": 292,
+          "width": 690.03,
+          "height": 61
+        },
+        "firstSeen": 61.487,
+        "lastSeen": 61.487,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          61.487
+        ]
+      },
+      {
+        "code": "text_occluded",
+        "severity": "info",
+        "time": 61.487,
+        "selector": "#title > span:nth-of-type(1)",
+        "message": "Text is hidden beneath an opaque element.",
+        "rect": {
+          "left": 636.59,
+          "top": 292,
+          "right": 857.41,
+          "bottom": 353,
+          "width": 220.81,
+          "height": 61
+        },
+        "containerSelector": "#end",
+        "text": "positive",
+        "fixHint": "Give the text its own zone, raise its stacking order above the covering element, or mark intentional layering with data-layout-allow-occlusion.",
+        "coveredFraction": 1,
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 636.59,
+          "y": 292,
+          "width": 220.81,
+          "height": 61
+        },
+        "firstSeen": 61.487,
+        "lastSeen": 61.487,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          61.487
+        ]
+      },
+      {
+        "code": "text_occluded",
+        "severity": "info",
+        "time": 61.487,
+        "selector": "#stat",
+        "message": "Text is hidden beneath an opaque element.",
+        "rect": {
+          "left": 323.8,
+          "top": 356,
+          "right": 756.2,
+          "bottom": 393,
+          "width": 432.41,
+          "height": 37
+        },
+        "containerSelector": "#end",
+        "text": "TEST AGAIN, DON'T PANIC",
+        "fixHint": "Give the text its own zone, raise its stacking order above the covering element, or mark intentional layering with data-layout-allow-occlusion.",
+        "coveredFraction": 1,
+        "dataAttributes": {
+          "data-start": "0",
+          "data-duration": "65.104"
+        },
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 323.8,
+          "y": 356,
+          "width": 432.41,
+          "height": 37
+        },
+        "firstSeen": 61.487,
+        "lastSeen": 61.487,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          61.487
+        ]
+      },
+      {
+        "code": "text_occluded",
+        "severity": "info",
+        "time": 61.487,
+        "selector": "#g57 > span:nth-of-type(1)",
+        "message": "Text is hidden beneath an opaque element.",
+        "rect": {
+          "left": 345,
+          "top": 1121,
+          "right": 465,
+          "bottom": 1187,
+          "width": 120,
+          "height": 66
+        },
+        "containerSelector": "#end",
+        "text": "not",
+        "fixHint": "Give the text its own zone, raise its stacking order above the covering element, or mark intentional layering with data-layout-allow-occlusion.",
+        "coveredFraction": 1,
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 345,
+          "y": 1121,
+          "width": 120,
+          "height": 66
+        },
+        "firstSeen": 61.487,
+        "lastSeen": 61.487,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          61.487
+        ]
+      },
+      {
+        "code": "text_occluded",
+        "severity": "info",
+        "time": 61.487,
+        "selector": "#g57 > span:nth-of-type(2)",
+        "message": "Text is hidden beneath an opaque element.",
+        "rect": {
+          "left": 465,
+          "top": 1121,
+          "right": 555,
+          "bottom": 1187,
+          "width": 90,
+          "height": 66
+        },
+        "containerSelector": "#end",
+        "text": "to",
+        "fixHint": "Give the text its own zone, raise its stacking order above the covering element, or mark intentional layering with data-layout-allow-occlusion.",
+        "coveredFraction": 1,
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 465,
+          "y": 1121,
+          "width": 90,
+          "height": 66
+        },
+        "firstSeen": 61.487,
+        "lastSeen": 61.487,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          61.487
+        ]
+      },
+      {
+        "code": "text_occluded",
+        "severity": "info",
+        "time": 61.487,
+        "selector": "#g57 > span:nth-of-type(3)",
+        "message": "Text is hidden beneath an opaque element.",
+        "rect": {
+          "left": 555,
+          "top": 1121,
+          "right": 735,
+          "bottom": 1187,
+          "width": 180,
+          "height": 66
+        },
+        "containerSelector": "#end",
+        "text": "panic.",
+        "fixHint": "Give the text its own zone, raise its stacking order above the covering element, or mark intentional layering with data-layout-allow-occlusion.",
+        "coveredFraction": 1,
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 555,
+          "y": 1121,
+          "width": 180,
+          "height": 66
+        },
+        "firstSeen": 61.487,
+        "lastSeen": 61.487,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          61.487
+        ]
+      }
+    ],
+    "duration": 65.104,
+    "samples": [
+      3.617,
+      10.851,
+      18.084,
+      25.318,
+      32.552,
+      39.786,
+      47.02,
+      54.253,
+      61.487
+    ],
+    "transitionSamples": [],
+    "transitionSamplesDropped": 0,
+    "tolerance": 2,
+    "totalIssueCount": 6,
+    "truncated": false
+  },
+  "motion": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": [],
+    "enabled": false,
+    "samples": 0
+  },
+  "contrast": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": [],
+    "enabled": true,
+    "samples": [
+      3.617,
+      18.084,
+      32.552,
+      47.02,
+      61.487
+    ],
+    "checked": 32,
+    "passed": 32
+  },
+  "craft": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 35,
+    "infoCount": 0,
+    "findings": [
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"one person in\" (3 words) is on screen 0.76 s (±0.01 s), under its 1.05 s floor: hold it about 0.5 s + 0.3 s a word (1.40 s here) before it leaves or changes; see references/motion.md.",
+        "text": "one person in",
+        "selector": "#g1",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 315,
+          "y": 1121,
+          "width": 120,
+          "height": 66
+        },
+        "time": 1.336,
+        "words": 3,
+        "seconds": 0.765,
+        "floorSeconds": 1.05
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"You take a test\" (4 words) is on screen 0.80 s (±0.01 s), under its 1.27 s floor: hold it about 0.5 s + 0.3 s a word (1.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "You take a test",
+        "selector": "#g3",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 315,
+          "y": 1121,
+          "width": 120,
+          "height": 66
+        },
+        "time": 3.007,
+        "words": 4,
+        "seconds": 0.797,
+        "floorSeconds": 1.275
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"that is ninety-nine\" (4 words) is on screen 0.91 s (±0.01 s), under its 1.27 s floor: hold it about 0.5 s + 0.3 s a word (1.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "that is ninety-nine",
+        "selector": "#g4",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 255,
+          "y": 1121,
+          "width": 150,
+          "height": 66
+        },
+        "time": 3.835,
+        "words": 4,
+        "seconds": 0.905,
+        "floorSeconds": 1.275
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"and it comes back\" (4 words) is on screen 0.93 s (±0.01 s), under its 1.27 s floor: hold it about 0.5 s + 0.3 s a word (1.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "and it comes back",
+        "selector": "#g6",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 285,
+          "y": 1121,
+          "width": 120,
+          "height": 66
+        },
+        "time": 5.873,
+        "words": 4,
+        "seconds": 0.93,
+        "floorSeconds": 1.275
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"What's the chance\" (4 words) is on screen 0.80 s (±0.01 s), under its 1.27 s floor: hold it about 0.5 s + 0.3 s a word (1.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "What's the chance",
+        "selector": "#g8",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 180,
+          "y": 1121,
+          "width": 210,
+          "height": 66
+        },
+        "time": 7.935,
+        "words": 4,
+        "seconds": 0.805,
+        "floorSeconds": 1.275
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"Most people say\" (3 words) is on screen 0.67 s (±0.01 s), under its 1.05 s floor: hold it about 0.5 s + 0.3 s a word (1.40 s here) before it leaves or changes; see references/motion.md.",
+        "text": "Most people say",
+        "selector": "#g10",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 315,
+          "y": 1121,
+          "width": 150,
+          "height": 66
+        },
+        "time": 10.302,
+        "words": 3,
+        "seconds": 0.671,
+        "floorSeconds": 1.05
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"Here's what ninety-nine\" (5 words) is on screen 1.04 s (±0.01 s), under its 1.50 s floor: hold it about 0.5 s + 0.3 s a word (2.00 s here) before it leaves or changes; see references/motion.md.",
+        "text": "Here's what ninety-nine",
+        "selector": "#g12",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 195,
+          "y": 1121,
+          "width": 210,
+          "height": 66
+        },
+        "time": 12.301,
+        "words": 5,
+        "seconds": 1.039,
+        "floorSeconds": 1.5
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"If you're sick,\" (4 words) is on screen 1.07 s (±0.01 s), under its 1.27 s floor: hold it about 0.5 s + 0.3 s a word (1.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "If you're sick,",
+        "selector": "#g14",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 315,
+          "y": 1121,
+          "width": 90,
+          "height": 66
+        },
+        "time": 14.667,
+        "words": 4,
+        "seconds": 1.07,
+        "floorSeconds": 1.275
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"the test catches it\" (4 words) is on screen 1.04 s (±0.01 s), under its 1.27 s floor: hold it about 0.5 s + 0.3 s a word (1.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "the test catches it",
+        "selector": "#g15",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 255,
+          "y": 1121,
+          "width": 120,
+          "height": 66
+        },
+        "time": 15.768,
+        "words": 4,
+        "seconds": 1.039,
+        "floorSeconds": 1.275
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"ninety-nine times out\" (4 words) is on screen 0.97 s (±0.01 s), under its 1.27 s floor: hold it about 0.5 s + 0.3 s a word (1.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "ninety-nine times out",
+        "selector": "#g16",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 180,
+          "y": 1121,
+          "width": 360,
+          "height": 66
+        },
+        "time": 16.87,
+        "words": 4,
+        "seconds": 0.968,
+        "floorSeconds": 1.275
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"If you're healthy,\" (4 words) is on screen 1.03 s (±0.01 s), under its 1.27 s floor: hold it about 0.5 s + 0.3 s a word (1.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "If you're healthy,",
+        "selector": "#g18",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 270,
+          "y": 1121,
+          "width": 90,
+          "height": 66
+        },
+        "time": 18.674,
+        "words": 4,
+        "seconds": 1.031,
+        "floorSeconds": 1.275
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"only one time out\" (4 words) is on screen 0.87 s (±0.01 s), under its 1.27 s floor: hold it about 0.5 s + 0.3 s a word (1.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "only one time out",
+        "selector": "#g20",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 285,
+          "y": 1121,
+          "width": 150,
+          "height": 66
+        },
+        "time": 21.235,
+        "words": 4,
+        "seconds": 0.867,
+        "floorSeconds": 1.275
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"of a hundred.\" (3 words) is on screen 0.80 s (±0.01 s), under its 1.05 s floor: hold it about 0.5 s + 0.3 s a word (1.40 s here) before it leaves or changes; see references/motion.md.",
+        "text": "of a hundred.",
+        "selector": "#g21",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 345,
+          "y": 1121,
+          "width": 150,
+          "height": 66
+        },
+        "time": 22.134,
+        "words": 3,
+        "seconds": 0.805,
+        "floorSeconds": 1.05
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"Picture a thousand\" (3 words) is on screen 0.93 s (±0.01 s), under its 1.05 s floor: hold it about 0.5 s + 0.3 s a word (1.40 s here) before it leaves or changes; see references/motion.md.",
+        "text": "Picture a thousand",
+        "selector": "#g22",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 270,
+          "y": 1121,
+          "width": 240,
+          "height": 66
+        },
+        "time": 23.04,
+        "words": 3,
+        "seconds": 0.929,
+        "floorSeconds": 1.05
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"One percent are sick,\" (4 words) is on screen 1.14 s (±0.01 s), under its 1.27 s floor: hold it about 0.5 s + 0.3 s a word (1.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "One percent are sick,",
+        "selector": "#g24",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 225,
+          "y": 1121,
+          "width": 120,
+          "height": 66
+        },
+        "time": 24.867,
+        "words": 4,
+        "seconds": 1.141,
+        "floorSeconds": 1.275
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"and that's ten people.\" (5 words) is on screen 1.33 s (±0.01 s), under its 1.50 s floor: hold it about 0.5 s + 0.3 s a word (2.00 s here) before it leaves or changes; see references/motion.md.",
+        "text": "and that's ten people.",
+        "selector": "#g25",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 210,
+          "y": 1121,
+          "width": 120,
+          "height": 66
+        },
+        "time": 26.07,
+        "words": 5,
+        "seconds": 1.335,
+        "floorSeconds": 1.5
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"all of them,\" (3 words) is on screen 0.56 s (±0.01 s), under its 1.05 s floor: hold it about 0.5 s + 0.3 s a word (1.40 s here) before it leaves or changes; see references/motion.md.",
+        "text": "all of them,",
+        "selector": "#g27",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 360,
+          "y": 1121,
+          "width": 120,
+          "height": 66
+        },
+        "time": 28.874,
+        "words": 3,
+        "seconds": 0.562,
+        "floorSeconds": 1.05
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"so about ten true\" (4 words) is on screen 1.10 s (±0.01 s), under its 1.27 s floor: hold it about 0.5 s + 0.3 s a word (1.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "so about ten true",
+        "selector": "#g28",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 285,
+          "y": 1121,
+          "width": 90,
+          "height": 66
+        },
+        "time": 29.467,
+        "words": 4,
+        "seconds": 1.101,
+        "floorSeconds": 1.275
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"There are nine hundred\" (4 words) is on screen 0.93 s (±0.01 s), under its 1.27 s floor: hold it about 0.5 s + 0.3 s a word (1.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "There are nine hundred",
+        "selector": "#g31",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 210,
+          "y": 1121,
+          "width": 180,
+          "height": 66
+        },
+        "time": 33.005,
+        "words": 4,
+        "seconds": 0.93,
+        "floorSeconds": 1.275
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"ninety of them,\" (3 words) is on screen 0.83 s (±0.01 s), under its 1.05 s floor: hold it about 0.5 s + 0.3 s a word (1.40 s here) before it leaves or changes; see references/motion.md.",
+        "text": "ninety of them,",
+        "selector": "#g32",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 315,
+          "y": 1121,
+          "width": 210,
+          "height": 66
+        },
+        "time": 33.973,
+        "words": 3,
+        "seconds": 0.828,
+        "floorSeconds": 1.05
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"and one percent get\" (4 words) is on screen 0.96 s (±0.01 s), under its 1.27 s floor: hold it about 0.5 s + 0.3 s a word (1.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "and one percent get",
+        "selector": "#g33",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 255,
+          "y": 1121,
+          "width": 120,
+          "height": 66
+        },
+        "time": 34.841,
+        "words": 4,
+        "seconds": 0.96,
+        "floorSeconds": 1.275
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"That's about ten more\" (5 words) is on screen 1.13 s (±0.06 s), under its 1.50 s floor: hold it about 0.5 s + 0.3 s a word (2.00 s here) before it leaves or changes; see references/motion.md.",
+        "text": "That's about ten more",
+        "selector": "#g35",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 225,
+          "y": 1121,
+          "width": 210,
+          "height": 66
+        },
+        "time": 36.988,
+        "words": 5,
+        "seconds": 1.125,
+        "floorSeconds": 1.5
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"So about twenty people\" (4 words) is on screen 1.00 s (±0.06 s), under its 1.27 s floor: hold it about 0.5 s + 0.3 s a word (1.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "So about twenty people",
+        "selector": "#g37",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 210,
+          "y": 1121,
+          "width": 90,
+          "height": 66
+        },
+        "time": 39.112,
+        "words": 4,
+        "seconds": 1,
+        "floorSeconds": 1.275
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"Ten are sick,\" (3 words) is on screen 0.75 s (±0.06 s), under its 1.05 s floor: hold it about 0.5 s + 0.3 s a word (1.40 s here) before it leaves or changes; see references/motion.md.",
+        "text": "Ten are sick,",
+        "selector": "#g39",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 345,
+          "y": 1121,
+          "width": 120,
+          "height": 66
+        },
+        "time": 41.362,
+        "words": 3,
+        "seconds": 0.749,
+        "floorSeconds": 1.05
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"your chance of being\" (4 words) is on screen 0.75 s (±0.06 s), under its 1.27 s floor: hold it about 0.5 s + 0.3 s a word (1.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "your chance of being",
+        "selector": "#g42",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 240,
+          "y": 1121,
+          "width": 150,
+          "height": 66
+        },
+        "time": 44.985,
+        "words": 4,
+        "seconds": 0.749,
+        "floorSeconds": 1.275
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"sick is about fifty\" (4 words) is on screen 1.00 s (±0.06 s), under its 1.27 s floor: hold it about 0.5 s + 0.3 s a word (1.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "sick is about fifty",
+        "selector": "#g43",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 255,
+          "y": 1121,
+          "width": 150,
+          "height": 66
+        },
+        "time": 45.86,
+        "words": 4,
+        "seconds": 1,
+        "floorSeconds": 1.275
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"The test is accurate,\" (4 words) is on screen 1.13 s (±0.06 s), under its 1.27 s floor: hold it about 0.5 s + 0.3 s a word (1.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "The test is accurate,",
+        "selector": "#g46",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 225,
+          "y": 1121,
+          "width": 120,
+          "height": 66
+        },
+        "time": 48.984,
+        "words": 4,
+        "seconds": 1.125,
+        "floorSeconds": 1.275
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"but the disease is\" (4 words) is on screen 0.88 s (±0.06 s), under its 1.27 s floor: hold it about 0.5 s + 0.3 s a word (1.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "but the disease is",
+        "selector": "#g47",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 270,
+          "y": 1121,
+          "width": 120,
+          "height": 66
+        },
+        "time": 50.109,
+        "words": 4,
+        "seconds": 0.875,
+        "floorSeconds": 1.275
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"When something is rare,\" (4 words) is on screen 1.00 s (±0.06 s), under its 1.27 s floor: hold it about 0.5 s + 0.3 s a word (1.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "When something is rare,",
+        "selector": "#g49",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 195,
+          "y": 1121,
+          "width": 150,
+          "height": 66
+        },
+        "time": 51.858,
+        "words": 4,
+        "seconds": 1,
+        "floorSeconds": 1.275
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"even a small error\" (4 words) is on screen 1.00 s (±0.06 s), under its 1.27 s floor: hold it about 0.5 s + 0.3 s a word (1.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "even a small error",
+        "selector": "#g50",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 270,
+          "y": 1121,
+          "width": 150,
+          "height": 66
+        },
+        "time": 52.983,
+        "words": 4,
+        "seconds": 1,
+        "floorSeconds": 1.275
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"rate makes as many\" (4 words) is on screen 0.87 s (±0.06 s), under its 1.27 s floor: hold it about 0.5 s + 0.3 s a word (1.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "rate makes as many",
+        "selector": "#g51",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 270,
+          "y": 1121,
+          "width": 150,
+          "height": 66
+        },
+        "time": 53.983,
+        "words": 4,
+        "seconds": 0.874,
+        "floorSeconds": 1.275
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"false alarms as real\" (4 words) is on screen 1.00 s (±0.06 s), under its 1.27 s floor: hold it about 0.5 s + 0.3 s a word (1.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "false alarms as real",
+        "selector": "#g52",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 240,
+          "y": 1121,
+          "width": 180,
+          "height": 66
+        },
+        "time": 54.982,
+        "words": 4,
+        "seconds": 1,
+        "floorSeconds": 1.275
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"That's why a positive\" (5 words) is on screen 1.00 s (±0.06 s), under its 1.50 s floor: hold it about 0.5 s + 0.3 s a word (2.00 s here) before it leaves or changes; see references/motion.md.",
+        "text": "That's why a positive",
+        "selector": "#g54",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 225,
+          "y": 1121,
+          "width": 210,
+          "height": 66
+        },
+        "time": 56.857,
+        "words": 5,
+        "seconds": 0.999,
+        "floorSeconds": 1.5
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"result is a reason\" (4 words) is on screen 0.75 s (±0.06 s), under its 1.27 s floor: hold it about 0.5 s + 0.3 s a word (1.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "result is a reason",
+        "selector": "#g55",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 270,
+          "y": 1121,
+          "width": 210,
+          "height": 66
+        },
+        "time": 57.981,
+        "words": 4,
+        "seconds": 0.75,
+        "floorSeconds": 1.275
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"to test again,\" (3 words) is on screen 1.00 s (±0.06 s), under its 1.05 s floor: hold it about 0.5 s + 0.3 s a word (1.40 s here) before it leaves or changes; see references/motion.md.",
+        "text": "to test again,",
+        "selector": "#g56",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 330,
+          "y": 1121,
+          "width": 90,
+          "height": 66
+        },
+        "time": 58.731,
+        "words": 3,
+        "seconds": 1,
+        "floorSeconds": 1.05
+      }
+    ],
+    "enabled": true,
+    "step": 0.125,
+    "samples": 521
+  },
+  "hdr": {
+    "autoPromotion": null,
+    "inspection": "available"
+  },
+  "snapshots": {
+    "enabled": false,
+    "files": [],
+    "times": [],
+    "findingFiles": []
+  }
+}

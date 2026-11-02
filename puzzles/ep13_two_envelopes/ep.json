@@ -1,0 +1,19 @@
+{
+ "title": "Two <span style=\"color:#d62828\">envelopes</span>. Switch?",
+ "keys": [
+  "switch",
+  "twice",
+  "125",
+  "wrong",
+  "same",
+  "fifty-fifty"
+ ],
+ "blocks": [
+  "Two sealed envelopes. One holds twice as much money as the other. You pick one and open it: one hundred dollars inside. Should you switch?",
+  "Here's the catch. The other envelope holds either fifty or two hundred dollars, and you can't tell which. It looks like a coin flip.",
+  "Then the math says switch. Half the time you gain a hundred, half the time you lose fifty. The average is one hundred twenty-five, more than the hundred in your hand.",
+  "But that works for any amount you open. So you would switch without even looking, and then want to switch back. Something is wrong.",
+  "Count the money instead. If the envelopes hold ten and twenty, switching either gains ten or loses ten. The same ten. Over many rounds, switching and staying earn exactly the same.",
+  "The mistake is the fifty-fifty. There is no fair way to pick a random amount from all positive numbers, so a hundred can't always be equally likely to be the smaller one. Test a clever argument on a small example first."
+ ]
+}

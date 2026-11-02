@@ -1,0 +1,792 @@
+{
+  "ok": false,
+  "strict": false,
+  "browserSkipped": false,
+  "lint": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 1,
+    "infoCount": 0,
+    "findings": [
+      {
+        "code": "nested_structure_needs_subcomposition",
+        "severity": "warning",
+        "message": "<div id=\"end\"> is a timeline element that contains nested <div>. The timeline shows one row per top-level element, and the root composition is built only from sub-compositions.",
+        "selector": "#end",
+        "dataAttributes": {},
+        "sourceFile": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\puzzles\\ep06_hh_vs_ht\\index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Move <div id=\"end\"> and its contents into a sub-composition file and mount it with data-composition-src."
+      }
+    ],
+    "filesScanned": 1
+  },
+  "runtime": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 1,
+    "infoCount": 0,
+    "findings": [
+      {
+        "code": "clip_media_fit",
+        "severity": "warning",
+        "message": "Audio \"voice\" is 74.63s but its slot (data-duration) is 79.13s — the slot is shortened to the media length when rendered. Set data-duration to ~74.63s if that isn't intended.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {
+          "data-composition-id": "main",
+          "data-start": "0",
+          "data-duration": "79.129",
+          "data-width": "1080",
+          "data-height": "1920"
+        },
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 1080,
+          "height": 1920
+        },
+        "time": 0
+      }
+    ]
+  },
+  "layout": {
+    "ok": false,
+    "errorCount": 1,
+    "warningCount": 1,
+    "infoCount": 0,
+    "findings": [
+      {
+        "code": "text_box_overflow",
+        "severity": "error",
+        "time": 4.396,
+        "selector": "#title",
+        "message": "Text extends outside its nearest visual/container box.",
+        "rect": {
+          "left": 0,
+          "top": 190,
+          "right": 1216.81,
+          "bottom": 259,
+          "width": 1216.81,
+          "height": 69
+        },
+        "containerSelector": "#root",
+        "text": "Two coin games. Which one longer?",
+        "fixHint": "Text is 1217px x 69px inside 1080px x 1920px and overflows by up to 137px; widen the container to at least ~1217px or shrink font-size from 52px to ~46px, or allow wrapping with max-width/fitTextFontSize.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1080,
+          "bottom": 1920,
+          "width": 1080,
+          "height": 1920
+        },
+        "overflow": {
+          "right": 136.81
+        },
+        "dataAttributes": {
+          "data-start": "0",
+          "data-duration": "79.129"
+        },
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 190,
+          "width": 1216.81,
+          "height": 69
+        },
+        "firstSeen": 4.396,
+        "lastSeen": 74.733,
+        "occurrences": 9,
+        "heldMs": 0,
+        "times": [
+          4.396,
+          13.188,
+          21.98,
+          30.772,
+          39.565,
+          48.357,
+          57.149,
+          65.941,
+          74.733
+        ]
+      },
+      {
+        "code": "canvas_overflow",
+        "severity": "warning",
+        "time": 4.396,
+        "selector": "#title",
+        "message": "Text extends outside the composition canvas.",
+        "rect": {
+          "left": 0,
+          "top": 190,
+          "right": 1216.81,
+          "bottom": 259,
+          "width": 1216.81,
+          "height": 69
+        },
+        "containerSelector": "#root",
+        "text": "Two coin games. Which one longer?",
+        "fixHint": "Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1080,
+          "bottom": 1920,
+          "width": 1080,
+          "height": 1920
+        },
+        "overflow": {
+          "right": 136.81
+        },
+        "dataAttributes": {
+          "data-start": "0",
+          "data-duration": "79.129"
+        },
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 190,
+          "width": 1216.81,
+          "height": 69
+        },
+        "firstSeen": 4.396,
+        "lastSeen": 74.733,
+        "occurrences": 9,
+        "heldMs": 0,
+        "times": [
+          4.396,
+          13.188,
+          21.98,
+          30.772,
+          39.565,
+          48.357,
+          57.149,
+          65.941,
+          74.733
+        ]
+      }
+    ],
+    "duration": 79.129,
+    "samples": [
+      4.396,
+      13.188,
+      21.98,
+      30.772,
+      39.565,
+      48.357,
+      57.149,
+      65.941,
+      74.733
+    ],
+    "transitionSamples": [],
+    "transitionSamplesDropped": 0,
+    "tolerance": 2,
+    "totalIssueCount": 2,
+    "truncated": false
+  },
+  "motion": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": [],
+    "enabled": false,
+    "samples": 0
+  },
+  "contrast": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": [],
+    "enabled": true,
+    "samples": [
+      4.396,
+      21.98,
+      39.565,
+      57.149,
+      74.733
+    ],
+    "checked": 30,
+    "passed": 30
+  },
+  "craft": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 29,
+    "infoCount": 0,
+    "findings": [
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"Flip a fair coin\" (4 words) is on screen 1.00 s (±0.01 s), under its 1.27 s floor: hold it about 0.5 s + 0.3 s a word (1.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "Flip a fair coin",
+        "selector": "#g0",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 280.78,
+          "y": 1186,
+          "width": 162,
+          "height": 71
+        },
+        "time": 0,
+        "words": 4,
+        "seconds": 1.003,
+        "floorSeconds": 1.275
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"until you get two\" (4 words) is on screen 0.73 s (±0.01 s), under its 1.27 s floor: hold it about 0.5 s + 0.3 s a word (1.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "until you get two",
+        "selector": "#g1",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 264.58,
+          "y": 1186,
+          "width": 194.40000000000003,
+          "height": 71
+        },
+        "time": 1.041,
+        "words": 4,
+        "seconds": 0.734,
+        "floorSeconds": 1.275
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"heads in a row.\" (4 words) is on screen 1.07 s (±0.01 s), under its 1.27 s floor: hold it about 0.5 s + 0.3 s a word (1.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "heads in a row.",
+        "selector": "#g2",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 296.98,
+          "y": 1186,
+          "width": 194.40999999999997,
+          "height": 71
+        },
+        "time": 1.808,
+        "words": 4,
+        "seconds": 1.065,
+        "floorSeconds": 1.275
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"Then flip again until\" (4 words) is on screen 1.10 s (±0.01 s), under its 1.27 s floor: hold it about 0.5 s + 0.3 s a word (1.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "Then flip again until",
+        "selector": "#g3",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 199.8,
+          "y": 1186,
+          "width": 162,
+          "height": 71
+        },
+        "time": 2.906,
+        "words": 4,
+        "seconds": 1.098,
+        "floorSeconds": 1.275
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"you get a head\" (4 words) is on screen 0.54 s (±0.01 s), under its 1.27 s floor: hold it about 0.5 s + 0.3 s a word (1.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "you get a head",
+        "selector": "#g4",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 313.17,
+          "y": 1186,
+          "width": 129.61,
+          "height": 71
+        },
+        "time": 4.037,
+        "words": 4,
+        "seconds": 0.537,
+        "floorSeconds": 1.275
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"It should be\" (3 words) is on screen 0.57 s (±0.01 s), under its 1.05 s floor: hold it about 0.5 s + 0.3 s a word (1.40 s here) before it leaves or changes; see references/motion.md.",
+        "text": "It should be",
+        "selector": "#g9",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 313.19,
+          "y": 1186,
+          "width": 97.19999999999999,
+          "height": 71
+        },
+        "time": 9.734,
+        "words": 3,
+        "seconds": 0.57,
+        "floorSeconds": 1.05
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"It isn't.\" (3 words) is on screen 0.83 s (±0.01 s), under its 1.05 s floor: hold it about 0.5 s + 0.3 s a word (1.40 s here) before it leaves or changes; see references/motion.md.",
+        "text": "It isn't.",
+        "selector": "#g11",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 394.19,
+          "y": 1186,
+          "width": 97.19999999999999,
+          "height": 71
+        },
+        "time": 11.105,
+        "words": 3,
+        "seconds": 0.833,
+        "floorSeconds": 1.05
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"Here are the rules.\" (4 words) is on screen 1.23 s (±0.01 s), under its 1.27 s floor: hold it about 0.5 s + 0.3 s a word (1.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "Here are the rules.",
+        "selector": "#g12",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 232.19,
+          "y": 1186,
+          "width": 162,
+          "height": 71
+        },
+        "time": 12.038,
+        "words": 4,
+        "seconds": 1.23,
+        "floorSeconds": 1.275
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"until the last two\" (4 words) is on screen 1.00 s (±0.01 s), under its 1.27 s floor: hold it about 0.5 s + 0.3 s a word (1.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "until the last two",
+        "selector": "#g14",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 248.39,
+          "y": 1186,
+          "width": 194.40999999999997,
+          "height": 71
+        },
+        "time": 15.439,
+        "words": 4,
+        "seconds": 0.999,
+        "floorSeconds": 1.275
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"until the last two\" (4 words) is on screen 0.79 s (±0.01 s), under its 1.27 s floor: hold it about 0.5 s + 0.3 s a word (1.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "until the last two",
+        "selector": "#g17",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 248.39,
+          "y": 1186,
+          "width": 194.40999999999997,
+          "height": 71
+        },
+        "time": 19.774,
+        "words": 4,
+        "seconds": 0.793,
+        "floorSeconds": 1.275
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"and take the average.\" (4 words) is on screen 1.23 s (±0.01 s), under its 1.27 s floor: hold it about 0.5 s + 0.3 s a word (1.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "and take the average.",
+        "selector": "#g21",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 199.78,
+          "y": 1186,
+          "width": 129.60999999999999,
+          "height": 71
+        },
+        "time": 24.571,
+        "words": 4,
+        "seconds": 1.23,
+        "floorSeconds": 1.275
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"both patterns have the\" (4 words) is on screen 1.07 s (±0.01 s), under its 1.27 s floor: hold it about 0.5 s + 0.3 s a word (1.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "both patterns have the",
+        "selector": "#g23",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 183.59,
+          "y": 1186,
+          "width": 162.00000000000003,
+          "height": 71
+        },
+        "time": 27.271,
+        "words": 4,
+        "seconds": 1.065,
+        "floorSeconds": 1.275
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"same one in four\" (4 words) is on screen 0.87 s (±0.01 s), under its 1.27 s floor: hold it about 0.5 s + 0.3 s a word (1.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "same one in four",
+        "selector": "#g24",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 280.78,
+          "y": 1186,
+          "width": 162,
+          "height": 71
+        },
+        "time": 28.369,
+        "words": 4,
+        "seconds": 0.867,
+        "floorSeconds": 1.275
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"But the averages\" (3 words) is on screen 0.97 s (±0.01 s), under its 1.05 s floor: hold it about 0.5 s + 0.3 s a word (1.40 s here) before it leaves or changes; see references/motion.md.",
+        "text": "But the averages",
+        "selector": "#g26",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 215.98,
+          "y": 1186,
+          "width": 129.61000000000004,
+          "height": 71
+        },
+        "time": 30.202,
+        "words": 3,
+        "seconds": 0.966,
+        "floorSeconds": 1.05
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"Heads-tails takes four\" (4 words) is on screen 1.17 s (±0.01 s), under its 1.27 s floor: hold it about 0.5 s + 0.3 s a word (1.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "Heads-tails takes four",
+        "selector": "#g28",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 183.58,
+          "y": 1186,
+          "width": 388.80999999999995,
+          "height": 71
+        },
+        "time": 32.002,
+        "words": 4,
+        "seconds": 1.173,
+        "floorSeconds": 1.275
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"Say you've flipped\" (4 words) is on screen 0.77 s (±0.01 s), under its 1.27 s floor: hold it about 0.5 s + 0.3 s a word (1.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "Say you've flipped",
+        "selector": "#g33",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 215.98,
+          "y": 1186,
+          "width": 129.61000000000004,
+          "height": 71
+        },
+        "time": 38.574,
+        "words": 4,
+        "seconds": 0.767,
+        "floorSeconds": 1.275
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"If the next flip\" (4 words) is on screen 0.77 s (±0.01 s), under its 1.27 s floor: hold it about 0.5 s + 0.3 s a word (1.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "If the next flip",
+        "selector": "#g35",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 280.78,
+          "y": 1186,
+          "width": 97.19999999999999,
+          "height": 71
+        },
+        "time": 40.068,
+        "words": 4,
+        "seconds": 0.767,
+        "floorSeconds": 1.275
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"is another head,\" (3 words) is on screen 0.97 s (±0.01 s), under its 1.05 s floor: hold it about 0.5 s + 0.3 s a word (1.40 s here) before it leaves or changes; see references/motion.md.",
+        "text": "is another head,",
+        "selector": "#g36",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 280.8,
+          "y": 1186,
+          "width": 97.19999999999999,
+          "height": 71
+        },
+        "time": 40.902,
+        "words": 3,
+        "seconds": 0.966,
+        "floorSeconds": 1.05
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"you're not set back.\" (5 words) is on screen 1.44 s (±0.01 s), under its 1.50 s floor: hold it about 0.5 s + 0.3 s a word (2.00 s here) before it leaves or changes; see references/motion.md.",
+        "text": "you're not set back.",
+        "selector": "#g37",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 215.98,
+          "y": 1186,
+          "width": 226.81999999999996,
+          "height": 71
+        },
+        "time": 41.901,
+        "words": 5,
+        "seconds": 1.437,
+        "floorSeconds": 1.5
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"That second head is\" (4 words) is on screen 1.03 s (±0.01 s), under its 1.27 s floor: hold it about 0.5 s + 0.3 s a word (1.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "That second head is",
+        "selector": "#g38",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 232.19,
+          "y": 1186,
+          "width": 162,
+          "height": 71
+        },
+        "time": 43.371,
+        "words": 4,
+        "seconds": 1.032,
+        "floorSeconds": 1.275
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"already the start of\" (4 words) is on screen 0.79 s (±0.07 s), under its 1.27 s floor: hold it about 0.5 s + 0.3 s a word (1.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "already the start of",
+        "selector": "#g39",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 215.98,
+          "y": 1186,
+          "width": 259.2099999999999,
+          "height": 71
+        },
+        "time": 44.518,
+        "words": 4,
+        "seconds": 0.793,
+        "floorSeconds": 1.275
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"a new try.\" (3 words) is on screen 0.92 s (±0.07 s), under its 1.05 s floor: hold it about 0.5 s + 0.3 s a word (1.40 s here) before it leaves or changes; see references/motion.md.",
+        "text": "a new try.",
+        "selector": "#g40",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 377.98,
+          "y": 1186,
+          "width": 64.82,
+          "height": 71
+        },
+        "time": 45.311,
+        "words": 3,
+        "seconds": 0.925,
+        "floorSeconds": 1.05
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"You flip a head,\" (4 words) is on screen 1.06 s (±0.07 s), under its 1.27 s floor: hold it about 0.5 s + 0.3 s a word (1.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "You flip a head,",
+        "selector": "#g43",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 280.78,
+          "y": 1186,
+          "width": 129.61,
+          "height": 71
+        },
+        "time": 49.142,
+        "words": 4,
+        "seconds": 1.057,
+        "floorSeconds": 1.275
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"and then a tail.\" (4 words) is on screen 1.19 s (±0.07 s), under its 1.27 s floor: hold it about 0.5 s + 0.3 s a word (1.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "and then a tail.",
+        "selector": "#g44",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 280.78,
+          "y": 1186,
+          "width": 129.61,
+          "height": 71
+        },
+        "time": 50.199,
+        "words": 4,
+        "seconds": 1.189,
+        "floorSeconds": 1.275
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"and the head you\" (4 words) is on screen 0.66 s (±0.07 s), under its 1.27 s floor: hold it about 0.5 s + 0.3 s a word (1.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "and the head you",
+        "selector": "#g47",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 280.78,
+          "y": 1186,
+          "width": 129.61,
+          "height": 71
+        },
+        "time": 53.501,
+        "words": 4,
+        "seconds": 0.661,
+        "floorSeconds": 1.275
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"right back to the\" (4 words) is on screen 0.79 s (±0.07 s), under its 1.27 s floor: hold it about 0.5 s + 0.3 s a word (1.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "right back to the",
+        "selector": "#g50",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 264.59,
+          "y": 1186,
+          "width": 194.41000000000003,
+          "height": 71
+        },
+        "time": 56.936,
+        "words": 4,
+        "seconds": 0.792,
+        "floorSeconds": 1.275
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"Both patterns are equally\" (4 words) is on screen 1.19 s (±0.07 s), under its 1.27 s floor: hold it about 0.5 s + 0.3 s a word (1.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "Both patterns are equally",
+        "selector": "#g57",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 134.98,
+          "y": 1186,
+          "width": 162.00000000000003,
+          "height": 71
+        },
+        "time": 64.862,
+        "words": 4,
+        "seconds": 1.189,
+        "floorSeconds": 1.275
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"But heads-heads clumps\" (4 words) is on screen 1.19 s (±0.07 s), under its 1.27 s floor: hold it about 0.5 s + 0.3 s a word (1.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "But heads-heads clumps",
+        "selector": "#g59",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 183.58,
+          "y": 1186,
+          "width": 129.61000000000004,
+          "height": 71
+        },
+        "time": 67.504,
+        "words": 4,
+        "seconds": 1.189,
+        "floorSeconds": 1.275
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"and clumps make you\" (4 words) is on screen 0.92 s (±0.07 s), under its 1.27 s floor: hold it about 0.5 s + 0.3 s a word (1.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "and clumps make you",
+        "selector": "#g61",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 232.19,
+          "y": 1186,
+          "width": 129.61,
+          "height": 71
+        },
+        "time": 69.486,
+        "words": 4,
+        "seconds": 0.924,
+        "floorSeconds": 1.275
+      }
+    ],
+    "enabled": true,
+    "step": 0.13199999999999967,
+    "samples": 599
+  },
+  "hdr": {
+    "autoPromotion": null,
+    "inspection": "available"
+  },
+  "snapshots": {
+    "enabled": false,
+    "files": [],
+    "times": [],
+    "findingFiles": []
+  }
+}

@@ -1,0 +1,33 @@
+[
+ {
+  "file": "chase_logo.svg",
+  "entity": "JPMorgan Chase",
+  "source_url": "https://commons.wikimedia.org/wiki/File:Chase_logo_2007.svg",
+  "author": "Original:  JPMorgan Chase / Vectorization:  en:User:Closeapple",
+  "license": "Public domain",
+  "size": "299x56"
+ },
+ {
+  "file": "bofa_logo.svg",
+  "entity": "Bank of America",
+  "source_url": "https://commons.wikimedia.org/wiki/File:Bank_of_America_logo.svg",
+  "author": "Bank of America",
+  "license": "Public domain",
+  "size": "720x73"
+ },
+ {
+  "file": "wellsfargo_logo.svg",
+  "entity": "Wells Fargo",
+  "source_url": "https://commons.wikimedia.org/wiki/File:Wells_Fargo_Logo_%282020%29.svg",
+  "author": "Wells Fargo",
+  "license": "Public domain",
+  "size": "300x300"
+ },
+ {
+  "file": "p_james.jpg",
+  "entity": "Letitia James",
+  "source_url": "https://commons.wikimedia.org/wiki/File:Letitia_James_2013.jpg",
+  "author": "Matthew Cohen (Flickr)",
+  "license": "CC BY 2.0"
+ }
+]

@@ -1,0 +1,91 @@
+{
+ "theme": "rulechanged",
+ "format": "vertical",
+ "comp": "main",
+ "out": "_teste_ec_mapa_clip_v",
+ "music": "library/music/incompetech/interloper.mp3",
+ "music_gain": 0.14,
+ "lufs": -14,
+ "captions": true,
+ "blocks": [
+  {
+   "act": "case",
+   "scenes": [
+    {
+     "t": "web_clip",
+     "image": "fcc_final_2018.png",
+     "site": "fcc.gov",
+     "date": "May 10, 2018",
+     "marks": [
+      {
+       "box": [
+        395,
+        443,
+        1871,
+        230
+       ],
+       "at": "website"
+      }
+     ],
+     "source": "Source: FCC, May 10, 2018"
+    }
+   ]
+  },
+  {
+   "act": "rule",
+   "scenes": [
+    {
+     "t": "us_map",
+     "title": "Where the rule changed first",
+     "source": "Source: state records (test)",
+     "states": [
+      {
+       "code": "CA",
+       "at": "california",
+       "tone": "scam",
+       "value": "$22M",
+       "label": "fines"
+      },
+      {
+       "code": "NY",
+       "at": "york",
+       "tone": "scam",
+       "value": "1.2M",
+       "label": "calls",
+       "dx": 90,
+       "dy": -120
+      },
+      {
+       "code": "TX",
+       "at": "texas",
+       "tone": "rule",
+       "label": "new law"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "scenes": [
+    {
+     "t": "clip",
+     "file": "s21.mp4",
+     "from": 1.0,
+     "until": "end+0.3",
+     "fit": "contain"
+    }
+   ]
+  },
+  {
+   "act": "scam",
+   "scenes": [
+    {
+     "t": "fact_card",
+     "at": "start+1.0",
+     "big": "47%",
+     "text": "test card for the 0.3 s warning"
+    }
+   ]
+  }
+ ]
+}

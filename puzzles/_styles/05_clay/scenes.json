@@ -1,0 +1,65 @@
+{
+ "comp": "st_05_clay",
+ "out": "05_clay",
+ "music": "library/music/incompetech/echoes-of-time-v2.mp3",
+ "music_gain": 0.16,
+ "tail": 0.8,
+ "finish": {
+  "glow": 0.5
+ },
+ "blocks": [
+  {
+   "scenes": [
+    {
+     "t": "organ_focus",
+     "image": "pancreas.jpg",
+     "scale": 1.1,
+     "zoom": [
+      100,
+      110
+     ],
+     "label": {
+      "text": "PANCREAS"
+     },
+     "emit": {
+      "at": "unlocks",
+      "from": [
+       560,
+       735
+      ],
+      "dir": [
+       -0.2,
+       -1
+      ]
+     },
+     "hold": {
+      "at": "holds",
+      "x": 420,
+      "y": 640,
+      "text": "GLUCAGON",
+      "color": [
+       0.3,
+       0.9,
+       1
+      ]
+     },
+     "photo": true
+    },
+    {
+     "t": "meter",
+     "bg": false,
+     "dir": "h",
+     "y": 1300,
+     "label": "BLOOD SUGAR",
+     "from": 180,
+     "to": 90,
+     "max": 250,
+     "value": false,
+     "show": "blood",
+     "at": "sugar+0.3",
+     "reach": "down+0.6"
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,52 @@
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>10 jogos de câmera</title>
+<style>
+body{margin:0;background:#101216;color:#f2efe6;font:14px/1.5 ui-monospace,Consolas,monospace;padding:18px}
+h1{font-size:22px;margin:0 0 4px}p{margin:0 0 14px;opacity:.65}
+.g{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px}
+.c{border:1px solid #2c313b;border-radius:12px;padding:8px;background:#171a20}canvas{width:100%;display:block;border-radius:8px}b{display:block;margin-top:6px}i{opacity:.6;font-style:normal;font-size:12px}
+</style></head><body>
+<h1>10 jogos de câmera e efeitos</h1><p>Câmera 3D de verdade (perspectiva, não só zoom 2D) sobre uma "cidade de dados" de barras, em canvas puro, sem biblioteca. Cada quadro é função do tempo.</p>
+<div class="g" id="g"></div>
+<script>
+const W=300,H=200,S=2,TAU=Math.PI*2;
+const ease=v=>{v=Math.max(0,Math.min(1,v));return v*v*(3-2*v)};
+const sub=(a,b)=>[a[0]-b[0],a[1]-b[1],a[2]-b[2]],cross=(a,b)=>[a[1]*b[2]-a[2]*b[1],a[2]*b[0]-a[0]*b[2],a[0]*b[1]-a[1]*b[0]],dot=(a,b)=>a[0]*b[0]+a[1]*b[1]+a[2]*b[2],nrm=a=>{const l=Math.hypot(...a)||1;return a.map(v=>v/l)};
+// cidade de barras: 7x7, alturas fixas
+const B=[];for(let i=-3;i<=3;i++)for(let j=-3;j<=3;j++){const h=.3+Math.abs(Math.sin(i*1.7+j*2.3))*2.2+(i==0&&j==0?1.6:0);B.push({x:i*1.1,z:j*1.1,h,hot:i==0&&j==0})}
+function cam(c){const f=nrm(sub(c.t,c.p)),r=nrm(cross(f,[0,1,0])),u=cross(r,f),roll=c.roll||0,fl=(W*S/2)/Math.tan(c.fov*Math.PI/360);
+ return p=>{const d=sub(p,c.p),x=dot(d,r),y=dot(d,u),z=dot(d,f);if(z<.1)return null;let px=x/z*fl,py=y/z*fl;const cr=Math.cos(roll),sr=Math.sin(roll);[px,py]=[px*cr-py*sr,px*sr+py*cr];return [W*S/2+px,H*S/2-py,z]}}
+function render(x,c,o){o=o||{};const P=cam(c),cv=x.canvas;x.fillStyle="#0c0e12";x.fillRect(0,0,cv.width,cv.height);
+ const g=x.createLinearGradient(0,0,0,cv.height);g.addColorStop(0,"#1b2230");g.addColorStop(.55,"#0c0e12");x.fillStyle=g;x.fillRect(0,0,cv.width,cv.height);
+ x.strokeStyle="rgba(120,150,200,.18)";x.lineWidth=1;for(let k=-6;k<=6;k++){for(const [a,b] of [[[k,0,-6],[k,0,6]],[[-6,0,k],[6,0,k]]]){const A=P(a),Bq=P(b);if(A&&Bq){x.beginPath();x.moveTo(A[0],A[1]);x.lineTo(Bq[0],Bq[1]);x.stroke()}}}
+ const items=B.map(b=>({b,d:Math.hypot(b.x-c.p[0],b.z-c.p[2])})).sort((p,q)=>q.d-p.d);
+ for(const {b,d} of items){const x0=b.x-.4,x1=b.x+.4,z0=b.z-.4,z1=b.z+.4,h=b.h,V=[[x0,0,z0],[x1,0,z0],[x1,0,z1],[x0,0,z1],[x0,h,z0],[x1,h,z0],[x1,h,z1],[x0,h,z1]].map(P);if(V.some(v=>!v))continue;
+  const col=b.hot?[255,80,70]:[70,130,230];let blur=0;if(o.focus!=null){blur=Math.min(6,Math.abs(d-o.focus)*1.1)}x.filter=blur>.4?`blur(${blur}px)`:"none";
+  for(const [fc,sh] of [[[0,1,2,3],.35],[[1,2,6,5],.6],[[3,2,6,7],.8],[[0,3,7,4],.5],[[0,1,5,4],.7],[[4,5,6,7],1]]){const fog=Math.max(.25,1-d/12);x.fillStyle=`rgb(${col.map(v=>Math.round(v*sh*fog)).join(",")})`;x.beginPath();fc.forEach((k,i)=>i?x.lineTo(V[k][0],V[k][1]):x.moveTo(V[k][0],V[k][1]));x.closePath();x.fill();if(o.neon){x.strokeStyle=b.hot?"#ff8a80":"#8ab4ff";x.lineWidth=2;x.stroke()}}
+  x.filter="none"}
+}
+function post(x,o,t){const cv=x.canvas,w=cv.width,h=cv.height;
+ if(o.bloom){x.save();x.globalCompositeOperation="lighter";x.filter="blur(10px) brightness(1.4)";x.globalAlpha=.7;x.drawImage(cv,0,0);x.restore()}
+ if(o.glitch){const s=document.createElement("canvas");s.width=w;s.height=h;s.getContext("2d").drawImage(cv,0,0);for(let k=0;k<6;k++){const y=((t*7+k*.31)%1)*h,hh=14+k*5,dx=(Math.sin(t*40+k*9)*18)|0;x.drawImage(s,0,y,w,hh,dx,y,w,hh)}
+  x.save();x.globalCompositeOperation="screen";x.globalAlpha=.5;x.drawImage(s,6,0);x.drawImage(s,-6,0);x.restore()}
+ const v=x.createRadialGradient(w/2,h/2,h*.35,w/2,h/2,h*.85);v.addColorStop(0,"rgba(0,0,0,0)");v.addColorStop(1,"rgba(0,0,0,.6)");x.fillStyle=v;x.fillRect(0,0,w,h);
+ if(o.grain){const id=x.getImageData(0,0,w,h),d=id.data;for(let i=0;i<d.length;i+=4*7){const n=(Math.random()-.5)*34;d[i]+=n;d[i+1]+=n;d[i+2]+=n}x.putImageData(id,0,0)}
+ if(o.bars){x.fillStyle="#000";x.fillRect(0,0,w,h*.1);x.fillRect(0,h*.9,w,h*.1)}}
+const hand=(t,a)=>[Math.sin(t*37)*a+Math.sin(t*23.7)*a*.6,Math.sin(t*31+1)*a,Math.sin(t*29+2)*a*.6];
+const D=[
+["Dolly in (push-in)","câmera avança até o prédio vermelho",(t,u)=>({c:{p:[0,2.2-ease(u)*.6,9-ease(u)*5.5],t:[0,1.2,0],fov:50},o:{bars:1}})],
+["Órbita 360°","gira em volta do alvo",(t,u)=>{const a=u*TAU;return{c:{p:[Math.sin(a)*8,3.5,Math.cos(a)*8],t:[0,1,0],fov:48},o:{bars:1}}}],
+["Crane up + tilt","sobe e inclina para baixo",(t,u)=>{const e=ease(u);return{c:{p:[5,.8+e*9,8-e*2],t:[0,1.2-e*1,0],fov:50},o:{bars:1}}}],
+["Whip pan com borrão","giro rápido, motion blur por acúmulo",(t,u)=>{const a=-1.2+ease(u)*2.4;return{c:{p:[0,2,9],t:[Math.sin(a)*6,1.2,0],fov:55},o:{blurT:Math.abs(ease(u+.01)-ease(u-.01))}}}],
+["Câmera na mão","tremor orgânico",(t,u)=>{const h=hand(t,.07);return{c:{p:[2+h[0],2.4+h[1],7+h[2]],t:[0,1.2,0],fov:50,roll:h[0]*.05},o:{grain:1,bars:1}}}],
+["Dolly zoom (Vertigo)","afasta e aumenta o fov, o fundo estica",(t,u)=>{const e=Math.sin(u*Math.PI),d=7+e*5;return{c:{p:[0,2,d],t:[0,1.5,0],fov:2*Math.atan(Math.tan(25*Math.PI/180)*7/d)*180/Math.PI},o:{bars:1}}}],
+["Rack focus (profundidade de campo)","foco passa de perto para longe",(t,u)=>({c:{p:[3,1.6,7],t:[0,1,0],fov:46},o:{focus:4+ease(Math.abs(u*2-1))*5,bars:1}})],
+["Glitch + aberração cromática","fatias deslocadas, canais RGB separados",(t,u)=>({c:{p:[Math.sin(u*TAU)*3,2.6,8],t:[0,1.2,0],fov:50},o:{glitch:1}})],
+["Neon + bloom","brilho aditivo e vinheta",(t,u)=>{const a=u*TAU*.5;return{c:{p:[Math.sin(a)*7,2.2,Math.cos(a)*7],t:[0,1.4,0],fov:50},o:{neon:1,bloom:1}}}],
+["Fly-through rasante","voa baixo entre as torres",(t,u)=>{const z=7-u*14;return{c:{p:[Math.sin(u*TAU*2)*.9,.55,z],t:[Math.sin(u*TAU*2+.4)*.9,.6,z-3],fov:70,roll:Math.cos(u*TAU*2)*.12},o:{grain:1,bars:1,bloom:1}}}]
+];
+const g=document.getElementById("g"),cs=[];
+D.forEach(d=>{const c=document.createElement("div");c.className="c";const k=document.createElement("canvas");k.width=W*S;k.height=H*S;c.appendChild(k);c.insertAdjacentHTML("beforeend",`<b>${d[0]}</b><i>${d[1]}</i>`);g.appendChild(c);cs.push(k)});
+function f(ms){const t=ms/1000,u=(t/4)%1;cs.forEach((k,i)=>{const x=k.getContext("2d"),r=D[i][2](t,u);
+ if(r.o.blurT>0){x.clearRect(0,0,k.width,k.height);const n=4,acc=document.createElement("canvas");acc.width=k.width;acc.height=k.height;const a=acc.getContext("2d");for(let s=0;s<n;s++){const uu=u-s*.012;const rr=D[i][2](t,uu);render(a,rr.c,rr.o);x.globalAlpha=1/(s+1);x.drawImage(acc,0,0)}x.globalAlpha=1}
+ else render(x,r.c,r.o);post(x,r.o,t)});requestAnimationFrame(f)}requestAnimationFrame(f);
+</script></body></html>

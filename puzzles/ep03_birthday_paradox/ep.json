@@ -1,0 +1,20 @@
+{
+  "title": "Birthday match: how <span style=\"color:#d62828\">many</span>?",
+  "keys": [
+    "birthday",
+    "23",
+    "pairs",
+    "253",
+    "opposite",
+    "everyone"
+  ],
+  "blocks": [
+    "How many people do you need in a room before two of them probably share a birthday? Not 183. The real answer is just 23.",
+    "Here are the rules. Ignore leap years. Every day is equally likely. And we want the chance that at least two people share a birthday.",
+    "Don't count people. Count pairs. With two people, there's one pair. Three people, three pairs. Ten people, forty-five pairs. Twenty-three people, two hundred fifty-three pairs.",
+    "Each pair has only a one in three hundred sixty-five chance to match. But there are two hundred fifty-three of them, and every pair gets a try. With 23 people, the chance passes fifty percent. With 30, seventy percent. With 50, ninety-seven percent. With 70, over ninety-nine point nine percent.",
+    "The easy way to compute it is to ask the opposite. What's the chance that everyone has a different birthday? The second person must avoid one day: three hundred sixty-four out of three hundred sixty-five. The third must avoid two days. And so on. Multiply them all, and by person twenty-three, the product drops below one half.",
+    "It feels wrong because we compare ourselves to the room: you against twenty-two others. But the room compares everyone to everyone. That's two hundred fifty-three pairs, not twenty-two.",
+    "So when a coincidence seems too big to be chance, count the pairs first. The odds you're ignoring are usually hiding in the number of chances."
+  ]
+}

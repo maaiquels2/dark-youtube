@@ -1,0 +1,26 @@
+<!doctype html><html><head><meta charset="utf-8">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@700;800&display=swap');
+html,body{margin:0;width:1920px;height:1080px;overflow:hidden;background:#f4ecd8;font-family:'JetBrains Mono',monospace;color:#1c1c1c}
+.t{position:absolute;left:90px;font-weight:800;line-height:1;letter-spacing:-2px}
+.chip{position:absolute;left:90px;top:80px;background:#d62828;color:#f4ecd8;font-weight:800;font-size:64px;padding:14px 34px;letter-spacing:2px}
+svg{position:absolute;left:0;top:0}
+</style></head><body>
+<svg id="s" width="1920" height="1080" viewBox="0 0 1920 1080" xmlns="http://www.w3.org/2000/svg"></svg>
+<div class="chip">6 MORE PUZZLES</div>
+<div class="t" style="top:270px;font-size:150px;letter-spacing:-4px">1 2 4 8 16</div>
+<div class="t" style="top:470px;font-size:290px;color:#d62828;letter-spacing:-8px">NOT 32</div>
+<div class="t" style="top:830px;font-size:70px;font-weight:700;letter-spacing:0">and 5 more traps for your gut</div>
+<script>
+const s=document.getElementById('s'),N='http://www.w3.org/2000/svg';
+const add=(t,a)=>{const e=document.createElementNS(N,t);for(const k in a)e.setAttribute(k,a[k]);s.appendChild(e)};
+for(let g=0;g<=1920;g+=60)add('line',{x1:g,y1:0,x2:g,y2:1080,stroke:'rgba(60,90,140,0.16)','stroke-width':3});
+for(let g=0;g<=1080;g+=60)add('line',{x1:0,y1:g,x2:1920,y2:g,stroke:'rgba(60,90,140,0.16)','stroke-width':3});
+const ANG=[8,62,131,187,243,301,337],R=310,CX=1560,CY=540;
+const P=ANG.slice(0,6).map(a=>{const t=(a-90)*Math.PI/180;return [CX+R*Math.cos(t),CY+R*Math.sin(t)]});
+add('circle',{cx:CX,cy:CY,r:R,fill:'none',stroke:'#1c1c1c','stroke-width':6,'stroke-opacity':.6});
+for(let i=0;i<6;i++)for(let j=i+1;j<6;j++)add('line',{x1:P[i][0],y1:P[i][1],x2:P[j][0],y2:P[j][1],stroke:'#1c1c1c','stroke-width':4,'stroke-opacity':.75});
+function ix(i,k,j,l){const [x1,y1]=P[i],[x2,y2]=P[k],[x3,y3]=P[j],[x4,y4]=P[l];const d=(x1-x2)*(y3-y4)-(y1-y2)*(x3-x4),t=((x1-x3)*(y3-y4)-(y1-y3)*(x3-x4))/d;return [x1+t*(x2-x1),y1+t*(y2-y1)]}
+for(let i=0;i<6;i++)for(let j=i+1;j<6;j++)for(let k=j+1;k<6;k++)for(let l=k+1;l<6;l++){const p=ix(i,k,j,l);add('circle',{cx:p[0],cy:p[1],r:11,fill:'#d62828'})}
+P.forEach(p=>add('circle',{cx:p[0],cy:p[1],r:17,fill:'#1c1c1c'}));
+</script></body></html>

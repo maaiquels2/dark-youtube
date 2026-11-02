@@ -1,0 +1,114 @@
+{
+  "title": "What Medicines Actually Do Inside Your Body",
+  "chapters": [
+    {
+      "title": "The Lock and the Key",
+      "blocks": [
+        "A pill is a pinch of powder. It has no eyes and no map. Yet it finds one specific target among the trillions of cells in your body.",
+        "Over the next ten minutes: six medicines, six tricks. Jam a lock. Cut an alarm wire. Replace a lost key. Forge a message. Run a fire drill. Break a wall.",
+        "Your cells talk with molecules. A signal drifts through your blood until it meets a receptor, a protein shaped to fit it.",
+        "Think of the receptor as a lock and the signal as a key. Right shape, the lock turns, and the cell does something.",
+        "Most medicines are fake keys. Some turn the lock. Some get stuck in it on purpose. And a few go after locks your body doesn't even own.",
+        "Quick note: this is how these drugs work, not advice on taking them. That decision belongs to you and your doctor."
+      ]
+    },
+    {
+      "title": "Caffeine: The Key That Jams the Lock",
+      "blocks": [
+        "Let's start with the drug most of you had today. Caffeine doesn't give you energy. It hides how tired you already are.",
+        "While you're awake, your brain burns fuel, and a by-product called adenosine slowly builds up between your neurons.",
+        "Adenosine fits into adenosine receptors. The more locks it fills, the stronger the pull toward sleep. Scientists call it sleep pressure.",
+        "Caffeine is shaped enough like adenosine to slide into those same receptors. But it doesn't turn the lock. It just takes the seat, and the sleepy signal can't get through.",
+        "Meanwhile, adenosine keeps piling up behind the blockade. When the caffeine fades, all that waiting sleep pressure lands at once.",
+        "And it fades slowly. A healthy adult clears about half of it in roughly five hours, so an afternoon coffee can still be working at bedtime.",
+        "For most healthy adults, the FDA cites four hundred milligrams a day as an amount not generally linked to harmful effects.",
+        "So that's trick number one: block a receptor. But what if the problem isn't a signal arriving, but a signal being made in the first place?"
+      ]
+    },
+    {
+      "title": "Ibuprofen: Cutting the Alarm Wire",
+      "blocks": [
+        "Here's a strange fact. People took aspirin for about seventy years before anyone knew how it worked. In nineteen seventy-one, John Vane found the answer, and it explains ibuprofen too.",
+        "When you twist an ankle, damaged cells release a fatty acid. An enzyme called cyclooxygenase turns it into messengers called prostaglandins.",
+        "Prostaglandins are the alarm. They help the area swell and redden, and they make your pain nerves more sensitive, so every touch hurts more.",
+        "During an infection, prostaglandins also act on the part of your brain that sets your body temperature, and turn the thermostat up. That's a fever.",
+        "Ibuprofen slips into the enzyme's working pocket and blocks it. Fewer prostaglandins means less pain, less swelling, and a lower fever.",
+        "It doesn't heal the ankle. It turns down the alarm. And it doesn't stay long: your body clears about half of it in roughly two hours.",
+        "But there's a catch. This enzyme comes in two versions, and one of them makes prostaglandins that help protect your stomach lining.",
+        "Ibuprofen blocks both. That's why its label warns about stomach ulcers and bleeding.",
+        "The FDA also requires a warning about heart attack and stroke, a risk that rises with higher doses and longer use. Over the counter doesn't mean risk free.",
+        "Blocking works. But some diseases aren't about too much signal. They're about a key that's gone missing."
+      ]
+    },
+    {
+      "title": "Insulin: Replacing a Lost Key",
+      "blocks": [
+        "In January nineteen twenty-two, in a Toronto hospital, a teenage boy named Leonard Thompson was dying of type one diabetes.",
+        "Back then, that diagnosis was a death sentence. Doctors injected him with an extract from animal pancreas, and once they had purified it, his blood sugar came down.",
+        "That extract was insulin, and its discovery won Frederick Banting and John Macleod the Nobel Prize the very next year.",
+        "Here's what insulin does. After a meal, sugar from your food enters your blood. Beta cells in your pancreas sense it and release insulin.",
+        "Insulin is a key. It docks on receptors on your muscle and fat cells, and they pull sugar doors up to their surface. Sugar flows in, out of your blood.",
+        "In type one diabetes, the immune system destroys the beta cells. The key factory is gone, so sugar piles up in the blood instead of feeding the cells.",
+        "Insulin treatment replaces the missing key. It has to be injected, because insulin is a protein, and your stomach would digest it like food.",
+        "Since nineteen eighty-two, human insulin has been made by microbes carrying the human gene, the first medicine of that kind approved by the FDA.",
+        "Dosing is delicate: too much can push blood sugar dangerously low, so it's always managed with a doctor.",
+        "Insulin replaces a key. The next medicine is stranger. It forges a different message, one that gets your body to release its own insulin."
+      ]
+    },
+    {
+      "title": "Mounjaro: The Forged Message",
+      "blocks": [
+        "When food reaches your gut, it releases two hormones, GLP-1 and GIP. Their message is simple: food has arrived, get ready.",
+        "They nudge your pancreas to release insulin while sugar is rising. But your body tears them apart fast. Natural GLP-1 survives only about two minutes in the blood.",
+        "Mounjaro's active ingredient, tirzepatide, is a single molecule built to fit both locks: the GLP-1 receptor and the GIP receptor.",
+        "It also carries a fatty tail that grips albumin, a common protein in your blood. That shields it, so about half a dose is still around five days later.",
+        "That's why it's a once-a-week injection, instead of a hormone that vanishes in minutes.",
+        "In the pancreas, it boosts insulin release when blood sugar is high, and it lowers glucagon, the hormone that pushes sugar up.",
+        "In the stomach, it slows the exit, so food stays longer. And it acts on appetite, so people tend to eat less.",
+        "In a large trial, adults on the highest dose lost about twenty-one percent of their body weight on average, over seventy-two weeks. On placebo, about three.",
+        "Nausea and other stomach side effects are common, especially early on, and the label carries serious warnings. Who takes it, and at what dose, is a doctor's call.",
+        "The next medicine doesn't touch a lock at all. It writes instructions."
+      ]
+    },
+    {
+      "title": "mRNA Vaccines: A Fire Drill for Your Immune System",
+      "blocks": [
+        "Your immune system learns from experience. Usually it has to meet a germ, and survive it, before it knows that germ's shape. A vaccine is a rehearsal.",
+        "It shows your immune system a harmless piece of the enemy, so the first real meeting isn't the first meeting.",
+        "Older vaccines deliver that piece directly, as a weakened germ or a purified protein. A messenger RNA vaccine delivers a recipe instead.",
+        "The recipe is a strand of messenger RNA, wrapped in a tiny bubble of fat called a lipid nanoparticle, so it can slip into your cells.",
+        "Inside, your ribosomes, the cell's protein machines, read the recipe and build one piece of the virus. In the COVID vaccines, that was the spike protein.",
+        "The immune system sees that spike and learns its shape. It makes antibodies and trains T cells, without ever meeting the actual virus.",
+        "Then the cell breaks the recipe down. According to the CDC, it never enters the nucleus, where your DNA is kept, and it doesn't change your DNA.",
+        "For years, injected RNA set off inflammation. Katalin Karikó and Drew Weissman fixed that by swapping one RNA building block for a modified version. The alarm went quiet.",
+        "That work, first published in two thousand five, won them the Nobel Prize in twenty twenty-three.",
+        "Recommendations depend on age and health, and change over time. That's a question for your doctor.",
+        "A vaccine trains your own defenses. The last medicine skips the training and goes straight for the invader, through a lock your body doesn't have."
+      ]
+    },
+    {
+      "title": "Antibiotics: Breaking a Wall You Don't Have",
+      "blocks": [
+        "In nineteen twenty-eight, Alexander Fleming noticed that a mould growing on one of his bacteria plates had killed the bacteria around it.",
+        "He called it penicillin. Years later, Howard Florey and Ernst Chain's team at Oxford turned it into a real medicine, and the three men shared a Nobel Prize.",
+        "Many bacteria wrap themselves in a wall made of a mesh called peptidoglycan. It's what keeps them from bursting.",
+        "To grow, they keep weaving new mesh, and enzymes stitch the strands together. Penicillin jams those stitching enzymes. It's a key that gets stuck for good.",
+        "Without the stitches, the wall weakens, water pushes in, and the bacterium bursts.",
+        "And your cells? They don't make peptidoglycan at all. The target only exists in the enemy. Scientists call that selective toxicity.",
+        "It also explains why antibiotics do nothing against colds or flu. Those are viruses, and viruses don't have that wall.",
+        "But bacteria evolve. Some make enzymes that cut penicillin apart before it can act. Every unnecessary dose gives those survivors a better chance to spread.",
+        "A large study in The Lancet estimated that in twenty nineteen, resistant bacteria directly caused about one point two seven million deaths worldwide.",
+        "That's why the standard advice is to take antibiotics only when a doctor prescribes them, and exactly as prescribed."
+      ]
+    },
+    {
+      "title": "One Idea, Six Tricks",
+      "blocks": [
+        "So, six medicines, one idea. Caffeine jams a lock. Ibuprofen shuts down the machine that makes the alarm. Insulin replaces a missing key.",
+        "Mounjaro forges a hormone that lasts for days. A messenger RNA vaccine writes the recipe for a drill. And penicillin breaks a wall that only bacteria build.",
+        "None of it is magic: each one fits a shape that already exists. That's also why drugs have side effects. The same lock can sit in more than one place.",
+        "This channel is called Show Your Work for a reason: one idea, taken apart step by step. If you want the next one, subscribe, and I'll see you there."
+      ]
+    }
+  ]
+}

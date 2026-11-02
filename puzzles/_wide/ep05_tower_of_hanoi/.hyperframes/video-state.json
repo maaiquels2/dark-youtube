@@ -1,0 +1,54 @@
+{
+  "version": 1,
+  "historyId": "6c6ebb1f-c555-478e-ba0c-f1a472c2304b",
+  "currentRevision": null,
+  "pendingChanges": false,
+  "files": {
+    "assets/timing.json": {
+      "hash": "140f3d51f23ac137e53174e2d532d5e23e8d406b44e4c13be4ebb07b535383e9",
+      "content": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\6c6ebb1f-c555-478e-ba0c-f1a472c2304b\\blobs\\14\\140f3d51f23ac137e53174e2d532d5e23e8d406b44e4c13be4ebb07b535383e9"
+    },
+    "hyperframes.json": {
+      "hash": "c7a3009d23e471acfb1ca9ec252ea16a0ca4dfe55e3b3b9d7089c8f0764f4a43",
+      "content": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\6c6ebb1f-c555-478e-ba0c-f1a472c2304b\\blobs\\c7\\c7a3009d23e471acfb1ca9ec252ea16a0ca4dfe55e3b3b9d7089c8f0764f4a43"
+    },
+    "index.html": {
+      "hash": "2e3e79e0f0d164aedaabfd860e7ab5b4f8e28acdf576a4ec7751bfd944285327",
+      "content": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\6c6ebb1f-c555-478e-ba0c-f1a472c2304b\\blobs\\2e\\2e3e79e0f0d164aedaabfd860e7ab5b4f8e28acdf576a4ec7751bfd944285327"
+    },
+    "package.json": {
+      "hash": "2a04ab4f510c254f2b430a5c1eed72bac74b0985fa69388749c9c0738f859652",
+      "content": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\6c6ebb1f-c555-478e-ba0c-f1a472c2304b\\blobs\\2a\\2a04ab4f510c254f2b430a5c1eed72bac74b0985fa69388749c9c0738f859652"
+    },
+    "scene.js": {
+      "hash": "590be25ac9f4f65a2e9a4fd21ee909a87a027726dea6d257c79f151cbd100f6a",
+      "content": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\6c6ebb1f-c555-478e-ba0c-f1a472c2304b\\blobs\\59\\590be25ac9f4f65a2e9a4fd21ee909a87a027726dea6d257c79f151cbd100f6a"
+    },
+    "assets/voice.mp3": {
+      "hash": "961412542849cd364fd7e7d6e957df75fd75168e71c07fd91647d78f975caa46",
+      "content": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\6c6ebb1f-c555-478e-ba0c-f1a472c2304b\\blobs\\96\\961412542849cd364fd7e7d6e957df75fd75168e71c07fd91647d78f975caa46"
+    }
+  },
+  "revisions": {},
+  "checks": {
+    "latest": null,
+    "revisions": {},
+    "unversioned": []
+  },
+  "snapshots": {
+    "latest": null,
+    "revisions": {},
+    "unversioned": []
+  },
+  "renders": {
+    "latest": {
+      "id": "943e1c5f-5f60-445d-82e7-74e7216ba548",
+      "completedAt": 1792959513468,
+      "output": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\puzzles\\_wide\\ep05_tower_of_hanoi\\renders\\ep05_tower_of_hanoi.mp4",
+      "status": "completed",
+      "revision": null
+    },
+    "retainedRevisions": []
+  },
+  "pendingArtifactCleanup": []
+}

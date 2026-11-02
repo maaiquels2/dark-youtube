@@ -1,0 +1,309 @@
+{
+ "comp": "mounjaro_04_minimal_info",
+ "out": "mounjaro_04_minimal_info",
+ "music": "library/music/incompetech/echoes-of-time-v2.mp3",
+ "music_gain": 0.16,
+ "finish": {
+  "glow": 0.5
+ },
+ "blocks": [
+  {
+   "scenes": [
+    {
+     "t": "body_map",
+     "image": "01_body.jpg",
+     "photo": true,
+     "spots": [
+      {
+       "x": 430,
+       "y": 165,
+       "at": "is",
+       "label": "BRAIN",
+       "side": "left",
+       "size": 56,
+       "dy": 90
+      },
+      {
+       "x": 460,
+       "y": 570,
+       "at": "actually",
+       "label": "STOMACH",
+       "side": "left",
+       "dy": -80,
+       "size": 56,
+       "color": [
+        1,
+        0.3,
+        0.72
+       ]
+      },
+      {
+       "x": 435,
+       "y": 645,
+       "at": "does",
+       "label": "PANCREAS",
+       "side": "left",
+       "dy": 60,
+       "size": 56,
+       "color": [
+        1,
+        0.7,
+        0.22
+       ]
+      }
+     ],
+     "focus": {
+      "spot": 2,
+      "at": "body+0.8",
+      "zoom": 2.5
+     }
+    },
+    {
+     "t": "organ_focus",
+     "image": "06_pen.jpg",
+     "zoom": [
+      100,
+      112
+     ],
+     "until": "here",
+     "label": {
+      "text": "ONE SHOT A WEEK"
+     }
+    }
+   ]
+  },
+  {
+   "cut": "whoosh",
+   "scenes": [
+    {
+     "t": "molecule_dock",
+     "dissolve_at": "arrived",
+     "ligands": [
+      {
+       "at": "glp1",
+       "label": "GLP-1"
+      },
+      {
+       "at": "gip",
+       "label": "GIP"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "scenes": [
+    {
+     "t": "molecule_build",
+     "at": "copies",
+     "tail_at": "fatty",
+     "ride_at": "blood",
+     "labels": {
+      "a": "GLP-1",
+      "b": "GIP",
+      "joined": "ONE MOLECULE",
+      "tail": "FATTY TAIL",
+      "ride": "DAYS IN THE BLOOD"
+     }
+    }
+   ]
+  },
+  {
+   "scenes": [
+    {
+     "t": "organ_focus",
+     "image": "03_pancreas.jpg",
+     "photo": true,
+     "zoom": [
+      100,
+      110
+     ],
+     "label": {
+      "text": "PANCREAS"
+     },
+     "emit": {
+      "at": "unlocks",
+      "from": [
+       560,
+       735
+      ],
+      "dir": [
+       -0.2,
+       -1
+      ]
+     },
+     "hold": {
+      "at": "holds",
+      "x": 420,
+      "y": 640,
+      "text": "GLUCAGON",
+      "color": [
+       0.3,
+       0.9,
+       1
+      ]
+     },
+     "scale": 1.1
+    },
+    {
+     "t": "meter",
+     "bg": false,
+     "dir": "h",
+     "y": 1380,
+     "label": "BLOOD SUGAR",
+     "from": 180,
+     "to": 90,
+     "max": 250,
+     "value": false,
+     "show": "blood",
+     "at": "sugar+0.3",
+     "reach": "down+0.6"
+    }
+   ]
+  },
+  {
+   "scenes": [
+    {
+     "t": "flow_valve",
+     "slow_at": "food+0.2",
+     "label": {
+      "text": "STOMACH EXIT",
+      "at": "exit+0.3"
+     }
+    },
+    {
+     "t": "organ_focus",
+     "image": "04_stomach.jpg",
+     "photo": true,
+     "label": {
+      "text": "STOMACH"
+     },
+     "until": "exit+0.2"
+    }
+   ]
+  },
+  {
+   "scenes": [
+    {
+     "t": "organ_focus",
+     "image": "05_brain.jpg",
+     "photo": true,
+     "label": {
+      "text": "BRAIN"
+     },
+     "emit": {
+      "at": "appetite",
+      "until": "centers+0.8",
+      "from": [
+       400,
+       750
+      ],
+      "dir": [
+       0,
+       -1
+      ],
+      "color": [
+       1,
+       0.7,
+       0.22
+      ],
+      "type": 3
+     }
+    },
+    {
+     "t": "meter",
+     "bg": false,
+     "dir": "h",
+     "y": 1170,
+     "value": false,
+     "show": "hunger-0.3",
+     "at": "hunger",
+     "reach": "weaker+0.5",
+     "meters": [
+      {
+       "label": "HUNGER",
+       "from": 85,
+       "to": 25
+      },
+      {
+       "label": "FULLNESS",
+       "from": 20,
+       "to": 80,
+       "colors": [
+        [
+         1,
+         0.3,
+         0.72
+        ],
+        [
+         1,
+         0.7,
+         0.22
+        ],
+        [
+         0.3,
+         0.9,
+         1
+        ]
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "cut": "whoosh",
+   "scenes": [
+    {
+     "t": "bars",
+     "down": true,
+     "at": "lost",
+     "reach": "weeks+0.2",
+     "decimals": 1,
+     "prefix": "-",
+     "title": "WEIGHT LOST IN 72 WEEKS",
+     "source": "SURMOUNT-1 trial, NEJM 2022 · 15 mg vs placebo, 72 weeks",
+     "bars": [
+      {
+       "label": "15 MG",
+       "value": 20.9,
+       "color": [
+        1,
+        0.7,
+        0.22
+       ]
+      },
+      {
+       "label": "PLACEBO",
+       "value": 3.1,
+       "color": [
+        0.55,
+        0.68,
+        0.72
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "scenes": [
+    {
+     "t": "end_card",
+     "until": "dur",
+     "lines": [
+      "NOT MEDICAL ADVICE",
+      {
+       "text": "Nausea is common, especially at first.",
+       "size": 56
+      },
+      {
+       "text": "Prescription only. Ask your doctor.",
+       "size": 56
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}

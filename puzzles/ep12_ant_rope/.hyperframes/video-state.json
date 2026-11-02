@@ -1,0 +1,398 @@
+{
+  "version": 1,
+  "historyId": "3782b392-9cde-4de5-b4f8-e8746be2f9d1",
+  "currentRevision": "ea401d8c-ef8a-489f-b73c-0de2fa6d5619",
+  "pendingChanges": false,
+  "files": {
+    "assets/timing.json": {
+      "hash": "8ee98d107523ae962dad20fe9f11fdf543c3392125b166d1c7770b8d059db37b",
+      "content": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\3782b392-9cde-4de5-b4f8-e8746be2f9d1\\blobs\\8e\\8ee98d107523ae962dad20fe9f11fdf543c3392125b166d1c7770b8d059db37b"
+    },
+    "ep.json": {
+      "hash": "5020b4041e8fc64d98f3b041b06c8f1057cc7a6a8a80336934d604f9773a58a5",
+      "content": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\3782b392-9cde-4de5-b4f8-e8746be2f9d1\\blobs\\50\\5020b4041e8fc64d98f3b041b06c8f1057cc7a6a8a80336934d604f9773a58a5"
+    },
+    "hyperframes.json": {
+      "hash": "c7a3009d23e471acfb1ca9ec252ea16a0ca4dfe55e3b3b9d7089c8f0764f4a43",
+      "content": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\3782b392-9cde-4de5-b4f8-e8746be2f9d1\\blobs\\c7\\c7a3009d23e471acfb1ca9ec252ea16a0ca4dfe55e3b3b9d7089c8f0764f4a43"
+    },
+    "index.html": {
+      "hash": "8a79b6e12e2b11f7552104ecb0d2fadeaef04aa05d24b6fa5dc5b0de8b3fcf79",
+      "content": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\3782b392-9cde-4de5-b4f8-e8746be2f9d1\\blobs\\8a\\8a79b6e12e2b11f7552104ecb0d2fadeaef04aa05d24b6fa5dc5b0de8b3fcf79"
+    },
+    "package.json": {
+      "hash": "4c2e9bb7552648b1f59f34507104197f69e6d549241252e85039f5764485a91c",
+      "content": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\3782b392-9cde-4de5-b4f8-e8746be2f9d1\\blobs\\4c\\4c2e9bb7552648b1f59f34507104197f69e6d549241252e85039f5764485a91c"
+    },
+    "scene.js": {
+      "hash": "58fd9985aea45b82ac2ccec08b753654d42a628fe9b55fb1469c003d2810c6b2",
+      "content": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\3782b392-9cde-4de5-b4f8-e8746be2f9d1\\blobs\\58\\58fd9985aea45b82ac2ccec08b753654d42a628fe9b55fb1469c003d2810c6b2"
+    },
+    "assets/voice.mp3": {
+      "hash": "71ef2270ded4639b334506b7bbb4a93f7c044ed1eac34ab0650066ca08d625fa",
+      "content": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\3782b392-9cde-4de5-b4f8-e8746be2f9d1\\blobs\\71\\71ef2270ded4639b334506b7bbb4a93f7c044ed1eac34ab0650066ca08d625fa"
+    }
+  },
+  "revisions": {
+    "ea401d8c-ef8a-489f-b73c-0de2fa6d5619": {
+      "actor": {
+        "kind": "outside",
+        "name": "Outside"
+      },
+      "label": "Changed outside the app",
+      "startedAt": 1792970121448,
+      "endedAt": 1792970121476,
+      "files": {
+        "index.html": {
+          "before": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\3782b392-9cde-4de5-b4f8-e8746be2f9d1\\blobs\\47\\47ce1260463f1dbdbc4a97aa8fd224f9e78f28308145d21d923b54f85bc746f4",
+          "after": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\3782b392-9cde-4de5-b4f8-e8746be2f9d1\\blobs\\8a\\8a79b6e12e2b11f7552104ecb0d2fadeaef04aa05d24b6fa5dc5b0de8b3fcf79"
+        },
+        "scene.js": {
+          "before": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\3782b392-9cde-4de5-b4f8-e8746be2f9d1\\blobs\\54\\5449e780bb546110331a45717d1320faf861477c406fd731265f1700176fdf9a",
+          "after": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\3782b392-9cde-4de5-b4f8-e8746be2f9d1\\blobs\\58\\58fd9985aea45b82ac2ccec08b753654d42a628fe9b55fb1469c003d2810c6b2"
+        }
+      }
+    }
+  },
+  "checks": {
+    "latest": {
+      "revision": null,
+      "id": "84d7aee4-2bbe-483c-84a8-6a9b68db45c1"
+    },
+    "revisions": {},
+    "unversioned": [
+      {
+        "id": "84d7aee4-2bbe-483c-84a8-6a9b68db45c1",
+        "scope": "project",
+        "report": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\puzzles\\ep12_ant_rope\\.hyperframes\\artifacts\\checks\\84d7aee4-2bbe-483c-84a8-6a9b68db45c1.json",
+        "metadata": {
+          "ok": true,
+          "browserSkipped": false,
+          "options": {
+            "samples": 9,
+            "atTransitions": false,
+            "maxIssues": 80,
+            "collapseStatic": true,
+            "tolerance": 2,
+            "timeout": 3000,
+            "contrast": true,
+            "strict": false,
+            "snapshots": false,
+            "browserGpuMode": "auto"
+          }
+        },
+        "createdAt": 1792970003160,
+        "contentHash": "575a92171507a489350da53f537babcc9644dcd215b97a413413475685d66617",
+        "revision": null,
+        "inputFingerprint": "1cef95e2c2b56de0e5eee8b1f592d401c7b35bc9d55fb812d835b42108251182",
+        "inputScope": "local-project-files",
+        "attribution": "unversioned"
+      }
+    ]
+  },
+  "snapshots": {
+    "latest": {
+      "revision": "ea401d8c-ef8a-489f-b73c-0de2fa6d5619",
+      "id": "08fd4968-94de-446a-9573-c876ff508611-1"
+    },
+    "revisions": {
+      "ea401d8c-ef8a-489f-b73c-0de2fa6d5619": [
+        {
+          "scope": "full",
+          "id": "08fd4968-94de-446a-9573-c876ff508611-0",
+          "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\w2fix12\\frame-00-at-4s.png",
+          "time": 4,
+          "metadata": {
+            "width": 1080,
+            "height": 1920,
+            "zoomScale": 1,
+            "browserGpuMode": "auto",
+            "warnings": [],
+            "partial": false
+          },
+          "createdAt": 1792970128960,
+          "contentHash": "03d7f08e5a5bbb592391cb1cc0c1e0fb2443afe1832918d971713999ea623be0",
+          "revision": "ea401d8c-ef8a-489f-b73c-0de2fa6d5619",
+          "inputFingerprint": "2fbe7a8871f466a5e882f55fe655a3458911d464a25f029ca28628568f7a6555",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        },
+        {
+          "scope": "full",
+          "id": "08fd4968-94de-446a-9573-c876ff508611-1",
+          "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\w2fix12\\frame-01-at-75s.png",
+          "time": 75,
+          "metadata": {
+            "width": 1080,
+            "height": 1920,
+            "zoomScale": 1,
+            "browserGpuMode": "auto",
+            "warnings": [],
+            "partial": false
+          },
+          "createdAt": 1792970128963,
+          "contentHash": "39bcc86a835d483375159f527ea5cf7ff667185e0a0fca689a35177c7d940352",
+          "revision": "ea401d8c-ef8a-489f-b73c-0de2fa6d5619",
+          "inputFingerprint": "2fbe7a8871f466a5e882f55fe655a3458911d464a25f029ca28628568f7a6555",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        }
+      ]
+    },
+    "unversioned": [
+      {
+        "scope": "full",
+        "id": "3b396b5e-fa6a-4805-973c-a5ffb5e4a23b-0",
+        "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\w2_ep12_ant_rope\\frame-00-at-0s.png",
+        "time": 0,
+        "metadata": {
+          "width": 1080,
+          "height": 1920,
+          "zoomScale": 1,
+          "browserGpuMode": "auto",
+          "warnings": [],
+          "partial": false
+        },
+        "createdAt": 1792970047108,
+        "contentHash": "5f0bcdcd805de52e5c2e3974354ed271cf8ce2629fe96729ef0d86ef873a309e",
+        "revision": null,
+        "inputFingerprint": "1cef95e2c2b56de0e5eee8b1f592d401c7b35bc9d55fb812d835b42108251182",
+        "inputScope": "local-project-files",
+        "attribution": "unversioned"
+      },
+      {
+        "scope": "full",
+        "id": "3b396b5e-fa6a-4805-973c-a5ffb5e4a23b-1",
+        "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\w2_ep12_ant_rope\\frame-01-at-7.472s.png",
+        "time": 7.472,
+        "metadata": {
+          "width": 1080,
+          "height": 1920,
+          "zoomScale": 1,
+          "browserGpuMode": "auto",
+          "warnings": [],
+          "partial": false
+        },
+        "createdAt": 1792970047108,
+        "contentHash": "acce9624c2c3085e63ca0588d28d87e76c32b52f6088648b5acca3d375e9889b",
+        "revision": null,
+        "inputFingerprint": "1cef95e2c2b56de0e5eee8b1f592d401c7b35bc9d55fb812d835b42108251182",
+        "inputScope": "local-project-files",
+        "attribution": "unversioned"
+      },
+      {
+        "scope": "full",
+        "id": "3b396b5e-fa6a-4805-973c-a5ffb5e4a23b-2",
+        "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\w2_ep12_ant_rope\\frame-02-at-14.944s.png",
+        "time": 14.944,
+        "metadata": {
+          "width": 1080,
+          "height": 1920,
+          "zoomScale": 1,
+          "browserGpuMode": "auto",
+          "warnings": [],
+          "partial": false
+        },
+        "createdAt": 1792970047109,
+        "contentHash": "087671a9affabfac0cdf6e61285e75eefdea9e0a90484ea945f188e7e015b6bf",
+        "revision": null,
+        "inputFingerprint": "1cef95e2c2b56de0e5eee8b1f592d401c7b35bc9d55fb812d835b42108251182",
+        "inputScope": "local-project-files",
+        "attribution": "unversioned"
+      },
+      {
+        "scope": "full",
+        "id": "3b396b5e-fa6a-4805-973c-a5ffb5e4a23b-3",
+        "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\w2_ep12_ant_rope\\frame-03-at-22.416s.png",
+        "time": 22.416,
+        "metadata": {
+          "width": 1080,
+          "height": 1920,
+          "zoomScale": 1,
+          "browserGpuMode": "auto",
+          "warnings": [],
+          "partial": false
+        },
+        "createdAt": 1792970047110,
+        "contentHash": "51fa00ec6807e72c10e4c27b018567ac6e30d0e897f197851194cc6bcf0998d8",
+        "revision": null,
+        "inputFingerprint": "1cef95e2c2b56de0e5eee8b1f592d401c7b35bc9d55fb812d835b42108251182",
+        "inputScope": "local-project-files",
+        "attribution": "unversioned"
+      },
+      {
+        "scope": "full",
+        "id": "3b396b5e-fa6a-4805-973c-a5ffb5e4a23b-4",
+        "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\w2_ep12_ant_rope\\frame-04-at-29.888s.png",
+        "time": 29.888,
+        "metadata": {
+          "width": 1080,
+          "height": 1920,
+          "zoomScale": 1,
+          "browserGpuMode": "auto",
+          "warnings": [],
+          "partial": false
+        },
+        "createdAt": 1792970047110,
+        "contentHash": "466d3e40bc7c686fa2eeab0fd491e6fff43e9b239ceff1d96dea208df1faceef",
+        "revision": null,
+        "inputFingerprint": "1cef95e2c2b56de0e5eee8b1f592d401c7b35bc9d55fb812d835b42108251182",
+        "inputScope": "local-project-files",
+        "attribution": "unversioned"
+      },
+      {
+        "scope": "full",
+        "id": "3b396b5e-fa6a-4805-973c-a5ffb5e4a23b-5",
+        "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\w2_ep12_ant_rope\\frame-05-at-37.36s.png",
+        "time": 37.36,
+        "metadata": {
+          "width": 1080,
+          "height": 1920,
+          "zoomScale": 1,
+          "browserGpuMode": "auto",
+          "warnings": [],
+          "partial": false
+        },
+        "createdAt": 1792970047111,
+        "contentHash": "4a27d5030872cbc111351d2c5e0556e21d87604b86e98de98462a1caedea7381",
+        "revision": null,
+        "inputFingerprint": "1cef95e2c2b56de0e5eee8b1f592d401c7b35bc9d55fb812d835b42108251182",
+        "inputScope": "local-project-files",
+        "attribution": "unversioned"
+      },
+      {
+        "scope": "full",
+        "id": "3b396b5e-fa6a-4805-973c-a5ffb5e4a23b-6",
+        "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\w2_ep12_ant_rope\\frame-06-at-44.833s.png",
+        "time": 44.833,
+        "metadata": {
+          "width": 1080,
+          "height": 1920,
+          "zoomScale": 1,
+          "browserGpuMode": "auto",
+          "warnings": [],
+          "partial": false
+        },
+        "createdAt": 1792970047112,
+        "contentHash": "dc15cf894436d5b0d0478dbdf5d5c27978285271541155974a91cc586d15e9b6",
+        "revision": null,
+        "inputFingerprint": "1cef95e2c2b56de0e5eee8b1f592d401c7b35bc9d55fb812d835b42108251182",
+        "inputScope": "local-project-files",
+        "attribution": "unversioned"
+      },
+      {
+        "scope": "full",
+        "id": "3b396b5e-fa6a-4805-973c-a5ffb5e4a23b-7",
+        "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\w2_ep12_ant_rope\\frame-07-at-52.305s.png",
+        "time": 52.305,
+        "metadata": {
+          "width": 1080,
+          "height": 1920,
+          "zoomScale": 1,
+          "browserGpuMode": "auto",
+          "warnings": [],
+          "partial": false
+        },
+        "createdAt": 1792970047112,
+        "contentHash": "1a30e2ce218949dc1f8c28ba381fc1d016b22043693c3121bb7241f0335f8137",
+        "revision": null,
+        "inputFingerprint": "1cef95e2c2b56de0e5eee8b1f592d401c7b35bc9d55fb812d835b42108251182",
+        "inputScope": "local-project-files",
+        "attribution": "unversioned"
+      },
+      {
+        "scope": "full",
+        "id": "3b396b5e-fa6a-4805-973c-a5ffb5e4a23b-8",
+        "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\w2_ep12_ant_rope\\frame-08-at-59.777s.png",
+        "time": 59.777,
+        "metadata": {
+          "width": 1080,
+          "height": 1920,
+          "zoomScale": 1,
+          "browserGpuMode": "auto",
+          "warnings": [],
+          "partial": false
+        },
+        "createdAt": 1792970047114,
+        "contentHash": "e9317378f339ed9ae05c9aca4425841768df934c80ff6c4639284cae9dca98c5",
+        "revision": null,
+        "inputFingerprint": "1cef95e2c2b56de0e5eee8b1f592d401c7b35bc9d55fb812d835b42108251182",
+        "inputScope": "local-project-files",
+        "attribution": "unversioned"
+      },
+      {
+        "scope": "full",
+        "id": "3b396b5e-fa6a-4805-973c-a5ffb5e4a23b-9",
+        "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\w2_ep12_ant_rope\\frame-09-at-67.249s.png",
+        "time": 67.249,
+        "metadata": {
+          "width": 1080,
+          "height": 1920,
+          "zoomScale": 1,
+          "browserGpuMode": "auto",
+          "warnings": [],
+          "partial": false
+        },
+        "createdAt": 1792970047115,
+        "contentHash": "58f4065d00b1ad3806e2e478f5b8dd4021d2942ad0d7d7e943c85d812db1b5ee",
+        "revision": null,
+        "inputFingerprint": "1cef95e2c2b56de0e5eee8b1f592d401c7b35bc9d55fb812d835b42108251182",
+        "inputScope": "local-project-files",
+        "attribution": "unversioned"
+      },
+      {
+        "scope": "full",
+        "id": "3b396b5e-fa6a-4805-973c-a5ffb5e4a23b-10",
+        "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\w2_ep12_ant_rope\\frame-10-at-74.721s.png",
+        "time": 74.721,
+        "metadata": {
+          "width": 1080,
+          "height": 1920,
+          "zoomScale": 1,
+          "browserGpuMode": "auto",
+          "warnings": [],
+          "partial": false
+        },
+        "createdAt": 1792970047116,
+        "contentHash": "7e5d5cb1f9f3efeed7d289d081bbad98078a5bfc8f51dbf39fd2eed797107953",
+        "revision": null,
+        "inputFingerprint": "1cef95e2c2b56de0e5eee8b1f592d401c7b35bc9d55fb812d835b42108251182",
+        "inputScope": "local-project-files",
+        "attribution": "unversioned"
+      },
+      {
+        "scope": "full",
+        "id": "3b396b5e-fa6a-4805-973c-a5ffb5e4a23b-11",
+        "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\w2_ep12_ant_rope\\frame-11-at-82.193s.png",
+        "time": 82.193,
+        "metadata": {
+          "width": 1080,
+          "height": 1920,
+          "zoomScale": 1,
+          "browserGpuMode": "auto",
+          "warnings": [],
+          "partial": false
+        },
+        "createdAt": 1792970047118,
+        "contentHash": "4f38b8e62a01fc53b7e4c71ab305bc7403bdeda9a177f59d8fe9372d2294cd55",
+        "revision": null,
+        "inputFingerprint": "1cef95e2c2b56de0e5eee8b1f592d401c7b35bc9d55fb812d835b42108251182",
+        "inputScope": "local-project-files",
+        "attribution": "unversioned"
+      }
+    ]
+  },
+  "renders": {
+    "latest": {
+      "id": "b8d078d8-b129-4f52-9618-ec2e23a15420",
+      "completedAt": 1792971051685,
+      "output": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\puzzles\\ep12_ant_rope\\renders\\ep12_ant_rope.mp4",
+      "status": "completed",
+      "revision": "ea401d8c-ef8a-489f-b73c-0de2fa6d5619"
+    },
+    "retainedRevisions": [
+      "ea401d8c-ef8a-489f-b73c-0de2fa6d5619"
+    ]
+  },
+  "pendingArtifactCleanup": []
+}

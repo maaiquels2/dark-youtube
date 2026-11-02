@@ -1,0 +1,350 @@
+{
+ "theme": "rulechanged",
+ "format": "vertical",
+ "comp": "main",
+ "out": "s2_fine_sample",
+ "music": "library/music/incompetech/interloper.mp3",
+ "music_gain": 0.14,
+ "lufs": -14,
+ "tail": 1.0,
+ "captions": true,
+ "blocks": [
+  {
+   "act": "case",
+   "scenes": [
+    {
+     "t": "organ_focus",
+     "image": "gavel.jpg",
+     "screen": false,
+     "photo": true,
+     "zoom": [
+      100,
+      108
+     ],
+     "illustration": true
+    },
+    {
+     "t": "impact_title",
+     "at": "start",
+     "fade": [
+      0.15,
+      0.25
+     ],
+     "lines": [
+      {
+       "text": "$120 MILLION",
+       "size": 130,
+       "y": 860,
+       "color": [
+        1,
+        0.96,
+        0.9
+       ],
+       "font": "Inter-Bold"
+      }
+     ]
+    },
+    {
+     "t": "impact_title",
+     "at": "without",
+     "fade": [
+      0.15,
+      0.25
+     ],
+     "lines": [
+      {
+       "text": "WITHOUT COUNTING",
+       "size": 92,
+       "y": 1000,
+       "color": [
+        0.82,
+        0.25,
+        0.18
+       ],
+       "font": "Anton"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "act": "case",
+   "scenes": [
+    {
+     "t": "web_clip",
+     "image": "fcc_proposed_2017.png",
+     "site": "FCC.GOV",
+     "date": "JUNE 22, 2017",
+     "source": "Source: FCC NAL FCC-17-80",
+     "marks": [
+      {
+       "box": [
+        395,
+        443,
+        2054,
+        230
+       ],
+       "at": "ninetysix"
+      }
+     ],
+     "until": "ninetysix-0.1"
+    },
+    {
+     "t": "lower_third",
+     "text": "Adrian Abramovich",
+     "sub": "Named by the FCC",
+     "corner": "tl",
+     "at": "abramovich"
+    },
+    {
+     "t": "fact_card",
+     "big": "96 MILLION",
+     "size": 150,
+     "at": "ninetysix",
+     "image": "stack_phones.jpg",
+     "text": "robocalls in three months, per the FCC",
+     "source": "Source: FCC order FCC 18-58"
+    }
+   ]
+  },
+  {
+   "act": "case",
+   "scenes": [
+    {
+     "t": "fact_card",
+     "big": "80,000",
+     "size": 170,
+     "at": "eighty",
+     "image": "racks.jpg",
+     "text": "calls sampled, about 1,000 for each day",
+     "source": "Source: FCC order FCC 18-58"
+    }
+   ]
+  },
+  {
+   "act": "case",
+   "scenes": [
+    {
+     "t": "impact_title",
+     "at": "start",
+     "fade": [
+      0.15,
+      0.25
+     ],
+     "lines": [
+      {
+       "text": "80,000 × $1,000",
+       "size": 92,
+       "y": 760,
+       "color": [
+        1,
+        0.96,
+        0.9
+       ],
+       "font": "Inter-Bold"
+      }
+     ]
+    },
+    {
+     "t": "impact_title",
+     "at": "eighty",
+     "fade": [
+      0.15,
+      0.25
+     ],
+     "lines": [
+      {
+       "text": "= $80M",
+       "size": 92,
+       "y": 880,
+       "color": [
+        1,
+        0.96,
+        0.9
+       ],
+       "font": "Inter-Bold"
+      }
+     ]
+    },
+    {
+     "t": "impact_title",
+     "at": "forty",
+     "fade": [
+      0.15,
+      0.25
+     ],
+     "lines": [
+      {
+       "text": "+ $40M = $120M",
+       "size": 92,
+       "y": 1020,
+       "color": [
+        0.82,
+        0.25,
+        0.18
+       ],
+       "font": "Inter-Bold"
+      }
+     ]
+    },
+    {
+     "t": "lower_third",
+     "text": "How the fine was built",
+     "sub": "Source: FCC order FCC 18-58",
+     "corner": "tl",
+     "at": "start+0.3"
+    }
+   ]
+  },
+  {
+   "act": "case",
+   "scenes": [
+    {
+     "t": "fact_card",
+     "big": "EVERY ONE",
+     "size": 150,
+     "at": "start+0.1",
+     "image": "phone_screen.jpg",
+     "text": "of the 80,000 sampled calls used a spoofed number",
+     "source": "Source: FCC order FCC 18-58"
+    }
+   ]
+  },
+  {
+   "act": "case",
+   "scenes": [
+    {
+     "t": "organ_focus",
+     "image": "hangup.jpg",
+     "screen": false,
+     "photo": true,
+     "zoom": [
+      100,
+      108
+     ],
+     "illustration": true,
+     "label": {
+      "text": "HIS DEFENSE",
+      "at": 0.3
+     }
+    },
+    {
+     "t": "impact_title",
+     "at": "five",
+     "fade": [
+      0.15,
+      0.25
+     ],
+     "lines": [
+      {
+       "text": "5 MINUTES ON THE LINE?",
+       "size": 80,
+       "y": 880,
+       "color": [
+        1,
+        0.96,
+        0.9
+       ],
+       "font": "Anton"
+      }
+     ],
+     "until": "ruled-0.2"
+    },
+    {
+     "t": "impact_title",
+     "at": "ruled",
+     "fade": [
+      0.15,
+      0.25
+     ],
+     "lines": [
+      {
+       "text": "FCC: INTENT MATTERS",
+       "size": 80,
+       "y": 880,
+       "color": [
+        0.82,
+        0.25,
+        0.18
+       ],
+       "font": "Anton"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "act": "case",
+   "scenes": [
+    {
+     "t": "organ_focus",
+     "image": "p_pai.jpg",
+     "screen": false,
+     "photo": true,
+     "zoom": [
+      100,
+      108
+     ],
+     "illustration": false,
+     "label": {
+      "text": "AJIT PAI",
+      "at": 0.3
+     },
+     "until": "full-0.1"
+    },
+    {
+     "t": "lower_third",
+     "text": "“The largest fine in the agency's history”",
+     "sub": "FCC Chairman Ajit Pai, 2018",
+     "corner": "tl",
+     "at": "largest",
+     "until": "full-0.1"
+    },
+    {
+     "t": "impact_title",
+     "at": "full",
+     "fade": [
+      0.15,
+      0.25
+     ],
+     "lines": [
+      {
+       "text": "FULL CASE",
+       "size": 150,
+       "y": 900,
+       "color": [
+        1,
+        0.96,
+        0.9
+       ],
+       "font": "Anton"
+      }
+     ],
+     "until": "dur"
+    },
+    {
+     "t": "impact_title",
+     "at": "full+0.15",
+     "fade": [
+      0.15,
+      0.25
+     ],
+     "lines": [
+      {
+       "text": "ON THE RULE CHANGED",
+       "size": 66,
+       "y": 1010,
+       "color": [
+        0.82,
+        0.25,
+        0.18
+       ],
+       "font": "Anton"
+      }
+     ],
+     "until": "dur"
+    }
+   ]
+  }
+ ]
+}

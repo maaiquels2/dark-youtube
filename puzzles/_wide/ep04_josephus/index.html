@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=1920, height=1080" />
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 1920px; height: 1080px; overflow: hidden; background: #f4ecd8; }
+  #root { position: relative; width: 1920px; height: 1080px; overflow: hidden; background: #f4ecd8;
+    font-family: "JetBrains Mono", monospace; color: #1c1c1c; }
+  #cv { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; }
+  .t { position: absolute; left: 0; width: 1920px; text-align: center; font-weight: 700; }
+  #title { top: 26px; font-size: 52px; white-space: nowrap; }
+  #stat { top: 92px; font-size: 28px; opacity: .7; letter-spacing: 2px; }
+  #cap { top: 958px; left: 260px; width: 1400px; font-size: 52px; line-height: 62px; height: 124px; }
+  .g { position: absolute; left: 0; top: 0; width: 1400px; text-align: center; opacity: 0; }
+  .w { opacity: .22; }
+  .w.on { opacity: 1; }
+  .w.k.on { color: #d62828; }
+</style>
+</head>
+<body>
+<div id="root" data-composition-id="main" data-start="0" data-duration="86.620" data-width="1920" data-height="1080">
+  <canvas id="cv" class="clip" data-start="0" data-duration="86.620" width="1920" height="1080"></canvas>
+  <div id="title" class="clip t" data-start="0" data-duration="86.620">41 people. Who <span style="color:#d62828">survives</span>?</div>
+  <div id="stat" class="clip t" data-start="0" data-duration="86.620"></div>
+  <div id="cap" class="clip t" data-start="0" data-duration="86.620"></div>
+  <audio id="voice" src="assets/voice.mp3" data-start="2.8" data-duration="86.620" data-volume="1"></audio>
+</div>
+<script>
+const LEAD = 2.8, CHAPTER = "PUZZLE 4 OF 6|41 in a circle", WORDS = [{"w": "Forty-one", "s": 2.8, "e": 3.334}, {"w": "people", "s": 3.38, "e": 3.659}, {"w": "stand", "s": 3.694, "e": 3.903}, {"w": "in", "s": 3.961, "e": 4.019}, {"w": "a", "s": 4.065, "e": 4.089}, {"w": "circle.", "s": 4.147, "e": 4.611}, {"w": "Every", "s": 4.832, "e": 5.11}, {"w": "second", "s": 5.168, "e": 5.412}, {"w": "person", "s": 5.47, "e": 5.737}, {"w": "is", "s": 5.784, "e": 5.853}, {"w": "eliminated.", "s": 5.911, "e": 6.527}, {"w": "Which", "s": 6.887, "e": 7.119}, {"w": "position", "s": 7.177, "e": 7.618}, {"w": "survives?", "s": 7.688, "e": 8.408}, {"w": "There's", "s": 8.768, "e": 9.011}, {"w": "a", "s": 9.046, "e": 9.069}, {"w": "shortcut,", "s": 9.139, "e": 9.743}, {"w": "and", "s": 9.789, "e": 9.929}, {"w": "it", "s": 9.987, "e": 10.056}, {"w": "uses", "s": 10.126, "e": 10.428}, {"w": "binary.", "s": 10.497, "e": 11.09}, {"w": "Here", "s": 11.345, "e": 11.554}, {"w": "are", "s": 11.589, "e": 11.693}, {"w": "the", "s": 11.728, "e": 11.798}, {"w": "rules.", "s": 11.844, "e": 12.297}, {"w": "The", "s": 12.657, "e": 12.785}, {"w": "people", "s": 12.854, "e": 13.191}, {"w": "are", "s": 13.237, "e": 13.353}, {"w": "numbered", "s": 13.412, "e": 13.725}, {"w": "one", "s": 13.795, "e": 14.062}, {"w": "to", "s": 14.12, "e": 14.224}, {"w": "forty-one", "s": 14.329, "e": 14.932}, {"w": "around", "s": 14.967, "e": 15.269}, {"w": "the", "s": 15.304, "e": 15.374}, {"w": "circle.", "s": 15.408, "e": 15.85}, {"w": "Start", "s": 16.256, "e": 16.569}, {"w": "at", "s": 16.616, "e": 16.686}, {"w": "one:", "s": 16.756, "e": 17.127}, {"w": "skip", "s": 17.487, "e": 17.777}, {"w": "one,", "s": 17.882, "e": 18.323}, {"w": "eliminate", "s": 18.544, "e": 19.078}, {"w": "two.", "s": 19.101, "e": 19.565}, {"w": "Skip", "s": 19.867, "e": 20.157}, {"w": "three,", "s": 20.215, "e": 20.68}, {"w": "eliminate", "s": 20.749, "e": 21.202}, {"w": "four.", "s": 21.249, "e": 21.702}, {"w": "Keep", "s": 22.178, "e": 22.41}, {"w": "going", "s": 22.468, "e": 22.712}, {"w": "around", "s": 22.758, "e": 22.979}, {"w": "the", "s": 23.013, "e": 23.083}, {"w": "circle", "s": 23.153, "e": 23.501}, {"w": "until", "s": 23.536, "e": 23.78}, {"w": "only", "s": 23.849, "e": 24.07}, {"w": "one", "s": 24.14, "e": 24.383}, {"w": "person", "s": 24.43, "e": 24.767}, {"w": "is", "s": 24.825, "e": 24.906}, {"w": "left.", "s": 24.976, "e": 25.393}, {"w": "Try", "s": 25.753, "e": 26.009}, {"w": "a", "s": 26.078, "e": 26.102}, {"w": "small", "s": 26.171, "e": 26.473}, {"w": "circle", "s": 26.543, "e": 26.845}, {"w": "first.", "s": 26.891, "e": 27.356}, {"w": "With", "s": 27.657, "e": 27.843}, {"w": "five", "s": 27.901, "e": 28.191}, {"w": "people,", "s": 28.238, "e": 28.737}, {"w": "number", "s": 28.935, "e": 29.178}, {"w": "three", "s": 29.236, "e": 29.48}, {"w": "survives.", "s": 29.527, "e": 30.246}, {"w": "With", "s": 30.548, "e": 30.746}, {"w": "six,", "s": 30.815, "e": 31.257}, {"w": "number", "s": 31.338, "e": 31.582}, {"w": "five.", "s": 31.651, "e": 32.127}, {"w": "With", "s": 32.429, "e": 32.615}, {"w": "seven,", "s": 32.685, "e": 33.021}, {"w": "number", "s": 33.044, "e": 33.253}, {"w": "seven.", "s": 33.323, "e": 33.799}, {"w": "With", "s": 34.054, "e": 34.252}, {"w": "eight,", "s": 34.333, "e": 34.577}, {"w": "number", "s": 34.6, "e": 34.809}, {"w": "one.", "s": 34.878, "e": 35.204}, {"w": "Look", "s": 35.61, "e": 35.796}, {"w": "at", "s": 35.83, "e": 35.877}, {"w": "the", "s": 35.912, "e": 35.981}, {"w": "survivors:", "s": 36.005, "e": 36.666}, {"w": "one,", "s": 36.887, "e": 37.328}, {"w": "one,", "s": 37.63, "e": 38.071}, {"w": "three,", "s": 38.373, "e": 38.907}, {"w": "one,", "s": 39.267, "e": 39.685}, {"w": "three,", "s": 39.94, "e": 40.509}, {"w": "five,", "s": 40.707, "e": 41.264}, {"w": "seven,", "s": 41.566, "e": 42.088}, {"w": "one.", "s": 42.309, "e": 42.796}, {"w": "Every", "s": 43.447, "e": 43.783}, {"w": "extra", "s": 43.865, "e": 44.155}, {"w": "person", "s": 44.213, "e": 44.561}, {"w": "moves", "s": 44.631, "e": 44.875}, {"w": "the", "s": 44.909, "e": 44.991}, {"w": "answer", "s": 45.06, "e": 45.339}, {"w": "up", "s": 45.409, "e": 45.536}, {"w": "by", "s": 45.606, "e": 45.734}, {"w": "two.", "s": 45.803, "e": 46.198}, {"w": "And", "s": 46.558, "e": 46.709}, {"w": "whenever", "s": 46.767, "e": 47.139}, {"w": "the", "s": 47.197, "e": 47.278}, {"w": "circle", "s": 47.336, "e": 47.649}, {"w": "size", "s": 47.684, "e": 47.963}, {"w": "is", "s": 47.998, "e": 48.067}, {"w": "a", "s": 48.125, "e": 48.16}, {"w": "power", "s": 48.218, "e": 48.462}, {"w": "of", "s": 48.52, "e": 48.567}, {"w": "two,", "s": 48.625, "e": 49.077}, {"w": "the", "s": 49.298, "e": 49.414}, {"w": "survivor", "s": 49.472, "e": 50.041}, {"w": "is", "s": 50.111, "e": 50.204}, {"w": "number", "s": 50.273, "e": 50.494}, {"w": "one.", "s": 50.564, "e": 50.877}, {"w": "Here's", "s": 51.074, "e": 51.341}, {"w": "the", "s": 51.376, "e": 51.446}, {"w": "shortcut.", "s": 51.492, "e": 52.026}, {"w": "Write", "s": 52.328, "e": 52.595}, {"w": "the", "s": 52.63, "e": 52.7}, {"w": "number", "s": 52.769, "e": 53.001}, {"w": "of", "s": 53.048, "e": 53.094}, {"w": "people", "s": 53.152, "e": 53.454}, {"w": "in", "s": 53.489, "e": 53.547}, {"w": "binary.", "s": 53.605, "e": 54.139}, {"w": "Forty-one", "s": 54.499, "e": 55.045}, {"w": "is", "s": 55.08, "e": 55.173}, {"w": "one-zero-one-zero-zero-one.", "s": 55.277, "e": 57.309}, {"w": "Now", "s": 57.715, "e": 57.878}, {"w": "take", "s": 57.947, "e": 58.156}, {"w": "the", "s": 58.191, "e": 58.261}, {"w": "leading", "s": 58.307, "e": 58.551}, {"w": "one,", "s": 58.621, "e": 58.923}, {"w": "and", "s": 59.085, "e": 59.248}, {"w": "move", "s": 59.317, "e": 59.491}, {"w": "it", "s": 59.526, "e": 59.584}, {"w": "to", "s": 59.619, "e": 59.677}, {"w": "the", "s": 59.735, "e": 59.805}, {"w": "end.", "s": 59.875, "e": 60.2}, {"w": "You", "s": 60.455, "e": 60.583}, {"w": "get", "s": 60.652, "e": 60.803}, {"w": "zero-one-zero-zero-one-one.", "s": 60.873, "e": 62.87}, {"w": "That's", "s": 63.23, "e": 63.485}, {"w": "nineteen.", "s": 63.59, "e": 64.275}, {"w": "Person", "s": 64.635, "e": 64.995}, {"w": "nineteen", "s": 65.064, "e": 65.505}, {"w": "survives.", "s": 65.575, "e": 66.26}, {"w": "Why", "s": 66.62, "e": 66.794}, {"w": "does", "s": 66.841, "e": 66.968}, {"w": "it", "s": 67.015, "e": 67.084}, {"w": "work?", "s": 67.119, "e": 67.479}, {"w": "After", "s": 67.885, "e": 68.164}, {"w": "one", "s": 68.245, "e": 68.466}, {"w": "lap,", "s": 68.524, "e": 68.838}, {"w": "half", "s": 68.884, "e": 69.081}, {"w": "the", "s": 69.128, "e": 69.197}, {"w": "circle", "s": 69.255, "e": 69.546}, {"w": "is", "s": 69.581, "e": 69.662}, {"w": "gone,", "s": 69.72, "e": 70.161}, {"w": "and", "s": 70.382, "e": 70.533}, {"w": "the", "s": 70.579, "e": 70.649}, {"w": "survivors", "s": 70.684, "e": 71.252}, {"w": "renumber", "s": 71.334, "e": 71.81}, {"w": "themselves", "s": 71.879, "e": 72.309}, {"w": "by", "s": 72.355, "e": 72.46}, {"w": "doubling.", "s": 72.529, "e": 73.052}, {"w": "Doubling", "s": 73.702, "e": 74.143}, {"w": "is", "s": 74.19, "e": 74.271}, {"w": "a", "s": 74.329, "e": 74.352}, {"w": "binary", "s": 74.41, "e": 74.782}, {"w": "shift.", "s": 74.84, "e": 75.269}, {"w": "The", "s": 75.629, "e": 75.757}, {"w": "leading", "s": 75.827, "e": 76.082}, {"w": "one", "s": 76.152, "e": 76.303}, {"w": "falls", "s": 76.349, "e": 76.616}, {"w": "off", "s": 76.663, "e": 76.802}, {"w": "the", "s": 76.837, "e": 76.906}, {"w": "front,", "s": 76.964, "e": 77.359}, {"w": "and", "s": 77.429, "e": 77.557}, {"w": "a", "s": 77.603, "e": 77.638}, {"w": "one", "s": 77.708, "e": 77.928}, {"w": "lands", "s": 77.986, "e": 78.23}, {"w": "at", "s": 78.265, "e": 78.334}, {"w": "the", "s": 78.369, "e": 78.439}, {"w": "back.", "s": 78.485, "e": 78.869}, {"w": "So", "s": 79.426, "e": 79.565}, {"w": "a", "s": 79.623, "e": 79.658}, {"w": "problem", "s": 79.716, "e": 80.076}, {"w": "about", "s": 80.134, "e": 80.343}, {"w": "elimination", "s": 80.378, "e": 81.016}, {"w": "turns", "s": 81.086, "e": 81.376}, {"w": "out", "s": 81.423, "e": 81.539}, {"w": "to", "s": 81.573, "e": 81.62}, {"w": "be", "s": 81.666, "e": 81.748}, {"w": "a", "s": 81.782, "e": 81.806}, {"w": "problem", "s": 81.852, "e": 82.154}, {"w": "about", "s": 82.189, "e": 82.386}, {"w": "shifting", "s": 82.433, "e": 82.746}, {"w": "digits.", "s": 82.804, "e": 83.234}, {"w": "Once", "s": 83.64, "e": 83.872}, {"w": "again,", "s": 83.907, "e": 84.221}, {"w": "binary", "s": 84.36, "e": 84.743}, {"w": "was", "s": 84.789, "e": 84.894}, {"w": "hiding", "s": 84.952, "e": 85.196}, {"w": "in", "s": 85.231, "e": 85.277}, {"w": "the", "s": 85.3, "e": 85.37}, {"w": "answer.", "s": 85.416, "e": 86.02}], B = [2.8, 11.345, 25.753, 35.61, 51.074, 66.62, 79.426, 86.32], VEND = 86.020, DUR = 86.620, NB = B.length - 1;
+const KEYS = new Set(["survives", "binary", "nineteen", "leading", "doubling", "forty-one"]);
+const INK = "#1c1c1c", RED = "#d62828", OR = "#e07a00", GRN = "#2a9d5c", DOT = "#4a4a4a";
+const clamp = v => Math.max(0, Math.min(1, v));
+const ease = v => { v = clamp(v); return v * v * (3 - 2 * v); };
+const bit = (i, k) => (i >> k) & 1;
+const cvs = document.getElementById("cv"), x = cvs.getContext("2d");
+const stat = document.getElementById("stat"), cap = document.getElementById("cap");
+const FONT = "'JetBrains Mono', monospace";
+function txt(s, px, py, size, col, align, weight) {
+  x.font = (weight || "bold") + " " + Math.round(size * 1.12) + "px " + FONT; x.fillStyle = col || INK;
+  x.textAlign = align || "center"; x.textBaseline = "middle"; x.fillText(s, px, py);
+}
+function circ(cx, cy, r, fill, stroke, lw, alpha) {
+  x.globalAlpha = alpha == null ? 1 : alpha; x.beginPath(); x.arc(cx, cy, r, 0, 6.283);
+  if (fill) { x.fillStyle = fill; x.fill(); } if (stroke) { x.strokeStyle = stroke; x.lineWidth = lw || 4; x.stroke(); }
+  x.globalAlpha = 1;
+}
+function rect(px, py, w, h, fill, stroke, lw, alpha) {
+  x.globalAlpha = alpha == null ? 1 : alpha;
+  if (fill) { x.fillStyle = fill; x.fillRect(px, py, w, h); }
+  if (stroke) { x.strokeStyle = stroke; x.lineWidth = lw || 4; x.strokeRect(px, py, w, h); }
+  x.globalAlpha = 1;
+}
+function line(x1, y1, x2, y2, col, lw, alpha) {
+  x.globalAlpha = alpha == null ? 1 : alpha; x.strokeStyle = col || INK; x.lineWidth = lw || 3;
+  x.beginPath(); x.moveTo(x1, y1); x.lineTo(x2, y2); x.stroke(); x.globalAlpha = 1;
+}
+function show(w) {
+  const m = w.match(/^((?:one|zero)(?:-(?:one|zero))+)([.,?!]*)$/i);
+  if (m) return m[1].toLowerCase().split("-").map(p => p === "one" ? 1 : 0).join("") + m[2];
+  return w;
+}
+const groups = []; {
+  let g = [];
+  const flush = () => { if (g.length) { groups.push(g); g = []; } };
+  WORDS.forEach((w, i) => {
+    const t = show(w.w);
+    if (g.length && (g.length >= 4 || g.map(o => show(o.w)).join(" ").length + t.length > 24)) flush();
+    g.push({ ...w, i, txt: t });
+    if (/[.?!]$/.test(w.w) || /,$/.test(w.w)) flush();
+  });
+  flush();
+}
+groups.forEach((g, gi) => {
+  const el = document.createElement("div"); el.className = "g"; el.id = "g" + gi;
+  g.forEach(w => {
+    const s = document.createElement("span");
+    s.className = "w" + (KEYS.has(w.txt.toLowerCase().replace(/[.,?!]/g, "")) ? " k" : "");
+    s.textContent = w.txt + " "; w.el = s; el.appendChild(s);
+  });
+  cap.appendChild(el); g.el = el;
+  g.start = g[0].s - 0.05; g.end = DUR;
+});
+groups.forEach((g, gi) => { if (gi + 1 < groups.length) g.end = Math.min(g[g.length - 1].e + 0.25, groups[gi + 1][0].s - 0.05); });
+function blockOf(t) { let b = 0; for (let i = 0; i < NB; i++) if (t >= B[i]) b = i; return b; }
+
+function order(n) { const p = Array.from({ length: n }, (_, i) => i + 1), out = []; let i = 0;
+  while (p.length > 1) { i = (i + 1) % p.length; out.push(p.splice(i, 1)[0]); }
+  return { out, win: p[0] }; }
+function surv(n) { return order(n).win; }
+const O41 = order(41), BIN = "101001";
+function ring(cx, cy, r, n, gone, win, size) {
+  const dead = new Set(gone);
+  for (let i = 1; i <= n; i++) {
+    const a = -1.5708 + (i - 1) * 6.283 / n, px = cx + r * Math.cos(a), py = cy + r * Math.sin(a);
+    const d = dead.has(i), w = win === i;
+    circ(px, py, w ? size * 1.5 : size, d ? null : (w ? GRN : INK), d ? INK : null, 2, d ? 0.25 : 1);
+    if (!d && size >= 14) txt(String(i), px, py, Math.round(size * 0.9), "#f4ecd8", "center");
+  }
+}
+function bits(str, y, hi, off, lift) {
+  for (let i = 0; i < str.length; i++) {
+    const px = 540 + (i - (str.length - 1) / 2) * 110 + (off ? off[i] : 0), yy = y - (lift && i === 0 ? lift : 0);
+    rect(px - 44, yy - 44, 88, 88, hi === i ? "rgba(224,122,0,0.3)" : null, INK, 5);
+    txt(str[i], px, yy, 56, str[i] === "1" ? RED : INK);
+  }
+}
+function scene(t, b, u) {
+  if (b === 0) { ring(540, 640, 320, 41, [], 0, 18); return u < 0.5 ? "41 PEOPLE IN A CIRCLE" : "EVERY SECOND ONE OUT"; }
+  if (b === 1) {
+    const k = Math.floor(ease(u / 0.9) * 40);
+    ring(540, 640, 320, 41, O41.out.slice(0, k), k >= 40 ? O41.win : 0, 18);
+    return k >= 40 ? "LAST ONE STANDING: 19" : "ELIMINATED: " + k;
+  }
+  if (b === 2) {
+    const ns = [5, 6, 7, 8], cs = [[300, 560], [780, 560], [300, 900], [780, 900]];
+    ns.forEach((n, j) => { const r = order(n); const show = u > j * 0.22; if (!show) return;
+      ring(cs[j][0], cs[j][1], 120, n, r.out, r.win, 15); txt("n = " + n + "  →  " + r.win, cs[j][0], cs[j][1] + 175, 30, INK); });
+    return "SMALL CIRCLES";
+  }
+  if (b === 3) {
+    const arr = []; for (let n = 1; n <= 8; n++) arr.push(surv(n));
+    const k = Math.floor(ease(u / 0.8) * 8);
+    arr.forEach((v, i) => { const px = 120 + i * 120; if (i < k) { rect(px - 48, 560 - 48, 96, 96, i === 0 || i === 7 || i === 3 ? "rgba(214,40,40,0.15)" : null, INK, 4); txt(String(v), px, 560, 52, INK); txt(String(i + 1), px, 650, 28, DOT); } });
+    txt("circle size", 540, 720, 28, DOT);
+    return "SURVIVOR FOR SIZE 1 … 8";
+  }
+  if (b === 4) {
+    const k = ease((u - 0.35) / 0.4);
+    txt("41  =", 540, 480, 56, INK);
+    const off = BIN.split("").map((_, i) => i === 0 ? (BIN.length - 1) * 110 * k : -110 * k);
+    bits(BIN, 640, 0, off, 110 * Math.sin(3.1416 * k));
+    if (u > 0.8) txt("= 19", 540, 840, 64, GRN);
+    return u < 0.35 ? "41 IN BINARY" : u < 0.8 ? "MOVE THE LEADING 1 TO THE END" : "010011 = 19";
+  }
+  if (b === 5) {
+    txt("lap 1 removes half", 540, 440, 36, INK);
+    const arrow = ease(u / 0.8);
+    bits(BIN, 600, 0, null);
+    txt("double the old answer…", 540, 760, 34, OR); if (u > 0.4) txt("…binary shift left", 540, 820, 34, OR);
+    if (u > 0.7) txt("leading 1 out, 1 in at the back", 540, 900, 34, RED);
+    return "WHY IT WORKS";
+  }
+  ring(540, 640, 320, 41, O41.out, O41.win, 18);
+  return "BINARY WAS HIDING IN THE ANSWER";
+}
+
+
+function renderAt(t) {
+  x.fillStyle = "#f4ecd8"; x.fillRect(0, 0, 1920, 1080);
+  x.strokeStyle = "rgba(60,90,140,0.16)"; x.lineWidth = 2;
+  for (let g = 0; g <= 1920; g += 40) { x.beginPath(); x.moveTo(g, 0); x.lineTo(g, 1080); x.stroke(); }
+  for (let g = 0; g <= 1080; g += 40) { x.beginPath(); x.moveTo(0, g); x.lineTo(1920, g); x.stroke(); }
+  const b = blockOf(t), u = clamp((t - B[b]) / (B[b + 1] - B[b]));
+  if (t < LEAD) {
+    stat.textContent = ""; x.textAlign = "center"; x.textBaseline = "middle";
+    x.fillStyle = RED; x.font = "bold 44px " + FONT; x.fillText(CHAPTER.split("|")[0], 960, 430);
+    x.fillStyle = INK; x.font = "bold 84px " + FONT; x.fillText(CHAPTER.split("|")[1], 960, 540);
+    groups.forEach(g => { g.el.style.opacity = 0; });
+    return;
+  }
+  x.save(); x.translate(463, -126); x.scale(0.92, 0.92);
+  stat.textContent = scene(t, b, u) || "";
+  x.restore();
+  groups.forEach(g => {
+    const on = t >= g.start && t < g.end;
+    g.el.style.opacity = on ? 1 : 0;
+    if (on) g.forEach(w => w.el.classList.toggle("on", t >= w.s));
+  });
+}
+window.addEventListener("hf-seek", e => renderAt(e.detail.time));
+renderAt(0);
+const tl = gsap.timeline({ paused: true });
+tl.fromTo("#title", { opacity: 0 }, { opacity: 1, duration: 0.5, ease: "power2.out" }, 0);
+window.__timelines = window.__timelines || {};
+window.__timelines["main"] = tl;
+</script>
+</body>
+</html>

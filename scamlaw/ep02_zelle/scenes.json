@@ -1,0 +1,1731 @@
+{
+ "theme": "rulechanged",
+ "format": "horizontal",
+ "comp": "main",
+ "out": "ep02_zelle",
+ "music": "library/music/incompetech/interloper.mp3",
+ "music_gain": 0.14,
+ "tail": 3.0,
+ "captions": true,
+ "blocks": [
+  {
+   "scenes": [
+    {
+     "t": "intro",
+     "title": "You Sent It Yourself",
+     "kicker": "THE RULE CHANGED"
+    }
+   ]
+  },
+  {
+   "scenes": [
+    {
+     "t": "fact_card",
+     "big": "$1,476.89",
+     "size": 190,
+     "text": "sent through Zelle to an account called \"Coned Billing\"",
+     "source": "Source: New York Attorney General, Aug 13, 2025"
+    }
+   ],
+   "act": "scam"
+  },
+  {
+   "scenes": [
+    {
+     "t": "organ_focus",
+     "image": "phone_ear.jpg",
+     "screen": false,
+     "photo": true,
+     "zoom": [
+      100,
+      108
+     ],
+     "label": {
+      "text": "\"YOUR POWER GOES OFF TODAY\"",
+      "at": 0.3
+     },
+     "illustration": true,
+     "until": 4.52
+    },
+    {
+     "t": "organ_focus",
+     "image": "lights_off.jpg",
+     "screen": false,
+     "photo": true,
+     "zoom": [
+      100,
+      108
+     ],
+     "label": {
+      "text": "\"YOUR POWER GOES OFF TODAY\"",
+      "at": 4.72
+     },
+     "illustration": true,
+     "at": 4.42
+    }
+   ],
+   "act": "scam"
+  },
+  {
+   "scenes": [
+    {
+     "t": "impact_title",
+     "lines": [
+      {
+       "text": "TWO LAWSUITS",
+       "size": 120,
+       "y": 470,
+       "font": "Anton",
+       "delay": 0.0,
+       "color": [
+        1,
+        0.93,
+        0.8
+       ]
+      },
+      {
+       "text": "A RULE BRITAIN HAS. AMERICA DOESN'T.",
+       "size": 84,
+       "y": 640,
+       "font": "Anton",
+       "delay": 0.25,
+       "color": [
+        1,
+        0.7,
+        0.22
+       ]
+      }
+     ],
+     "fade": [
+      0.3,
+      0.3
+     ]
+    }
+   ],
+   "act": "scam"
+  },
+  {
+   "scenes": [
+    {
+     "t": "chapter_card",
+     "num": 1,
+     "title": "The Shutoff"
+    }
+   ]
+  },
+  {
+   "scenes": [
+    {
+     "t": "organ_focus",
+     "image": "hands_phone_old.jpg",
+     "screen": false,
+     "photo": true,
+     "zoom": [
+      100,
+      108
+     ],
+     "label": {
+      "text": "THE CON EDISON CALL",
+      "at": 0.3
+     },
+     "illustration": true,
+     "until": 4.949999999999999
+    },
+    {
+     "t": "organ_focus",
+     "image": "meter.jpg",
+     "screen": false,
+     "photo": true,
+     "zoom": [
+      100,
+      108
+     ],
+     "label": {
+      "text": "THE CON EDISON CALL",
+      "at": 5.1499999999999995
+     },
+     "illustration": true,
+     "at": 4.85
+    },
+    {
+     "t": "lower_third",
+     "text": "As described by New York's Attorney General",
+     "corner": "br",
+     "sub": "Source: NY AG complaint, Aug 2025"
+    }
+   ],
+   "act": "scam"
+  },
+  {
+   "scenes": [
+    {
+     "t": "organ_focus",
+     "image": "thumb_send.jpg",
+     "screen": false,
+     "photo": true,
+     "zoom": [
+      100,
+      108
+     ],
+     "label": {
+      "text": "PAY BY ZELLE",
+      "at": 0.3
+     },
+     "illustration": true,
+     "until": 4.77
+    },
+    {
+     "t": "organ_focus",
+     "image": "wallet_phone.jpg",
+     "screen": false,
+     "photo": true,
+     "zoom": [
+      100,
+      108
+     ],
+     "label": {
+      "text": "PAY BY ZELLE",
+      "at": 4.97
+     },
+     "illustration": true,
+     "at": 4.67
+    }
+   ],
+   "act": "scam"
+  },
+  {
+   "scenes": [
+    {
+     "t": "impact_title",
+     "lines": [
+      {
+       "text": "\"CONED BILLING\"",
+       "size": 120,
+       "y": 470,
+       "font": "Anton",
+       "delay": 0.0,
+       "color": [
+        1,
+        0.93,
+        0.8
+       ]
+      },
+      {
+       "text": "A NAME, NOT A COMPANY",
+       "size": 84,
+       "y": 640,
+       "font": "Anton",
+       "delay": 0.25,
+       "color": [
+        1,
+        0.7,
+        0.22
+       ]
+      }
+     ],
+     "fade": [
+      0.3,
+      0.3
+     ]
+    },
+    {
+     "t": "lower_third",
+     "text": "Source: New York Attorney General"
+    }
+   ],
+   "act": "scam"
+  },
+  {
+   "scenes": [
+    {
+     "t": "clip",
+     "file": "money_path.mp4",
+     "hold": true
+    }
+   ]
+  },
+  {
+   "scenes": [
+    {
+     "t": "organ_focus",
+     "image": "empty_account.jpg",
+     "screen": false,
+     "photo": true,
+     "zoom": [
+      100,
+      108
+     ],
+     "label": {
+      "text": "GONE IN MINUTES",
+      "at": 0.3
+     },
+     "illustration": true,
+     "until": 4.5
+    },
+    {
+     "t": "organ_focus",
+     "image": "clock.jpg",
+     "screen": false,
+     "photo": true,
+     "zoom": [
+      100,
+      108
+     ],
+     "label": {
+      "text": "GONE IN MINUTES",
+      "at": 4.7
+     },
+     "illustration": true,
+     "at": 4.4
+    }
+   ],
+   "act": "scam"
+  },
+  {
+   "scenes": [
+    {
+     "t": "organ_focus",
+     "image": "scam_room.jpg",
+     "screen": false,
+     "photo": true,
+     "zoom": [
+      100,
+      108
+     ],
+     "label": {
+      "text": "MANY COSTUMES",
+      "at": 0.3
+     },
+     "illustration": true,
+     "until": 5.06
+    },
+    {
+     "t": "organ_focus",
+     "image": "headsets.jpg",
+     "screen": false,
+     "photo": true,
+     "zoom": [
+      100,
+      108
+     ],
+     "label": {
+      "text": "MANY COSTUMES",
+      "at": 5.26
+     },
+     "illustration": true,
+     "at": 4.96
+    },
+    {
+     "t": "lower_third",
+     "text": "Fake banks, government offices, sellers",
+     "corner": "br",
+     "sub": "Source: NY AG complaint"
+    }
+   ],
+   "act": "scam"
+  },
+  {
+   "scenes": [
+    {
+     "t": "web_clip",
+     "image": "ftc_12_5b.png",
+     "site": "FTC.GOV",
+     "date": "MARCH 10, 2025",
+     "source": "Source: FTC, March 2025",
+     "marks": [
+      {
+       "box": [
+        216,
+        744,
+        2448,
+        207
+       ],
+       "at": "twelve"
+      }
+     ]
+    }
+   ],
+   "act": "scam"
+  },
+  {
+   "scenes": [
+    {
+     "t": "end_card",
+     "lines": [
+      "BANK TRANSFERS + CRYPTO",
+      "More money lost than all other payment methods combined"
+     ]
+    },
+    {
+     "t": "lower_third",
+     "text": "Source: FTC, March 2025"
+    }
+   ],
+   "act": "scam"
+  },
+  {
+   "scenes": [
+    {
+     "t": "organ_focus",
+     "image": "l_zelle.jpg",
+     "screen": false,
+     "photo": true,
+     "zoom": [
+      100,
+      108
+     ],
+     "label": {
+      "text": "$1 TRILLION IN 2024",
+      "at": 0.3
+     }
+    },
+    {
+     "t": "lower_third",
+     "text": "Zelle's own count",
+     "corner": "br",
+     "sub": "Source: Zelle, Feb 12, 2025"
+    }
+   ],
+   "act": "scam"
+  },
+  {
+   "scenes": [
+    {
+     "t": "organ_focus",
+     "image": "family_talk.jpg",
+     "screen": false,
+     "photo": true,
+     "zoom": [
+      100,
+      108
+     ],
+     "label": {
+      "text": "A SMALL SHARE, MANY PEOPLE",
+      "at": 0.3
+     },
+     "illustration": true
+    }
+   ],
+   "act": "scam"
+  },
+  {
+   "scenes": [
+    {
+     "t": "chapter_card",
+     "num": 2,
+     "title": "You Sent It Yourself"
+    }
+   ]
+  },
+  {
+   "scenes": [
+    {
+     "t": "quote_card",
+     "quote": "can't get [him] that money back",
+     "by": "JPMorgan Chase, as quoted by New York's Attorney General",
+     "header": "NY AG · AUG 13, 2025"
+    }
+   ],
+   "act": "rule"
+  },
+  {
+   "scenes": [
+    {
+     "t": "web_clip",
+     "image": "cornell_efta_1693a.png",
+     "site": "LAW.CORNELL.EDU",
+     "date": "15 U.S.C. 1693a",
+     "source": "Source: 15 U.S.C. 1693a",
+     "marks": [
+      {
+       "box": [
+        273,
+        522,
+        1425,
+        40
+       ],
+       "at": "Electronic"
+      }
+     ]
+    }
+   ],
+   "act": "rule"
+  },
+  {
+   "scenes": [
+    {
+     "t": "web_clip",
+     "image": "ecfr_1005_2.png",
+     "site": "ECFR.GOV",
+     "date": "12 CFR 1005.2(m)",
+     "source": "Source: 12 CFR 1005.2(m)",
+     "marks": [
+      {
+       "box": [
+        860,
+        968,
+        1500,
+        90
+       ],
+       "at": "initiated"
+      }
+     ]
+    }
+   ],
+   "act": "rule"
+  },
+  {
+   "scenes": [
+    {
+     "t": "clip",
+     "file": "two_transfers.mp4",
+     "from": 0,
+     "hold": true
+    }
+   ]
+  },
+  {
+   "scenes": [
+    {
+     "t": "clip",
+     "file": "two_transfers.mp4",
+     "from": 4.4,
+     "hold": true
+    }
+   ]
+  },
+  {
+   "scenes": [
+    {
+     "t": "fact_card",
+     "big": "TYPICALLY",
+     "size": 190,
+     "text": "banks refuse to refund tricked payments, the CFPB alleged",
+     "source": "Source: CFPB complaint, Dec 2024",
+     "color": [
+      0.82,
+      0.25,
+      0.18
+     ]
+    }
+   ],
+   "act": "rule"
+  },
+  {
+   "scenes": [
+    {
+     "t": "organ_focus",
+     "image": "l_zelle.jpg",
+     "screen": false,
+     "photo": true,
+     "zoom": [
+      100,
+      108
+     ],
+     "label": {
+      "text": "ZELLE'S OWN POLICY",
+      "at": 0.3
+     },
+     "until": 4.5
+    },
+    {
+     "t": "organ_focus",
+     "image": "bank_hold.jpg",
+     "screen": false,
+     "photo": true,
+     "zoom": [
+      100,
+      108
+     ],
+     "label": {
+      "text": "ZELLE'S OWN POLICY",
+      "at": 4.7
+     },
+     "at": 4.4,
+     "illustration": true
+    },
+    {
+     "t": "lower_third",
+     "text": "Since mid-2023: refunds for some imposter scams",
+     "corner": "br",
+     "sub": "Source: CFPB complaint, Dec 2024"
+    }
+   ],
+   "act": "rule"
+  },
+  {
+   "scenes": [
+    {
+     "t": "end_card",
+     "lines": [
+      "A POLICY, NOT A LAW",
+      "Only a fraction of tricked payments, per the CFPB"
+     ]
+    }
+   ],
+   "act": "rule"
+  },
+  {
+   "scenes": [
+    {
+     "t": "impact_title",
+     "lines": [
+      {
+       "text": "THE LINE:",
+       "size": 120,
+       "y": 470,
+       "font": "Anton",
+       "delay": 0.0,
+       "color": [
+        1,
+        0.93,
+        0.8
+       ]
+      },
+      {
+       "text": "WHO PRESSED THE BUTTON",
+       "size": 84,
+       "y": 640,
+       "font": "Anton",
+       "delay": 0.25,
+       "color": [
+        1,
+        0.7,
+        0.22
+       ]
+      }
+     ],
+     "fade": [
+      0.3,
+      0.3
+     ]
+    }
+   ],
+   "act": "rule"
+  },
+  {
+   "scenes": [
+    {
+     "t": "chapter_card",
+     "num": 3,
+     "title": "Two Lawsuits"
+    }
+   ]
+  },
+  {
+   "scenes": [
+    {
+     "t": "web_clip",
+     "image": "cfpb_sues_2024.png",
+     "site": "CONSUMERFINANCE.GOV",
+     "date": "DEC 20, 2024",
+     "source": "Source: CFPB, Dec 20, 2024",
+     "marks": [
+      {
+       "box": [
+        270,
+        742,
+        1540,
+        170
+       ],
+       "at": "sued"
+      }
+     ]
+    }
+   ],
+   "act": "case"
+  },
+  {
+   "scenes": [
+    {
+     "t": "organ_focus",
+     "image": "l_banks.jpg",
+     "screen": false,
+     "photo": true,
+     "zoom": [
+      100,
+      108
+     ],
+     "label": {
+      "text": "73% OF THE NETWORK",
+      "at": 0.3
+     },
+     "until": 3.94
+    },
+    {
+     "t": "organ_focus",
+     "image": "bank_lobby.jpg",
+     "screen": false,
+     "photo": true,
+     "zoom": [
+      100,
+      108
+     ],
+     "label": {
+      "text": "73% OF THE NETWORK",
+      "at": 4.14
+     },
+     "at": 3.84,
+     "illustration": true
+    },
+    {
+     "t": "lower_third",
+     "text": "Chase, Bank of America, Wells Fargo: share of 2023 activity",
+     "corner": "br",
+     "sub": "Source: CFPB complaint"
+    }
+   ],
+   "act": "case"
+  },
+  {
+   "scenes": [
+    {
+     "t": "bars",
+     "title": "FRAUD LOSSES IN CUSTOMER COMPLAINTS ($M)",
+     "source": "Source: CFPB complaint, Dec 2024 (alleged)",
+     "prefix": "$",
+     "suffix": "M",
+     "at": "Chase-0.3",
+     "stagger": 2.45,
+     "bars": [
+      {
+       "label": "CHASE",
+       "value": 360
+      },
+      {
+       "label": "BANK OF AMERICA",
+       "value": 290
+      },
+      {
+       "label": "WELLS FARGO",
+       "value": 220
+      }
+     ]
+    }
+   ],
+   "act": "case"
+  },
+  {
+   "scenes": [
+    {
+     "t": "organ_focus",
+     "image": "p_chopra.jpg",
+     "screen": false,
+     "photo": true,
+     "zoom": [
+      100,
+      108
+     ],
+     "label": {
+      "text": "ROHIT CHOPRA",
+      "at": 0.3
+     }
+    },
+    {
+     "t": "lower_third",
+     "text": "CFPB Director, 2024",
+     "corner": "br",
+     "sub": "Allegations, not findings"
+    }
+   ],
+   "act": "case"
+  },
+  {
+   "scenes": [
+    {
+     "t": "timeline",
+     "title": "THE FEDERAL CASE",
+     "items": [
+      {
+       "date": "DEC 20 2024",
+       "label": "CFPB sues",
+       "at": 0.4
+      },
+      {
+       "date": "MAR 4 2025",
+       "label": "CFPB drops it",
+       "at": "March"
+      },
+      {
+       "date": "MAR 5 2025",
+       "label": "Dismissed with prejudice",
+       "at": "dismissed"
+      }
+     ]
+    },
+    {
+     "t": "lower_third",
+     "text": "Source: CFPB; court order, D. Ariz."
+    }
+   ],
+   "act": "case"
+  },
+  {
+   "scenes": [
+    {
+     "t": "web_clip",
+     "image": "cfpb_enforcement_page.png",
+     "site": "CONSUMERFINANCE.GOV",
+     "date": "DISMISSED MAR 5, 2025",
+     "source": "Source: CFPB enforcement page",
+     "marks": [
+      {
+       "box": [
+        270,
+        1165,
+        1330,
+        90
+       ],
+       "at": "simply"
+      }
+     ],
+     "crop": [
+      240,
+      890,
+      1420,
+      380
+     ]
+    }
+   ],
+   "act": "case"
+  },
+  {
+   "scenes": [
+    {
+     "t": "us_map",
+     "states": [
+      {
+       "code": "NY",
+       "at": "york",
+       "tone": "neutral",
+       "label": "SUED AUG 13, 2025"
+      }
+     ],
+     "title": "NEW YORK STEPS IN",
+     "source": "Source: NY Attorney General",
+     "until": "Letitia-0.3"
+    },
+    {
+     "t": "organ_focus",
+     "image": "p_james.jpg",
+     "screen": false,
+     "photo": true,
+     "zoom": [
+      100,
+      108
+     ],
+     "at": "Letitia",
+     "label": {
+      "text": "LETITIA JAMES",
+      "at": 0.3
+     }
+    },
+    {
+     "t": "lower_third",
+     "text": "New York Attorney General",
+     "corner": "br",
+     "at": "Letitia+0.3",
+     "sub": "Photo: Matthew Cohen (2013), CC BY 2.0"
+    }
+   ],
+   "act": "case"
+  },
+  {
+   "scenes": [
+    {
+     "t": "web_clip",
+     "image": "nyag_sues_2025.png",
+     "site": "AG.NY.GOV",
+     "date": "AUG 13, 2025",
+     "source": "Source: New York Attorney General, Aug 13, 2025",
+     "marks": [
+      {
+       "box": [
+        672,
+        955,
+        205,
+        55
+       ],
+       "at": "one"
+      }
+     ],
+     "crop": [
+      110,
+      700,
+      2560,
+      380
+     ]
+    }
+   ],
+   "act": "case"
+  },
+  {
+   "scenes": [
+    {
+     "t": "end_card",
+     "lines": [
+      "WHAT NEW YORK ALLEGES",
+      "Sign-up lacked key verification steps",
+      "Transfers were immediate and irreversible"
+     ]
+    }
+   ],
+   "act": "case"
+  },
+  {
+   "scenes": [
+    {
+     "t": "fact_card",
+     "big": "2019",
+     "size": 190,
+     "text": "basic safeguards developed, but not adopted, New York alleges",
+     "source": "Source: NY AG complaint, Aug 2025",
+     "color": [
+      0.82,
+      0.25,
+      0.18
+     ]
+    }
+   ],
+   "act": "case"
+  },
+  {
+   "scenes": [
+    {
+     "t": "organ_focus",
+     "image": "courthouse.jpg",
+     "screen": false,
+     "photo": true,
+     "zoom": [
+      100,
+      108
+     ],
+     "label": {
+      "text": "WHAT NEW YORK WANTS",
+      "at": 0.3
+     },
+     "illustration": true,
+     "until": 4.529999999999999
+    },
+    {
+     "t": "organ_focus",
+     "image": "courtroom.jpg",
+     "screen": false,
+     "photo": true,
+     "zoom": [
+      100,
+      108
+     ],
+     "label": {
+      "text": "WHAT NEW YORK WANTS",
+      "at": 4.7299999999999995
+     },
+     "illustration": true,
+     "at": 4.43
+    },
+    {
+     "t": "lower_third",
+     "text": "Restitution, damages, a court order on anti-fraud measures",
+     "corner": "br",
+     "sub": "Source: NY AG"
+    }
+   ],
+   "act": "case"
+  },
+  {
+   "scenes": [
+    {
+     "t": "fact_card",
+     "big": "99.95%",
+     "size": 190,
+     "text": "of payments completed with no report of fraud or scams, Zelle says",
+     "source": "Source: Zelle fact sheet, Dec 2025",
+     "color": [
+      0.9,
+      0.91,
+      0.88
+     ]
+    }
+   ],
+   "act": "case"
+  },
+  {
+   "scenes": [
+    {
+     "t": "impact_title",
+     "lines": [
+      {
+       "text": "ALLEGATIONS",
+       "size": 120,
+       "y": 470,
+       "font": "Anton",
+       "delay": 0.0,
+       "color": [
+        1,
+        0.93,
+        0.8
+       ]
+      },
+      {
+       "text": "NOT A VERDICT",
+       "size": 84,
+       "y": 640,
+       "font": "Anton",
+       "delay": 0.25,
+       "color": [
+        1,
+        0.7,
+        0.22
+       ]
+      }
+     ],
+     "fade": [
+      0.3,
+      0.3
+     ]
+    }
+   ],
+   "act": "case"
+  },
+  {
+   "scenes": [
+    {
+     "t": "chapter_card",
+     "num": 4,
+     "title": "Across the Ocean"
+    }
+   ]
+  },
+  {
+   "scenes": [
+    {
+     "t": "organ_focus",
+     "image": "london_street.jpg",
+     "screen": false,
+     "photo": true,
+     "zoom": [
+      100,
+      108
+     ],
+     "label": {
+      "text": "AUTHORIZED PUSH PAYMENT FRAUD",
+      "at": 0.3
+     },
+     "illustration": true,
+     "until": 4.489999999999999
+    },
+    {
+     "t": "organ_focus",
+     "image": "uk_phone.jpg",
+     "screen": false,
+     "photo": true,
+     "zoom": [
+      100,
+      108
+     ],
+     "label": {
+      "text": "AUTHORIZED PUSH PAYMENT FRAUD",
+      "at": 4.6899999999999995
+     },
+     "illustration": true,
+     "at": 4.39
+    }
+   ],
+   "act": "rule"
+  },
+  {
+   "scenes": [
+    {
+     "t": "web_clip",
+     "image": "psr_ps24_7.png",
+     "site": "PSR.ORG.UK",
+     "date": "OCT 2, 2024",
+     "source": "Source: Payment Systems Regulator, PS24/7",
+     "marks": [
+      {
+       "box": [
+        567,
+        1532,
+        1747,
+        162
+       ],
+       "at": "October"
+      }
+     ]
+    }
+   ],
+   "act": "rule"
+  },
+  {
+   "scenes": [
+    {
+     "t": "impact_title",
+     "lines": [
+      {
+       "text": "VICTIM'S BANK REFUNDS",
+       "size": 120,
+       "y": 470,
+       "font": "Anton",
+       "delay": 0.0,
+       "color": [
+        1,
+        0.93,
+        0.8
+       ]
+      },
+      {
+       "text": "RECEIVING BANK PAYS HALF",
+       "size": 84,
+       "y": 640,
+       "font": "Anton",
+       "delay": 0.25,
+       "color": [
+        1,
+        0.7,
+        0.22
+       ]
+      }
+     ],
+     "fade": [
+      0.3,
+      0.3
+     ]
+    },
+    {
+     "t": "lower_third",
+     "text": "Source: Payment Systems Regulator, PS25/5"
+    }
+   ],
+   "act": "rule"
+  },
+  {
+   "scenes": [
+    {
+     "t": "fact_card",
+     "big": "5 DAYS",
+     "size": 190,
+     "text": "to reimburse. Excess up to £100, never for vulnerable customers",
+     "source": "Source: PSR, PS25/5",
+     "color": [
+      0.5,
+      0.69,
+      0.54
+     ]
+    }
+   ],
+   "act": "rule"
+  },
+  {
+   "scenes": [
+    {
+     "t": "end_card",
+     "lines": [
+      "THE LIMITS",
+      "Not the victim's own fraud or gross negligence",
+      "Not international payments or crypto"
+     ]
+    }
+   ],
+   "act": "rule"
+  },
+  {
+   "scenes": [
+    {
+     "t": "web_clip",
+     "image": "psr_one_year.png",
+     "site": "PSR.ORG.UK",
+     "date": "OCT 8, 2025",
+     "source": "Source: Payment Systems Regulator, Oct 8, 2025",
+     "marks": [
+      {
+       "box": [
+        640,
+        905,
+        215,
+        48
+       ],
+       "at": "hundred"
+      }
+     ],
+     "crop": [
+      100,
+      480,
+      2300,
+      500
+     ]
+    }
+   ],
+   "act": "rule"
+  },
+  {
+   "scenes": [
+    {
+     "t": "bars",
+     "title": "SHARE OF CLAIMED MONEY RETURNED (UK)",
+     "source": "Source: PSR. Methods changed between periods",
+     "suffix": "%",
+     "at": 0.05,
+     "stagger": 4.65,
+     "highlight": 0,
+     "color": [
+      0.5,
+      0.69,
+      0.54
+     ],
+     "bars": [
+      {
+       "label": "OCT 2024-JUN 2025",
+       "value": 88
+      },
+      {
+       "label": "2023/24",
+       "value": 66
+      }
+     ]
+    }
+   ],
+   "act": "rule"
+  },
+  {
+   "scenes": [
+    {
+     "t": "impact_title",
+     "lines": [
+      {
+       "text": "SAME SCAM. SAME BUTTON.",
+       "size": 120,
+       "y": 470,
+       "font": "Anton",
+       "delay": 0.0,
+       "color": [
+        1,
+        0.93,
+        0.8
+       ]
+      },
+      {
+       "text": "A DIFFERENT LINE",
+       "size": 84,
+       "y": 640,
+       "font": "Anton",
+       "delay": 0.25,
+       "color": [
+        1,
+        0.7,
+        0.22
+       ]
+      }
+     ],
+     "fade": [
+      0.3,
+      0.3
+     ]
+    }
+   ],
+   "act": "rule"
+  },
+  {
+   "scenes": [
+    {
+     "t": "chapter_card",
+     "num": 5,
+     "title": "The Rule That Does Not Exist"
+    }
+   ]
+  },
+  {
+   "scenes": [
+    {
+     "t": "organ_focus",
+     "image": "p_senators.jpg",
+     "screen": false,
+     "photo": true,
+     "zoom": [
+      100,
+      108
+     ],
+     "label": {
+      "text": "BLUMENTHAL & WARREN",
+      "at": 0.3
+     },
+     "until": 7.0
+    },
+    {
+     "t": "organ_focus",
+     "image": "senate_hall.jpg",
+     "screen": false,
+     "photo": true,
+     "zoom": [
+      100,
+      108
+     ],
+     "label": {
+      "text": "BLUMENTHAL & WARREN",
+      "at": 7.2
+     },
+     "at": 6.9,
+     "illustration": true
+    },
+    {
+     "t": "lower_third",
+     "text": "Protecting Consumers From Payment Scams Act",
+     "corner": "br",
+     "sub": "Introduced Aug 1, 2024 | S. 4943"
+    }
+   ],
+   "act": "rule"
+  },
+  {
+   "scenes": [
+    {
+     "t": "web_clip",
+     "image": "govinfo_s4943.png",
+     "site": "GOVINFO.GOV",
+     "date": "S. 4943 · AUG 1, 2024",
+     "source": "Source: GovInfo, S. 4943 (118th Congress)",
+     "marks": [
+      {
+       "box": [
+        10,
+        475,
+        1030,
+        75
+       ],
+       "at": "fraudulently"
+      }
+     ],
+     "crop": [
+      0,
+      330,
+      1050,
+      600
+     ],
+     "paper": true
+    }
+   ],
+   "act": "rule"
+  },
+  {
+   "scenes": [
+    {
+     "t": "impact_title",
+     "lines": [
+      {
+       "text": "IT DID NOT",
+       "size": 120,
+       "y": 470,
+       "font": "Anton",
+       "delay": 0.0,
+       "color": [
+        1,
+        0.93,
+        0.8
+       ]
+      },
+      {
+       "text": "BECOME LAW",
+       "size": 84,
+       "y": 640,
+       "font": "Anton",
+       "delay": 0.25,
+       "color": [
+        1,
+        0.7,
+        0.22
+       ]
+      }
+     ],
+     "fade": [
+      0.3,
+      0.3
+     ]
+    }
+   ],
+   "act": "rule"
+  },
+  {
+   "scenes": [
+    {
+     "t": "organ_focus",
+     "image": "capitol.jpg",
+     "screen": false,
+     "photo": true,
+     "zoom": [
+      100,
+      108
+     ],
+     "label": {
+      "text": "STILL THE 1978 RULE",
+      "at": 0.3
+     },
+     "illustration": true,
+     "until": 4.96
+    },
+    {
+     "t": "organ_focus",
+     "image": "law_books.jpg",
+     "screen": false,
+     "photo": true,
+     "zoom": [
+      100,
+      108
+     ],
+     "label": {
+      "text": "STILL THE 1978 RULE",
+      "at": 5.16
+     },
+     "illustration": true,
+     "at": 4.86
+    }
+   ],
+   "act": "rule"
+  },
+  {
+   "scenes": [
+    {
+     "t": "impact_title",
+     "lines": [
+      {
+       "text": "ONE LAWSUIT",
+       "size": 120,
+       "y": 470,
+       "font": "Anton",
+       "delay": 0.0,
+       "color": [
+        1,
+        0.93,
+        0.8
+       ]
+      },
+      {
+       "text": "IS NOT A RULE",
+       "size": 84,
+       "y": 640,
+       "font": "Anton",
+       "delay": 0.25,
+       "color": [
+        1,
+        0.7,
+        0.22
+       ]
+      }
+     ],
+     "fade": [
+      0.3,
+      0.3
+     ]
+    }
+   ],
+   "act": "rule"
+  },
+  {
+   "scenes": [
+    {
+     "t": "chapter_card",
+     "num": 6,
+     "title": "Before You Press Send"
+    }
+   ]
+  },
+  {
+   "scenes": [
+    {
+     "t": "end_card",
+     "lines": [
+      "RED FLAG",
+      "A same-day threat + pay by Zelle"
+     ]
+    }
+   ],
+   "act": "rule"
+  },
+  {
+   "scenes": [
+    {
+     "t": "organ_focus",
+     "image": "bank_callback.jpg",
+     "screen": false,
+     "photo": true,
+     "zoom": [
+      100,
+      108
+     ],
+     "label": {
+      "text": "CALL THE NUMBER YOU KNOW",
+      "at": 0.3
+     },
+     "illustration": true,
+     "until": 4.4799999999999995
+    },
+    {
+     "t": "organ_focus",
+     "image": "dial_phone.jpg",
+     "screen": false,
+     "photo": true,
+     "zoom": [
+      100,
+      108
+     ],
+     "label": {
+      "text": "CALL THE NUMBER YOU KNOW",
+      "at": 4.68
+     },
+     "illustration": true,
+     "at": 4.38
+    }
+   ],
+   "act": "rule"
+  },
+  {
+   "scenes": [
+    {
+     "t": "organ_focus",
+     "image": "phone_down.jpg",
+     "screen": false,
+     "photo": true,
+     "zoom": [
+      100,
+      108
+     ],
+     "label": {
+      "text": "PEOPLE YOU KNOW AND TRUST",
+      "at": 0.3
+     },
+     "illustration": true
+    },
+    {
+     "t": "lower_third",
+     "text": "Zelle's own advice: send only to people you know",
+     "corner": "br",
+     "sub": "Source: Zelle FAQ"
+    }
+   ],
+   "act": "rule"
+  },
+  {
+   "scenes": [
+    {
+     "t": "organ_focus",
+     "image": "text_alert.jpg",
+     "screen": false,
+     "photo": true,
+     "zoom": [
+      100,
+      108
+     ],
+     "label": {
+      "text": "READ THE NAME FIRST",
+      "at": 0.3
+     },
+     "illustration": true
+    }
+   ],
+   "act": "rule"
+  },
+  {
+   "scenes": [
+    {
+     "t": "organ_focus",
+     "image": "bank_branch.jpg",
+     "screen": false,
+     "photo": true,
+     "zoom": [
+      100,
+      108
+     ],
+     "label": {
+      "text": "CALL YOUR BANK NOW",
+      "at": 0.3
+     },
+     "illustration": true,
+     "until": 4.96
+    },
+    {
+     "t": "organ_focus",
+     "image": "dispute_letter.jpg",
+     "screen": false,
+     "photo": true,
+     "zoom": [
+      100,
+      108
+     ],
+     "label": {
+      "text": "CALL YOUR BANK NOW",
+      "at": 5.16
+     },
+     "illustration": true,
+     "at": 4.86
+    },
+    {
+     "t": "lower_third",
+     "text": "Ask about Zelle's imposter scam policy",
+     "corner": "br",
+     "sub": "Put your dispute in writing"
+    }
+   ],
+   "act": "rule"
+  },
+  {
+   "scenes": [
+    {
+     "t": "impact_title",
+     "lines": [
+      {
+       "text": "THE FTC",
+       "size": 56,
+       "y": 230,
+       "font": "Anton",
+       "color": [
+        0.3,
+        0.9,
+        1
+       ],
+       "delay": 0.1
+      },
+      {
+       "text": "reportfraud.ftc.gov",
+       "size": 84,
+       "y": 330,
+       "font": "Inter",
+       "color": [
+        1,
+        0.93,
+        0.8
+       ],
+       "delay": 1.75
+      },
+      {
+       "text": "THE FBI",
+       "size": 56,
+       "y": 490,
+       "font": "Anton",
+       "color": [
+        0.3,
+        0.9,
+        1
+       ],
+       "delay": 4.3
+      },
+      {
+       "text": "ic3.gov",
+       "size": 84,
+       "y": 590,
+       "font": "Inter",
+       "color": [
+        1,
+        0.93,
+        0.8
+       ],
+       "delay": 5.1
+      },
+      {
+       "text": "THE CFPB",
+       "size": 56,
+       "y": 750,
+       "font": "Anton",
+       "color": [
+        0.3,
+        0.9,
+        1
+       ],
+       "delay": 7.9
+      },
+      {
+       "text": "consumerfinance.gov/complaint",
+       "size": 84,
+       "y": 850,
+       "font": "Inter",
+       "color": [
+        1,
+        0.93,
+        0.8
+       ],
+       "delay": 8.3
+      }
+     ],
+     "fade": [
+      0.3,
+      0.3
+     ]
+    }
+   ],
+   "act": "rule"
+  },
+  {
+   "scenes": [
+    {
+     "t": "end_card",
+     "lines": [
+      "NEW YORK RESIDENTS",
+      "Attorney General · Consumer Frauds Bureau",
+      "ag.ny.gov"
+     ]
+    }
+   ],
+   "act": "rule"
+  },
+  {
+   "scenes": [
+    {
+     "t": "fact_card",
+     "big": "$1,476.89",
+     "size": 190,
+     "text": "One fake name. One press of a button.",
+     "source": "Source: New York Attorney General"
+    }
+   ],
+   "act": "scam"
+  },
+  {
+   "scenes": [
+    {
+     "t": "impact_title",
+     "lines": [
+      {
+       "text": "IN BRITAIN: A RULE",
+       "size": 120,
+       "y": 470,
+       "font": "Anton",
+       "delay": 0.0,
+       "color": [
+        1,
+        0.93,
+        0.8
+       ]
+      },
+      {
+       "text": "IN AMERICA: NOT YET",
+       "size": 84,
+       "y": 640,
+       "font": "Anton",
+       "delay": 0.25,
+       "color": [
+        1,
+        0.7,
+        0.22
+       ]
+      }
+     ],
+     "fade": [
+      0.3,
+      0.3
+     ]
+    }
+   ],
+   "act": "rule"
+  },
+  {
+   "scenes": [
+    {
+     "t": "outro",
+     "line": "THE SCAM · THE CASE · THE RULE",
+     "next": "More cases: The Rule Changed",
+     "cta": "SUBSCRIBE",
+     "at": 0.2,
+     "until": "dur+0.6"
+    }
+   ]
+  }
+ ],
+ "lufs": -14
+}

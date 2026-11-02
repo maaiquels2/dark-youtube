@@ -1,0 +1,1955 @@
+{
+  "theme": "rulechanged",
+  "format": "horizontal",
+  "comp": "main",
+  "out": "ep01_robocalls",
+  "music": "library/music/incompetech/interloper.mp3",
+  "music_gain": 0.14,
+  "tail": 3.0,
+  "captions": true,
+  "blocks": [
+    {
+      "scenes": [
+        {
+          "t": "intro",
+          "title": "Ninety-Six Million Fake Calls",
+          "kicker": "THE RULE CHANGED"
+        }
+      ]
+    },
+    {
+      "scenes": [
+        {
+          "t": "fact_card",
+          "to": 96758223,
+          "reach": 5.0,
+          "text": "fake calls in three months, October to December 2016",
+          "source": "Source: FCC order FCC 18-58"
+        }
+      ],
+      "act": "scam"
+    },
+    {
+      "scenes": [
+        {
+          "t": "impact_title",
+          "lines": [
+            {
+              "text": "A RECORD FINE",
+              "size": 120,
+              "y": 470,
+              "font": "Anton",
+              "delay": 0.0,
+              "color": [
+                1,
+                0.93,
+                0.8
+              ]
+            },
+            {
+              "text": "A SENATE HEARING",
+              "size": 84,
+              "y": 640,
+              "font": "Anton",
+              "delay": 0.25,
+              "color": [
+                1,
+                0.7,
+                0.22
+              ]
+            }
+          ],
+          "fade": [
+            0.3,
+            0.3
+          ]
+        }
+      ]
+    },
+    {
+      "scenes": [
+        {
+          "t": "impact_title",
+          "lines": [
+            {
+              "text": "A NEW LAW",
+              "size": 120,
+              "y": 470,
+              "font": "Anton",
+              "delay": 0.0,
+              "color": [
+                1,
+                0.93,
+                0.8
+              ]
+            },
+            {
+              "text": "YET YOUR PHONE STILL RINGS",
+              "size": 84,
+              "y": 640,
+              "font": "Anton",
+              "delay": 0.25,
+              "color": [
+                1,
+                0.7,
+                0.22
+              ]
+            }
+          ],
+          "fade": [
+            0.3,
+            0.3
+          ]
+        }
+      ]
+    },
+    {
+      "scenes": [
+        {
+          "t": "chapter_card",
+          "num": 1,
+          "title": "The Call"
+        }
+      ]
+    },
+    {
+      "scenes": [
+        {
+          "t": "organ_focus",
+          "image": "phone_kitchen.jpg",
+          "screen": false,
+          "photo": true,
+          "zoom": [
+            100,
+            108
+          ],
+          "label": {
+            "text": "THE CALL",
+            "at": 0.3
+          },
+          "illustration": true
+        }
+      ],
+      "act": "scam"
+    },
+    {
+      "scenes": [
+        {
+          "t": "fact_card",
+          "big": "SAME 6 DIGITS",
+          "size": 170,
+          "text": "Neighbor spoofing copies the first six digits of the number being called",
+          "source": "Source: FCC order FCC 18-58"
+        }
+      ],
+      "act": "scam"
+    },
+    {
+      "scenes": [
+        {
+          "t": "organ_focus",
+          "image": "hesitate.jpg",
+          "screen": false,
+          "photo": true,
+          "zoom": [
+            100,
+            108
+          ],
+          "label": {
+            "text": "PRESS ONE",
+            "at": 0.3
+          },
+          "illustration": true
+        }
+      ],
+      "act": "scam"
+    },
+    {
+      "scenes": [
+        {
+          "t": "organ_focus",
+          "image": "l_brands.jpg",
+          "screen": false,
+          "photo": true,
+          "zoom": [
+            100,
+            108
+          ],
+          "label": {
+            "text": "BRANDS IMPERSONATED",
+            "at": 0.3
+          }
+        },
+        {
+          "t": "lower_third",
+          "text": "FCC: names used without permission",
+          "sub": "Source: FCC order FCC 18-58",
+          "corner": "br"
+        }
+      ],
+      "act": "scam"
+    },
+    {
+      "scenes": [
+        {
+          "t": "organ_focus",
+          "image": "callcenter.jpg",
+          "screen": false,
+          "photo": true,
+          "zoom": [
+            100,
+            108
+          ],
+          "label": {
+            "text": "THE CALL CENTER",
+            "at": 0.3
+          },
+          "illustration": true
+        }
+      ],
+      "act": "scam"
+    },
+    {
+      "scenes": [
+        {
+          "t": "impact_title",
+          "lines": [
+            {
+              "text": "MEXICO AND THE CARIBBEAN",
+              "size": 110,
+              "y": 540,
+              "font": "Anton",
+              "color": [
+                1,
+                0.93,
+                0.8
+              ]
+            }
+          ],
+          "fade": [
+            0.3,
+            0.3
+          ]
+        },
+        {
+          "t": "lower_third",
+          "text": "Timeshare vacation packages",
+          "sub": "Operators had no link to the brands"
+        }
+      ],
+      "act": "scam"
+    },
+    {
+      "scenes": [
+        {
+          "t": "doc_excerpt",
+          "header": [
+            "Federal Communications Commission",
+            "FCC 18-58"
+          ],
+          "text": "1. We impose a penalty of $120,000,000 against Adrian Abramovich, personally and doing business as Marketing Strategy Leaders, Inc., and Marketing Leaders, Inc. (collectively, Abramovich), jointly and severally, for perpetrating one of the largest spoofed robocall campaigns that the Commission has ever investigated.",
+          "highlight": "Adrian Abramovich",
+          "hl_at": "Adrian-0.1",
+          "fade": "for perpetrating",
+          "kicker": "NAMED BY THE FCC",
+          "name": "Adrian Abramovich",
+          "role": "Businessman from Miami",
+          "source": "Source: FCC order 18-58, ¶1 (May 10, 2018)"
+        }
+      ]
+    },
+    {
+      "scenes": [
+        {
+          "t": "bars",
+          "title": "FAKE CALLS PER MONTH, 2016",
+          "source": "Source: FCC order FCC 18-58",
+          "decimals": 1,
+          "suffix": "M",
+          "at": 1.0,
+          "reach": 4.5,
+          "bars": [
+            {
+              "label": "OCT",
+              "value": 36.5,
+              "color": [
+                1,
+                0.7,
+                0.22
+              ]
+            },
+            {
+              "label": "NOV",
+              "value": 30.7,
+              "color": [
+                0.3,
+                0.9,
+                1
+              ]
+            },
+            {
+              "label": "DEC",
+              "value": 29.5,
+              "color": [
+                1,
+                0.3,
+                0.72
+              ]
+            }
+          ]
+        }
+      ],
+      "act": "scam"
+    },
+    {
+      "scenes": [
+        {
+          "t": "organ_focus",
+          "image": "angry_phone.jpg",
+          "screen": false,
+          "photo": true,
+          "zoom": [
+            100,
+            108
+          ],
+          "label": {
+            "text": "ANGRY CALLS BACK",
+            "at": 0.3
+          },
+          "illustration": true
+        },
+        {
+          "t": "lower_third",
+          "text": "Owners of the faked numbers got the angry calls",
+          "sub": "Source: FCC order FCC 18-58",
+          "corner": "br"
+        }
+      ],
+      "act": "scam"
+    },
+    {
+      "scenes": [
+        {
+          "t": "impact_title",
+          "lines": [
+            {
+              "text": "A LOCAL NUMBER",
+              "size": 120,
+              "y": 470,
+              "font": "Anton",
+              "delay": 0.0,
+              "color": [
+                1,
+                0.93,
+                0.8
+              ]
+            },
+            {
+              "text": "PROVES NOTHING",
+              "size": 84,
+              "y": 640,
+              "font": "Anton",
+              "delay": 0.25,
+              "color": [
+                1,
+                0.7,
+                0.22
+              ]
+            }
+          ],
+          "fade": [
+            0.3,
+            0.3
+          ]
+        }
+      ],
+      "act": "scam"
+    },
+    {
+      "scenes": [
+        {
+          "t": "chapter_card",
+          "num": 2,
+          "title": "The Fine"
+        }
+      ]
+    },
+    {
+      "scenes": [
+        {
+          "t": "fact_card",
+          "to": 120000000,
+          "prefix": "$",
+          "reach": 3.0,
+          "text": "proposed June 2017 against Adrian Abramovich and his two companies",
+          "source": "Source: FCC order FCC 18-58",
+          "until": "June-0.45"
+        },
+        {
+          "t": "web_clip",
+          "image": "fcc_proposed_2017.png",
+          "site": "FCC.GOV",
+          "date": "JUNE 22, 2017",
+          "source": "Source: FCC NAL FCC-17-80",
+          "marks": [
+            {
+              "box": [
+                2049,
+                962,
+                160,
+                38
+              ],
+              "at": "June"
+            },
+            {
+              "box": [
+                395,
+                443,
+                2054,
+                230
+              ],
+              "at": "proposed"
+            }
+          ],
+          "at": "June-0.4"
+        }
+      ],
+      "act": "case"
+    },
+    {
+      "scenes": [
+        {
+          "t": "web_clip",
+          "image": "fcc_final_2018.png",
+          "site": "FCC.GOV",
+          "date": "MAY 10, 2018",
+          "source": "Source: FCC order FCC 18-58",
+          "marks": [
+            {
+              "box": [
+                2049,
+                962,
+                173,
+                38
+              ],
+              "at": "May"
+            },
+            {
+              "box": [
+                395,
+                443,
+                1871,
+                230
+              ],
+              "at": "final"
+            }
+          ]
+        }
+      ],
+      "act": "case"
+    },
+    {
+      "scenes": [
+        {
+          "t": "organ_focus",
+          "image": "p_pai.jpg",
+          "screen": false,
+          "photo": true,
+          "zoom": [
+            100,
+            108
+          ],
+          "label": {
+            "text": "AJIT PAI",
+            "at": 0.3
+          },
+          "until": "history+0.75"
+        },
+        {
+          "t": "web_clip",
+          "image": "news_register_2018.png",
+          "site": "THE REGISTER",
+          "date": "MAY 10, 2018",
+          "source": "Source: The Register, May 10, 2018",
+          "at": "history+0.8",
+          "marks": [
+            {
+              "box": [
+                262,
+                358,
+                2355,
+                101
+              ],
+              "at": "first"
+            }
+          ]
+        },
+        {
+          "t": "lower_third",
+          "text": "Ajit Pai, FCC Chairman",
+          "sub": "Largest fine in FCC history, first under the Truth in Caller ID Act",
+          "corner": "br",
+          "until": "history+0.75"
+        }
+      ],
+      "act": "case"
+    },
+    {
+      "scenes": [
+        {
+          "t": "fact_card",
+          "to": 80000,
+          "reach": 3.0,
+          "text": "calls sampled, about 1,000 for each day of the 96 million",
+          "source": "Source: FCC order FCC 18-58"
+        }
+      ],
+      "act": "case"
+    },
+    {
+      "scenes": [
+        {
+          "t": "impact_title",
+          "lines": [
+            {
+              "text": "80,000 × $1,000 = $80M",
+              "size": 110,
+              "y": 470,
+              "font": "Inter-Bold",
+              "delay": 0.0,
+              "color": [
+                1,
+                0.93,
+                0.8
+              ]
+            },
+            {
+              "text": "+ $40M = $120M",
+              "size": 84,
+              "y": 640,
+              "font": "Inter-Bold",
+              "delay": 0.25,
+              "color": [
+                1,
+                0.7,
+                0.22
+              ]
+            }
+          ],
+          "fade": [
+            0.3,
+            0.3
+          ]
+        },
+        {
+          "t": "lower_third",
+          "text": "How the fine was built",
+          "sub": "Source: FCC order FCC 18-58"
+        }
+      ],
+      "act": "case"
+    },
+    {
+      "scenes": [
+        {
+          "t": "fact_card",
+          "to": 100,
+          "suffix": "%",
+          "reach": 2.5,
+          "text": "of the 80,000 sampled calls used a spoofed number",
+          "source": "Source: FCC order FCC 18-58"
+        }
+      ],
+      "act": "case"
+    },
+    {
+      "scenes": [
+        {
+          "t": "organ_focus",
+          "image": "callcenter.jpg",
+          "screen": false,
+          "photo": true,
+          "zoom": [
+            100,
+            108
+          ],
+          "illustration": true,
+          "label": {
+            "text": "HIS ARGUMENT",
+            "at": 0.3
+          }
+        },
+        {
+          "t": "lower_third",
+          "text": "Adrian Abramovich",
+          "sub": "Argued: no harm unless you stay on about 5 minutes | Source: FCC order 18-58",
+          "corner": "br"
+        }
+      ],
+      "act": "case"
+    },
+    {
+      "scenes": [
+        {
+          "t": "end_card",
+          "lines": [
+            "INTENT, NOT PROOF PER CALL",
+            "Under the law, what matters is whether he intended to cause harm"
+          ]
+        },
+        {
+          "t": "lower_third",
+          "text": "FCC ruling",
+          "sub": "Source: FCC order FCC 18-58"
+        }
+      ],
+      "act": "case"
+    },
+    {
+      "scenes": [
+        {
+          "t": "organ_focus",
+          "image": "p_orielly.jpg",
+          "screen": false,
+          "photo": true,
+          "zoom": [
+            100,
+            108
+          ],
+          "label": {
+            "text": "MICHAEL O'RIELLY",
+            "at": 0.3
+          }
+        },
+        {
+          "t": "lower_third",
+          "text": "Michael O'Rielly, FCC Commissioner",
+          "sub": "Agreed in part, disagreed in part",
+          "corner": "br"
+        }
+      ],
+      "act": "case"
+    },
+    {
+      "scenes": [
+        {
+          "t": "end_card",
+          "lines": [
+            "A CIVIL FINE",
+            "Not a criminal verdict. Those are different things."
+          ]
+        }
+      ],
+      "act": "case"
+    },
+    {
+      "scenes": [
+        {
+          "t": "impact_title",
+          "lines": [
+            {
+              "text": "ONE FINE DOES NOT",
+              "size": 120,
+              "y": 470,
+              "font": "Anton",
+              "delay": 0.0,
+              "color": [
+                1,
+                0.93,
+                0.8
+              ]
+            },
+            {
+              "text": "CHANGE THE NETWORK",
+              "size": 84,
+              "y": 640,
+              "font": "Anton",
+              "delay": 0.25,
+              "color": [
+                1,
+                0.7,
+                0.22
+              ]
+            }
+          ],
+          "fade": [
+            0.3,
+            0.3
+          ]
+        }
+      ],
+      "act": "case"
+    },
+    {
+      "scenes": [
+        {
+          "t": "chapter_card",
+          "num": 3,
+          "title": "The Hearing"
+        }
+      ]
+    },
+    {
+      "scenes": [
+        {
+          "t": "timeline",
+          "title": "BEFORE THE HEARING",
+          "items": [
+            {
+              "date": "OCT 2017",
+              "label": "Senate Commerce writes to him",
+              "at": 1.0
+            },
+            {
+              "date": "NOV 2017",
+              "label": "His lawyer declines",
+              "at": 3.4
+            },
+            {
+              "date": "LATER",
+              "label": "A subpoena is issued",
+              "at": 6.0
+            },
+            {
+              "date": "APR 18, 2018",
+              "label": "He testifies",
+              "at": 8.0
+            }
+          ]
+        },
+        {
+          "t": "lower_third",
+          "text": "Source: Senate Hearing 115-806"
+        }
+      ],
+      "act": "case"
+    },
+    {
+      "scenes": [
+        {
+          "t": "web_clip",
+          "image": "senate_hearing_2018.png",
+          "site": "GOVINFO.GOV",
+          "date": "APRIL 18, 2018",
+          "source": "Source: Senate Hearing 115-806",
+          "marks": [
+            {
+              "box": [
+                1401,
+                1711,
+                1125,
+                51
+              ],
+              "at": "April"
+            }
+          ]
+        }
+      ],
+      "act": "case"
+    },
+    {
+      "scenes": [
+        {
+          "t": "organ_focus",
+          "image": "p_thune.jpg",
+          "screen": false,
+          "photo": true,
+          "zoom": [
+            100,
+            108
+          ],
+          "label": {
+            "text": "SEN. JOHN THUNE",
+            "at": 0.3
+          }
+        },
+        {
+          "t": "lower_third",
+          "text": "Thune: 2% of 100 million is 2 million",
+          "sub": "Source: Senate Hearing 115-806",
+          "corner": "br"
+        }
+      ],
+      "act": "case"
+    },
+    {
+      "scenes": [
+        {
+          "t": "impact_title",
+          "lines": [
+            {
+              "text": "THE FIFTH AMENDMENT",
+              "size": 120,
+              "y": 470,
+              "font": "Anton",
+              "delay": 0.0,
+              "color": [
+                1,
+                0.93,
+                0.8
+              ]
+            },
+            {
+              "text": "HIS RIGHT. NOT PROOF.",
+              "size": 84,
+              "y": 640,
+              "font": "Anton",
+              "delay": 0.25,
+              "color": [
+                1,
+                0.7,
+                0.22
+              ]
+            }
+          ],
+          "fade": [
+            0.3,
+            0.3
+          ]
+        }
+      ],
+      "act": "case"
+    },
+    {
+      "scenes": [
+        {
+          "t": "organ_focus",
+          "image": "p_blumenthal.jpg",
+          "screen": false,
+          "photo": true,
+          "zoom": [
+            100,
+            108
+          ],
+          "label": {
+            "text": "RICHARD BLUMENTHAL",
+            "at": 0.3
+          }
+        },
+        {
+          "t": "lower_third",
+          "text": "Sen. Richard Blumenthal",
+          "sub": "Asked for contempt to be considered. A request, not a ruling.",
+          "corner": "br"
+        }
+      ],
+      "act": "case"
+    },
+    {
+      "scenes": [
+        {
+          "t": "quote_card",
+          "quote": "I am not the king pin of robocalling that is alleged.",
+          "by": "Adrian Abramovich",
+          "source": "Senate Commerce hearing, April 18, 2018",
+          "header": "S. HRG. 115-806 · APRIL 18, 2018"
+        }
+      ],
+      "act": "case"
+    },
+    {
+      "scenes": [
+        {
+          "t": "impact_title",
+          "lines": [
+            {
+              "text": "REAL RESORTS, HE SAID",
+              "size": 120,
+              "y": 470,
+              "font": "Anton",
+              "delay": 0.0,
+              "color": [
+                1,
+                0.93,
+                0.8
+              ]
+            },
+            {
+              "text": "NO PROOF THE CARRIER KNEW",
+              "size": 84,
+              "y": 640,
+              "font": "Anton",
+              "delay": 0.25,
+              "color": [
+                1,
+                0.7,
+                0.22
+              ]
+            }
+          ],
+          "fade": [
+            0.3,
+            0.3
+          ]
+        },
+        {
+          "t": "lower_third",
+          "text": "FCC found no evidence the carrier or clients knew",
+          "sub": "Source: FCC order FCC 18-58"
+        }
+      ],
+      "act": "case"
+    },
+    {
+      "scenes": [
+        {
+          "t": "organ_focus",
+          "image": "l_ftc.jpg",
+          "screen": false,
+          "photo": true,
+          "zoom": [
+            100,
+            108
+          ],
+          "label": {
+            "text": "FTC",
+            "at": 0.3
+          }
+        },
+        {
+          "t": "lower_third",
+          "text": "Lois Greisman, FTC",
+          "sub": "7+ million complaints, fiscal year 2017 | Source: Senate Hearing 115-806",
+          "corner": "br"
+        }
+      ],
+      "act": "case"
+    },
+    {
+      "scenes": [
+        {
+          "t": "fact_card",
+          "big": "#1",
+          "size": 260,
+          "text": "Robocalls were the FCC's largest source of complaints",
+          "source": "Rosemary Harold, FCC Enforcement Bureau, 2018 Senate hearing"
+        },
+        {
+          "t": "lower_third",
+          "text": "Rosemary Harold",
+          "sub": "FCC Enforcement Bureau chief"
+        }
+      ],
+      "act": "case"
+    },
+    {
+      "scenes": [
+        {
+          "t": "organ_focus",
+          "image": "p_pallone.jpg",
+          "screen": false,
+          "photo": true,
+          "zoom": [
+            100,
+            108
+          ],
+          "label": {
+            "text": "REP. FRANK PALLONE",
+            "at": 0.3
+          }
+        },
+        {
+          "t": "lower_third",
+          "text": "Rep. Frank Pallone",
+          "sub": "Co-wrote the TRACED Act with Sen. John Thune",
+          "corner": "br"
+        }
+      ],
+      "act": "case"
+    },
+    {
+      "scenes": [
+        {
+          "t": "chapter_card",
+          "num": 4,
+          "title": "The Law"
+        }
+      ]
+    },
+    {
+      "scenes": [
+        {
+          "t": "fact_card",
+          "to": 47.8,
+          "decimals": 1,
+          "suffix": " BILLION",
+          "size": 190,
+          "reach": 3.0,
+          "text": "robocalls in 2018, up more than half from 2017",
+          "source": "Source: YouMail Robocall Index"
+        }
+      ],
+      "act": "case"
+    },
+    {
+      "scenes": [
+        {
+          "t": "impact_title",
+          "lines": [
+            {
+              "text": "TRUTH IN CALLER ID ACT",
+              "size": 120,
+              "y": 470,
+              "font": "Anton",
+              "delay": 0.0,
+              "color": [
+                1,
+                0.93,
+                0.8
+              ]
+            },
+            {
+              "text": "2010",
+              "size": 84,
+              "y": 640,
+              "font": "Inter-Bold",
+              "delay": 0.25,
+              "color": [
+                1,
+                0.7,
+                0.22
+              ]
+            }
+          ],
+          "fade": [
+            0.3,
+            0.3
+          ]
+        },
+        {
+          "t": "lower_third",
+          "text": "Bans spoofing meant to defraud, cause harm, or get something of value"
+        }
+      ],
+      "act": "rule"
+    },
+    {
+      "scenes": [
+        {
+          "t": "timeline",
+          "title": "AFTER THE FACT",
+          "items": [
+            {
+              "date": "DEC 2016",
+              "label": "The calls end",
+              "at": 1.0
+            },
+            {
+              "date": "MAY 2018",
+              "label": "The fine becomes final",
+              "at": 5.0
+            },
+            {
+              "date": "17 MONTHS",
+              "label": "Later",
+              "at": 8.5,
+              "color": [
+                1,
+                0.3,
+                0.72
+              ]
+            }
+          ]
+        },
+        {
+          "t": "lower_third",
+          "text": "Source: FCC order FCC 18-58"
+        }
+      ],
+      "act": "rule"
+    },
+    {
+      "scenes": [
+        {
+          "t": "organ_focus",
+          "image": "capitol.jpg",
+          "screen": false,
+          "photo": true,
+          "zoom": [
+            100,
+            108
+          ],
+          "label": {
+            "text": "THE TRACED ACT",
+            "at": 0.3
+          },
+          "illustration": true
+        },
+        {
+          "t": "lower_third",
+          "text": "Pallone-Thune TRACED Act",
+          "sub": "Signed Dec 30, 2019 | Source: Public Law 116-105",
+          "corner": "br"
+        }
+      ],
+      "act": "rule"
+    },
+    {
+      "scenes": [
+        {
+          "t": "fact_card",
+          "to": 10000,
+          "prefix": "+$",
+          "reach": 3.0,
+          "text": "added penalty per intentional violation, on top of the base fine",
+          "source": "Source: TRACED Act, Public Law 116-105",
+          "color": [
+            0.5,
+            0.69,
+            0.54
+          ]
+        }
+      ],
+      "act": "rule"
+    },
+    {
+      "scenes": [
+        {
+          "t": "bars",
+          "title": "YEARS THE FCC HAS TO ACT",
+          "source": "Source: TRACED Act, Public Law 116-105",
+          "suffix": "",
+          "at": 1.0,
+          "reach": 3.5,
+          "bars": [
+            {
+              "label": "INTENTIONAL",
+              "value": 4,
+              "color": [
+                1,
+                0.7,
+                0.22
+              ]
+            },
+            {
+              "label": "BASE FINE",
+              "value": 1,
+              "color": [
+                0.3,
+                0.9,
+                1
+              ]
+            }
+          ],
+          "color": [
+            0.5,
+            0.69,
+            0.54
+          ]
+        }
+      ],
+      "act": "rule"
+    },
+    {
+      "scenes": [
+        {
+          "t": "fact_card",
+          "big": "18 MONTHS",
+          "size": 190,
+          "text": "to require caller authentication, a system called STIR SHAKEN",
+          "source": "Source: TRACED Act, Public Law 116-105",
+          "color": [
+            0.5,
+            0.69,
+            0.54
+          ]
+        }
+      ],
+      "act": "rule"
+    },
+    {
+      "scenes": [
+        {
+          "t": "organ_focus",
+          "image": "signature.jpg",
+          "screen": false,
+          "photo": true,
+          "zoom": [
+            100,
+            108
+          ],
+          "label": {
+            "text": "A DIGITAL SIGNATURE",
+            "at": 0.3
+          },
+          "illustration": true
+        }
+      ],
+      "act": "rule"
+    },
+    {
+      "scenes": [
+        {
+          "t": "web_clip",
+          "image": "fcc_stir_shaken.png",
+          "site": "FCC.GOV",
+          "date": "CALL AUTHENTICATION",
+          "source": "Source: FCC",
+          "marks": [
+            {
+              "box": [
+                395,
+                443,
+                1756,
+                230
+              ],
+              "at": "signature"
+            }
+          ]
+        }
+      ],
+      "act": "rule"
+    },
+    {
+      "scenes": [
+        {
+          "t": "organ_focus",
+          "image": "mailbox.jpg",
+          "screen": false,
+          "photo": true,
+          "zoom": [
+            100,
+            108
+          ],
+          "label": {
+            "text": "INTERAGENCY GROUP",
+            "at": 0.3
+          },
+          "illustration": true
+        }
+      ],
+      "act": "rule"
+    },
+    {
+      "scenes": [
+        {
+          "t": "impact_title",
+          "lines": [
+            {
+              "text": "CATCH IT",
+              "size": 120,
+              "y": 470,
+              "font": "Anton",
+              "delay": 0.0,
+              "color": [
+                1,
+                0.93,
+                0.8
+              ]
+            },
+            {
+              "text": "BEFORE YOU ANSWER",
+              "size": 84,
+              "y": 640,
+              "font": "Anton",
+              "delay": 0.25,
+              "color": [
+                1,
+                0.7,
+                0.22
+              ]
+            }
+          ],
+          "fade": [
+            0.3,
+            0.3
+          ]
+        }
+      ],
+      "act": "rule"
+    },
+    {
+      "scenes": [
+        {
+          "t": "chapter_card",
+          "num": 5,
+          "title": "Still Ringing"
+        }
+      ]
+    },
+    {
+      "scenes": [
+        {
+          "t": "bars",
+          "title": "ROBOCALLS PER YEAR (BILLIONS)",
+          "source": "Source: YouMail Robocall Index",
+          "decimals": 1,
+          "suffix": "B",
+          "at": 1.0,
+          "reach": 5.0,
+          "stagger": 0.8,
+          "bars": [
+            {
+              "label": "2016",
+              "value": 29.1,
+              "color": [
+                0.55,
+                0.68,
+                0.72
+              ]
+            },
+            {
+              "label": "2019",
+              "value": 58.5,
+              "color": [
+                1,
+                0.3,
+                0.72
+              ]
+            },
+            {
+              "label": "2020",
+              "value": 45.9,
+              "color": [
+                0.3,
+                0.9,
+                1
+              ]
+            },
+            {
+              "label": "2025",
+              "value": 52.5,
+              "color": [
+                1,
+                0.7,
+                0.22
+              ]
+            }
+          ]
+        }
+      ],
+      "act": "rule"
+    },
+    {
+      "scenes": [
+        {
+          "t": "fact_card",
+          "to": 45.9,
+          "decimals": 1,
+          "suffix": " BILLION",
+          "size": 190,
+          "reach": 3.0,
+          "text": "in 2020, the pandemic year, before climbing back above 50 billion",
+          "source": "Source: YouMail Robocall Index"
+        }
+      ],
+      "act": "rule"
+    },
+    {
+      "scenes": [
+        {
+          "t": "bars",
+          "title": "ROBOCALLS PER YEAR (BILLIONS)",
+          "source": "Source: YouMail Robocall Index",
+          "decimals": 1,
+          "suffix": "B",
+          "at": 1.0,
+          "bars": [
+            {
+              "label": "2023",
+              "value": 55.0
+            },
+            {
+              "label": "2024",
+              "value": 52.8
+            }
+          ]
+        }
+      ],
+      "act": "rule"
+    },
+    {
+      "scenes": [
+        {
+          "t": "organ_focus",
+          "image": "laptop.jpg",
+          "screen": false,
+          "photo": true,
+          "zoom": [
+            100,
+            108
+          ],
+          "label": {
+            "text": "ESTIMATES ONLY",
+            "at": 0.3
+          },
+          "illustration": true
+        },
+        {
+          "t": "lower_third",
+          "text": "YouMail is a private company",
+          "sub": "Treat the numbers as estimates",
+          "corner": "br"
+        }
+      ],
+      "act": "rule"
+    },
+    {
+      "scenes": [
+        {
+          "t": "web_clip",
+          "image": "fcc_traced_act.png",
+          "site": "FCC.GOV",
+          "date": "TRACED ACT",
+          "source": "Source: FCC",
+          "marks": [
+            {
+              "box": [
+                395,
+                443,
+                1134,
+                122
+              ],
+              "at": "law"
+            }
+          ]
+        }
+      ],
+      "act": "rule"
+    },
+    {
+      "scenes": [
+        {
+          "t": "fact_card",
+          "to": 14,
+          "reach": 2.5,
+          "text": "providers removed from the FCC database in 2023; another in September 2025",
+          "source": "Source: FCC Enforcement Bureau orders",
+          "color": [
+            0.5,
+            0.69,
+            0.54
+          ]
+        }
+      ],
+      "act": "rule"
+    },
+    {
+      "scenes": [
+        {
+          "t": "web_clip",
+          "image": "fcc_225m_2021.png",
+          "site": "FCC.GOV",
+          "date": "MARCH 17, 2021",
+          "source": "Source: FCC order FCC-21-35",
+          "marks": [
+            {
+              "box": [
+                395,
+                443,
+                1958,
+                230
+              ],
+              "at": "fined"
+            }
+          ],
+          "until": "hundred-0.55"
+        },
+        {
+          "t": "bars",
+          "title": "FCC ROBOCALL FINES (MILLIONS)",
+          "source": "Source: FCC orders",
+          "prefix": "$",
+          "suffix": "M",
+          "at": "hundred-0.5",
+          "reach": "dollars",
+          "bars": [
+            {
+              "label": "2018 ABRAMOVICH",
+              "value": 120,
+              "color": [
+                1,
+                0.7,
+                0.22
+              ]
+            },
+            {
+              "label": "2021 TEXAS PAIR",
+              "value": 225,
+              "color": [
+                1,
+                0.3,
+                0.72
+              ]
+            }
+          ]
+        }
+      ],
+      "act": "case"
+    },
+    {
+      "scenes": [
+        {
+          "t": "end_card",
+          "lines": [
+            "WHAT STILL FAILS",
+            "Smaller carriers got more time",
+            "Dec 2021: FCC shortened some deadlines"
+          ]
+        },
+        {
+          "t": "lower_third",
+          "text": "Source: FCC order, Dec 2021"
+        }
+      ],
+      "act": "rule"
+    },
+    {
+      "scenes": [
+        {
+          "t": "web_clip",
+          "image": "fcc_ai_voices_2024.png",
+          "site": "FCC.GOV",
+          "date": "FEB 8, 2024",
+          "source": "Source: FCC Declaratory Ruling, Feb 8, 2024",
+          "marks": [
+            {
+              "box": [
+                2049,
+                860,
+                149,
+                38
+              ],
+              "at": "February"
+            },
+            {
+              "box": [
+                395,
+                443,
+                2033,
+                122
+              ],
+              "at": "voices"
+            }
+          ]
+        }
+      ],
+      "act": "rule"
+    },
+    {
+      "scenes": [
+        {
+          "t": "impact_title",
+          "lines": [
+            {
+              "text": "HARDER TO HIDE",
+              "size": 120,
+              "y": 470,
+              "font": "Anton",
+              "delay": 0.0,
+              "color": [
+                1,
+                0.93,
+                0.8
+              ]
+            },
+            {
+              "text": "NOT QUIET",
+              "size": 84,
+              "y": 640,
+              "font": "Anton",
+              "delay": 0.25,
+              "color": [
+                1,
+                0.7,
+                0.22
+              ]
+            }
+          ],
+          "fade": [
+            0.3,
+            0.3
+          ]
+        }
+      ],
+      "act": "rule"
+    },
+    {
+      "scenes": [
+        {
+          "t": "organ_focus",
+          "image": "landline.jpg",
+          "screen": false,
+          "photo": true,
+          "zoom": [
+            100,
+            108
+          ],
+          "label": {
+            "text": "THE NUMBER OWNERS",
+            "at": 0.3
+          },
+          "illustration": true
+        }
+      ],
+      "act": "rule"
+    },
+    {
+      "scenes": [
+        {
+          "t": "impact_title",
+          "lines": [
+            {
+              "text": "ANGRY CALLS",
+              "size": 120,
+              "y": 470,
+              "font": "Anton",
+              "delay": 0.0,
+              "color": [
+                1,
+                0.93,
+                0.8
+              ]
+            },
+            {
+              "text": "FOR CALLS THEY NEVER MADE",
+              "size": 84,
+              "y": 640,
+              "font": "Anton",
+              "delay": 0.25,
+              "color": [
+                1,
+                0.7,
+                0.22
+              ]
+            }
+          ],
+          "fade": [
+            0.3,
+            0.3
+          ]
+        },
+        {
+          "t": "lower_third",
+          "text": "Source: FCC order FCC 18-58"
+        }
+      ],
+      "act": "rule"
+    },
+    {
+      "scenes": [
+        {
+          "t": "organ_focus",
+          "image": "l_brands.jpg",
+          "screen": false,
+          "photo": true,
+          "zoom": [
+            100,
+            108
+          ],
+          "label": {
+            "text": "APRIL 2016",
+            "at": 0.3
+          }
+        },
+        {
+          "t": "lower_third",
+          "text": "TripAdvisor reported several consumer complaints to the FCC",
+          "sub": "Source: FCC order FCC 18-58",
+          "corner": "br"
+        }
+      ],
+      "act": "rule"
+    },
+    {
+      "scenes": [
+        {
+          "t": "fact_card",
+          "to": 2000000,
+          "reach": 3.0,
+          "text": "people who may have pressed one, by Thune's math. The FCC gives no victim total.",
+          "source": "Source: Senate Hearing 115-806"
+        }
+      ],
+      "act": "rule"
+    },
+    {
+      "scenes": [
+        {
+          "t": "bars",
+          "title": "FTC COMPLAINTS, Q1 2018 (MILLIONS)",
+          "source": "Source: FTC",
+          "decimals": 1,
+          "suffix": "M",
+          "at": 1.0,
+          "reach": 4.0,
+          "bars": [
+            {
+              "label": "UNWANTED CALLS",
+              "value": 1.4,
+              "color": [
+                1,
+                0.7,
+                0.22
+              ]
+            },
+            {
+              "label": "ROBOCALLS",
+              "value": 0.9,
+              "color": [
+                1,
+                0.3,
+                0.72
+              ]
+            }
+          ]
+        }
+      ],
+      "act": "rule"
+    },
+    {
+      "scenes": [
+        {
+          "t": "end_card",
+          "lines": [
+            "REMEMBER THIS CASE",
+            "A local number proves nothing",
+            "Every call the FCC sampled was faked"
+          ]
+        }
+      ],
+      "act": "rule"
+    },
+    {
+      "scenes": [
+        {
+          "t": "organ_focus",
+          "image": "hangup.jpg",
+          "screen": false,
+          "photo": true,
+          "zoom": [
+            100,
+            108
+          ],
+          "label": {
+            "text": "PRESS NOTHING",
+            "at": 0.3
+          },
+          "illustration": true
+        }
+      ],
+      "act": "rule"
+    },
+    {
+      "scenes": [
+        {
+          "t": "impact_title",
+          "lines": [
+            {
+              "text": "DO NOT",
+              "size": 120,
+              "y": 470,
+              "font": "Anton",
+              "delay": 0.0,
+              "color": [
+                1,
+                0.93,
+                0.8
+              ]
+            },
+            {
+              "text": "CALL BACK",
+              "size": 84,
+              "y": 640,
+              "font": "Anton",
+              "delay": 0.25,
+              "color": [
+                1,
+                0.7,
+                0.22
+              ]
+            }
+          ],
+          "fade": [
+            0.3,
+            0.3
+          ]
+        }
+      ],
+      "act": "rule"
+    },
+    {
+      "scenes": [
+        {
+          "t": "organ_focus",
+          "image": "tower.jpg",
+          "screen": false,
+          "photo": true,
+          "zoom": [
+            100,
+            108
+          ],
+          "label": {
+            "text": "ASK YOUR CARRIER",
+            "at": 0.3
+          },
+          "illustration": true
+        },
+        {
+          "t": "lower_third",
+          "text": "Carriers cannot charge extra for call authentication",
+          "sub": "Source: TRACED Act, Public Law 116-105",
+          "corner": "br"
+        }
+      ],
+      "act": "rule"
+    },
+    {
+      "scenes": [
+        {
+          "t": "impact_title",
+          "lines": [
+            {
+              "text": "REPORT A ROBOCALL",
+              "size": 100,
+              "y": 420,
+              "font": "Anton",
+              "color": [
+                1,
+                0.93,
+                0.8
+              ]
+            },
+            {
+              "text": "donotcall.gov",
+              "size": 90,
+              "y": 560,
+              "font": "Inter",
+              "color": [
+                0.3,
+                0.9,
+                1
+              ],
+              "delay": 0.4
+            },
+            {
+              "text": "REPORT FRAUD",
+              "size": 100,
+              "y": 720,
+              "font": "Anton",
+              "color": [
+                1,
+                0.93,
+                0.8
+              ],
+              "delay": 1.5
+            },
+            {
+              "text": "reportfraud.ftc.gov",
+              "size": 90,
+              "y": 860,
+              "font": "Inter",
+              "color": [
+                0.3,
+                0.9,
+                1
+              ],
+              "delay": 1.9
+            }
+          ],
+          "fade": [
+            0.3,
+            0.3
+          ]
+        }
+      ],
+      "act": "rule"
+    },
+    {
+      "scenes": [
+        {
+          "t": "end_card",
+          "lines": [
+            "FILE A COMPLAINT",
+            "consumercomplaints.fcc.gov",
+            "fcc.gov/spoofing"
+          ]
+        }
+      ],
+      "act": "rule"
+    },
+    {
+      "scenes": [
+        {
+          "t": "timeline",
+          "title": "THE WHOLE STORY",
+          "items": [
+            {
+              "date": "2010",
+              "label": "Truth in Caller ID Act",
+              "at": 0.5
+            },
+            {
+              "date": "2016",
+              "label": "96 million fake calls",
+              "at": 1.7
+            },
+            {
+              "date": "2017",
+              "label": "$120M fine proposed",
+              "at": 2.9
+            },
+            {
+              "date": "2018",
+              "label": "Hearing and final fine",
+              "at": 4.1
+            },
+            {
+              "date": "2019",
+              "label": "TRACED Act",
+              "at": 5.3
+            },
+            {
+              "date": "2021/2024",
+              "label": "Bigger fine, AI ruling",
+              "at": 6.5
+            }
+          ]
+        },
+        {
+          "t": "lower_third",
+          "text": "Source: FCC, U.S. Senate, Public Law 116-105"
+        }
+      ],
+      "act": "rule"
+    },
+    {
+      "scenes": [
+        {
+          "t": "impact_title",
+          "lines": [
+            {
+              "text": "ONE STEP AHEAD",
+              "size": 120,
+              "y": 540,
+              "font": "Anton",
+              "delay": 0.0,
+              "color": [
+                1,
+                0.93,
+                0.8
+              ]
+            }
+          ],
+          "fade": [
+            0.3,
+            0.3
+          ]
+        }
+      ],
+      "act": "rule"
+    },
+    {
+      "scenes": [
+        {
+          "t": "outro",
+          "line": "THE SCAM · THE CASE · THE RULE",
+          "next": "Coming soon: the next case",
+          "cta": "SUBSCRIBE",
+          "at": 0.2,
+          "until": "dur+0.6"
+        }
+      ]
+    }
+  ]
+}

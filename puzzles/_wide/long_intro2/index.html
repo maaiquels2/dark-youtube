@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=1920, height=1080" />
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 1920px; height: 1080px; overflow: hidden; background: #f4ecd8; }
+  #root { position: relative; width: 1920px; height: 1080px; overflow: hidden; background: #f4ecd8;
+    font-family: "JetBrains Mono", monospace; color: #1c1c1c; }
+  #cv { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; }
+  .t { position: absolute; left: 0; width: 1920px; text-align: center; font-weight: 700; }
+  #title { top: 26px; font-size: 52px; white-space: nowrap; }
+  #stat { top: 92px; font-size: 28px; opacity: .7; letter-spacing: 2px; }
+  #cap { top: 958px; left: 260px; width: 1400px; font-size: 52px; line-height: 62px; height: 124px; }
+  .g { position: absolute; left: 0; top: 0; width: 1400px; text-align: center; opacity: 0; }
+  .w { opacity: .22; }
+  .w.on { opacity: 1; }
+  .w.k.on { color: #d62828; }
+</style>
+</head>
+<body>
+<div id="root" data-composition-id="main" data-start="0" data-duration="21.637" data-width="1920" data-height="1080">
+  <canvas id="cv" class="clip" data-start="0" data-duration="21.637" width="1920" height="1080"></canvas>
+  <div id="title" class="clip t" data-start="0" data-duration="21.637">6 more puzzles. 6 more <span style="color:#d62828">traps</span>.</div>
+  <div id="stat" class="clip t" data-start="0" data-duration="21.637"></div>
+  <div id="cap" class="clip t" data-start="0" data-duration="21.637"></div>
+  <audio id="voice" src="assets/voice.mp3" data-start="0.0" data-duration="21.637" data-volume="1"></audio>
+</div>
+<script>
+const LEAD = 0.0, CHAPTER = "", WORDS = [{"w": "Six", "s": 0.0, "e": 0.29}, {"w": "more", "s": 0.372, "e": 0.58}, {"w": "puzzles,", "s": 0.639, "e": 1.161}, {"w": "and", "s": 1.184, "e": 1.312}, {"w": "six", "s": 1.393, "e": 1.602}, {"w": "more", "s": 1.672, "e": 1.869}, {"w": "answers", "s": 1.927, "e": 2.392}, {"w": "that", "s": 2.438, "e": 2.577}, {"w": "feel", "s": 2.624, "e": 2.844}, {"w": "obviously", "s": 2.914, "e": 3.448}, {"w": "right.", "s": 3.518, "e": 3.913}, {"w": "A", "s": 4.272, "e": 4.342}, {"w": "pattern", "s": 4.423, "e": 4.737}, {"w": "that", "s": 4.76, "e": 4.876}, {"w": "breaks", "s": 4.923, "e": 5.178}, {"w": "at", "s": 5.224, "e": 5.294}, {"w": "six.", "s": 5.364, "e": 5.863}, {"w": "A", "s": 6.165, "e": 6.235}, {"w": "party", "s": 6.339, "e": 6.583}, {"w": "that", "s": 6.629, "e": 6.769}, {"w": "always", "s": 6.815, "e": 7.163}, {"w": "hides", "s": 7.221, "e": 7.442}, {"w": "a", "s": 7.477, "e": 7.512}, {"w": "triangle.", "s": 7.558, "e": 8.173}, {"w": "A", "s": 8.475, "e": 8.545}, {"w": "test", "s": 8.649, "e": 8.928}, {"w": "that", "s": 8.963, "e": 9.079}, {"w": "is", "s": 9.125, "e": 9.207}, {"w": "nowhere", "s": 9.311, "e": 9.66}, {"w": "near", "s": 9.718, "e": 9.903}, {"w": "ninety-nine", "s": 9.973, "e": 10.391}, {"w": "percent.", "s": 10.426, "e": 10.902}, {"w": "A", "s": 11.262, "e": 11.331}, {"w": "treatment", "s": 11.401, "e": 11.796}, {"w": "that", "s": 11.831, "e": 11.958}, {"w": "wins", "s": 12.016, "e": 12.295}, {"w": "and", "s": 12.341, "e": 12.423}, {"w": "loses", "s": 12.481, "e": 12.794}, {"w": "at", "s": 12.852, "e": 12.922}, {"w": "the", "s": 12.957, "e": 13.026}, {"w": "same", "s": 13.073, "e": 13.293}, {"w": "time.", "s": 13.328, "e": 13.746}, {"w": "A", "s": 14.106, "e": 14.176}, {"w": "line", "s": 14.245, "e": 14.42}, {"w": "of", "s": 14.443, "e": 14.489}, {"w": "prisoners.", "s": 14.536, "e": 15.139}, {"w": "And", "s": 15.441, "e": 15.604}, {"w": "an", "s": 15.662, "e": 15.743}, {"w": "ant", "s": 15.813, "e": 16.01}, {"w": "that", "s": 16.045, "e": 16.173}, {"w": "outruns", "s": 16.231, "e": 16.637}, {"w": "infinity.", "s": 16.695, "e": 17.287}, {"w": "Grab", "s": 17.694, "e": 17.949}, {"w": "a", "s": 18.007, "e": 18.03}, {"w": "pencil,", "s": 18.088, "e": 18.495}, {"w": "because", "s": 18.53, "e": 18.797}, {"w": "in", "s": 18.831, "e": 18.889}, {"w": "every", "s": 18.947, "e": 19.11}, {"w": "one", "s": 19.168, "e": 19.296}, {"w": "of", "s": 19.319, "e": 19.365}, {"w": "them,", "s": 19.412, "e": 19.714}, {"w": "we", "s": 19.934, "e": 20.062}, {"w": "show", "s": 20.097, "e": 20.259}, {"w": "our", "s": 20.317, "e": 20.422}, {"w": "work.", "s": 20.468, "e": 21.037}], B = [0.0, 21.337], VEND = 21.037, DUR = 21.637, NB = B.length - 1;
+const KEYS = new Set(["six", "traps", "pencil", "work"]);
+const INK = "#1c1c1c", RED = "#d62828", OR = "#e07a00", GRN = "#2a9d5c", DOT = "#4a4a4a";
+const clamp = v => Math.max(0, Math.min(1, v));
+const ease = v => { v = clamp(v); return v * v * (3 - 2 * v); };
+const bit = (i, k) => (i >> k) & 1;
+const cvs = document.getElementById("cv"), x = cvs.getContext("2d");
+const stat = document.getElementById("stat"), cap = document.getElementById("cap");
+const FONT = "'JetBrains Mono', monospace";
+function txt(s, px, py, size, col, align, weight) {
+  x.font = (weight || "bold") + " " + Math.round(size * 1.12) + "px " + FONT; x.fillStyle = col || INK;
+  x.textAlign = align || "center"; x.textBaseline = "middle"; x.fillText(s, px, py);
+}
+function circ(cx, cy, r, fill, stroke, lw, alpha) {
+  x.globalAlpha = alpha == null ? 1 : alpha; x.beginPath(); x.arc(cx, cy, r, 0, 6.283);
+  if (fill) { x.fillStyle = fill; x.fill(); } if (stroke) { x.strokeStyle = stroke; x.lineWidth = lw || 4; x.stroke(); }
+  x.globalAlpha = 1;
+}
+function rect(px, py, w, h, fill, stroke, lw, alpha) {
+  x.globalAlpha = alpha == null ? 1 : alpha;
+  if (fill) { x.fillStyle = fill; x.fillRect(px, py, w, h); }
+  if (stroke) { x.strokeStyle = stroke; x.lineWidth = lw || 4; x.strokeRect(px, py, w, h); }
+  x.globalAlpha = 1;
+}
+function line(x1, y1, x2, y2, col, lw, alpha) {
+  x.globalAlpha = alpha == null ? 1 : alpha; x.strokeStyle = col || INK; x.lineWidth = lw || 3;
+  x.beginPath(); x.moveTo(x1, y1); x.lineTo(x2, y2); x.stroke(); x.globalAlpha = 1;
+}
+function show(w) {
+  const m = w.match(/^((?:one|zero)(?:-(?:one|zero))+)([.,?!]*)$/i);
+  if (m) return m[1].toLowerCase().split("-").map(p => p === "one" ? 1 : 0).join("") + m[2];
+  return w;
+}
+const groups = []; {
+  let g = [];
+  const flush = () => { if (g.length) { groups.push(g); g = []; } };
+  WORDS.forEach((w, i) => {
+    const t = show(w.w);
+    if (g.length && (g.length >= 4 || g.map(o => show(o.w)).join(" ").length + t.length > 24)) flush();
+    g.push({ ...w, i, txt: t });
+    if (/[.?!]$/.test(w.w) || /,$/.test(w.w)) flush();
+  });
+  flush();
+}
+groups.forEach((g, gi) => {
+  const el = document.createElement("div"); el.className = "g"; el.id = "g" + gi;
+  g.forEach(w => {
+    const s = document.createElement("span");
+    s.className = "w" + (KEYS.has(w.txt.toLowerCase().replace(/[.,?!]/g, "")) ? " k" : "");
+    s.textContent = w.txt + " "; w.el = s; el.appendChild(s);
+  });
+  cap.appendChild(el); g.el = el;
+  g.start = g[0].s - 0.05; g.end = DUR;
+});
+groups.forEach((g, gi) => { if (gi + 1 < groups.length) g.end = Math.min(g[g.length - 1].e + 0.25, groups[gi + 1][0].s - 0.05); });
+function blockOf(t) { let b = 0; for (let i = 0; i < NB; i++) if (t >= B[i]) b = i; return b; }
+
+const CARDS = ["1, 2, 4, 8, 16, ?", "party of 6", "99% test", "A beats B", "100 hats", "ant on a rope"];
+function scene(t, b, u) {
+  CARDS.forEach((c, i) => {
+    const a = ease((u - (0.1 + i * 0.1)) / 0.08);
+    if (a <= 0) return;
+    const cx = 220 + (i % 3) * 320, cy = 520 + Math.floor(i / 3) * 190;
+    x.globalAlpha = a; rect(cx - 140, cy - 70, 280, 140, "#e8dcbc", INK, 4); x.globalAlpha = 1;
+    txt(String(i + 1), cx - 100, cy - 32, 30, RED, "center"); txt(c, cx + 8, cy + 14, 26, INK, "center");
+  });
+  if (u > 0.8) txt("one pencil. all the work.", 540, 960, 40, RED);
+  return "SIX MORE OBVIOUS ANSWERS";
+}
+
+
+function renderAt(t) {
+  x.fillStyle = "#f4ecd8"; x.fillRect(0, 0, 1920, 1080);
+  x.strokeStyle = "rgba(60,90,140,0.16)"; x.lineWidth = 2;
+  for (let g = 0; g <= 1920; g += 40) { x.beginPath(); x.moveTo(g, 0); x.lineTo(g, 1080); x.stroke(); }
+  for (let g = 0; g <= 1080; g += 40) { x.beginPath(); x.moveTo(0, g); x.lineTo(1920, g); x.stroke(); }
+  const b = blockOf(t), u = clamp((t - B[b]) / (B[b + 1] - B[b]));
+  if (t < LEAD) {
+    stat.textContent = ""; x.textAlign = "center"; x.textBaseline = "middle";
+    x.fillStyle = RED; x.font = "bold 44px " + FONT; x.fillText(CHAPTER.split("|")[0], 960, 430);
+    x.fillStyle = INK; x.font = "bold 84px " + FONT; x.fillText(CHAPTER.split("|")[1], 960, 540);
+    groups.forEach(g => { g.el.style.opacity = 0; });
+    return;
+  }
+  x.save(); x.translate(463, -126); x.scale(0.92, 0.92);
+  stat.textContent = scene(t, b, u) || "";
+  x.restore();
+  groups.forEach(g => {
+    const on = t >= g.start && t < g.end;
+    g.el.style.opacity = on ? 1 : 0;
+    if (on) g.forEach(w => w.el.classList.toggle("on", t >= w.s));
+  });
+}
+window.addEventListener("hf-seek", e => renderAt(e.detail.time));
+renderAt(0);
+const tl = gsap.timeline({ paused: true });
+tl.fromTo("#title", { opacity: 0 }, { opacity: 1, duration: 0.5, ease: "power2.out" }, 0);
+window.__timelines = window.__timelines || {};
+window.__timelines["main"] = tl;
+</script>
+</body>
+</html>

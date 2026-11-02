@@ -1,0 +1,10 @@
+{
+  "tts_provider": "elevenlabs",
+  "eleven_voice_id": "nPczCjzI2devNBz1zQrb",
+  "eleven_model": "eleven_multilingual_v2",
+  "eleven_speed": 0.86,
+  "tts_respell": {
+    "Weil": "Wile",
+    "Aave": "Ah-vay"
+  }
+}

@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=1920, height=1080" />
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 1920px; height: 1080px; overflow: hidden; background: #f4ecd8; }
+  #root { position: relative; width: 1920px; height: 1080px; overflow: hidden; background: #f4ecd8;
+    font-family: "JetBrains Mono", monospace; color: #1c1c1c; }
+  #cv { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; }
+  .t { position: absolute; left: 0; width: 1920px; text-align: center; font-weight: 700; }
+  #title { top: 26px; font-size: 52px; white-space: nowrap; }
+  #stat { top: 92px; font-size: 28px; opacity: .7; letter-spacing: 2px; }
+  #cap { top: 958px; left: 260px; width: 1400px; font-size: 52px; line-height: 62px; height: 124px; }
+  .g { position: absolute; left: 0; top: 0; width: 1400px; text-align: center; opacity: 0; }
+  .w { opacity: .22; }
+  .w.on { opacity: 1; }
+  .w.k.on { color: #d62828; }
+</style>
+</head>
+<body>
+<div id="root" data-composition-id="main" data-start="0" data-duration="81.093" data-width="1920" data-height="1080">
+  <canvas id="cv" class="clip" data-start="0" data-duration="81.093" width="1920" height="1080"></canvas>
+  <div id="title" class="clip t" data-start="0" data-duration="81.093">An ant on a stretching <span style="color:#d62828">rope</span>.</div>
+  <div id="stat" class="clip t" data-start="0" data-duration="81.093"></div>
+  <div id="cap" class="clip t" data-start="0" data-duration="81.093"></div>
+  <audio id="voice" src="assets/voice.mp3" data-start="2.8" data-duration="81.093" data-volume="1"></audio>
+</div>
+<script>
+const LEAD = 2.8, CHAPTER = "PUZZLE 6 OF 6|ant on a rope", WORDS = [{"w": "An", "s": 2.8, "e": 2.951}, {"w": "ant", "s": 3.021, "e": 3.195}, {"w": "starts", "s": 3.253, "e": 3.531}, {"w": "walking", "s": 3.601, "e": 3.973}, {"w": "along", "s": 4.031, "e": 4.286}, {"w": "a", "s": 4.333, "e": 4.356}, {"w": "rubber", "s": 4.425, "e": 4.669}, {"w": "rope", "s": 4.739, "e": 4.971}, {"w": "one", "s": 5.029, "e": 5.238}, {"w": "kilometer", "s": 5.273, "e": 5.668}, {"w": "long,", "s": 5.726, "e": 6.155}, {"w": "at", "s": 6.376, "e": 6.527}, {"w": "one", "s": 6.608, "e": 6.84}, {"w": "centimeter", "s": 6.887, "e": 7.316}, {"w": "per", "s": 7.374, "e": 7.479}, {"w": "second.", "s": 7.525, "e": 7.932}, {"w": "At", "s": 8.338, "e": 8.454}, {"w": "the", "s": 8.489, "e": 8.559}, {"w": "same", "s": 8.628, "e": 8.872}, {"w": "time,", "s": 8.907, "e": 9.336}, {"w": "the", "s": 9.534, "e": 9.627}, {"w": "rope", "s": 9.696, "e": 9.917}, {"w": "starts", "s": 9.952, "e": 10.23}, {"w": "stretching", "s": 10.277, "e": 10.706}, {"w": "by", "s": 10.776, "e": 10.892}, {"w": "one", "s": 10.997, "e": 11.171}, {"w": "kilometer", "s": 11.217, "e": 11.682}, {"w": "every", "s": 11.786, "e": 12.03}, {"w": "second.", "s": 12.1, "e": 12.541}, {"w": "Can", "s": 13.191, "e": 13.365}, {"w": "the", "s": 13.412, "e": 13.481}, {"w": "ant", "s": 13.562, "e": 13.748}, {"w": "ever", "s": 13.818, "e": 14.004}, {"w": "reach", "s": 14.062, "e": 14.259}, {"w": "the", "s": 14.317, "e": 14.398}, {"w": "end?", "s": 14.456, "e": 14.84}, {"w": "Here", "s": 15.49, "e": 15.699}, {"w": "are", "s": 15.734, "e": 15.838}, {"w": "the", "s": 15.873, "e": 15.942}, {"w": "rules.", "s": 16.012, "e": 16.546}, {"w": "The", "s": 16.906, "e": 17.034}, {"w": "rope", "s": 17.115, "e": 17.382}, {"w": "stretches", "s": 17.428, "e": 17.893}, {"w": "evenly,", "s": 17.997, "e": 18.566}, {"w": "so", "s": 18.636, "e": 18.775}, {"w": "the", "s": 18.845, "e": 18.915}, {"w": "ant", "s": 18.996, "e": 19.193}, {"w": "is", "s": 19.251, "e": 19.332}, {"w": "carried", "s": 19.391, "e": 19.681}, {"w": "forward", "s": 19.727, "e": 20.052}, {"w": "as", "s": 20.087, "e": 20.168}, {"w": "it", "s": 20.226, "e": 20.296}, {"w": "stretches.", "s": 20.331, "e": 20.923}, {"w": "Its", "s": 21.48, "e": 21.666}, {"w": "own", "s": 21.724, "e": 21.898}, {"w": "speed", "s": 21.968, "e": 22.247}, {"w": "never", "s": 22.316, "e": 22.502}, {"w": "changes.", "s": 22.56, "e": 23.175}, {"w": "Does", "s": 23.477, "e": 23.675}, {"w": "it", "s": 23.721, "e": 23.779}, {"w": "get", "s": 23.826, "e": 23.976}, {"w": "there?", "s": 24.023, "e": 24.371}, {"w": "It", "s": 24.778, "e": 24.905}, {"w": "looks", "s": 24.952, "e": 25.161}, {"w": "impossible.", "s": 25.196, "e": 25.962}, {"w": "The", "s": 26.368, "e": 26.496}, {"w": "ant", "s": 26.565, "e": 26.74}, {"w": "moves", "s": 26.809, "e": 27.065}, {"w": "one", "s": 27.134, "e": 27.332}, {"w": "centimeter", "s": 27.378, "e": 27.889}, {"w": "per", "s": 27.959, "e": 28.086}, {"w": "second,", "s": 28.156, "e": 28.597}, {"w": "and", "s": 28.795, "e": 28.934}, {"w": "the", "s": 28.969, "e": 29.038}, {"w": "end", "s": 29.085, "e": 29.166}, {"w": "of", "s": 29.213, "e": 29.259}, {"w": "the", "s": 29.294, "e": 29.363}, {"w": "rope", "s": 29.422, "e": 29.631}, {"w": "runs", "s": 29.677, "e": 29.898}, {"w": "away", "s": 29.932, "e": 30.153}, {"w": "a", "s": 30.211, "e": 30.234}, {"w": "hundred", "s": 30.304, "e": 30.559}, {"w": "thousand", "s": 30.606, "e": 30.977}, {"w": "times", "s": 31.023, "e": 31.29}, {"w": "faster", "s": 31.348, "e": 31.697}, {"w": "than", "s": 31.743, "e": 31.871}, {"w": "that.", "s": 31.906, "e": 32.254}, {"w": "But", "s": 32.66, "e": 32.811}, {"w": "the", "s": 32.846, "e": 32.927}, {"w": "ant", "s": 33.009, "e": 33.218}, {"w": "does", "s": 33.276, "e": 33.45}, {"w": "reach", "s": 33.519, "e": 33.705}, {"w": "the", "s": 33.763, "e": 33.844}, {"w": "end.", "s": 33.914, "e": 34.216}, {"w": "The", "s": 34.286, "e": 34.402}, {"w": "trick", "s": 34.448, "e": 34.68}, {"w": "is", "s": 34.727, "e": 34.808}, {"w": "to", "s": 34.855, "e": 34.913}, {"w": "track", "s": 34.982, "e": 35.273}, {"w": "the", "s": 35.342, "e": 35.412}, {"w": "fraction", "s": 35.481, "e": 35.888}, {"w": "of", "s": 35.934, "e": 35.981}, {"w": "the", "s": 36.027, "e": 36.097}, {"w": "rope", "s": 36.155, "e": 36.364}, {"w": "it", "s": 36.399, "e": 36.468}, {"w": "has", "s": 36.515, "e": 36.654}, {"w": "covered.", "s": 36.724, "e": 37.142}, {"w": "After", "s": 37.548, "e": 37.838}, {"w": "the", "s": 37.885, "e": 37.954}, {"w": "first", "s": 38.001, "e": 38.21}, {"w": "second,", "s": 38.245, "e": 38.639}, {"w": "it", "s": 38.744, "e": 38.86}, {"w": "has", "s": 38.906, "e": 39.011}, {"w": "covered", "s": 39.081, "e": 39.382}, {"w": "one", "s": 39.452, "e": 39.696}, {"w": "hundred-thousandth", "s": 39.754, "e": 40.543}, {"w": "of", "s": 40.578, "e": 40.625}, {"w": "the", "s": 40.671, "e": 40.741}, {"w": "rope.", "s": 40.787, "e": 41.101}, {"w": "After", "s": 41.507, "e": 41.797}, {"w": "the", "s": 41.855, "e": 41.937}, {"w": "second,", "s": 42.006, "e": 42.459}, {"w": "the", "s": 42.622, "e": 42.726}, {"w": "rope", "s": 42.796, "e": 43.005}, {"w": "is", "s": 43.04, "e": 43.121}, {"w": "longer,", "s": 43.202, "e": 43.713}, {"w": "so", "s": 43.817, "e": 43.957}, {"w": "the", "s": 44.026, "e": 44.096}, {"w": "same", "s": 44.166, "e": 44.456}, {"w": "step", "s": 44.491, "e": 44.735}, {"w": "covers", "s": 44.793, "e": 45.083}, {"w": "a", "s": 45.129, "e": 45.164}, {"w": "smaller", "s": 45.222, "e": 45.524}, {"w": "fraction,", "s": 45.571, "e": 46.116}, {"w": "but", "s": 46.476, "e": 46.627}, {"w": "the", "s": 46.662, "e": 46.743}, {"w": "ant", "s": 46.824, "e": 47.057}, {"w": "keeps", "s": 47.126, "e": 47.37}, {"w": "all", "s": 47.44, "e": 47.718}, {"w": "its", "s": 47.788, "e": 47.904}, {"w": "earlier", "s": 47.974, "e": 48.31}, {"w": "progress.", "s": 48.369, "e": 48.961}, {"w": "After", "s": 49.518, "e": 49.808}, {"w": "a", "s": 49.866, "e": 49.901}, {"w": "thousand", "s": 49.971, "e": 50.377}, {"w": "seconds,", "s": 50.447, "e": 50.876}, {"w": "it", "s": 50.911, "e": 50.992}, {"w": "has", "s": 51.039, "e": 51.155}, {"w": "covered", "s": 51.225, "e": 51.503}, {"w": "about", "s": 51.526, "e": 51.747}, {"w": "seven", "s": 51.817, "e": 52.107}, {"w": "thousandths", "s": 52.165, "e": 52.641}, {"w": "of", "s": 52.699, "e": 52.769}, {"w": "a", "s": 52.827, "e": 52.862}, {"w": "percent.", "s": 52.92, "e": 53.477}, {"w": "After", "s": 54.034, "e": 54.324}, {"w": "a", "s": 54.394, "e": 54.429}, {"w": "billion", "s": 54.499, "e": 54.812}, {"w": "seconds,", "s": 54.882, "e": 55.335}, {"w": "about", "s": 55.404, "e": 55.671}, {"w": "two", "s": 55.718, "e": 55.927}, {"w": "hundredths", "s": 55.996, "e": 56.472}, {"w": "of", "s": 56.577, "e": 56.693}, {"w": "a", "s": 56.751, "e": 56.786}, {"w": "percent.", "s": 56.855, "e": 57.401}, {"w": "The", "s": 58.051, "e": 58.167}, {"w": "fractions", "s": 58.237, "e": 58.806}, {"w": "add", "s": 58.876, "e": 59.085}, {"w": "up", "s": 59.143, "e": 59.259}, {"w": "as", "s": 59.328, "e": 59.445}, {"w": "one", "s": 59.549, "e": 59.781}, {"w": "plus", "s": 59.828, "e": 60.071}, {"w": "one", "s": 60.141, "e": 60.373}, {"w": "half", "s": 60.431, "e": 60.606}, {"w": "plus", "s": 60.652, "e": 60.884}, {"w": "one", "s": 60.954, "e": 61.116}, {"w": "third,", "s": 61.151, "e": 61.558}, {"w": "and", "s": 61.859, "e": 62.045}, {"w": "so", "s": 62.115, "e": 62.277}, {"w": "on,", "s": 62.359, "e": 62.521}, {"w": "the", "s": 62.544, "e": 62.614}, {"w": "harmonic", "s": 62.672, "e": 63.102}, {"w": "series,", "s": 63.16, "e": 63.647}, {"w": "which", "s": 63.903, "e": 64.112}, {"w": "never", "s": 64.251, "e": 64.518}, {"w": "stops", "s": 64.565, "e": 64.843}, {"w": "growing.", "s": 64.878, "e": 65.308}, {"w": "So", "s": 65.958, "e": 66.097}, {"w": "the", "s": 66.155, "e": 66.236}, {"w": "ant", "s": 66.318, "e": 66.515}, {"w": "arrives,", "s": 66.561, "e": 67.061}, {"w": "after", "s": 67.095, "e": 67.339}, {"w": "about", "s": 67.397, "e": 67.688}, {"w": "e", "s": 67.769, "e": 68.071}, {"w": "to", "s": 68.14, "e": 68.245}, {"w": "the", "s": 68.303, "e": 68.373}, {"w": "power", "s": 68.419, "e": 68.698}, {"w": "of", "s": 68.744, "e": 68.802}, {"w": "one", "s": 68.907, "e": 69.046}, {"w": "hundred", "s": 69.081, "e": 69.313}, {"w": "thousand", "s": 69.348, "e": 69.673}, {"w": "seconds.", "s": 69.731, "e": 70.195}, {"w": "That's", "s": 70.602, "e": 70.857}, {"w": "a", "s": 70.904, "e": 70.927}, {"w": "number", "s": 71.031, "e": 71.298}, {"w": "with", "s": 71.356, "e": 71.507}, {"w": "over", "s": 71.576, "e": 71.82}, {"w": "forty-three", "s": 71.925, "e": 72.482}, {"w": "thousand", "s": 72.529, "e": 72.9}, {"w": "digits.", "s": 72.958, "e": 73.504}, {"w": "Infinite", "s": 73.864, "e": 74.328}, {"w": "doesn't", "s": 74.363, "e": 74.618}, {"w": "mean", "s": 74.665, "e": 74.816}, {"w": "never,", "s": 74.885, "e": 75.315}, {"w": "and", "s": 75.477, "e": 75.628}, {"w": "slow", "s": 75.698, "e": 76.0}, {"w": "doesn't", "s": 76.07, "e": 76.325}, {"w": "mean", "s": 76.36, "e": 76.511}, {"w": "stuck.", "s": 76.592, "e": 77.033}, {"w": "Even", "s": 77.509, "e": 77.753}, {"w": "the", "s": 77.788, "e": 77.857}, {"w": "slowest", "s": 77.927, "e": 78.357}, {"w": "growth", "s": 78.403, "e": 78.647}, {"w": "wins,", "s": 78.705, "e": 79.169}, {"w": "if", "s": 79.227, "e": 79.355}, {"w": "it", "s": 79.402, "e": 79.471}, {"w": "never", "s": 79.506, "e": 79.692}, {"w": "stops.", "s": 79.75, "e": 80.493}], B = [2.8, 15.49, 24.778, 32.66, 49.518, 65.958, 80.793], VEND = 80.493, DUR = 81.093, NB = B.length - 1;
+const KEYS = new Set(["yes", "forever", "harmonic", "digits", "never"]);
+const INK = "#1c1c1c", RED = "#d62828", OR = "#e07a00", GRN = "#2a9d5c", DOT = "#4a4a4a";
+const clamp = v => Math.max(0, Math.min(1, v));
+const ease = v => { v = clamp(v); return v * v * (3 - 2 * v); };
+const bit = (i, k) => (i >> k) & 1;
+const cvs = document.getElementById("cv"), x = cvs.getContext("2d");
+const stat = document.getElementById("stat"), cap = document.getElementById("cap");
+const FONT = "'JetBrains Mono', monospace";
+function txt(s, px, py, size, col, align, weight) {
+  x.font = (weight || "bold") + " " + Math.round(size * 1.12) + "px " + FONT; x.fillStyle = col || INK;
+  x.textAlign = align || "center"; x.textBaseline = "middle"; x.fillText(s, px, py);
+}
+function circ(cx, cy, r, fill, stroke, lw, alpha) {
+  x.globalAlpha = alpha == null ? 1 : alpha; x.beginPath(); x.arc(cx, cy, r, 0, 6.283);
+  if (fill) { x.fillStyle = fill; x.fill(); } if (stroke) { x.strokeStyle = stroke; x.lineWidth = lw || 4; x.stroke(); }
+  x.globalAlpha = 1;
+}
+function rect(px, py, w, h, fill, stroke, lw, alpha) {
+  x.globalAlpha = alpha == null ? 1 : alpha;
+  if (fill) { x.fillStyle = fill; x.fillRect(px, py, w, h); }
+  if (stroke) { x.strokeStyle = stroke; x.lineWidth = lw || 4; x.strokeRect(px, py, w, h); }
+  x.globalAlpha = 1;
+}
+function line(x1, y1, x2, y2, col, lw, alpha) {
+  x.globalAlpha = alpha == null ? 1 : alpha; x.strokeStyle = col || INK; x.lineWidth = lw || 3;
+  x.beginPath(); x.moveTo(x1, y1); x.lineTo(x2, y2); x.stroke(); x.globalAlpha = 1;
+}
+function show(w) {
+  const m = w.match(/^((?:one|zero)(?:-(?:one|zero))+)([.,?!]*)$/i);
+  if (m) return m[1].toLowerCase().split("-").map(p => p === "one" ? 1 : 0).join("") + m[2];
+  return w;
+}
+const groups = []; {
+  let g = [];
+  const flush = () => { if (g.length) { groups.push(g); g = []; } };
+  WORDS.forEach((w, i) => {
+    const t = show(w.w);
+    if (g.length && (g.length >= 4 || g.map(o => show(o.w)).join(" ").length + t.length > 24)) flush();
+    g.push({ ...w, i, txt: t });
+    if (/[.?!]$/.test(w.w) || /,$/.test(w.w)) flush();
+  });
+  flush();
+}
+groups.forEach((g, gi) => {
+  const el = document.createElement("div"); el.className = "g"; el.id = "g" + gi;
+  g.forEach(w => {
+    const s = document.createElement("span");
+    s.className = "w" + (KEYS.has(w.txt.toLowerCase().replace(/[.,?!]/g, "")) ? " k" : "");
+    s.textContent = w.txt + " "; w.el = s; el.appendChild(s);
+  });
+  cap.appendChild(el); g.el = el;
+  g.start = g[0].s - 0.05; g.end = DUR;
+});
+groups.forEach((g, gi) => { if (gi + 1 < groups.length) g.end = Math.min(g[g.length - 1].e + 0.25, groups[gi + 1][0].s - 0.05); });
+function blockOf(t) { let b = 0; for (let i = 0; i < NB; i++) if (t >= B[i]) b = i; return b; }
+
+const RX0 = 100, RX1 = 980, RY = 640;
+function rope(frac, lenLabel, ticks) {
+  line(RX0, RY, RX1, RY, INK, 10);
+  for (let i = 0; i <= ticks; i++) { const px = RX0 + (RX1 - RX0) * i / ticks; line(px, RY - 14, px, RY + 14, INK, 3, 0.6); }
+  circ(RX0, RY, 12, INK); circ(RX1, RY, 12, RED);
+  const ax = RX0 + (RX1 - RX0) * frac; circ(ax, RY - 36, 18, OR, INK, 3); txt("ant", ax, RY - 80, 30, OR);
+  txt(lenLabel, 540, RY + 70, 44, INK);
+}
+const ROWS = [["1 s", "0.001%"], ["1,000 s", "0.0075%"], ["1 million s", "0.014%"], ["1 billion s", "0.021%"], ["e^100,000 s", "100%"]];
+function scene(t, b, u) {
+  if (b === 0) { rope(0.02, "1 km", 10); txt("ant: 1 cm/s", 540, 930, 44, OR); txt("rope: +1 km every second", 540, 1010, 44, INK); return "WILL THE ANT EVER ARRIVE?"; }
+  if (b === 1) { const L = 1 + Math.floor(u * 4); rope(0.02 + 0.01 * L / 5, L + " km", 10 * L > 40 ? 40 : 10 * L); txt("stretches evenly: the ant rides along", 540, 960, 40, INK); return "THE ROPE STRETCHES"; }
+  if (b === 2) { rope(0.02, "end runs away 100,000× faster", 24); txt("it looks impossible", 540, 960, 56, RED); return "SPEED OF THE END VS THE ANT"; }
+  if (b === 3) { rope(0.02 + 0.01 * u, "fraction covered keeps growing", 24); txt("1 s → 1/100,000 of the rope", 540, 960, 44, INK); if (u > 0.5) txt("progress is never lost", 540, 1040, 44, GRN); return "TRACK THE FRACTION"; }
+  if (b === 4) {
+    ROWS.slice(0, 4).forEach((r, i) => { if (u > 0.08 + i * 0.18) { txt(r[0], 280, 470 + i * 110, 52, INK); txt("→", 520, 470 + i * 110, 46, DOT); txt(r[1], 760, 470 + i * 110, 56, RED); } });
+    if (u > 0.82) txt("1 + 1/2 + 1/3 + … never stops growing", 540, 960, 40, INK);
+    return "FRACTION COVERED OVER TIME";
+  }
+  rope(u > 0.45 ? 1 : 0.03, u > 0.45 ? "arrived" : "after a very long time", 24);
+  txt("e^100,000 seconds", 540, 880, 70, RED); txt("a number with 43,429 digits", 540, 970, 44, INK);
+  return "INFINITE IS NOT NEVER";
+}
+
+
+function renderAt(t) {
+  x.fillStyle = "#f4ecd8"; x.fillRect(0, 0, 1920, 1080);
+  x.strokeStyle = "rgba(60,90,140,0.16)"; x.lineWidth = 2;
+  for (let g = 0; g <= 1920; g += 40) { x.beginPath(); x.moveTo(g, 0); x.lineTo(g, 1080); x.stroke(); }
+  for (let g = 0; g <= 1080; g += 40) { x.beginPath(); x.moveTo(0, g); x.lineTo(1920, g); x.stroke(); }
+  const b = blockOf(t), u = clamp((t - B[b]) / (B[b + 1] - B[b]));
+  if (t < LEAD) {
+    stat.textContent = ""; x.textAlign = "center"; x.textBaseline = "middle";
+    x.fillStyle = RED; x.font = "bold 44px " + FONT; x.fillText(CHAPTER.split("|")[0], 960, 430);
+    x.fillStyle = INK; x.font = "bold 84px " + FONT; x.fillText(CHAPTER.split("|")[1], 960, 540);
+    groups.forEach(g => { g.el.style.opacity = 0; });
+    return;
+  }
+  x.save(); x.translate(463, -126); x.scale(0.92, 0.92);
+  stat.textContent = scene(t, b, u) || "";
+  x.restore();
+  groups.forEach(g => {
+    const on = t >= g.start && t < g.end;
+    g.el.style.opacity = on ? 1 : 0;
+    if (on) g.forEach(w => w.el.classList.toggle("on", t >= w.s));
+  });
+}
+window.addEventListener("hf-seek", e => renderAt(e.detail.time));
+renderAt(0);
+const tl = gsap.timeline({ paused: true });
+tl.fromTo("#title", { opacity: 0 }, { opacity: 1, duration: 0.5, ease: "power2.out" }, 0);
+window.__timelines = window.__timelines || {};
+window.__timelines["main"] = tl;
+</script>
+</body>
+</html>

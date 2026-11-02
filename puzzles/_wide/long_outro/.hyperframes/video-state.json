@@ -1,0 +1,54 @@
+{
+  "version": 1,
+  "historyId": "284d4ac9-c498-40d7-91ba-e817cea0dc88",
+  "currentRevision": null,
+  "pendingChanges": false,
+  "files": {
+    "assets/timing.json": {
+      "hash": "0495a9fb636f66d368caee8aa759e7338fa51aa278e5a39fc0a4e405f8d6bcc8",
+      "content": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\284d4ac9-c498-40d7-91ba-e817cea0dc88\\blobs\\04\\0495a9fb636f66d368caee8aa759e7338fa51aa278e5a39fc0a4e405f8d6bcc8"
+    },
+    "assets/voice.mp3": {
+      "hash": "cf9818865b0e8e6e0c51317fa22f708f84d3b45cfc072e9875ee9e7033641be7",
+      "content": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\284d4ac9-c498-40d7-91ba-e817cea0dc88\\blobs\\cf\\cf9818865b0e8e6e0c51317fa22f708f84d3b45cfc072e9875ee9e7033641be7"
+    },
+    "hyperframes.json": {
+      "hash": "c7a3009d23e471acfb1ca9ec252ea16a0ca4dfe55e3b3b9d7089c8f0764f4a43",
+      "content": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\284d4ac9-c498-40d7-91ba-e817cea0dc88\\blobs\\c7\\c7a3009d23e471acfb1ca9ec252ea16a0ca4dfe55e3b3b9d7089c8f0764f4a43"
+    },
+    "index.html": {
+      "hash": "4b785f10e3320e92fc7841b261eac87140c1113fa86d6f7b8d54c52a97046fe7",
+      "content": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\284d4ac9-c498-40d7-91ba-e817cea0dc88\\blobs\\4b\\4b785f10e3320e92fc7841b261eac87140c1113fa86d6f7b8d54c52a97046fe7"
+    },
+    "package.json": {
+      "hash": "63309e1cdfb083c8a7e564c10702ed034f0f5dc43a1c3a1de8ccaa077967721f",
+      "content": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\284d4ac9-c498-40d7-91ba-e817cea0dc88\\blobs\\63\\63309e1cdfb083c8a7e564c10702ed034f0f5dc43a1c3a1de8ccaa077967721f"
+    },
+    "scene.js": {
+      "hash": "c04ef6180cd0fd0955b6a331b0caadc942e8a0a966bffde77f3d98b616c3d5e7",
+      "content": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\284d4ac9-c498-40d7-91ba-e817cea0dc88\\blobs\\c0\\c04ef6180cd0fd0955b6a331b0caadc942e8a0a966bffde77f3d98b616c3d5e7"
+    }
+  },
+  "revisions": {},
+  "checks": {
+    "latest": null,
+    "revisions": {},
+    "unversioned": []
+  },
+  "snapshots": {
+    "latest": null,
+    "revisions": {},
+    "unversioned": []
+  },
+  "renders": {
+    "latest": {
+      "id": "24d622af-babc-4f2e-8b11-6baa38b677c0",
+      "completedAt": 1792959644413,
+      "output": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\puzzles\\_wide\\long_outro\\renders\\long_outro.mp4",
+      "status": "completed",
+      "revision": null
+    },
+    "retainedRevisions": []
+  },
+  "pendingArtifactCleanup": []
+}

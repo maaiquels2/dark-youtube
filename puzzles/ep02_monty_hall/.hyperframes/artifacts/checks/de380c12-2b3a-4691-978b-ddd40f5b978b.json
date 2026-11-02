@@ -1,0 +1,1061 @@
+{
+  "ok": true,
+  "strict": false,
+  "browserSkipped": false,
+  "lint": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 1,
+    "infoCount": 0,
+    "findings": [
+      {
+        "code": "nested_structure_needs_subcomposition",
+        "severity": "warning",
+        "message": "<div id=\"end\"> is a timeline element that contains nested <div>. The timeline shows one row per top-level element, and the root composition is built only from sub-compositions.",
+        "selector": "#end",
+        "dataAttributes": {},
+        "sourceFile": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\puzzles\\ep02_monty_hall\\index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Move <div id=\"end\"> and its contents into a sub-composition file and mount it with data-composition-src."
+      }
+    ],
+    "filesScanned": 1
+  },
+  "runtime": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 1,
+    "infoCount": 0,
+    "findings": [
+      {
+        "code": "clip_media_fit",
+        "severity": "warning",
+        "message": "Audio \"voice\" is 88.84s but its slot (data-duration) is 93.34s — the slot is shortened to the media length when rendered. Set data-duration to ~88.84s if that isn't intended.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {
+          "data-composition-id": "main",
+          "data-start": "0",
+          "data-duration": "93.340",
+          "data-width": "1080",
+          "data-height": "1920"
+        },
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 1080,
+          "height": 1920
+        },
+        "time": 0
+      }
+    ]
+  },
+  "layout": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": [],
+    "duration": 93.34,
+    "samples": [
+      5.186,
+      15.557,
+      25.928,
+      36.299,
+      46.67,
+      57.041,
+      67.412,
+      77.783,
+      88.154
+    ],
+    "transitionSamples": [],
+    "transitionSamplesDropped": 0,
+    "tolerance": 2,
+    "totalIssueCount": 0,
+    "truncated": false
+  },
+  "motion": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": [],
+    "enabled": false,
+    "samples": 0
+  },
+  "contrast": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": [],
+    "enabled": true,
+    "samples": [
+      5.186,
+      25.928,
+      46.67,
+      67.412,
+      88.154
+    ],
+    "checked": 31,
+    "passed": 31
+  },
+  "craft": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 49,
+    "infoCount": 0,
+    "findings": [
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"Behind one is\" (3 words) is on screen 0.70 s (±0.01 s), under its 1.05 s floor: hold it about 0.5 s + 0.3 s a word (1.40 s here) before it leaves or changes; see references/motion.md.",
+        "text": "Behind one is",
+        "selector": "#g1",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 296.98,
+          "y": 1186,
+          "width": 226.81999999999994,
+          "height": 71
+        },
+        "time": 1.305,
+        "words": 3,
+        "seconds": 0.701,
+        "floorSeconds": 1.05
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"You pick a door,\" (4 words) is on screen 0.91 s (±0.01 s), under its 1.27 s floor: hold it about 0.5 s + 0.3 s a word (1.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "You pick a door,",
+        "selector": "#g3",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 280.78,
+          "y": 1186,
+          "width": 129.61,
+          "height": 71
+        },
+        "time": 2.834,
+        "words": 4,
+        "seconds": 0.906,
+        "floorSeconds": 1.275
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"and then the host\" (4 words) is on screen 0.74 s (±0.01 s), under its 1.27 s floor: hold it about 0.5 s + 0.3 s a word (1.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "and then the host",
+        "selector": "#g4",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 264.58,
+          "y": 1186,
+          "width": 129.61,
+          "height": 71
+        },
+        "time": 3.769,
+        "words": 4,
+        "seconds": 0.74,
+        "floorSeconds": 1.275
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"Do you stay,\" (3 words) is on screen 0.57 s (±0.01 s), under its 1.05 s floor: hold it about 0.5 s + 0.3 s a word (1.40 s here) before it leaves or changes; see references/motion.md.",
+        "text": "Do you stay,",
+        "selector": "#g8",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 345.59,
+          "y": 1186,
+          "width": 97.20999999999998,
+          "height": 71
+        },
+        "time": 8.502,
+        "words": 3,
+        "seconds": 0.565,
+        "floorSeconds": 1.05
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"Here are the rules.\" (4 words) is on screen 1.20 s (±0.01 s), under its 1.27 s floor: hold it about 0.5 s + 0.3 s a word (1.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "Here are the rules.",
+        "selector": "#g11",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 232.19,
+          "y": 1186,
+          "width": 162,
+          "height": 71
+        },
+        "time": 11.775,
+        "words": 4,
+        "seconds": 1.198,
+        "floorSeconds": 1.275
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"Behind one door is\" (4 words) is on screen 1.06 s (±0.01 s), under its 1.27 s floor: hold it about 0.5 s + 0.3 s a word (1.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "Behind one door is",
+        "selector": "#g12",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 248.38,
+          "y": 1186,
+          "width": 226.81,
+          "height": 71
+        },
+        "time": 13.041,
+        "words": 4,
+        "seconds": 1.061,
+        "floorSeconds": 1.275
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"Behind the other\" (3 words) is on screen 0.80 s (±0.01 s), under its 1.05 s floor: hold it about 0.5 s + 0.3 s a word (1.40 s here) before it leaves or changes; see references/motion.md.",
+        "text": "Behind the other",
+        "selector": "#g14",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 280.78,
+          "y": 1186,
+          "width": 226.81,
+          "height": 71
+        },
+        "time": 14.969,
+        "words": 3,
+        "seconds": 0.799,
+        "floorSeconds": 1.05
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"You pick one door.\" (4 words) is on screen 1.24 s (±0.01 s), under its 1.27 s floor: hold it about 0.5 s + 0.3 s a word (1.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "You pick one door.",
+        "selector": "#g17",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 248.39,
+          "y": 1186,
+          "width": 129.61,
+          "height": 71
+        },
+        "time": 17.268,
+        "words": 4,
+        "seconds": 1.237,
+        "floorSeconds": 1.275
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"The host knows\" (3 words) is on screen 0.73 s (±0.01 s), under its 1.05 s floor: hold it about 0.5 s + 0.3 s a word (1.40 s here) before it leaves or changes; see references/motion.md.",
+        "text": "The host knows",
+        "selector": "#g18",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 215.98,
+          "y": 1186,
+          "width": 129.61000000000004,
+          "height": 71
+        },
+        "time": 18.572,
+        "words": 3,
+        "seconds": 0.73,
+        "floorSeconds": 1.05
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"the car is.\" (3 words) is on screen 0.87 s (±0.01 s), under its 1.05 s floor: hold it about 0.5 s + 0.3 s a word (1.40 s here) before it leaves or changes; see references/motion.md.",
+        "text": "the car is.",
+        "selector": "#g19",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 361.78,
+          "y": 1186,
+          "width": 259.22,
+          "height": 71
+        },
+        "time": 19.371,
+        "words": 3,
+        "seconds": 0.867,
+        "floorSeconds": 1.05
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"He opens every other\" (4 words) is on screen 0.97 s (±0.01 s), under its 1.27 s floor: hold it about 0.5 s + 0.3 s a word (1.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "He opens every other",
+        "selector": "#g20",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 215.98,
+          "y": 1186,
+          "width": 97.21000000000001,
+          "height": 71
+        },
+        "time": 20.267,
+        "words": 4,
+        "seconds": 0.974,
+        "floorSeconds": 1.275
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"and he never opens\" (4 words) is on screen 0.91 s (±0.01 s), under its 1.27 s floor: hold it about 0.5 s + 0.3 s a word (1.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "and he never opens",
+        "selector": "#g22",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 248.39,
+          "y": 1186,
+          "width": 129.61,
+          "height": 71
+        },
+        "time": 22.468,
+        "words": 4,
+        "seconds": 0.906,
+        "floorSeconds": 1.275
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"Start with just three\" (4 words) is on screen 1.00 s (±0.01 s), under its 1.27 s floor: hold it about 0.5 s + 0.3 s a word (1.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "Start with just three",
+        "selector": "#g24",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 199.8,
+          "y": 1186,
+          "width": 194.40000000000003,
+          "height": 71
+        },
+        "time": 24.572,
+        "words": 4,
+        "seconds": 1.003,
+        "floorSeconds": 1.275
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"You pick one,\" (3 words) is on screen 0.87 s (±0.01 s), under its 1.05 s floor: hold it about 0.5 s + 0.3 s a word (1.40 s here) before it leaves or changes; see references/motion.md.",
+        "text": "You pick one,",
+        "selector": "#g26",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 329.39,
+          "y": 1186,
+          "width": 129.61,
+          "height": 71
+        },
+        "time": 26.306,
+        "words": 3,
+        "seconds": 0.867,
+        "floorSeconds": 1.05
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"so you have a\" (4 words) is on screen 0.56 s (±0.01 s), under its 1.27 s floor: hold it about 0.5 s + 0.3 s a word (1.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "so you have a",
+        "selector": "#g27",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 329.39,
+          "y": 1186,
+          "width": 97.19999999999999,
+          "height": 71
+        },
+        "time": 27.241,
+        "words": 4,
+        "seconds": 0.564,
+        "floorSeconds": 1.275
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"The host opens\" (3 words) is on screen 0.84 s (±0.01 s), under its 1.05 s floor: hold it about 0.5 s + 0.3 s a word (1.40 s here) before it leaves or changes; see references/motion.md.",
+        "text": "The host opens",
+        "selector": "#g29",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 280.78,
+          "y": 1186,
+          "width": 129.61,
+          "height": 71
+        },
+        "time": 29.636,
+        "words": 3,
+        "seconds": 0.837,
+        "floorSeconds": 1.05
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"Most people say it's\" (5 words) is on screen 0.81 s (±0.01 s), under its 1.50 s floor: hold it about 0.5 s + 0.3 s a word (2.00 s here) before it leaves or changes; see references/motion.md.",
+        "text": "Most people say it's",
+        "selector": "#g31",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 215.98,
+          "y": 1186,
+          "width": 162.00000000000003,
+          "height": 71
+        },
+        "time": 31.467,
+        "words": 5,
+        "seconds": 0.808,
+        "floorSeconds": 1.5
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"It isn't.\" (3 words) is on screen 0.80 s (±0.01 s), under its 1.05 s floor: hold it about 0.5 s + 0.3 s a word (1.40 s here) before it leaves or changes; see references/motion.md.",
+        "text": "It isn't.",
+        "selector": "#g33",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 394.19,
+          "y": 1186,
+          "width": 97.19999999999999,
+          "height": 71
+        },
+        "time": 33.571,
+        "words": 3,
+        "seconds": 0.799,
+        "floorSeconds": 1.05
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"Your first pick\" (3 words) is on screen 0.78 s (±0.08 s), under its 1.05 s floor: hold it about 0.5 s + 0.3 s a word (1.40 s here) before it leaves or changes; see references/motion.md.",
+        "text": "Your first pick",
+        "selector": "#g34",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 248.39,
+          "y": 1186,
+          "width": 162,
+          "height": 71
+        },
+        "time": 34.593,
+        "words": 3,
+        "seconds": 0.779,
+        "floorSeconds": 1.05
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"still a one in\" (4 words) is on screen 0.78 s (±0.08 s), under its 1.27 s floor: hold it about 0.5 s + 0.3 s a word (1.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "still a one in",
+        "selector": "#g35",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 313.17,
+          "y": 1186,
+          "width": 194.41000000000003,
+          "height": 71
+        },
+        "time": 35.373,
+        "words": 4,
+        "seconds": 0.779,
+        "floorSeconds": 1.275
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"so the other door\" (4 words) is on screen 0.78 s (±0.08 s), under its 1.27 s floor: hold it about 0.5 s + 0.3 s a word (1.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "so the other door",
+        "selector": "#g37",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 264.58,
+          "y": 1186,
+          "width": 97.19999999999999,
+          "height": 71
+        },
+        "time": 36.775,
+        "words": 4,
+        "seconds": 0.779,
+        "floorSeconds": 1.275
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"holds the other two\" (4 words) is on screen 0.62 s (±0.08 s), under its 1.27 s floor: hold it about 0.5 s + 0.3 s a word (1.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "holds the other two",
+        "selector": "#g38",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 232.19,
+          "y": 1186,
+          "width": 194.40000000000003,
+          "height": 71
+        },
+        "time": 37.554,
+        "words": 4,
+        "seconds": 0.624,
+        "floorSeconds": 1.275
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"out of three.\" (3 words) is on screen 0.94 s (±0.08 s), under its 1.05 s floor: hold it about 0.5 s + 0.3 s a word (1.40 s here) before it leaves or changes; see references/motion.md.",
+        "text": "out of three.",
+        "selector": "#g41",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 329.39,
+          "y": 1186,
+          "width": 129.61,
+          "height": 71
+        },
+        "time": 40.515,
+        "words": 3,
+        "seconds": 0.935,
+        "floorSeconds": 1.05
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"a one in ten\" (4 words) is on screen 0.62 s (±0.08 s), under its 1.27 s floor: hold it about 0.5 s + 0.3 s a word (1.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "a one in ten",
+        "selector": "#g44",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 345.58,
+          "y": 1186,
+          "width": 64.81,
+          "height": 71
+        },
+        "time": 44.099,
+        "words": 4,
+        "seconds": 0.623,
+        "floorSeconds": 1.275
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"The host opens eight\" (4 words) is on screen 1.09 s (±0.08 s), under its 1.27 s floor: hold it about 0.5 s + 0.3 s a word (1.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "The host opens eight",
+        "selector": "#g46",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 215.98,
+          "y": 1186,
+          "width": 129.61000000000004,
+          "height": 71
+        },
+        "time": 45.813,
+        "words": 4,
+        "seconds": 1.091,
+        "floorSeconds": 1.275
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"you win nine times\" (4 words) is on screen 0.94 s (±0.08 s), under its 1.27 s floor: hold it about 0.5 s + 0.3 s a word (1.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "you win nine times",
+        "selector": "#g49",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 248.39,
+          "y": 1186,
+          "width": 129.61,
+          "height": 71
+        },
+        "time": 48.774,
+        "words": 4,
+        "seconds": 0.935,
+        "floorSeconds": 1.275
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"out of ten.\" (3 words) is on screen 0.94 s (±0.08 s), under its 1.05 s floor: hold it about 0.5 s + 0.3 s a word (1.40 s here) before it leaves or changes; see references/motion.md.",
+        "text": "out of ten.",
+        "selector": "#g50",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 361.78,
+          "y": 1186,
+          "width": 129.61,
+          "height": 71
+        },
+        "time": 49.709,
+        "words": 3,
+        "seconds": 0.935,
+        "floorSeconds": 1.05
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"With a hundred doors,\" (4 words) is on screen 0.94 s (±0.08 s), under its 1.27 s floor: hold it about 0.5 s + 0.3 s a word (1.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "With a hundred doors,",
+        "selector": "#g51",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 199.78,
+          "y": 1186,
+          "width": 161.99999999999997,
+          "height": 71
+        },
+        "time": 50.955,
+        "words": 4,
+        "seconds": 0.935,
+        "floorSeconds": 1.275
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"your pick has a\" (4 words) is on screen 0.62 s (±0.08 s), under its 1.27 s floor: hold it about 0.5 s + 0.3 s a word (1.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "your pick has a",
+        "selector": "#g52",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 296.98,
+          "y": 1186,
+          "width": 162,
+          "height": 71
+        },
+        "time": 52.046,
+        "words": 4,
+        "seconds": 0.623,
+        "floorSeconds": 1.275
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"one in a hundred\" (4 words) is on screen 0.78 s (±0.08 s), under its 1.27 s floor: hold it about 0.5 s + 0.3 s a word (1.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "one in a hundred",
+        "selector": "#g53",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 280.78,
+          "y": 1186,
+          "width": 129.61,
+          "height": 71
+        },
+        "time": 52.669,
+        "words": 4,
+        "seconds": 0.78,
+        "floorSeconds": 1.275
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"you win ninety-nine times\" (5 words) is on screen 1.25 s (±0.08 s), under its 1.50 s floor: hold it about 0.5 s + 0.3 s a word (2.00 s here) before it leaves or changes; see references/motion.md.",
+        "text": "you win ninety-nine times",
+        "selector": "#g56",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 134.98,
+          "y": 1186,
+          "width": 129.61000000000004,
+          "height": 71
+        },
+        "time": 55.474,
+        "words": 5,
+        "seconds": 1.247,
+        "floorSeconds": 1.5
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"out of a hundred.\" (4 words) is on screen 0.94 s (±0.08 s), under its 1.27 s floor: hold it about 0.5 s + 0.3 s a word (1.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "out of a hundred.",
+        "selector": "#g57",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 264.58,
+          "y": 1186,
+          "width": 129.61,
+          "height": 71
+        },
+        "time": 56.721,
+        "words": 4,
+        "seconds": 0.935,
+        "floorSeconds": 1.275
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"Your first pick was\" (4 words) is on screen 0.94 s (±0.08 s), under its 1.27 s floor: hold it about 0.5 s + 0.3 s a word (1.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "Your first pick was",
+        "selector": "#g59",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 232.19,
+          "y": 1186,
+          "width": 162,
+          "height": 71
+        },
+        "time": 58.435,
+        "words": 4,
+        "seconds": 0.935,
+        "floorSeconds": 1.275
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"Ninety-nine percent\" (3 words) is on screen 0.93 s (±0.08 s), under its 1.05 s floor: hold it about 0.5 s + 0.3 s a word (1.40 s here) before it leaves or changes; see references/motion.md.",
+        "text": "Ninety-nine percent",
+        "selector": "#g61",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 183.58,
+          "y": 1186,
+          "width": 388.80999999999995,
+          "height": 71
+        },
+        "time": 61.24,
+        "words": 3,
+        "seconds": 0.935,
+        "floorSeconds": 1.05
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"the car is somewhere\" (4 words) is on screen 0.62 s (±0.08 s), under its 1.27 s floor: hold it about 0.5 s + 0.3 s a word (1.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "the car is somewhere",
+        "selector": "#g63",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 215.98,
+          "y": 1186,
+          "width": 129.61000000000004,
+          "height": 71
+        },
+        "time": 62.954,
+        "words": 4,
+        "seconds": 0.623,
+        "floorSeconds": 1.275
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"And the host can't\" (5 words) is on screen 0.78 s (±0.08 s), under its 1.50 s floor: hold it about 0.5 s + 0.3 s a word (2.00 s here) before it leaves or changes; see references/motion.md.",
+        "text": "And the host can't",
+        "selector": "#g65",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 248.39,
+          "y": 1186,
+          "width": 129.61,
+          "height": 71
+        },
+        "time": 64.356,
+        "words": 5,
+        "seconds": 0.78,
+        "floorSeconds": 1.5
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"open the car,\" (3 words) is on screen 0.78 s (±0.08 s), under its 1.05 s floor: hold it about 0.5 s + 0.3 s a word (1.40 s here) before it leaves or changes; see references/motion.md.",
+        "text": "open the car,",
+        "selector": "#g66",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 329.39,
+          "y": 1186,
+          "width": 162,
+          "height": 71
+        },
+        "time": 65.291,
+        "words": 3,
+        "seconds": 0.78,
+        "floorSeconds": 1.05
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"so if it's there,\" (5 words) is on screen 1.09 s (±0.08 s), under its 1.50 s floor: hold it about 0.5 s + 0.3 s a word (2.00 s here) before it leaves or changes; see references/motion.md.",
+        "text": "so if it's there,",
+        "selector": "#g67",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 264.59,
+          "y": 1186,
+          "width": 97.20999999999998,
+          "height": 71
+        },
+        "time": 66.07,
+        "words": 5,
+        "seconds": 1.09,
+        "floorSeconds": 1.5
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"he has to leave\" (4 words) is on screen 0.62 s (±0.08 s), under its 1.27 s floor: hold it about 0.5 s + 0.3 s a word (1.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "he has to leave",
+        "selector": "#g68",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 296.98,
+          "y": 1186,
+          "width": 97.20999999999998,
+          "height": 71
+        },
+        "time": 67.161,
+        "words": 4,
+        "seconds": 0.624,
+        "floorSeconds": 1.275
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"His choice carries\" (3 words) is on screen 0.94 s (±0.08 s), under its 1.05 s floor: hold it about 0.5 s + 0.3 s a word (1.40 s here) before it leaves or changes; see references/motion.md.",
+        "text": "His choice carries",
+        "selector": "#g70",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 248.38,
+          "y": 1186,
+          "width": 129.60000000000002,
+          "height": 71
+        },
+        "time": 68.719,
+        "words": 3,
+        "seconds": 0.935,
+        "floorSeconds": 1.05
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"The closed door\" (3 words) is on screen 0.93 s (±0.08 s), under its 1.05 s floor: hold it about 0.5 s + 0.3 s a word (1.40 s here) before it leaves or changes; see references/motion.md.",
+        "text": "The closed door",
+        "selector": "#g72",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 248.38,
+          "y": 1186,
+          "width": 129.60000000000002,
+          "height": 71
+        },
+        "time": 70.589,
+        "words": 3,
+        "seconds": 0.934,
+        "floorSeconds": 1.05
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"where the missing\" (3 words) is on screen 0.62 s (±0.08 s), under its 1.05 s floor: hold it about 0.5 s + 0.3 s a word (1.40 s here) before it leaves or changes; see references/motion.md.",
+        "text": "where the missing",
+        "selector": "#g73",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 264.58,
+          "y": 1186,
+          "width": 194.40000000000003,
+          "height": 71
+        },
+        "time": 71.524,
+        "words": 3,
+        "seconds": 0.624,
+        "floorSeconds": 1.05
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"Play it a hundred\" (4 words) is on screen 0.78 s (±0.08 s), under its 1.27 s floor: hold it about 0.5 s + 0.3 s a word (1.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "Play it a hundred",
+        "selector": "#g75",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 264.58,
+          "y": 1186,
+          "width": 162,
+          "height": 71
+        },
+        "time": 73.706,
+        "words": 4,
+        "seconds": 0.779,
+        "floorSeconds": 1.275
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"Switching wins about\" (3 words) is on screen 0.94 s (±0.08 s), under its 1.05 s floor: hold it about 0.5 s + 0.3 s a word (1.40 s here) before it leaves or changes; see references/motion.md.",
+        "text": "Switching wins about",
+        "selector": "#g78",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 216,
+          "y": 1186,
+          "width": 324,
+          "height": 71
+        },
+        "time": 76.978,
+        "words": 3,
+        "seconds": 0.935,
+        "floorSeconds": 1.05
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"The host isn't opening\" (5 words) is on screen 1.09 s (±0.08 s), under its 1.50 s floor: hold it about 0.5 s + 0.3 s a word (2.00 s here) before it leaves or changes; see references/motion.md.",
+        "text": "The host isn't opening",
+        "selector": "#g80",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 183.58,
+          "y": 1186,
+          "width": 129.61000000000004,
+          "height": 71
+        },
+        "time": 79.316,
+        "words": 5,
+        "seconds": 1.091,
+        "floorSeconds": 1.5
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"doors at random.\" (3 words) is on screen 0.93 s (±0.08 s), under its 1.05 s floor: hold it about 0.5 s + 0.3 s a word (1.40 s here) before it leaves or changes; see references/motion.md.",
+        "text": "doors at random.",
+        "selector": "#g81",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 280.78,
+          "y": 1186,
+          "width": 194.40999999999997,
+          "height": 71
+        },
+        "time": 80.406,
+        "words": 3,
+        "seconds": 0.935,
+        "floorSeconds": 1.05
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"And when someone who\" (4 words) is on screen 0.94 s (±0.08 s), under its 1.27 s floor: hold it about 0.5 s + 0.3 s a word (1.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "And when someone who",
+        "selector": "#g83",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 215.98,
+          "y": 1186,
+          "width": 129.61000000000004,
+          "height": 71
+        },
+        "time": 82.432,
+        "words": 4,
+        "seconds": 0.935,
+        "floorSeconds": 1.275
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"knows shows you\" (3 words) is on screen 0.78 s (±0.08 s), under its 1.05 s floor: hold it about 0.5 s + 0.3 s a word (1.40 s here) before it leaves or changes; see references/motion.md.",
+        "text": "knows shows you",
+        "selector": "#g84",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 264.58,
+          "y": 1186,
+          "width": 194.40000000000003,
+          "height": 71
+        },
+        "time": 83.367,
+        "words": 3,
+        "seconds": 0.779,
+        "floorSeconds": 1.05
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"Don't ignore what\" (4 words) is on screen 0.78 s (±0.08 s), under its 1.27 s floor: hold it about 0.5 s + 0.3 s a word (1.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "Don't ignore what",
+        "selector": "#g87",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 199.78,
+          "y": 1186,
+          "width": 194.41,
+          "height": 71
+        },
+        "time": 86.795,
+        "words": 4,
+        "seconds": 0.779,
+        "floorSeconds": 1.275
+      }
+    ],
+    "enabled": true,
+    "step": 0.1559999999999988,
+    "samples": 599
+  },
+  "hdr": {
+    "autoPromotion": null,
+    "inspection": "available"
+  },
+  "snapshots": {
+    "enabled": false,
+    "files": [],
+    "times": [],
+    "findingFiles": []
+  }
+}

@@ -1,0 +1,29 @@
+{
+ "url": "https://www.fcc.gov/call-authentication",
+ "captured": "2026-11-02",
+ "mark": "Combating Spoofed|What is STIR/SHAKEN",
+ "box": [
+  395,
+  443,
+  1756,
+  230
+ ],
+ "boxes": [
+  [
+   395,
+   443,
+   1756,
+   230
+  ],
+  [
+   395,
+   1204,
+   2090,
+   42
+  ]
+ ],
+ "size": [
+  2880,
+  1800
+ ]
+}

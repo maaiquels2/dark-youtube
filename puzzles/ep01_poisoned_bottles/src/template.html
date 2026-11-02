@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=1080, height=1920" />
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 1080px; height: 1920px; overflow: hidden; background: #f4ecd8; }
+  #root { position: relative; width: 1080px; height: 1920px; overflow: hidden; background: #f4ecd8;
+    font-family: "JetBrains Mono", monospace; color: #1c1c1c; }
+  #cv { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; }
+  .t { position: absolute; left: 0; width: 1080px; text-align: center; font-weight: 700; }
+  #title { top: 190px; font-size: 52px; white-space: nowrap; }
+  #stat { top: 262px; font-size: 30px; opacity: .7; letter-spacing: 2px; }
+  #cap { top: 1190px; left: 108px; width: 864px; font-size: 54px; line-height: 64px; height: 128px; }
+  .g { position: absolute; left: 0; top: 0; width: 864px; text-align: center; opacity: 0; }
+  .w { opacity: .22; }
+  .w.on { opacity: 1; }
+  .w.k.on { color: #d62828; }
+  .dg { position: absolute; top: 1056px; width: 60px; margin-left: -30px; text-align: center; font-size: 44px; opacity: 0; }
+  #res { top: 1126px; font-size: 46px; color: #d62828; opacity: 0; }
+  #end { position: absolute; inset: 0; background: #f4ecd8; opacity: 0; }
+  #end .a { position: absolute; left: 0; width: 1080px; text-align: center; font-weight: 700; }
+</style>
+</head>
+<body>
+<div id="root" data-composition-id="main" data-start="0" data-duration="__DUR__" data-width="1080" data-height="1920">
+  <canvas id="cv" class="clip" data-start="0" data-duration="__DUR__" width="1080" height="1920"></canvas>
+  <div id="title" class="clip t" data-start="0" data-duration="__DUR__">1 <span style="color:#d62828">poisoned</span> bottle in 1,000</div>
+  <div id="stat" class="clip t" data-start="0" data-duration="__DUR__"></div>
+  <div id="digits" class="clip" data-start="0" data-duration="__DUR__"></div>
+  <div id="res" class="clip t" data-start="0" data-duration="__DUR__">1001101010 = 618</div>
+  <div id="cap" class="clip t" data-start="0" data-duration="__DUR__"></div>
+  <div id="end" class="clip" data-start="0" data-duration="__DUR__">
+    <div class="a" style="top:700px;font-size:96px;">Show Your Work</div>
+    <div class="a" style="top:850px;font-size:40px;opacity:.7;">one puzzle at a time</div>
+    <div class="a" style="top:1000px;font-size:44px;color:#d62828;">Follow for the next one</div>
+  </div>
+  <audio id="voice" src="assets/voice.mp3" data-start="0" data-duration="__DUR__" data-volume="1"></audio>
+</div>
+<script>
+const WORDS = __WORDS__, B = __BLOCKS__, VEND = __VEND__, DUR = __DUR__;
+const P = 618, INK = "#1c1c1c", RED = "#d62828", OR = "#e07a00", GRN = "#2a9d5c", DOT = "#4a4a4a";
+const KEYS = new Set(["poisoned","testers","binary","dead","618","1,024","doubles"]);
+const bit = (i, k) => (i >> k) & 1;
+const cvs = document.getElementById("cv"), x = cvs.getContext("2d");
+const stat = document.getElementById("stat"), res = document.getElementById("res"), cap = document.getElementById("cap");
+const GX = 80, GY = 330, CS = 23, RS = 24, TY = 1010, TX = j => 126 + j * 92;
+
+const digits = document.getElementById("digits");
+for (let j = 0; j < 10; j++) {
+  const d = document.createElement("div");
+  d.className = "dg"; d.style.left = TX(j) + "px"; d.id = "dg" + j; d.textContent = bit(P, 9 - j);
+  d.style.color = bit(P, 9 - j) ? RED : INK;
+  digits.appendChild(d);
+}
+
+function show(w) {
+  const m = w.match(/^((?:one|zero)(?:-(?:one|zero))+)([.,?!]*)$/i);
+  if (m) return m[1].toLowerCase().split("-").map(p => p === "one" ? 1 : 0).join("") + m[2];
+  return w;
+}
+const groups = []; {
+  let g = [];
+  const flush = () => { if (g.length) { groups.push(g); g = []; } };
+  WORDS.forEach((w, i) => {
+    const t = show(w.w);
+    if (g.length && (g.length >= 4 || g.map(o => show(o.w)).join(" ").length + t.length > 24)) flush();
+    g.push({ ...w, i, txt: t });
+    if (/[.?!]$/.test(w.w) || /,$/.test(w.w)) flush();
+  });
+  flush();
+}
+groups.forEach((g, gi) => {
+  const el = document.createElement("div"); el.className = "g"; el.id = "g" + gi;
+  g.forEach(w => {
+    const s = document.createElement("span");
+    s.className = "w" + (KEYS.has(w.txt.toLowerCase().replace(/[.,?!]/g, "")) ? " k" : "");
+    s.textContent = w.txt + " "; w.el = s; el.appendChild(s);
+  });
+  cap.appendChild(el); g.el = el;
+  g.start = g[0].s - 0.05;
+  g.end = gi + 1 < groups.length ? 1e9 : DUR;
+});
+groups.forEach((g, gi) => { if (gi + 1 < groups.length) g.end = Math.min(g[g.length - 1].e + 0.25, groups[gi + 1][0].s - 0.05); });
+
+function blockOf(t) { let b = 0; for (let i = 0; i < 7; i++) if (t >= B[i]) b = i; return b; }
+const clamp = v => Math.max(0, Math.min(1, v));
+
+function drawTester(cx, cy, st, lbl) {
+  const col = st === "dead" ? RED : st === "ok" ? GRN : st === "on" ? OR : INK;
+  x.lineWidth = 5; x.strokeStyle = col;
+  x.globalAlpha = st === "idle" ? 0.1 : 0.25; x.fillStyle = col;
+  x.beginPath(); x.arc(cx, cy, 34, 0, 6.283); x.fill(); x.globalAlpha = 1;
+  x.beginPath(); x.arc(cx, cy, 34, 0, 6.283); x.stroke();
+  if (lbl) { x.fillStyle = INK; x.font = "bold 28px 'JetBrains Mono', monospace"; x.textAlign = "center"; x.textBaseline = "middle"; x.fillText(lbl, cx, cy + 1); }
+}
+
+function renderAt(t) {
+  x.fillStyle = "#f4ecd8"; x.fillRect(0, 0, 1080, 1920);
+  x.strokeStyle = "rgba(60,90,140,0.16)"; x.lineWidth = 2;
+  for (let g = 0; g <= 1080; g += 40) { x.beginPath(); x.moveTo(g, 0); x.lineTo(g, 1920); x.stroke(); }
+  for (let g = 0; g <= 1920; g += 40) { x.beginPath(); x.moveTo(0, g); x.lineTo(1080, g); x.stroke(); }
+
+  const b = blockOf(t), u = clamp((t - B[b]) / (B[b + 1] - B[b]));
+  let lit = null, nT = 0, tState = j => "idle", statTxt = "", dim = null, fade = 1, groupsK = 0;
+  let poisonOn = (b === 0 && u > 0.5) || b > 0, pulse = false, resOn = 0, digOn = 0, labels = false;
+
+  if (b === 0) { statTxt = "TESTERS  ?"; }
+  if (b === 1) {
+    statTxt = u < 0.33 ? "POISON KILLS IN 1 HOUR" : u < 0.66 ? "ONE ROUND ONLY" : "MANY BOTTLES PER TESTER";
+    x.strokeStyle = INK; x.lineWidth = 6; x.beginPath(); x.arc(540, TY, 60, 0, 6.283); x.stroke();
+    const a = -1.5708 + u * 6.283; x.beginPath(); x.moveTo(540, TY); x.lineTo(540 + 44 * Math.cos(a), TY + 44 * Math.sin(a)); x.stroke();
+  }
+  if (b === 2) {
+    statTxt = u < 0.33 ? "TESTERS  1" : u < 0.66 ? "1 TESTER = 2 GROUPS" : "THE TESTER LIVES";
+    nT = u > 0.12 ? 1 : 0;
+    if (u > 0.33 && u < 0.66) lit = i => i < 500;
+    if (u >= 0.66) dim = i => i < 500;
+    tState = j => (u > 0.33 && u < 0.66) ? "on" : (u >= 0.66 ? "ok" : "idle");
+  }
+  if (b === 3) {
+    const q = u < 0.25 ? 0 : u < 0.5 ? 1 : u < 0.75 ? 2 : 3;
+    const ts = [2, 3, 10, 10][q], gs = [4, 8, 1024, 1024][q];
+    nT = ts; statTxt = "TESTERS  " + ts + "  =  " + gs.toLocaleString("en-US") + " GROUPS";
+    groupsK = [2, 3, 10, 10][q];
+  }
+  if (b >= 4) { nT = 10; }
+  if (b === 4) {
+    statTxt = "BOTTLE NUMBERS IN BINARY";
+    if (u < 0.78) { const j = Math.min(9, Math.floor(u / 0.78 * 10)); lit = i => bit(i, 9 - j); tState = k => k === j ? "on" : "idle"; }
+    else { statTxt = "AFTER 1 HOUR"; tState = k => bit(P, 9 - k) ? "dead" : "ok"; digOn = clamp((u - 0.78) / 0.1); labels = true; dim = i => i !== P; pulse = false; }
+  }
+  if (b === 5) { statTxt = "RESULT"; tState = k => bit(P, 9 - k) ? "dead" : "ok"; digOn = 1; labels = true; dim = i => i !== P; resOn = clamp(u / 0.5); pulse = true; }
+  if (b === 6) {
+    statTxt = "10 QUESTIONS  =  1 OF 1,000"; fade = 1 - clamp(u / 0.5);
+    tState = k => bit(P, 9 - k) ? "dead" : "ok"; digOn = fade; labels = true; resOn = fade; dim = i => i !== P; pulse = true;
+  }
+  const dimMul = b === 6 ? clamp(1 - u / 0.4) : 1;
+
+  stat.textContent = statTxt;
+  res.style.opacity = resOn;
+  for (let j = 0; j < 10; j++) document.getElementById("dg" + j).style.opacity = digOn;
+
+  for (let i = 0; i < 1000; i++) {
+    const cx = GX + (i % 40) * CS + CS / 2, cy = GY + Math.floor(i / 40) * RS + RS / 2;
+    let a = 0.62, r = 5.5, col = DOT;
+    if (groupsK > 0 && groupsK < 11) {
+      const n = Math.min(1 << groupsK, 1000), g = Math.floor(i * n / 1000);
+      if (g % 2 === 1) { col = OR; a = 0.55; }
+    }
+    if (lit && lit(i)) { col = OR; a = 0.95; r = 7; }
+    if (dim && dim(i)) a = 0.1 * dimMul;
+    if (i === P && poisonOn) { col = RED; a = 1; r = pulse ? 12 + 3 * Math.sin(t * 7) : 8; }
+    x.globalAlpha = a; x.fillStyle = col; x.beginPath(); x.arc(cx, cy, r, 0, 6.283); x.fill();
+  }
+  x.globalAlpha = 1;
+  if (pulse) {
+    const cx = GX + (P % 40) * CS + CS / 2, cy = GY + Math.floor(P / 40) * RS + RS / 2;
+    x.strokeStyle = RED; x.lineWidth = 4; x.globalAlpha = 0.9;
+    x.beginPath(); x.arc(cx, cy, 30 + 4 * Math.sin(t * 7), 0, 6.283); x.stroke(); x.globalAlpha = 1;
+  }
+  if (nT > 0 && fade > 0) {
+    x.globalAlpha = fade;
+    for (let j = 0; j < nT; j++) {
+      const cx = nT === 1 ? 540 : nT <= 3 ? 540 + (j - (nT - 1) / 2) * 140 : TX(j);
+      const st = tState(j);
+      drawTester(cx, TY, st, st === "dead" ? "x" : st === "ok" && labels ? "ok" : "");
+    }
+    x.globalAlpha = 1;
+  }
+
+  groups.forEach(g => {
+    const on = t >= g.start && t < g.end;
+    g.el.style.opacity = on ? 1 : 0;
+    if (on) g.forEach(w => w.el.classList.toggle("on", t >= w.s));
+  });
+}
+
+window.addEventListener("hf-seek", e => renderAt(e.detail.time));
+renderAt(0);
+
+const tl = gsap.timeline({ paused: true });
+tl.fromTo("#end", { opacity: 0 }, { opacity: 1, duration: 0.6, ease: "power2.out" }, VEND + 0.6);
+window.__timelines = window.__timelines || {};
+window.__timelines["main"] = tl;
+</script>
+</body>
+</html>

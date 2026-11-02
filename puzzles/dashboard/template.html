@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Painel dos canais</title>
+<style>
+:root{--bg:#f4ecd8;--card:#fbf7ea;--ink:#1c1c1c;--mut:#6b6558;--line:rgba(60,90,140,.18);--red:#d62828;--blue:#1f5fbf;--orn:#e07a00;--grn:#2a9d5c;--r:14px}
+@media (prefers-color-scheme:dark){:root{--bg:#16181d;--card:#1f2229;--ink:#f2efe6;--mut:#a29f94;--line:rgba(255,255,255,.12);--red:#ff5a4f;--blue:#6aa3ff;--orn:#ffb454;--grn:#5dd39e}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.55 ui-sans-serif,system-ui,"Segoe UI",Roboto,sans-serif;
+ background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:32px 32px}
+.wrap{max-width:1180px;margin:0 auto;padding:20px 16px 80px}
+h1{font:800 clamp(24px,4vw,38px)/1.1 ui-monospace,Menlo,Consolas,monospace;letter-spacing:-1px;margin:6px 0 2px}
+h1 span{color:var(--red)} h2{font:700 18px ui-monospace,Menlo,Consolas,monospace;margin:26px 0 10px} h3{font-size:14px;margin:0 0 8px;color:var(--mut);text-transform:uppercase;letter-spacing:.8px}
+.sub{color:var(--mut);font-size:13px}
+.bar{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0}
+.pill{border:1.5px solid var(--ink);background:transparent;color:var(--ink);padding:7px 14px;border-radius:99px;font:600 13px ui-monospace,Menlo,Consolas,monospace;cursor:pointer}
+.pill.on{background:var(--ink);color:var(--bg)} .pill.ch.on{background:var(--red);border-color:var(--red);color:#fff}
+.grid{display:grid;gap:12px}.g4{grid-template-columns:repeat(auto-fit,minmax(170px,1fr))}.g2{grid-template-columns:repeat(auto-fit,minmax(340px,1fr))}
+.card{background:var(--card);border:1.5px solid var(--ink);border-radius:var(--r);padding:14px 16px}
+.kpi b{display:block;font:800 30px/1.1 ui-monospace,Menlo,Consolas,monospace}.kpi small{color:var(--mut)}
+.up{color:var(--grn)}.dn{color:var(--red)}
+.row{display:grid;grid-template-columns:minmax(90px,38%) 1fr auto;gap:8px;align-items:center;margin:6px 0;font-size:13px}
+.row .t{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.row .v{font:700 12px ui-monospace,Menlo,Consolas,monospace;min-width:60px;text-align:right}
+.track{height:12px;background:var(--line);border-radius:6px;overflow:hidden}.fill{height:100%;background:var(--red);border-radius:6px;transition:width .6s}
+.fill.b{background:var(--blue)}.fill.o{background:var(--orn)}.fill.g{background:var(--grn)}
+table{width:100%;border-collapse:collapse;font-size:13px}th,td{padding:7px 8px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+th{cursor:pointer;color:var(--mut);font-weight:700;white-space:nowrap;user-select:none}th:hover{color:var(--red)}.num{text-align:right;font-variant-numeric:tabular-nums}
+.tag{display:inline-block;padding:1px 8px;border-radius:99px;font-size:11px;font-weight:700;border:1.2px solid currentColor}.tag.pub{color:var(--grn)}.tag.ag{color:var(--orn)}
+.ins li{margin:7px 0}.warn{border-color:var(--red);background:rgba(214,40,40,.06)}
+.shots{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px}.shots figure{margin:0;cursor:zoom-in}
+.shots img{width:100%;border:1.5px solid var(--ink);border-radius:10px;display:block}.shots figcaption{font-size:12px;color:var(--mut);margin-top:4px}
+#lb{position:fixed;inset:0;background:rgba(0,0,0,.86);display:none;z-index:9;padding:18px;overflow:auto}#lb.on{display:block}
+#lb img{max-width:100%;display:block;margin:0 auto 10px;border-radius:8px}#lb .ctl{position:sticky;top:0;text-align:center;margin-bottom:10px}
+details{border:1px solid var(--line);border-radius:10px;padding:8px 12px;margin:8px 0;background:var(--card)}summary{cursor:pointer;font-weight:700}
+pre{white-space:pre-wrap;font:12px/1.5 ui-monospace,Menlo,Consolas,monospace;max-height:340px;overflow:auto;margin:8px 0 0}
+.empty{color:var(--mut);font-style:italic;font-size:13px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Painel dos <span>canais</span></h1>
+  <div class="sub" id="quando"></div>
+  <div class="bar" id="canais"></div>
+  <div class="bar" id="abas"></div>
+  <div id="conteudo"></div>
+</div>
+<div id="lb" onclick="if(event.target.id==='lb')closeLb()"><div class="ctl"><button class="pill on" onclick="closeLb()">Fechar ✕</button></div><div id="lbimgs"></div></div>
+<script>
+/*__DATA__*/
+const ABAS=[["resumo","Resumo"],["yt","YouTube"],["tt","TikTok"],["cap","Capturas de tela"],["raw","Texto bruto"]];
+let ci=0, ab="resumo";
+const $=s=>document.querySelector(s);
+const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+function num(s){s=String(s||"").replace(/,/g,"");const m=s.match(/-?[\d.]+/);if(!m)return NaN;let v=parseFloat(m[0]);if(/K$/i.test(s.trim()))v*=1e3;if(/M$/i.test(s.trim()))v*=1e6;return v}
+function kpi(l,v,s){return `<div class="card kpi"><small>${esc(l)}</small><b>${esc(v||"—")}</b><small>${s||""}</small></div>`}
+function bars(items,cls,max){if(!items||!items.length)return '<div class="empty">Sem dados nesta janela.</div>';
+  const nums=items.map(i=>num(i[2]!==undefined?i[2]:i[1]));const m=max||Math.max(...nums.filter(x=>!isNaN(x)),1);
+  return items.map((i,k)=>{const w=isNaN(nums[k])?0:Math.max(2,nums[k]/m*100);return `<div class="row"><div class="t" title="${esc(i[0])}">${esc(i[0])}</div><div class="track"><div class="fill ${cls||''}" style="width:${w}%"></div></div><div class="v">${esc(i[1])}</div></div>`}).join("")}
+function delta(d){if(!d)return"";const up=!/^-/.test(d);return `<span class="${up?'up':'dn'}">${esc(d)}</span> vs. período anterior`}
+function sortable(id,cols,rows){return `<table id="${id}"><thead><tr>${cols.map((c,i)=>`<th data-i="${i}" ${c.n?'class="num"':''}>${esc(c.t)} ↕</th>`).join("")}</tr></thead><tbody>${rows.map(r=>`<tr>${r.map((v,i)=>`<td ${cols[i].n?'class="num"':''} data-s="${esc(typeof v==='object'?v.s:v)}">${typeof v==='object'?v.h:esc(v)}</td>`).join("")}</tr>`).join("")}</tbody></table>`}
+function wireSort(){document.querySelectorAll("table[id]").forEach(t=>{t.querySelectorAll("th").forEach(th=>th.onclick=()=>{const i=+th.dataset.i,asc=th.dataset.a!=="1";th.dataset.a=asc?"1":"0";
+  const rows=[...t.tBodyes?[]:t.tBodies[0].rows];rows.sort((a,b)=>{const x=a.cells[i].dataset.s,y=b.cells[i].dataset.s,nx=num(x),ny=num(y);const c=(!isNaN(nx)&&!isNaN(ny))?nx-ny:String(x).localeCompare(String(y));return asc?c:-c});rows.forEach(r=>t.tBodies[0].appendChild(r))})})}
+function tot(D){const t=D.yt_por_video.total||[];return {views:t[0],h:t[1],subs:t[2],imp:t[3],ctr:t[4]}}
+function resumo(c){const D=c.dados,t=tot(D),m=Object.fromEntries((D.tt_metricas||[]).map(x=>[x.nome,x])),sg=Object.fromEntries((D.tt_seguidores_m||[]).map(x=>[x.nome,x]));
+  let h=`<h2>Números principais</h2><div class="grid g4">${kpi("YouTube · views (28 dias)",t.views,"")}${kpi("YouTube · horas assistidas",t.h,"")}${kpi("YouTube · inscritos (28 dias)",t.subs,"")}${kpi("YouTube · cliques na miniatura",t.ctr,t.imp?esc(t.imp)+" impressões":"")}
+  ${kpi("TikTok · views (7 dias)",m["Visualizações de vídeo"]?.valor,delta(m["Visualizações de vídeo"]?.delta))}${kpi("TikTok · curtidas",m["Curtidas"]?.valor,delta(m["Curtidas"]?.delta))}${kpi("TikTok · visitas ao perfil",m["Visualizações de perfil"]?.valor,"")}${kpi("TikTok · seguidores",sg["Total de seguidores"]?.valor,sg["Seguidores líquidos"]?`líquido: ${esc(sg["Seguidores líquidos"].valor)}`:"")}</div>`;
+  if(c.insights&&c.insights.length)h+=`<h2>Leitura rápida</h2><div class="card"><ul class="ins">${c.insights.map(i=>`<li>${i}</li>`).join("")}</ul></div>`;
+  if(D.erros&&D.erros.length)h+=`<h2>Páginas com problema</h2><div class="card warn"><ul class="ins">${D.erros.map(e=>`<li>${esc(e)}</li>`).join("")}</ul></div>`;
+  return h}
+function yt(c){const D=c.dados;
+  const rows=(D.yt_por_video.rows||[]).map(r=>[r.label,r.dur,{s:r.n[0],h:esc(r.n[0]||"—")},r.n[1]||"—",r.n[2]||"—",r.n[4]||"—",r.n[6]||"—",r.n[7]||"—"]);
+  const cols=[{t:"Conteúdo"},{t:"Duração"},{t:"Views",n:1},{t:"% das views",n:1},{t:"Horas",n:1},{t:"Inscritos",n:1},{t:"Impressões",n:1},{t:"CTR",n:1}];
+  const origem=(D.yt_origens.rows||[]).map(r=>[r.label,r.n[0]+" ("+(r.n[1]||"")+")",r.n[0]]);
+  const origemT=(D.yt_tudo_origens.rows||[]).map(r=>[r.label,r.n[0]+" ("+(r.n[1]||"")+")",r.n[0]]);
+  const paises=(D.yt_paises.rows||[]).slice(0,12).map(r=>[r.label,r.n[0]+" ("+(r.n[1]||"")+")",r.n[0]]);
+  const disp=(D.yt_dispositivos.rows||[]).map(r=>[r.label,r.n[0]+" ("+(r.n[1]||"")+")",r.n[0]]);
+  const busca=(D.yt_busca.rows||[]);
+  const lista=[...(D.yt_videos||[]).map(x=>({...x,tipo:"Vídeo"})),...(D.yt_shorts||[]).map(x=>({...x,tipo:"Short"}))].map(x=>[x.titulo,x.tipo,{s:x.vis,h:`<span class="tag ${x.vis==='Public'?'pub':'ag'}">${esc(x.vis==='Public'?'Publicado':x.vis==='Scheduled'?'Agendado':x.vis)}</span>`},x.data,x.dur]);
+  return `<h2>Como o público chegou (últimos 28 dias)</h2><div class="grid g2"><div class="card"><h3>Origem do tráfego</h3>${bars(origem,"")}</div><div class="card"><h3>Origem do tráfego · desde o início</h3>${bars(origemT,"b")}</div>
+  <div class="card"><h3>Termos pesquisados no YouTube</h3>${busca.length?bars(busca.map(r=>[r.label,r.n[0]+" ("+(r.n[1]||"")+")",r.n[0]]),"o"):'<div class="empty">Nenhum termo de pesquisa registrado (poucas views vindas da busca ou o YouTube não detalha em volumes pequenos).</div>'}</div>
+  <div class="card"><h3>Países</h3>${bars(paises,"g")}</div><div class="card"><h3>Dispositivos</h3>${bars(disp,"b")}</div>
+  <div class="card"><h3>Público</h3><div class="kpi"><small>Espectadores mensais</small><b>${esc(D.yt_publico.audiencia_mensal||"—")}</b></div></div></div>
+  <h2>Por vídeo (28 dias)</h2><div class="card" style="overflow:auto">${sortable("t1",cols,rows)}</div>
+  <h2>Todos os vídeos e Shorts do canal</h2><div class="card" style="overflow:auto">${sortable("t2",[{t:"Título"},{t:"Tipo"},{t:"Status"},{t:"Data"},{t:"Duração"}],lista)}</div>`}
+function tt(c){const D=c.dados;const met=(D.tt_metricas||[]),sg=D.tt_seguidores_m||[],ev=D.tt_espectadores_m||[];
+  const posts=(D.tt_posts||[]).map(x=>[x.titulo,x.dur,x.data,x.vis,{s:x.views,h:esc(x.views)},x.curtidas,x.coment]);
+  const k=[...met,...sg,...ev];
+  return `<h2>TikTok Studio · ${esc(c.tiktok)}</h2><div class="grid g4">${k.map(x=>kpi(x.nome,x.valor,delta(x.delta))).join("")||'<div class="empty">Sem dados (conta deslogada?).</div>'}</div>
+  <h2>Como o público chegou</h2><div class="grid g2"><div class="card"><h3>Origem do tráfego</h3>${bars(D.tt_trafego,"")}</div><div class="card"><h3>Termos pesquisados</h3>${bars(D.tt_termos,"o")}</div></div>
+  <h2>Quem segue a conta</h2><div class="grid g2"><div class="card"><h3>Gênero</h3>${bars(D.tt_genero,"b")}</div><div class="card"><h3>Idade</h3>${bars(D.tt_idade,"g")}</div><div class="card"><h3>Localização</h3>${bars((D.tt_local||[]).slice(0,10),"")}</div>
+  <div class="card"><h3>Publicações que seus espectadores também viram</h3>${(D.tt_tambem_viram||[]).length?`<ul class="ins">${D.tt_tambem_viram.filter(x=>!/^\d+$/.test(x)).map(x=>`<li>${esc(x)}</li>`).join("")}</ul>`:'<div class="empty">Sem dados.</div>'}</div></div>
+  <h2>Publicações (as primeiras linhas que o TikTok Studio carrega)</h2><div class="card" style="overflow:auto">${posts.length?sortable("t3",[{t:"Legenda"},{t:"Duração"},{t:"Data"},{t:"Privacidade"},{t:"Views",n:1},{t:"Curtidas",n:1},{t:"Comentários",n:1}],posts):'<div class="empty">Sem publicações lidas.</div>'}</div>`}
+function cap(c){return c.pags.map((p,pi)=>`<h2>${p.plat==='youtube'?'YouTube':'TikTok'} · ${esc(p.titulo)}</h2>${p.erro?`<div class="card warn">${esc(p.erro)}</div>`:`<div class="shots">${p.imgs.map((s,i)=>s?`<figure onclick="openLb(${pi},${i})"><img loading="lazy" src="${s}" alt=""><figcaption>captura ${i+1}</figcaption></figure>`:'').join("")}</div>`}`).join("")}
+function raw(c){return c.pags.map(p=>`<details><summary>${p.plat==='youtube'?'YouTube':'TikTok'} · ${esc(p.titulo)} ${p.erro?'⚠':''}</summary><pre>${esc(p.texto||p.erro)}</pre></details>`).join("")}
+function openLb(pi,i){const p=DATA[ci].pags[pi];$("#lbimgs").innerHTML=p.imgs.map(s=>s?`<img src="${s}" alt="">`:'').join("");$("#lb").classList.add("on");document.getElementById("lb").scrollTop=0}
+function closeLb(){$("#lb").classList.remove("on")}
+function draw(){const c=DATA[ci];$("#quando").textContent="Coletado em "+c.quando.replace("T"," ")+" · só leitura do YouTube Studio e do TikTok Studio";
+  $("#canais").innerHTML=DATA.map((d,i)=>`<button class="pill ch ${i===ci?'on':''}" onclick="ci=${i};draw()">${esc(d.nome)}</button>`).join("");
+  $("#abas").innerHTML=ABAS.map(a=>`<button class="pill ${a[0]===ab?'on':''}" onclick="ab='${a[0]}';draw()">${a[1]}</button>`).join("");
+  $("#conteudo").innerHTML=({resumo,yt,tt,cap,raw})[ab](c);wireSort()}
+draw();
+</script>
+</body>
+</html>

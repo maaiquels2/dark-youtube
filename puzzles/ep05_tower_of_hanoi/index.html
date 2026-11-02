@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=1080, height=1920" />
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 1080px; height: 1920px; overflow: hidden; background: #f4ecd8; }
+  #root { position: relative; width: 1080px; height: 1920px; overflow: hidden; background: #f4ecd8;
+    font-family: "JetBrains Mono", monospace; color: #1c1c1c; }
+  #cv { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; }
+  .t { position: absolute; left: 0; width: 1080px; text-align: center; font-weight: 700; }
+  #title { top: 292px; font-size: 46px; white-space: nowrap; }
+  #stat { top: 356px; font-size: 28px; opacity: .7; letter-spacing: 2px; }
+  #cap { top: 1124px; left: 120px; width: 840px; font-size: 50px; line-height: 60px; height: 120px; }
+  .g { position: absolute; left: 0; top: 0; width: 840px; text-align: center; opacity: 0; }
+  .w { opacity: .22; }
+  .w.on { opacity: 1; }
+  .w.k.on { color: #d62828; }
+  #end { position: absolute; inset: 0; background: #f4ecd8; opacity: 0; }
+  #end .a { position: absolute; left: 0; width: 1080px; text-align: center; font-weight: 700; }
+</style>
+</head>
+<body>
+<div id="root" data-composition-id="main" data-start="0" data-duration="81.311" data-width="1080" data-height="1920">
+  <canvas id="cv" class="clip" data-start="0" data-duration="81.311" width="1080" height="1920"></canvas>
+  <div id="title" class="clip t" data-start="0" data-duration="81.311">64 disks. How <span style="color:#d62828">long</span>?</div>
+  <div id="stat" class="clip t" data-start="0" data-duration="81.311"></div>
+  <div id="cap" class="clip t" data-start="0" data-duration="81.311"></div>
+  <div id="end" class="clip" data-start="0" data-duration="81.311">
+    <div class="a" style="top:700px;font-size:96px;">Show Your Work</div>
+    <div class="a" style="top:850px;font-size:40px;opacity:.7;">one puzzle at a time</div>
+    <div class="a" style="top:1000px;font-size:44px;color:#d62828;">Follow for the next one</div>
+  </div>
+  <audio id="voice" src="assets/voice.mp3" data-start="0" data-duration="81.311" data-volume="1"></audio>
+</div>
+<script>
+const WORDS = [{"w": "There", "s": 0.0, "e": 0.221}, {"w": "are", "s": 0.255, "e": 0.36}, {"w": "sixty-four", "s": 0.418, "e": 1.022}, {"w": "golden", "s": 1.091, "e": 1.405}, {"w": "disks", "s": 1.463, "e": 1.707}, {"w": "on", "s": 1.765, "e": 1.846}, {"w": "three", "s": 1.892, "e": 2.101}, {"w": "pegs.", "s": 2.148, "e": 2.601}, {"w": "Move", "s": 2.902, "e": 3.123}, {"w": "them", "s": 3.158, "e": 3.297}, {"w": "one", "s": 3.379, "e": 3.634}, {"w": "at", "s": 3.692, "e": 3.796}, {"w": "a", "s": 3.843, "e": 3.878}, {"w": "time,", "s": 3.936, "e": 4.389}, {"w": "never", "s": 4.795, "e": 5.039}, {"w": "putting", "s": 5.097, "e": 5.329}, {"w": "a", "s": 5.364, "e": 5.399}, {"w": "big", "s": 5.468, "e": 5.631}, {"w": "disk", "s": 5.689, "e": 5.956}, {"w": "on", "s": 6.06, "e": 6.188}, {"w": "a", "s": 6.223, "e": 6.258}, {"w": "small", "s": 6.304, "e": 6.56}, {"w": "one.", "s": 6.618, "e": 6.896}, {"w": "How", "s": 7.372, "e": 7.546}, {"w": "long", "s": 7.616, "e": 7.802}, {"w": "will", "s": 7.837, "e": 7.964}, {"w": "it", "s": 8.011, "e": 8.081}, {"w": "take?", "s": 8.115, "e": 8.545}, {"w": "Longer", "s": 9.102, "e": 9.439}, {"w": "than", "s": 9.485, "e": 9.613}, {"w": "the", "s": 9.659, "e": 9.741}, {"w": "age", "s": 9.81, "e": 10.077}, {"w": "of", "s": 10.112, "e": 10.17}, {"w": "the", "s": 10.217, "e": 10.286}, {"w": "universe.", "s": 10.356, "e": 10.971}, {"w": "Here", "s": 11.331, "e": 11.517}, {"w": "are", "s": 11.552, "e": 11.645}, {"w": "the", "s": 11.668, "e": 11.738}, {"w": "rules.", "s": 11.784, "e": 12.237}, {"w": "There", "s": 12.597, "e": 12.817}, {"w": "are", "s": 12.852, "e": 12.992}, {"w": "three", "s": 13.05, "e": 13.351}, {"w": "pegs,", "s": 13.41, "e": 13.944}, {"w": "and", "s": 14.083, "e": 14.222}, {"w": "a", "s": 14.269, "e": 14.303}, {"w": "stack", "s": 14.362, "e": 14.686}, {"w": "of", "s": 14.744, "e": 14.791}, {"w": "disks", "s": 14.861, "e": 15.093}, {"w": "on", "s": 15.151, "e": 15.232}, {"w": "the", "s": 15.267, "e": 15.337}, {"w": "first", "s": 15.383, "e": 15.615}, {"w": "one,", "s": 15.685, "e": 15.964}, {"w": "biggest", "s": 16.37, "e": 16.73}, {"w": "at", "s": 16.776, "e": 16.846}, {"w": "the", "s": 16.881, "e": 16.95}, {"w": "bottom.", "s": 17.008, "e": 17.438}, {"w": "Move", "s": 17.844, "e": 18.088}, {"w": "one", "s": 18.146, "e": 18.309}, {"w": "disk", "s": 18.355, "e": 18.576}, {"w": "at", "s": 18.622, "e": 18.68}, {"w": "a", "s": 18.727, "e": 18.762}, {"w": "time.", "s": 18.808, "e": 19.214}, {"w": "Never", "s": 19.621, "e": 19.864}, {"w": "put", "s": 19.923, "e": 20.062}, {"w": "a", "s": 20.097, "e": 20.12}, {"w": "bigger", "s": 20.166, "e": 20.387}, {"w": "disk", "s": 20.433, "e": 20.677}, {"w": "on", "s": 20.758, "e": 20.886}, {"w": "a", "s": 20.921, "e": 20.956}, {"w": "smaller", "s": 21.014, "e": 21.351}, {"w": "one.", "s": 21.42, "e": 21.687}, {"w": "The", "s": 22.094, "e": 22.221}, {"w": "goal", "s": 22.291, "e": 22.523}, {"w": "is", "s": 22.593, "e": 22.674}, {"w": "to", "s": 22.721, "e": 22.779}, {"w": "move", "s": 22.848, "e": 23.034}, {"w": "the", "s": 23.069, "e": 23.139}, {"w": "whole", "s": 23.197, "e": 23.429}, {"w": "stack", "s": 23.464, "e": 23.754}, {"w": "to", "s": 23.812, "e": 23.87}, {"w": "the", "s": 23.94, "e": 24.009}, {"w": "last", "s": 24.056, "e": 24.299}, {"w": "peg.", "s": 24.358, "e": 24.799}, {"w": "One", "s": 25.159, "e": 25.391}, {"w": "disk", "s": 25.437, "e": 25.658}, {"w": "takes", "s": 25.693, "e": 25.925}, {"w": "one", "s": 25.995, "e": 26.169}, {"w": "move.", "s": 26.215, "e": 26.598}, {"w": "Two", "s": 26.958, "e": 27.202}, {"w": "disks", "s": 27.283, "e": 27.562}, {"w": "take", "s": 27.608, "e": 27.841}, {"w": "three.", "s": 27.887, "e": 28.363}, {"w": "Three", "s": 28.723, "e": 28.978}, {"w": "disks", "s": 29.013, "e": 29.234}, {"w": "take", "s": 29.281, "e": 29.49}, {"w": "seven.", "s": 29.524, "e": 29.966}, {"w": "Here's", "s": 30.268, "e": 30.535}, {"w": "the", "s": 30.569, "e": 30.639}, {"w": "pattern.", "s": 30.685, "e": 31.103}, {"w": "To", "s": 31.51, "e": 31.626}, {"w": "move", "s": 31.696, "e": 31.87}, {"w": "a", "s": 31.905, "e": 31.928}, {"w": "stack,", "s": 31.997, "e": 32.52}, {"w": "move", "s": 32.659, "e": 32.891}, {"w": "everything", "s": 32.961, "e": 33.437}, {"w": "above", "s": 33.495, "e": 33.739}, {"w": "the", "s": 33.774, "e": 33.843}, {"w": "biggest", "s": 33.901, "e": 34.203}, {"w": "disk", "s": 34.25, "e": 34.47}, {"w": "out", "s": 34.517, "e": 34.621}, {"w": "of", "s": 34.656, "e": 34.703}, {"w": "the", "s": 34.737, "e": 34.807}, {"w": "way,", "s": 34.853, "e": 35.26}, {"w": "move", "s": 35.515, "e": 35.736}, {"w": "the", "s": 35.771, "e": 35.84}, {"w": "big", "s": 35.91, "e": 36.072}, {"w": "one,", "s": 36.142, "e": 36.456}, {"w": "then", "s": 36.676, "e": 36.839}, {"w": "move", "s": 36.908, "e": 37.094}, {"w": "the", "s": 37.117, "e": 37.187}, {"w": "stack", "s": 37.222, "e": 37.524}, {"w": "back", "s": 37.593, "e": 37.768}, {"w": "on", "s": 37.837, "e": 37.93}, {"w": "top.", "s": 38.0, "e": 38.418}, {"w": "So", "s": 38.72, "e": 38.859}, {"w": "the", "s": 38.917, "e": 38.987}, {"w": "work", "s": 39.033, "e": 39.23}, {"w": "doubles,", "s": 39.288, "e": 39.706}, {"w": "plus", "s": 39.788, "e": 40.043}, {"w": "one.", "s": 40.113, "e": 40.461}, {"w": "Four", "s": 40.867, "e": 41.1}, {"w": "disks", "s": 41.158, "e": 41.529}, {"w": "take", "s": 41.692, "e": 41.912}, {"w": "fifteen", "s": 41.959, "e": 42.33}, {"w": "moves.", "s": 42.388, "e": 42.829}, {"w": "Five", "s": 43.189, "e": 43.468}, {"w": "take", "s": 43.503, "e": 43.665}, {"w": "thirty-one.", "s": 43.7, "e": 44.304}, {"w": "Ten", "s": 44.71, "e": 44.977}, {"w": "take", "s": 45.047, "e": 45.244}, {"w": "one", "s": 45.291, "e": 45.453}, {"w": "thousand", "s": 45.488, "e": 45.825}, {"w": "twenty-three.", "s": 45.871, "e": 46.556}, {"w": "Twenty", "s": 46.962, "e": 47.253}, {"w": "disks", "s": 47.311, "e": 47.636}, {"w": "take", "s": 47.682, "e": 47.868}, {"w": "over", "s": 47.903, "e": 48.077}, {"w": "a", "s": 48.123, "e": 48.147}, {"w": "million.", "s": 48.193, "e": 48.599}, {"w": "Every", "s": 48.959, "e": 49.203}, {"w": "extra", "s": 49.261, "e": 49.528}, {"w": "disk", "s": 49.575, "e": 49.83}, {"w": "doubles", "s": 49.969, "e": 50.283}, {"w": "the", "s": 50.306, "e": 50.376}, {"w": "work.", "s": 50.422, "e": 50.771}, {"w": "The", "s": 51.13, "e": 51.247}, {"w": "formula", "s": 51.305, "e": 51.664}, {"w": "is", "s": 51.723, "e": 51.804}, {"w": "two", "s": 51.85, "e": 52.024}, {"w": "to", "s": 52.094, "e": 52.164}, {"w": "the", "s": 52.222, "e": 52.291}, {"w": "power", "s": 52.326, "e": 52.558}, {"w": "of", "s": 52.605, "e": 52.663}, {"w": "n,", "s": 52.733, "e": 53.069}, {"w": "minus", "s": 53.151, "e": 53.476}, {"w": "one.", "s": 53.545, "e": 53.87}, {"w": "For", "s": 54.277, "e": 54.428}, {"w": "sixty-four", "s": 54.486, "e": 54.997}, {"w": "disks,", "s": 55.055, "e": 55.484}, {"w": "that's", "s": 55.519, "e": 55.751}, {"w": "about", "s": 55.774, "e": 56.018}, {"w": "eighteen", "s": 56.088, "e": 56.517}, {"w": "quintillion", "s": 56.599, "e": 57.179}, {"w": "moves.", "s": 57.249, "e": 57.713}, {"w": "At", "s": 58.073, "e": 58.201}, {"w": "one", "s": 58.27, "e": 58.421}, {"w": "move", "s": 58.456, "e": 58.642}, {"w": "per", "s": 58.677, "e": 58.781}, {"w": "second,", "s": 58.839, "e": 59.257}, {"w": "that's", "s": 59.362, "e": 59.571}, {"w": "about", "s": 59.594, "e": 59.78}, {"w": "five", "s": 59.849, "e": 60.116}, {"w": "hundred", "s": 60.163, "e": 60.407}, {"w": "eighty-five", "s": 60.465, "e": 60.883}, {"w": "billion", "s": 60.917, "e": 61.184}, {"w": "years.", "s": 61.231, "e": 61.66}, {"w": "The", "s": 61.962, "e": 62.09}, {"w": "universe", "s": 62.171, "e": 62.589}, {"w": "is", "s": 62.624, "e": 62.705}, {"w": "about", "s": 62.752, "e": 62.984}, {"w": "fourteen", "s": 63.054, "e": 63.541}, {"w": "billion", "s": 63.611, "e": 63.936}, {"w": "years", "s": 63.982, "e": 64.203}, {"w": "old.", "s": 64.273, "e": 64.563}, {"w": "So", "s": 64.923, "e": 65.062}, {"w": "the", "s": 65.12, "e": 65.19}, {"w": "job", "s": 65.26, "e": 65.503}, {"w": "would", "s": 65.55, "e": 65.689}, {"w": "take", "s": 65.724, "e": 65.898}, {"w": "more", "s": 65.945, "e": 66.096}, {"w": "than", "s": 66.119, "e": 66.246}, {"w": "forty", "s": 66.386, "e": 66.688}, {"w": "times", "s": 66.746, "e": 67.036}, {"w": "longer", "s": 67.106, "e": 67.442}, {"w": "than", "s": 67.512, "e": 67.674}, {"w": "the", "s": 67.709, "e": 67.779}, {"w": "universe", "s": 67.849, "e": 68.209}, {"w": "has", "s": 68.243, "e": 68.394}, {"w": "existed.", "s": 68.452, "e": 69.01}, {"w": "Doubling", "s": 69.66, "e": 70.078}, {"w": "looks", "s": 70.147, "e": 70.345}, {"w": "tiny", "s": 70.403, "e": 70.681}, {"w": "at", "s": 70.727, "e": 70.785}, {"w": "first,", "s": 70.855, "e": 71.285}, {"w": "and", "s": 71.343, "e": 71.482}, {"w": "then", "s": 71.529, "e": 71.645}, {"w": "it", "s": 71.691, "e": 71.761}, {"w": "swallows", "s": 71.819, "e": 72.225}, {"w": "everything.", "s": 72.283, "e": 72.759}, {"w": "That's", "s": 73.166, "e": 73.421}, {"w": "why", "s": 73.456, "e": 73.607}, {"w": "exponential", "s": 73.688, "e": 74.257}, {"w": "growth", "s": 74.303, "e": 74.536}, {"w": "feels", "s": 74.57, "e": 74.779}, {"w": "slow,", "s": 74.814, "e": 75.337}, {"w": "right", "s": 75.592, "e": 75.778}, {"w": "until", "s": 75.813, "e": 76.033}, {"w": "it", "s": 76.08, "e": 76.149}, {"w": "doesn't.", "s": 76.184, "e": 76.811}], B = [0.0, 11.331, 25.159, 30.268, 48.959, 61.962, 69.66, 77.111], VEND = 76.811, DUR = 81.311, NB = B.length - 1;
+const KEYS = new Set(["doubles", "billion", "585", "moves", "universe", "exponential"]);
+const INK = "#1c1c1c", RED = "#d62828", OR = "#e07a00", GRN = "#2a9d5c", DOT = "#4a4a4a";
+const clamp = v => Math.max(0, Math.min(1, v));
+const ease = v => { v = clamp(v); return v * v * (3 - 2 * v); };
+const bit = (i, k) => (i >> k) & 1;
+const cvs = document.getElementById("cv"), x = cvs.getContext("2d");
+const stat = document.getElementById("stat"), cap = document.getElementById("cap");
+const FONT = "'JetBrains Mono', monospace";
+function txt(s, px, py, size, col, align, weight) {
+  x.font = (weight || "bold") + " " + Math.round(size * 1.12) + "px " + FONT; x.fillStyle = col || INK;
+  x.textAlign = align || "center"; x.textBaseline = "middle"; x.fillText(s, px, py);
+}
+function circ(cx, cy, r, fill, stroke, lw, alpha) {
+  x.globalAlpha = alpha == null ? 1 : alpha; x.beginPath(); x.arc(cx, cy, r, 0, 6.283);
+  if (fill) { x.fillStyle = fill; x.fill(); } if (stroke) { x.strokeStyle = stroke; x.lineWidth = lw || 4; x.stroke(); }
+  x.globalAlpha = 1;
+}
+function rect(px, py, w, h, fill, stroke, lw, alpha) {
+  x.globalAlpha = alpha == null ? 1 : alpha;
+  if (fill) { x.fillStyle = fill; x.fillRect(px, py, w, h); }
+  if (stroke) { x.strokeStyle = stroke; x.lineWidth = lw || 4; x.strokeRect(px, py, w, h); }
+  x.globalAlpha = 1;
+}
+function line(x1, y1, x2, y2, col, lw, alpha) {
+  x.globalAlpha = alpha == null ? 1 : alpha; x.strokeStyle = col || INK; x.lineWidth = lw || 3;
+  x.beginPath(); x.moveTo(x1, y1); x.lineTo(x2, y2); x.stroke(); x.globalAlpha = 1;
+}
+function show(w) {
+  const m = w.match(/^((?:one|zero)(?:-(?:one|zero))+)([.,?!]*)$/i);
+  if (m) return m[1].toLowerCase().split("-").map(p => p === "one" ? 1 : 0).join("") + m[2];
+  return w;
+}
+const groups = []; {
+  let g = [];
+  const flush = () => { if (g.length) { groups.push(g); g = []; } };
+  WORDS.forEach((w, i) => {
+    const t = show(w.w);
+    if (g.length && (g.length >= 4 || g.map(o => show(o.w)).join(" ").length + t.length > 24)) flush();
+    g.push({ ...w, i, txt: t });
+    if (/[.?!]$/.test(w.w) || /,$/.test(w.w)) flush();
+  });
+  flush();
+}
+groups.forEach((g, gi) => {
+  const el = document.createElement("div"); el.className = "g"; el.id = "g" + gi;
+  g.forEach(w => {
+    const s = document.createElement("span");
+    s.className = "w" + (KEYS.has(w.txt.toLowerCase().replace(/[.,?!]/g, "")) ? " k" : "");
+    s.textContent = w.txt + " "; w.el = s; el.appendChild(s);
+  });
+  cap.appendChild(el); g.el = el;
+  g.start = g[0].s - 0.05; g.end = DUR;
+});
+groups.forEach((g, gi) => { if (gi + 1 < groups.length) g.end = Math.min(g[g.length - 1].e + 0.25, groups[gi + 1][0].s - 0.05); });
+function blockOf(t) { let b = 0; for (let i = 0; i < NB; i++) if (t >= B[i]) b = i; return b; }
+
+function mv(n, a, b, c, out) { if (n === 0) return; mv(n - 1, a, c, b, out); out.push([a, c]); mv(n - 1, b, a, c, out); }
+function state(n, k) {
+  const st = [Array.from({ length: n }, (_, i) => n - i), [], []], m = []; mv(n, 0, 1, 2, m);
+  for (let i = 0; i < Math.min(k, m.length); i++) { const [f, t] = m[i]; st[t].push(st[f].pop()); }
+  return st;
+}
+const PX = [220, 540, 860], BASE = 960;
+function pegs(st, n) {
+  PX.forEach(px => rect(px - 6, BASE - 420, 12, 420, INK, null, 0, 0.8));
+  line(100, BASE, 980, BASE, INK, 6);
+  const h = Math.min(36, 380 / n);
+  st.forEach((s, p) => s.forEach((d, i) => {
+    const w = 60 + (d - 1) * (200 / Math.max(1, n - 1));
+    rect(PX[p] - w / 2, BASE - (i + 1) * h, w, h - 3, d % 2 ? OR : "#e8dcbc", INK, 3);
+  }));
+}
+function fmt(v) { return v.toLocaleString("en-US"); }
+function scene(t, b, u) {
+  if (b === 0) { pegs(state(12, 0), 12); return u < 0.5 ? "64 GOLDEN DISKS" : "HOW LONG WILL IT TAKE?"; }
+  if (b === 1) { pegs(state(4, 0), 4);
+    if (u > 0.33 && u < 0.66) { line(PX[1] - 90, BASE - 200, PX[1] + 90, BASE - 120, RED, 10); txt("NOT ALLOWED", PX[1], BASE - 250, 34, RED); }
+    return u < 0.33 ? "ONE DISK AT A TIME" : u < 0.66 ? "NEVER BIG ON SMALL" : "MOVE THE WHOLE STACK"; }
+  if (b === 2) { const k = Math.floor(ease(u / 0.9) * 7); pegs(state(3, k), 3); return "3 DISKS  ·  " + k + " / 7 MOVES"; }
+  if (b === 3) {
+    const rows = [[4, 15], [5, 31], [10, 1023], [20, 1048575]], k = Math.floor(ease(u / 0.85) * 4.99);
+    rows.forEach((r, i) => { if (i <= k) {
+      txt("n = " + r[0], 260, 470 + i * 130, 50, INK, "center"); txt("→", 440, 470 + i * 130, 50, DOT);
+      txt(fmt(r[1]), 700, 470 + i * 130, 56, RED, "center"); } });
+    return "EACH DISK DOUBLES THE WORK  +1";
+  }
+  if (b === 4) {
+    txt("2⁶⁴ − 1", 540, 520, 110, INK);
+    txt("18,446,744,073,709,551,615", 540, 650, 38, RED); txt("moves", 540, 710, 40, INK);
+    if (u > 0.45) { txt("1 move per second", 540, 830, 40, INK); txt("≈ 585 billion years", 540, 910, 56, RED); }
+    return "64 DISKS";
+  }
+  if (b === 5) {
+    const w1 = 800 * 13.8 / 585, w2 = 800 * ease(u / 0.7);
+    txt("THE UNIVERSE", 540, 500, 34, INK); rect(140, 530, w1, 60, DOT, null, 0, 1); txt("13.8 billion years", 540, 640, 34, INK);
+    txt("HANOI, 64 DISKS", 540, 760, 34, INK); rect(140, 790, w2, 60, RED, null, 0, 1); if (u > 0.7) txt("585 billion years", 540, 900, 34, RED);
+    return "MORE THAN 40× LONGER";
+  }
+  const k = Math.floor(ease(u / 0.9) * 11);
+  for (let i = 0; i < 11; i++) { if (i > k) continue; const h = Math.max(6, 520 * Math.pow(2, i) / 1024); rect(130 + i * 78, 1010 - h, 60, h, i > 7 ? RED : OR, null, 0, 1); txt(String(i), 160 + i * 78, 1040, 24, INK); }
+  return "EXPONENTIAL: SLOW, THEN ALL AT ONCE";
+}
+
+
+function renderAt(t) {
+  x.fillStyle = "#f4ecd8"; x.fillRect(0, 0, 1080, 1920);
+  x.strokeStyle = "rgba(60,90,140,0.16)"; x.lineWidth = 2;
+  for (let g = 0; g <= 1080; g += 40) { x.beginPath(); x.moveTo(g, 0); x.lineTo(g, 1920); x.stroke(); }
+  for (let g = 0; g <= 1920; g += 40) { x.beginPath(); x.moveTo(0, g); x.lineTo(1080, g); x.stroke(); }
+  const b = blockOf(t), u = clamp((t - B[b]) / (B[b + 1] - B[b]));
+  x.save(); x.translate(130, 216.7); x.scale(0.78, 0.78);
+  stat.textContent = scene(t, b, u) || "";
+  x.restore();
+  groups.forEach(g => {
+    const on = t >= g.start && t < g.end;
+    g.el.style.opacity = on ? 1 : 0;
+    if (on) g.forEach(w => w.el.classList.toggle("on", t >= w.s));
+  });
+}
+window.addEventListener("hf-seek", e => renderAt(e.detail.time));
+renderAt(0);
+const tl = gsap.timeline({ paused: true });
+tl.fromTo("#end", { opacity: 0 }, { opacity: 1, duration: 0.6, ease: "power2.out" }, VEND + 0.6);
+window.__timelines = window.__timelines || {};
+window.__timelines["main"] = tl;
+</script>
+</body>
+</html>

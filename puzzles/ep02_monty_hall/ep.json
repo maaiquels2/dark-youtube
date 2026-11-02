@@ -1,0 +1,13 @@
+{
+  "title": "100 doors. <span style=\"color:#d62828\">Switch</span> or stay?",
+  "keys": ["switch", "ninety-nine", "wrong", "knows", "information", "doors"],
+  "blocks": [
+    "There are 100 doors. Behind one is a car. You pick a door, and then the host opens 98 other doors, all empty. Two doors are left. Do you stay, or switch? It is not fifty-fifty.",
+    "Here are the rules. Behind one door is a car. Behind the other ninety-nine, goats. You pick one door. The host knows where the car is. He opens every other door except one, and he never opens the car.",
+    "Start with just three doors. You pick one, so you have a one in three chance. The host opens a goat door. Most people say it's now fifty-fifty. It isn't. Your first pick is still a one in three shot, so the other door holds the other two thirds. Switching wins two times out of three.",
+    "Now ten doors. You pick one, a one in ten chance. The host opens eight goats. If you switch, you win nine times out of ten. With a hundred doors, your pick has a one in a hundred chance. If you switch, you win ninety-nine times out of a hundred.",
+    "Why? Your first pick was almost surely wrong. Ninety-nine percent of the time, the car is somewhere else. And the host can't open the car, so if it's there, he has to leave it closed. His choice carries information. The closed door is where the missing ninety-nine percent went.",
+    "Play it a hundred times. Staying wins about once. Switching wins about ninety-nine times.",
+    "The host isn't opening doors at random. He knows. And when someone who knows shows you a choice, that choice is evidence. Don't ignore what the other side reveals."
+  ]
+}

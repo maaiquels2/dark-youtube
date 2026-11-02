@@ -1,0 +1,107 @@
+[
+ {
+  "out": "scamlaw/ep01_robocalls/assets/img/phone_kitchen.jpg",
+  "prompt": "a smartphone lying on a wooden kitchen table at dusk, screen glowing and ringing with an unknown call, blurred kitchen background, coffee mug nearby, 2017, documentary photograph, 35mm, shallow depth of field, moody dark lighting, realistic, no text, no logos, no watermark, no people's faces visible",
+  "seed": 7
+ },
+ {
+  "out": "scamlaw/ep01_robocalls/assets/img/hesitate.jpg",
+  "prompt": "close-up of a hand hovering above a smartphone buzzing on a living room table at night, hesitating to answer, face out of frame, 2017, documentary photograph, 35mm, shallow depth of field, moody dark lighting, realistic, no text, no logos, no watermark, no people's faces visible",
+  "seed": 8
+ },
+ {
+  "out": "scamlaw/ep01_robocalls/assets/img/phone_screen.jpg",
+  "prompt": "a smartphone screen lit in a dark room showing an incoming call, the caller number blurred and unreadable, thumb above the screen, 2017, documentary photograph, 35mm, shallow depth of field, moody dark lighting, realistic, no text, no logos, no watermark, no people's faces visible",
+  "seed": 9
+ },
+ {
+  "out": "scamlaw/ep01_robocalls/assets/img/racks.jpg",
+  "prompt": "rows of telecom server racks in a dim server room, blinking green and amber lights, cables, cold blue light, long corridor, documentary photograph, 35mm, shallow depth of field, moody dark lighting, realistic, no text, no logos, no watermark, no people's faces visible",
+  "seed": 10
+ },
+ {
+  "out": "scamlaw/ep01_robocalls/assets/img/callcenter.jpg",
+  "prompt": "a dim open-plan call center floor at night seen from behind, rows of anonymous workers wearing headsets at desks with old monitors, no faces visible, 2017, cheap fluorescent light, documentary photograph, 35mm, shallow depth of field, moody dark lighting, realistic, no text, no logos, no watermark, no people's faces visible",
+  "seed": 11
+ },
+ {
+  "out": "scamlaw/ep01_robocalls/assets/img/brochure.jpg",
+  "prompt": "a glossy tropical beach resort brochure lying on a table with a pen and a contract, blurred print, warm light, timeshare sales office, no readable text, documentary photograph, 35mm, shallow depth of field, moody dark lighting, realistic, no text, no logos, no watermark, no people's faces visible",
+  "seed": 12
+ },
+ {
+  "out": "scamlaw/ep01_robocalls/assets/img/angry_phone.jpg",
+  "prompt": "a person from behind and side silhouette gripping a smartphone to their ear in a dim apartment hallway, tense posture, frustrated, face turned away, 2017, documentary photograph, 35mm, shallow depth of field, moody dark lighting, realistic, no text, no logos, no watermark, no people's faces visible",
+  "seed": 13
+ },
+ {
+  "out": "scamlaw/ep01_robocalls/assets/img/hearing.jpg",
+  "prompt": "wide shot of an empty US Senate committee hearing room, empty witness table with microphones, blurred nameplates, wood paneling, dais with empty chairs, dramatic light, documentary photograph, 35mm, shallow depth of field, moody dark lighting, realistic, no text, no logos, no watermark, no people's faces visible",
+  "seed": 14
+ },
+ {
+  "out": "scamlaw/ep01_robocalls/assets/img/capitol.jpg",
+  "prompt": "the US Capitol dome at dusk, deep blue sky, lit windows, wide shot, moody clouds, documentary photograph, 35mm, shallow depth of field, moody dark lighting, realistic, no text, no logos, no watermark, no people's faces visible",
+  "seed": 15
+ },
+ {
+  "out": "scamlaw/ep01_robocalls/assets/img/tower.jpg",
+  "prompt": "a cellular tower silhouetted against a night sky with red warning lights, power lines, faint city glow below, documentary photograph, 35mm, shallow depth of field, moody dark lighting, realistic, no text, no logos, no watermark, no people's faces visible",
+  "seed": 16
+ },
+ {
+  "out": "scamlaw/ep01_robocalls/assets/img/datacenter.jpg",
+  "prompt": "a long dark network operations corridor with glowing fiber cables and switch panels, cool blue light, reflections on the floor, documentary photograph, 35mm, shallow depth of field, moody dark lighting, realistic, no text, no logos, no watermark, no people's faces visible",
+  "seed": 17
+ },
+ {
+  "out": "scamlaw/ep01_robocalls/assets/img/block_call.jpg",
+  "prompt": "a thumb pressing the red decline button on a smartphone in a dim room, blurred caller info, screen glow on the hand, 2018, documentary photograph, 35mm, shallow depth of field, moody dark lighting, realistic, no text, no logos, no watermark, no people's faces visible",
+  "seed": 18
+ },
+ {
+  "out": "scamlaw/ep01_robocalls/assets/img/mailbox.jpg",
+  "prompt": "a stack of printed complaint letters and folders on a government office desk, desk lamp, shallow depth of field, no readable text, documentary photograph, 35mm, shallow depth of field, moody dark lighting, realistic, no text, no logos, no watermark, no people's faces visible",
+  "seed": 19
+ },
+ {
+  "out": "scamlaw/ep01_robocalls/assets/img/gavel.jpg",
+  "prompt": "a wooden judge gavel and a closed folder on a dark desk, dramatic side light, legal documents blurred, documentary photograph, 35mm, shallow depth of field, moody dark lighting, realistic, no text, no logos, no watermark, no people's faces visible",
+  "seed": 20
+ },
+ {
+  "out": "scamlaw/ep01_robocalls/assets/img/laptop.jpg",
+  "prompt": "a laptop open on a dark desk showing abstract charts glowing, notebooks and a coffee, investigator workspace at night, screen content unreadable, documentary photograph, 35mm, shallow depth of field, moody dark lighting, realistic, no text, no logos, no watermark, no people's faces visible",
+  "seed": 21
+ },
+ {
+  "out": "scamlaw/ep01_robocalls/assets/img/landline.jpg",
+  "prompt": "an old beige corded desk phone ringing on a wooden side table in a dim living room, afternoon light through blinds, documentary photograph, 35mm, shallow depth of field, moody dark lighting, realistic, no text, no logos, no watermark, no people's faces visible",
+  "seed": 22
+ },
+ {
+  "out": "scamlaw/ep01_robocalls/assets/img/city_night.jpg",
+  "prompt": "a rainy American suburban street at night with telephone poles and power lines, warm windows, cinematic, documentary photograph, 35mm, shallow depth of field, moody dark lighting, realistic, no text, no logos, no watermark, no people's faces visible",
+  "seed": 23
+ },
+ {
+  "out": "scamlaw/ep01_robocalls/assets/img/hangup.jpg",
+  "prompt": "a hand putting a smartphone face down on a table, calm decision, kitchen at evening, soft light, no face, documentary photograph, 35mm, shallow depth of field, moody dark lighting, realistic, no text, no logos, no watermark, no people's faces visible",
+  "seed": 24
+ },
+ {
+  "out": "scamlaw/ep01_robocalls/assets/img/stack_phones.jpg",
+  "prompt": "a pile of many smartphones with lit screens glowing in the dark, abstract mass of calls, cool light, shallow depth of field, documentary photograph, 35mm, shallow depth of field, moody dark lighting, realistic, no text, no logos, no watermark, no people's faces visible",
+  "seed": 25
+ },
+ {
+  "out": "scamlaw/ep01_robocalls/assets/img/wires.jpg",
+  "prompt": "a tangled bundle of telephone and ethernet cables entering a wall panel, dim light, macro, industrial, documentary photograph, 35mm, shallow depth of field, moody dark lighting, realistic, no text, no logos, no watermark, no people's faces visible",
+  "seed": 26
+ },
+ {
+  "out": "scamlaw/ep01_robocalls/assets/img/signature.jpg",
+  "prompt": "a person's hand signing a document with a pen, close-up, desk lamp light, paper blurred, no readable text, documentary photograph, 35mm, shallow depth of field, moody dark lighting, realistic, no text, no logos, no watermark, no people's faces visible",
+  "seed": 27
+ }
+]

@@ -1,0 +1,776 @@
+{
+  "ok": true,
+  "strict": false,
+  "browserSkipped": false,
+  "lint": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 1,
+    "infoCount": 0,
+    "findings": [
+      {
+        "code": "nested_structure_needs_subcomposition",
+        "severity": "warning",
+        "message": "<div id=\"end\"> is a timeline element that contains nested <div>. The timeline shows one row per top-level element, and the root composition is built only from sub-compositions.",
+        "selector": "#end",
+        "dataAttributes": {},
+        "sourceFile": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\puzzles\\ep03_birthday_paradox\\index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Move <div id=\"end\"> and its contents into a sub-composition file and mount it with data-composition-src."
+      }
+    ],
+    "filesScanned": 1
+  },
+  "runtime": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 1,
+    "infoCount": 0,
+    "findings": [
+      {
+        "code": "clip_media_fit",
+        "severity": "warning",
+        "message": "Audio \"voice\" is 90.23s but its slot (data-duration) is 94.73s — the slot is shortened to the media length when rendered. Set data-duration to ~90.23s if that isn't intended.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {
+          "data-composition-id": "main",
+          "data-start": "0",
+          "data-duration": "94.733",
+          "data-width": "1080",
+          "data-height": "1920"
+        },
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 1080,
+          "height": 1920
+        },
+        "time": 0
+      }
+    ]
+  },
+  "layout": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": [],
+    "duration": 94.733,
+    "samples": [
+      5.263,
+      15.789,
+      26.315,
+      36.841,
+      47.367,
+      57.892,
+      68.418,
+      78.944,
+      89.47
+    ],
+    "transitionSamples": [],
+    "transitionSamplesDropped": 0,
+    "tolerance": 2,
+    "totalIssueCount": 0,
+    "truncated": false
+  },
+  "motion": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": [],
+    "enabled": false,
+    "samples": 0
+  },
+  "contrast": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": [],
+    "enabled": true,
+    "samples": [
+      5.263,
+      26.315,
+      47.367,
+      68.418,
+      89.47
+    ],
+    "checked": 26,
+    "passed": 26
+  },
+  "craft": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 34,
+    "infoCount": 0,
+    "findings": [
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"How many people do\" (4 words) is on screen 0.87 s (±0.01 s), under its 1.27 s floor: hold it about 0.5 s + 0.3 s a word (1.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "How many people do",
+        "selector": "#g0",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 248.38,
+          "y": 1186,
+          "width": 129.60000000000002,
+          "height": 71
+        },
+        "time": 0,
+        "words": 4,
+        "seconds": 0.865,
+        "floorSeconds": 1.275
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"you need in\" (3 words) is on screen 0.46 s (±0.01 s), under its 1.05 s floor: hold it about 0.5 s + 0.3 s a word (1.40 s here) before it leaves or changes; see references/motion.md.",
+        "text": "you need in",
+        "selector": "#g1",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 329.39,
+          "y": 1186,
+          "width": 129.61,
+          "height": 71
+        },
+        "time": 0.91,
+        "words": 3,
+        "seconds": 0.464,
+        "floorSeconds": 1.05
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"room before two of\" (4 words) is on screen 0.79 s (±0.01 s), under its 1.27 s floor: hold it about 0.5 s + 0.3 s a word (1.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "room before two of",
+        "selector": "#g2",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 248.38,
+          "y": 1186,
+          "width": 162,
+          "height": 71
+        },
+        "time": 1.443,
+        "words": 4,
+        "seconds": 0.791,
+        "floorSeconds": 1.275
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"them probably share\" (3 words) is on screen 0.76 s (±0.01 s), under its 1.05 s floor: hold it about 0.5 s + 0.3 s a word (1.40 s here) before it leaves or changes; see references/motion.md.",
+        "text": "them probably share",
+        "selector": "#g3",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 199.78,
+          "y": 1186,
+          "width": 161.99999999999997,
+          "height": 71
+        },
+        "time": 2.273,
+        "words": 3,
+        "seconds": 0.761,
+        "floorSeconds": 1.05
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"The real answer\" (3 words) is on screen 0.67 s (±0.01 s), under its 1.05 s floor: hold it about 0.5 s + 0.3 s a word (1.40 s here) before it leaves or changes; see references/motion.md.",
+        "text": "The real answer",
+        "selector": "#g6",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 248.38,
+          "y": 1186,
+          "width": 129.60000000000002,
+          "height": 71
+        },
+        "time": 5.436,
+        "words": 3,
+        "seconds": 0.673,
+        "floorSeconds": 1.05
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"Here are the rules.\" (4 words) is on screen 0.87 s (±0.01 s), under its 1.27 s floor: hold it about 0.5 s + 0.3 s a word (1.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "Here are the rules.",
+        "selector": "#g8",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 232.19,
+          "y": 1186,
+          "width": 162,
+          "height": 71
+        },
+        "time": 8.372,
+        "words": 4,
+        "seconds": 0.87,
+        "floorSeconds": 1.275
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"Every day is equally\" (4 words) is on screen 0.93 s (±0.01 s), under its 1.27 s floor: hold it about 0.5 s + 0.3 s a word (1.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "Every day is equally",
+        "selector": "#g10",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 215.98,
+          "y": 1186,
+          "width": 194.41,
+          "height": 71
+        },
+        "time": 10.972,
+        "words": 4,
+        "seconds": 0.929,
+        "floorSeconds": 1.275
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"And we want\" (3 words) is on screen 0.70 s (±0.01 s), under its 1.05 s floor: hold it about 0.5 s + 0.3 s a word (1.40 s here) before it leaves or changes; see references/motion.md.",
+        "text": "And we want",
+        "selector": "#g12",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 296.98,
+          "y": 1186,
+          "width": 129.61,
+          "height": 71
+        },
+        "time": 12.741,
+        "words": 3,
+        "seconds": 0.702,
+        "floorSeconds": 1.05
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"chance that at least\" (4 words) is on screen 0.97 s (±0.01 s), under its 1.27 s floor: hold it about 0.5 s + 0.3 s a word (1.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "chance that at least",
+        "selector": "#g13",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 215.98,
+          "y": 1186,
+          "width": 226.81999999999996,
+          "height": 71
+        },
+        "time": 13.502,
+        "words": 4,
+        "seconds": 0.969,
+        "floorSeconds": 1.275
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"two people share\" (3 words) is on screen 0.76 s (±0.01 s), under its 1.05 s floor: hold it about 0.5 s + 0.3 s a word (1.40 s here) before it leaves or changes; see references/motion.md.",
+        "text": "two people share",
+        "selector": "#g14",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 248.38,
+          "y": 1186,
+          "width": 129.60000000000002,
+          "height": 71
+        },
+        "time": 14.54,
+        "words": 3,
+        "seconds": 0.761,
+        "floorSeconds": 1.05
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"Don't count people.\" (4 words) is on screen 1.20 s (±0.01 s), under its 1.27 s floor: hold it about 0.5 s + 0.3 s a word (1.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "Don't count people.",
+        "selector": "#g16",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 232.19,
+          "y": 1186,
+          "width": 194.40000000000003,
+          "height": 71
+        },
+        "time": 16.606,
+        "words": 4,
+        "seconds": 1.196,
+        "floorSeconds": 1.275
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"two hundred fifty-three\" (4 words) is on screen 1.24 s (±0.01 s), under its 1.27 s floor: hold it about 0.5 s + 0.3 s a word (1.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "two hundred fifty-three",
+        "selector": "#g25",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 167.39,
+          "y": 1186,
+          "width": 129.61,
+          "height": 71
+        },
+        "time": 29.505,
+        "words": 4,
+        "seconds": 1.236,
+        "floorSeconds": 1.275
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"Each pair has only\" (4 words) is on screen 1.10 s (±0.01 s), under its 1.27 s floor: hold it about 0.5 s + 0.3 s a word (1.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "Each pair has only",
+        "selector": "#g27",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 248.39,
+          "y": 1186,
+          "width": 162,
+          "height": 71
+        },
+        "time": 32.105,
+        "words": 4,
+        "seconds": 1.097,
+        "floorSeconds": 1.275
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"a one in three\" (4 words) is on screen 0.93 s (±0.01 s), under its 1.27 s floor: hold it about 0.5 s + 0.3 s a word (1.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "a one in three",
+        "selector": "#g28",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 313.19,
+          "y": 1186,
+          "width": 64.81,
+          "height": 71
+        },
+        "time": 33.242,
+        "words": 4,
+        "seconds": 0.929,
+        "floorSeconds": 1.275
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"But there are two\" (4 words) is on screen 0.73 s (±0.01 s), under its 1.27 s floor: hold it about 0.5 s + 0.3 s a word (1.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "But there are two",
+        "selector": "#g31",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 264.58,
+          "y": 1186,
+          "width": 129.61,
+          "height": 71
+        },
+        "time": 36.503,
+        "words": 4,
+        "seconds": 0.732,
+        "floorSeconds": 1.275
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"hundred fifty-three of\" (4 words) is on screen 1.17 s (±0.01 s), under its 1.27 s floor: hold it about 0.5 s + 0.3 s a word (1.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "hundred fifty-three of",
+        "selector": "#g32",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 183.58,
+          "y": 1186,
+          "width": 259.19999999999993,
+          "height": 71
+        },
+        "time": 37.275,
+        "words": 4,
+        "seconds": 1.166,
+        "floorSeconds": 1.275
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"and every pair\" (3 words) is on screen 0.80 s (±0.01 s), under its 1.05 s floor: hold it about 0.5 s + 0.3 s a word (1.40 s here) before it leaves or changes; see references/motion.md.",
+        "text": "and every pair",
+        "selector": "#g34",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 232.19,
+          "y": 1186,
+          "width": 129.61,
+          "height": 71
+        },
+        "time": 39.034,
+        "words": 3,
+        "seconds": 0.8,
+        "floorSeconds": 1.05
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"the chance passes fifty\" (4 words) is on screen 1.21 s (±0.01 s), under its 1.27 s floor: hold it about 0.5 s + 0.3 s a word (1.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "the chance passes fifty",
+        "selector": "#g37",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 167.38,
+          "y": 1186,
+          "width": 356.41999999999996,
+          "height": 71
+        },
+        "time": 41.969,
+        "words": 4,
+        "seconds": 1.206,
+        "floorSeconds": 1.275
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"over ninety-nine point\" (4 words) is on screen 1.21 s (±0.01 s), under its 1.27 s floor: hold it about 0.5 s + 0.3 s a word (1.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "over ninety-nine point",
+        "selector": "#g44",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 183.59,
+          "y": 1186,
+          "width": 162.00000000000003,
+          "height": 71
+        },
+        "time": 48.602,
+        "words": 4,
+        "seconds": 1.206,
+        "floorSeconds": 1.275
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"The easy way to\" (4 words) is on screen 0.95 s (±0.08 s), under its 1.27 s floor: hold it about 0.5 s + 0.3 s a word (1.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "The easy way to",
+        "selector": "#g46",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 296.98,
+          "y": 1186,
+          "width": 129.61,
+          "height": 71
+        },
+        "time": 50.925,
+        "words": 4,
+        "seconds": 0.949,
+        "floorSeconds": 1.275
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"compute it is\" (3 words) is on screen 0.79 s (±0.08 s), under its 1.05 s floor: hold it about 0.5 s + 0.3 s a word (1.40 s here) before it leaves or changes; see references/motion.md.",
+        "text": "compute it is",
+        "selector": "#g47",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 280.78,
+          "y": 1186,
+          "width": 259.20000000000005,
+          "height": 71
+        },
+        "time": 51.874,
+        "words": 3,
+        "seconds": 0.79,
+        "floorSeconds": 1.05
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"What's the chance that\" (5 words) is on screen 0.95 s (±0.08 s), under its 1.50 s floor: hold it about 0.5 s + 0.3 s a word (2.00 s here) before it leaves or changes; see references/motion.md.",
+        "text": "What's the chance that",
+        "selector": "#g49",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 183.58,
+          "y": 1186,
+          "width": 226.80999999999997,
+          "height": 71
+        },
+        "time": 54.088,
+        "words": 5,
+        "seconds": 0.949,
+        "floorSeconds": 1.5
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"everyone has a different\" (4 words) is on screen 0.95 s (±0.08 s), under its 1.27 s floor: hold it about 0.5 s + 0.3 s a word (1.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "everyone has a different",
+        "selector": "#g50",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 151.17,
+          "y": 1186,
+          "width": 291.61,
+          "height": 71
+        },
+        "time": 55.037,
+        "words": 4,
+        "seconds": 0.949,
+        "floorSeconds": 1.275
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"The third must avoid\" (4 words) is on screen 1.11 s (±0.08 s), under its 1.27 s floor: hold it about 0.5 s + 0.3 s a word (1.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "The third must avoid",
+        "selector": "#g56",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 215.98,
+          "y": 1186,
+          "width": 129.61000000000004,
+          "height": 71
+        },
+        "time": 62.47,
+        "words": 4,
+        "seconds": 1.107,
+        "floorSeconds": 1.275
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"And so on.\" (3 words) is on screen 0.95 s (±0.08 s), under its 1.05 s floor: hold it about 0.5 s + 0.3 s a word (1.40 s here) before it leaves or changes; see references/motion.md.",
+        "text": "And so on.",
+        "selector": "#g58",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 377.98,
+          "y": 1186,
+          "width": 129.61,
+          "height": 71
+        },
+        "time": 64.526,
+        "words": 3,
+        "seconds": 0.949,
+        "floorSeconds": 1.05
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"and by person\" (3 words) is on screen 0.79 s (±0.08 s), under its 1.05 s floor: hold it about 0.5 s + 0.3 s a word (1.40 s here) before it leaves or changes; see references/motion.md.",
+        "text": "and by person",
+        "selector": "#g60",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 329.39,
+          "y": 1186,
+          "width": 129.61,
+          "height": 71
+        },
+        "time": 66.898,
+        "words": 3,
+        "seconds": 0.791,
+        "floorSeconds": 1.05
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"we compare ourselves\" (3 words) is on screen 0.95 s (±0.08 s), under its 1.05 s floor: hold it about 0.5 s + 0.3 s a word (1.40 s here) before it leaves or changes; see references/motion.md.",
+        "text": "we compare ourselves",
+        "selector": "#g65",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 167.39,
+          "y": 1186,
+          "width": 97.19999999999999,
+          "height": 71
+        },
+        "time": 72.275,
+        "words": 3,
+        "seconds": 0.949,
+        "floorSeconds": 1.05
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"But the room compares\" (4 words) is on screen 1.11 s (±0.08 s), under its 1.27 s floor: hold it about 0.5 s + 0.3 s a word (1.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "But the room compares",
+        "selector": "#g68",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 199.78,
+          "y": 1186,
+          "width": 129.60999999999999,
+          "height": 71
+        },
+        "time": 76.229,
+        "words": 4,
+        "seconds": 1.107,
+        "floorSeconds": 1.275
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"That's two hundred\" (4 words) is on screen 0.95 s (±0.08 s), under its 1.27 s floor: hold it about 0.5 s + 0.3 s a word (1.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "That's two hundred",
+        "selector": "#g70",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 248.38,
+          "y": 1186,
+          "width": 226.81,
+          "height": 71
+        },
+        "time": 78.918,
+        "words": 4,
+        "seconds": 0.949,
+        "floorSeconds": 1.275
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"fifty-three pairs,\" (3 words) is on screen 0.95 s (±0.08 s), under its 1.05 s floor: hold it about 0.5 s + 0.3 s a word (1.40 s here) before it leaves or changes; see references/motion.md.",
+        "text": "fifty-three pairs,",
+        "selector": "#g71",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 248.39,
+          "y": 1186,
+          "width": 388.81000000000006,
+          "height": 71
+        },
+        "time": 80.025,
+        "words": 3,
+        "seconds": 0.949,
+        "floorSeconds": 1.05
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"So when a coincidence\" (4 words) is on screen 0.95 s (±0.08 s), under its 1.27 s floor: hold it about 0.5 s + 0.3 s a word (1.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "So when a coincidence",
+        "selector": "#g73",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 199.78,
+          "y": 1186,
+          "width": 97.20000000000002,
+          "height": 71
+        },
+        "time": 82.555,
+        "words": 4,
+        "seconds": 0.949,
+        "floorSeconds": 1.275
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"seems too big to\" (4 words) is on screen 0.95 s (±0.08 s), under its 1.27 s floor: hold it about 0.5 s + 0.3 s a word (1.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "seems too big to",
+        "selector": "#g74",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 280.78,
+          "y": 1186,
+          "width": 194.40999999999997,
+          "height": 71
+        },
+        "time": 83.504,
+        "words": 4,
+        "seconds": 0.949,
+        "floorSeconds": 1.275
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"The odds you're ignoring\" (5 words) is on screen 0.95 s (±0.08 s), under its 1.50 s floor: hold it about 0.5 s + 0.3 s a word (2.00 s here) before it leaves or changes; see references/motion.md.",
+        "text": "The odds you're ignoring",
+        "selector": "#g77",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 151.19,
+          "y": 1186,
+          "width": 129.61,
+          "height": 71
+        },
+        "time": 87.142,
+        "words": 5,
+        "seconds": 0.949,
+        "floorSeconds": 1.5
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"are usually hiding\" (3 words) is on screen 0.95 s (±0.08 s), under its 1.05 s floor: hold it about 0.5 s + 0.3 s a word (1.40 s here) before it leaves or changes; see references/motion.md.",
+        "text": "are usually hiding",
+        "selector": "#g78",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 199.78,
+          "y": 1186,
+          "width": 129.60999999999999,
+          "height": 71
+        },
+        "time": 88.091,
+        "words": 3,
+        "seconds": 0.949,
+        "floorSeconds": 1.05
+      }
+    ],
+    "enabled": true,
+    "step": 0.15800000000000125,
+    "samples": 599
+  },
+  "hdr": {
+    "autoPromotion": null,
+    "inspection": "available"
+  },
+  "snapshots": {
+    "enabled": false,
+    "files": [],
+    "times": [],
+    "findingFiles": []
+  }
+}

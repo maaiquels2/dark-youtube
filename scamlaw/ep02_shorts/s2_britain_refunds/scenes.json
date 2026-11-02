@@ -1,0 +1,464 @@
+{
+ "theme": "rulechanged",
+ "format": "vertical",
+ "comp": "main",
+ "out": "s2_britain_refunds",
+ "music": "library/music/incompetech/interloper.mp3",
+ "music_gain": 0.14,
+ "lufs": -14,
+ "tail": 1.0,
+ "captions": true,
+ "blocks": [
+  {
+   "act": "scam",
+   "scenes": [
+    {
+     "t": "organ_focus",
+     "image": "london_street.jpg",
+     "screen": false,
+     "photo": true,
+     "zoom": [
+      100,
+      108
+     ],
+     "illustration": true
+    },
+    {
+     "t": "impact_title",
+     "at": "start",
+     "fade": [
+      0.15,
+      0.25
+     ],
+     "lines": [
+      {
+       "text": "SAME SCAM.",
+       "size": 110,
+       "y": 780,
+       "color": [
+        1,
+        0.96,
+        0.9
+       ],
+       "font": "Anton"
+      },
+      {
+       "text": "ONLY ONE COUNTRY",
+       "size": 84,
+       "y": 910,
+       "color": [
+        1,
+        0.96,
+        0.9
+       ],
+       "font": "Anton"
+      },
+      {
+       "text": "REFUNDS IT.",
+       "size": 110,
+       "y": 1030,
+       "color": [
+        0.5,
+        0.69,
+        0.54
+       ],
+       "font": "Anton"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "act": "rule",
+   "scenes": [
+    {
+     "t": "organ_focus",
+     "image": "uk_phone.jpg",
+     "screen": false,
+     "photo": true,
+     "zoom": [
+      100,
+      108
+     ],
+     "illustration": true,
+     "until": "eighty-five-0.1"
+    },
+    {
+     "t": "fact_card",
+     "big": "£85,000",
+     "size": 150,
+     "at": "eighty-five-0.1",
+     "image": "bank_callback.jpg",
+     "text": "the most a UK bank must refund per claim",
+     "source": "Source: Payment Systems Regulator, PS24/7",
+     "color": [
+      0.5,
+      0.69,
+      0.54
+     ],
+     "until": "That-0.1"
+    },
+    {
+     "t": "web_clip",
+     "image": "psr_ps24_7.png",
+     "site": "PSR.ORG.UK",
+     "date": "OCT 2, 2024",
+     "source": "Source: Payment Systems Regulator, PS24/7",
+     "marks": [
+      {
+       "box": [
+        567,
+        1532,
+        1747,
+        162
+       ],
+       "at": "October"
+      }
+     ],
+     "at": "That-0.1"
+    }
+   ]
+  },
+  {
+   "act": "rule",
+   "scenes": [
+    {
+     "t": "organ_focus",
+     "image": "bank_lobby.jpg",
+     "screen": false,
+     "photo": true,
+     "zoom": [
+      100,
+      108
+     ],
+     "illustration": true,
+     "until": "and-0.1"
+    },
+    {
+     "t": "impact_title",
+     "at": "start",
+     "fade": [
+      0.15,
+      0.25
+     ],
+     "lines": [
+      {
+       "text": "VICTIM'S BANK",
+       "size": 100,
+       "y": 820,
+       "color": [
+        1,
+        0.96,
+        0.9
+       ],
+       "font": "Anton"
+      },
+      {
+       "text": "REFUNDS",
+       "size": 120,
+       "y": 950,
+       "color": [
+        0.5,
+        0.69,
+        0.54
+       ],
+       "font": "Anton"
+      }
+     ],
+     "until": "and-0.1"
+    },
+    {
+     "t": "organ_focus",
+     "image": "bank_branch.jpg",
+     "screen": false,
+     "photo": true,
+     "zoom": [
+      100,
+      108
+     ],
+     "illustration": true,
+     "at": "and-0.1"
+    },
+    {
+     "t": "impact_title",
+     "at": "and",
+     "fade": [
+      0.15,
+      0.25
+     ],
+     "lines": [
+      {
+       "text": "RECEIVING BANK",
+       "size": 96,
+       "y": 820,
+       "color": [
+        1,
+        0.96,
+        0.9
+       ],
+       "font": "Anton"
+      },
+      {
+       "text": "PAYS HALF",
+       "size": 120,
+       "y": 950,
+       "color": [
+        0.5,
+        0.69,
+        0.54
+       ],
+       "font": "Anton"
+      }
+     ]
+    },
+    {
+     "t": "lower_third",
+     "text": "Source: Payment Systems Regulator, PS25/5"
+    }
+   ]
+  },
+  {
+   "act": "rule",
+   "scenes": [
+    {
+     "t": "web_clip",
+     "image": "psr_one_year.png",
+     "site": "PSR.ORG.UK",
+     "date": "OCT 8, 2025",
+     "source": "Source: Payment Systems Regulator, Oct 8, 2025",
+     "marks": [
+      {
+       "box": [
+        640,
+        905,
+        215,
+        48
+       ],
+       "at": "hundred"
+      }
+     ],
+     "crop": [
+      100,
+      480,
+      2300,
+      500
+     ],
+     "until": "Eighty-eight-0.1"
+    },
+    {
+     "t": "fact_card",
+     "big": "88%",
+     "size": 220,
+     "at": "Eighty-eight-0.1",
+     "image": "bank_hold.jpg",
+     "text": "of the money claimed back was returned, Oct 2024 to Jun 2025",
+     "source": "Source: PSR, Oct 2025. Methods changed between periods",
+     "color": [
+      0.5,
+      0.69,
+      0.54
+     ]
+    }
+   ]
+  },
+  {
+   "act": "scam",
+   "scenes": [
+    {
+     "t": "organ_focus",
+     "image": "p_senators_v.jpg",
+     "screen": false,
+     "photo": true,
+     "zoom": [
+      100,
+      108
+     ],
+     "illustration": false,
+     "until": "It-0.1"
+    },
+    {
+     "t": "lower_third",
+     "text": "Protecting Consumers From Payment Scams Act",
+     "corner": "tl",
+     "sub": "Introduced Aug 1, 2024 | S. 4943",
+     "at": "It"
+    },
+    {
+     "t": "organ_focus",
+     "image": "capitol.jpg",
+     "screen": false,
+     "photo": true,
+     "zoom": [
+      100,
+      108
+     ],
+     "illustration": true,
+     "at": "It-0.1"
+    },
+    {
+     "t": "impact_title",
+     "at": "It",
+     "fade": [
+      0.15,
+      0.25
+     ],
+     "lines": [
+      {
+       "text": "IT DID NOT",
+       "size": 110,
+       "y": 860,
+       "color": [
+        1,
+        0.96,
+        0.9
+       ],
+       "font": "Anton"
+      },
+      {
+       "text": "BECOME LAW",
+       "size": 120,
+       "y": 990,
+       "color": [
+        0.82,
+        0.25,
+        0.18
+       ],
+       "font": "Anton"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "act": "scam",
+   "scenes": [
+    {
+     "t": "organ_focus",
+     "image": "bank_hold.jpg",
+     "screen": false,
+     "photo": true,
+     "zoom": [
+      100,
+      108
+     ],
+     "illustration": true
+    },
+    {
+     "t": "impact_title",
+     "at": "refund",
+     "fade": [
+      0.15,
+      0.25
+     ],
+     "lines": [
+      {
+       "text": "YOUR REFUND",
+       "size": 110,
+       "y": 860,
+       "color": [
+        1,
+        0.96,
+        0.9
+       ],
+       "font": "Anton"
+      },
+      {
+       "text": "DEPENDS ON YOUR BANK",
+       "size": 70,
+       "y": 980,
+       "color": [
+        1,
+        0.7,
+        0.22
+       ],
+       "font": "Anton"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "act": "case",
+   "scenes": [
+    {
+     "t": "organ_focus",
+     "image": "law_books.jpg",
+     "screen": false,
+     "photo": true,
+     "zoom": [
+      100,
+      108
+     ],
+     "illustration": true,
+     "until": "full-0.1"
+    },
+    {
+     "t": "impact_title",
+     "at": "start",
+     "fade": [
+      0.15,
+      0.25
+     ],
+     "lines": [
+      {
+       "text": "WHY? WHAT TO DO?",
+       "size": 100,
+       "y": 860,
+       "color": [
+        1,
+        0.96,
+        0.9
+       ],
+       "font": "Anton"
+      }
+     ],
+     "until": "full-0.1"
+    },
+    {
+     "t": "impact_title",
+     "at": "full",
+     "fade": [
+      0.15,
+      0.25
+     ],
+     "lines": [
+      {
+       "text": "FULL CASE",
+       "size": 150,
+       "y": 900,
+       "color": [
+        1,
+        0.96,
+        0.9
+       ],
+       "font": "Anton"
+      }
+     ],
+     "until": "dur"
+    },
+    {
+     "t": "impact_title",
+     "at": "full+0.15",
+     "fade": [
+      0.15,
+      0.25
+     ],
+     "lines": [
+      {
+       "text": "ON THE RULE CHANGED",
+       "size": 66,
+       "y": 1010,
+       "color": [
+        1,
+        0.7,
+        0.22
+       ],
+       "font": "Anton"
+      }
+     ],
+     "until": "dur"
+    }
+   ]
+  }
+ ]
+}

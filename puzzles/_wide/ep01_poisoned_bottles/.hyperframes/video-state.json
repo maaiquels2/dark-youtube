@@ -1,0 +1,98 @@
+{
+  "version": 1,
+  "historyId": "af8e5cdb-33d9-4235-a0e4-ec31f1715015",
+  "currentRevision": null,
+  "pendingChanges": false,
+  "files": {
+    "assets/timing.json": {
+      "hash": "f0b4112de03a6a1585006dba4f3e16d918c085c84ae37cb20e391f03e48792eb",
+      "content": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\af8e5cdb-33d9-4235-a0e4-ec31f1715015\\blobs\\f0\\f0b4112de03a6a1585006dba4f3e16d918c085c84ae37cb20e391f03e48792eb"
+    },
+    "hyperframes.json": {
+      "hash": "c7a3009d23e471acfb1ca9ec252ea16a0ca4dfe55e3b3b9d7089c8f0764f4a43",
+      "content": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\af8e5cdb-33d9-4235-a0e4-ec31f1715015\\blobs\\c7\\c7a3009d23e471acfb1ca9ec252ea16a0ca4dfe55e3b3b9d7089c8f0764f4a43"
+    },
+    "index.html": {
+      "hash": "c3e3507b1052f42d0226f1464b6d474138be6b7322931e4ec4188b55918c764f",
+      "content": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\af8e5cdb-33d9-4235-a0e4-ec31f1715015\\blobs\\c3\\c3e3507b1052f42d0226f1464b6d474138be6b7322931e4ec4188b55918c764f"
+    },
+    "package.json": {
+      "hash": "25d1755dd7b0b36ff2250ac38c166d717f0e79c4e333d0efcffac7c09e970c64",
+      "content": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\af8e5cdb-33d9-4235-a0e4-ec31f1715015\\blobs\\25\\25d1755dd7b0b36ff2250ac38c166d717f0e79c4e333d0efcffac7c09e970c64"
+    },
+    "scene.js": {
+      "hash": "39c841419e030df18d6f9a1a0033547fc55eb14ade422cb62aac484938146032",
+      "content": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\af8e5cdb-33d9-4235-a0e4-ec31f1715015\\blobs\\39\\39c841419e030df18d6f9a1a0033547fc55eb14ade422cb62aac484938146032"
+    },
+    "assets/voice.mp3": {
+      "hash": "3f2bc02f848ee293f08e0cc5c1f4a5fb53403347404358667dad310b4e512445",
+      "content": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\af8e5cdb-33d9-4235-a0e4-ec31f1715015\\blobs\\3f\\3f2bc02f848ee293f08e0cc5c1f4a5fb53403347404358667dad310b4e512445"
+    }
+  },
+  "revisions": {},
+  "checks": {
+    "latest": null,
+    "revisions": {},
+    "unversioned": []
+  },
+  "snapshots": {
+    "latest": {
+      "revision": null,
+      "id": "a7c856e1-5d09-4769-9209-7e134016b3ed-1"
+    },
+    "revisions": {},
+    "unversioned": [
+      {
+        "scope": "full",
+        "id": "a7c856e1-5d09-4769-9209-7e134016b3ed-0",
+        "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\wide01\\frame-00-at-50s.png",
+        "time": 50,
+        "metadata": {
+          "width": 1920,
+          "height": 1080,
+          "zoomScale": 1,
+          "browserGpuMode": "auto",
+          "warnings": [],
+          "partial": false
+        },
+        "createdAt": 1792958811898,
+        "contentHash": "0e45c1cfeb48bc0d2f4caaee955d5bac97b48b61b89ed48493e9c5ffab49e2de",
+        "revision": null,
+        "inputFingerprint": "760ea9c3082b6810ca0f1cab44ff58a3b1529c865d6cb3934769fb549b8de06c",
+        "inputScope": "local-project-files",
+        "attribution": "unversioned"
+      },
+      {
+        "scope": "full",
+        "id": "a7c856e1-5d09-4769-9209-7e134016b3ed-1",
+        "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\wide01\\frame-01-at-95s.png",
+        "time": 95,
+        "metadata": {
+          "width": 1920,
+          "height": 1080,
+          "zoomScale": 1,
+          "browserGpuMode": "auto",
+          "warnings": [],
+          "partial": false
+        },
+        "createdAt": 1792958811898,
+        "contentHash": "08bcdc1a1ad9812fbab8b1788145a6231c62ea51ea4ce53511eae6655189b210",
+        "revision": null,
+        "inputFingerprint": "760ea9c3082b6810ca0f1cab44ff58a3b1529c865d6cb3934769fb549b8de06c",
+        "inputScope": "local-project-files",
+        "attribution": "unversioned"
+      }
+    ]
+  },
+  "renders": {
+    "latest": {
+      "id": "a3ed8186-739f-42dd-992a-fca8b80d5220",
+      "completedAt": 1792959052604,
+      "output": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\puzzles\\_wide\\ep01_poisoned_bottles\\renders\\ep01_poisoned_bottles.mp4",
+      "status": "completed",
+      "revision": null
+    },
+    "retainedRevisions": []
+  },
+  "pendingArtifactCleanup": []
+}

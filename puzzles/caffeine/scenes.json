@@ -1,0 +1,518 @@
+{
+ "comp": "caffeine",
+ "out": "caffeine",
+ "music": "library/music/incompetech/stay-the-course.mp3",
+ "music_gain": 0.16,
+ "blocks": [
+  {
+   "scenes": [
+    {
+     "t": "organ_focus",
+     "image": "01_coffee.jpg",
+     "color": [
+      1,
+      0.62,
+      0.2
+     ],
+     "zoom": [
+      100,
+      114
+     ],
+     "emit": {
+      "at": 0.4,
+      "from": [
+       430,
+       660
+      ],
+      "dir": [
+       0,
+       -1
+      ],
+      "color": [
+       1,
+       0.92,
+       0.78
+      ],
+      "type": 3,
+      "rate": 3
+     }
+    },
+    {
+     "t": "impact_title",
+     "at": "hides",
+     "until": "end",
+     "fade": [
+      0.2,
+      0.3
+     ],
+     "lines": [
+      {
+       "text": "IT HIDES THE",
+       "size": 100,
+       "y": 420,
+       "color": [
+        1,
+        0.92,
+        0.78
+       ]
+      },
+      {
+       "text": "TIREDNESS",
+       "size": 130,
+       "y": 540,
+       "color": [
+        1,
+        0.62,
+        0.2
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "cut": "whoosh",
+   "scenes": [
+    {
+     "t": "organ_focus",
+     "image": "05_brain.jpg",
+     "scale": 0.9,
+     "color": [
+      0.3,
+      0.65,
+      1
+     ],
+     "label": {
+      "text": "YOUR BRAIN",
+      "at": 0.3
+     },
+     "emit": {
+      "at": "adenosine-1.5",
+      "until": "end",
+      "from": [
+       445,
+       775
+      ],
+      "dir": [
+       0,
+       -1
+      ],
+      "color": [
+       0.3,
+       0.65,
+       1
+      ],
+      "type": 2,
+      "rate": 6
+     }
+    },
+    {
+     "t": "counter",
+     "bg": false,
+     "at": "every",
+     "reach": "all",
+     "to": 16,
+     "format": "number",
+     "suffix": " H",
+     "y": 1180,
+     "size": 120,
+     "color": [
+      1,
+      0.92,
+      0.78
+     ],
+     "label": "HOURS AWAKE",
+     "label_y": 1290,
+     "label_color": [
+      1,
+      0.62,
+      0.2
+     ]
+    }
+   ]
+  },
+  {
+   "scenes": [
+    {
+     "t": "molecule_dock",
+     "color": [
+      0.55,
+      0.32,
+      0.14
+     ],
+     "receptors": 3,
+     "dissolve_at": "dur",
+     "ligands": [
+      {
+       "at": "docks",
+       "label": "ADENOSINE",
+       "color": [
+        0.3,
+        0.65,
+        1
+       ],
+       "persist": true
+      },
+      {
+       "at": "more",
+       "color": [
+        0.3,
+        0.65,
+        1
+       ],
+       "persist": true
+      },
+      {
+       "at": "fills",
+       "color": [
+        0.3,
+        0.65,
+        1
+       ],
+       "persist": true
+      }
+     ]
+    },
+    {
+     "t": "meter",
+     "bg": false,
+     "dir": "h",
+     "y": 1330,
+     "label": "SLEEP PRESSURE",
+     "from": 10,
+     "to": 100,
+     "value": false,
+     "colors": [
+      [
+       0.3,
+       0.65,
+       1
+      ],
+      [
+       0.3,
+       0.65,
+       1
+      ],
+      [
+       0.5,
+       0.45,
+       1
+      ]
+     ],
+     "at": "more",
+     "reach": "call"
+    }
+   ]
+  },
+  {
+   "scenes": [
+    {
+     "t": "molecule_dock",
+     "color": [
+      0.55,
+      0.32,
+      0.14
+     ],
+     "receptors": 3,
+     "ligands": [
+      {
+       "at": "caffeine",
+       "label": "CAFFEINE",
+       "color": [
+        1,
+        0.62,
+        0.2
+       ],
+       "persist": true
+      },
+      {
+       "at": "slips",
+       "color": [
+        1,
+        0.62,
+        0.2
+       ],
+       "persist": true
+      },
+      {
+       "at": "takes",
+       "color": [
+        1,
+        0.62,
+        0.2
+       ],
+       "persist": true
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "scenes": [
+    {
+     "t": "organ_focus",
+     "image": "05_brain.jpg",
+     "scale": 0.9,
+     "color": [
+      1,
+      0.62,
+      0.2
+     ]
+    },
+    {
+     "t": "meter",
+     "bg": false,
+     "dir": "h",
+     "y": 1300,
+     "label": "ALERTNESS",
+     "from": 15,
+     "to": 90,
+     "value": false,
+     "colors": [
+      [
+       0.55,
+       0.32,
+       0.14
+      ],
+      [
+       1,
+       0.62,
+       0.2
+      ],
+      [
+       1,
+       0.92,
+       0.78
+      ]
+     ],
+     "at": "cannot",
+     "reach": "alert+0.6"
+    },
+    {
+     "t": "impact_title",
+     "at": "thirty-0.2",
+     "until": "end",
+     "fade": [
+      0.2,
+      0.3
+     ],
+     "lines": [
+      {
+       "text": "30\u201360 MIN",
+       "size": 150,
+       "y": 330,
+       "color": [
+        1,
+        0.62,
+        0.2
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "cut": "whoosh",
+   "scenes": [
+    {
+     "t": "molecule_dock",
+     "color": [
+      0.55,
+      0.32,
+      0.14
+     ],
+     "receptors": 3,
+     "dissolve_at": "off",
+     "ligands": [
+      {
+       "at": 0.3,
+       "label": "CAFFEINE",
+       "color": [
+        1,
+        0.62,
+        0.2
+       ]
+      },
+      {
+       "at": 0.5,
+       "color": [
+        1,
+        0.62,
+        0.2
+       ]
+      },
+      {
+       "at": 0.7,
+       "color": [
+        1,
+        0.62,
+        0.2
+       ]
+      },
+      {
+       "at": "lands",
+       "color": [
+        0.3,
+        0.65,
+        1
+       ],
+       "persist": true,
+       "label": "ADENOSINE"
+      },
+      {
+       "at": "lands+0.15",
+       "color": [
+        0.3,
+        0.65,
+        1
+       ],
+       "persist": true
+      },
+      {
+       "at": "lands+0.3",
+       "color": [
+        0.3,
+        0.65,
+        1
+       ],
+       "persist": true
+      }
+     ]
+    },
+    {
+     "t": "meter",
+     "bg": false,
+     "dir": "h",
+     "y": 1330,
+     "label": "ALERTNESS",
+     "from": 90,
+     "to": 8,
+     "value": false,
+     "colors": [
+      [
+       0.5,
+       0.45,
+       1
+      ],
+      [
+       0.3,
+       0.65,
+       1
+      ],
+      [
+       1,
+       0.62,
+       0.2
+      ]
+     ],
+     "at": "lands",
+     "reach": "lands+0.5",
+     "show": "lands-1"
+    },
+    {
+     "t": "impact_title",
+     "at": "crash-0.1",
+     "until": "end",
+     "pop": 0.2,
+     "hit": true,
+     "lines": [
+      {
+       "text": "THE CRASH",
+       "size": 150,
+       "y": 460,
+       "color": [
+        1,
+        0.62,
+        0.2
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "scenes": [
+    {
+     "t": "meter",
+     "bg": true,
+     "dir": "h",
+     "y": 820,
+     "label": "CAFFEINE LEFT",
+     "from": 100,
+     "to": 50,
+     "suffix": "%",
+     "at": 0.4,
+     "reach": "five+0.5",
+     "colors": [
+      [
+       0.55,
+       0.32,
+       0.14
+      ],
+      [
+       1,
+       0.62,
+       0.2
+      ],
+      [
+       1,
+       0.92,
+       0.78
+      ]
+     ],
+     "until": "for"
+    },
+    {
+     "t": "impact_title",
+     "at": 0.4,
+     "until": "for",
+     "lines": [
+      {
+       "text": "IN ABOUT 5 HOURS",
+       "size": 70,
+       "y": 520,
+       "color": [
+        1,
+        0.92,
+        0.78
+       ]
+      },
+      {
+       "text": "Source: U.S. FDA",
+       "size": 40,
+       "y": 1420,
+       "font": "Inter",
+       "color": [
+        0.8,
+        0.7,
+        0.55
+       ]
+      }
+     ]
+    },
+    {
+     "t": "end_card",
+     "at": "for",
+     "until": "dur",
+     "color": [
+      1,
+      0.62,
+      0.2
+     ],
+     "lines": [
+      "UP TO 400 MG A DAY",
+      {
+       "text": "for most healthy adults (FDA)",
+       "size": 50
+      },
+      {
+       "text": "Not medical advice",
+       "size": 50
+      }
+     ],
+     "bg": false
+    }
+   ]
+  }
+ ]
+}

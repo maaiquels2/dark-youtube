@@ -1,0 +1,358 @@
+{
+ "theme": "rulechanged",
+ "format": "vertical",
+ "comp": "main",
+ "out": "s3_still_ringing",
+ "music": "library/music/incompetech/interloper.mp3",
+ "music_gain": 0.14,
+ "lufs": -14,
+ "tail": 1.0,
+ "captions": true,
+ "blocks": [
+  {
+   "act": "rule",
+   "scenes": [
+    {
+     "t": "organ_focus",
+     "image": "capitol.jpg",
+     "screen": false,
+     "photo": true,
+     "zoom": [
+      100,
+      108
+     ],
+     "illustration": true
+    },
+    {
+     "t": "impact_title",
+     "at": "start",
+     "fade": [
+      0.15,
+      0.25
+     ],
+     "lines": [
+      {
+       "text": "A LAW TO STOP IT",
+       "size": 104,
+       "y": 860,
+       "color": [
+        1,
+        0.96,
+        0.9
+       ],
+       "font": "Anton"
+      }
+     ]
+    },
+    {
+     "t": "impact_title",
+     "at": "still",
+     "fade": [
+      0.15,
+      0.25
+     ],
+     "lines": [
+      {
+       "text": "STILL RINGING",
+       "size": 104,
+       "y": 990,
+       "color": [
+        0.82,
+        0.25,
+        0.18
+       ],
+       "font": "Anton"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "act": "scam",
+   "scenes": [
+    {
+     "t": "fact_card",
+     "big": "58.5 BILLION",
+     "size": 140,
+     "at": "start+0.1",
+     "image": "stack_phones.jpg",
+     "text": "robocalls in 2019, YouMail estimate",
+     "source": "Source: YouMail Robocall Index"
+    }
+   ]
+  },
+  {
+   "act": "rule",
+   "scenes": [
+    {
+     "t": "web_clip",
+     "image": "fcc_traced_act.png",
+     "site": "FCC.GOV",
+     "date": "TRACED ACT",
+     "source": "Source: Public Law 116-105",
+     "marks": [
+      {
+       "box": [
+        395,
+        443,
+        1134,
+        122
+       ],
+       "at": "traced"
+      }
+     ],
+     "until": "stir-0.2"
+    },
+    {
+     "t": "organ_focus",
+     "image": "signature.jpg",
+     "screen": false,
+     "photo": true,
+     "zoom": [
+      100,
+      108
+     ],
+     "illustration": true,
+     "label": {
+      "text": "A DIGITAL SIGNATURE",
+      "at": 0.3
+     },
+     "at": "stir-0.3"
+    },
+    {
+     "t": "lower_third",
+     "text": "STIR/SHAKEN",
+     "sub": "Caller ID authentication | Source: FCC",
+     "corner": "tl",
+     "at": "stir"
+    },
+    {
+     "t": "impact_title",
+     "at": "signs",
+     "fade": [
+      0.15,
+      0.25
+     ],
+     "lines": [
+      {
+       "text": "SIGNED",
+       "size": 150,
+       "y": 900,
+       "color": [
+        1,
+        0.96,
+        0.9
+       ],
+       "font": "Anton"
+      }
+     ],
+     "until": "receives-0.2"
+    },
+    {
+     "t": "impact_title",
+     "at": "checks",
+     "fade": [
+      0.15,
+      0.25
+     ],
+     "lines": [
+      {
+       "text": "CHECKED",
+       "size": 150,
+       "y": 900,
+       "color": [
+        0.5,
+        0.69,
+        0.54
+       ],
+       "font": "Anton"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "act": "case",
+   "scenes": [
+    {
+     "t": "us_map",
+     "title": "FCC robocall fine, 2021",
+     "source": "Source: FCC order FCC-21-35",
+     "states": [
+      {
+       "code": "TX",
+       "at": "texas",
+       "tone": "scam",
+       "value": "$225M",
+       "label": "about 1 billion spoofed calls",
+       "dy": 300
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "act": "case",
+   "scenes": [
+    {
+     "t": "bars",
+     "title": "Robocalls per year (billions)",
+     "source": "Source: YouMail Robocall Index",
+     "decimals": 1,
+     "suffix": "B",
+     "at": "twenty",
+     "stagger": 0.35,
+     "highlight": 4,
+     "bars": [
+      {
+       "label": "2019",
+       "value": 58.5
+      },
+      {
+       "label": "2020",
+       "value": 45.9
+      },
+      {
+       "label": "2023",
+       "value": 55.0
+      },
+      {
+       "label": "2024",
+       "value": 52.8
+      },
+      {
+       "label": "2025",
+       "value": 52.5
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "act": "rule",
+   "scenes": [
+    {
+     "t": "organ_focus",
+     "image": "phone_kitchen.jpg",
+     "screen": false,
+     "photo": true,
+     "zoom": [
+      100,
+      108
+     ],
+     "illustration": true
+    },
+    {
+     "t": "impact_title",
+     "at": "harder",
+     "fade": [
+      0.15,
+      0.25
+     ],
+     "lines": [
+      {
+       "text": "HARDER TO HIDE",
+       "size": 110,
+       "y": 860,
+       "color": [
+        1,
+        0.96,
+        0.9
+       ],
+       "font": "Anton"
+      }
+     ]
+    },
+    {
+     "t": "impact_title",
+     "at": "quiet",
+     "fade": [
+      0.15,
+      0.25
+     ],
+     "lines": [
+      {
+       "text": "NOT QUIET",
+       "size": 110,
+       "y": 990,
+       "color": [
+        0.82,
+        0.25,
+        0.18
+       ],
+       "font": "Anton"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "act": "case",
+   "scenes": [
+    {
+     "t": "web_clip",
+     "image": "fcc_final_2018.png",
+     "site": "FCC.GOV",
+     "date": "MAY 10, 2018",
+     "source": "Source: FCC order FCC 18-58",
+     "marks": [
+      {
+       "box": [
+        395,
+        443,
+        1871,
+        230
+       ],
+       "at": "hundred"
+      }
+     ],
+     "until": "is-0.1"
+    },
+    {
+     "t": "impact_title",
+     "at": "is",
+     "fade": [
+      0.15,
+      0.25
+     ],
+     "lines": [
+      {
+       "text": "FULL CASE",
+       "size": 150,
+       "y": 900,
+       "color": [
+        1,
+        0.96,
+        0.9
+       ],
+       "font": "Anton"
+      }
+     ],
+     "until": "dur"
+    },
+    {
+     "t": "impact_title",
+     "at": "is+0.15",
+     "fade": [
+      0.15,
+      0.25
+     ],
+     "lines": [
+      {
+       "text": "ON THE RULE CHANGED",
+       "size": 66,
+       "y": 1010,
+       "color": [
+        0.82,
+        0.25,
+        0.18
+       ],
+       "font": "Anton"
+      }
+     ],
+     "until": "dur"
+    }
+   ]
+  }
+ ]
+}

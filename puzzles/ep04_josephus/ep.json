@@ -1,0 +1,13 @@
+{
+  "title": "41 people. Who <span style=\"color:#d62828\">survives</span>?",
+  "keys": ["survives", "binary", "nineteen", "leading", "doubling", "forty-one"],
+  "blocks": [
+    "Forty-one people stand in a circle. Every second person is eliminated. Which position survives? There's a shortcut, and it uses binary.",
+    "Here are the rules. The people are numbered one to forty-one around the circle. Start at one: skip one, eliminate two. Skip three, eliminate four. Keep going around the circle until only one person is left.",
+    "Try a small circle first. With five people, number three survives. With six, number five. With seven, number seven. With eight, number one.",
+    "Look at the survivors: one, one, three, one, three, five, seven, one. Every extra person moves the answer up by two. And whenever the circle size is a power of two, the survivor is number one.",
+    "Here's the shortcut. Write the number of people in binary. Forty-one is one-zero-one-zero-zero-one. Now take the leading one, and move it to the end. You get zero-one-zero-zero-one-one. That's nineteen. Person nineteen survives.",
+    "Why does it work? After one lap, half the circle is gone, and the survivors renumber themselves by doubling. Doubling is a binary shift. The leading one falls off the front, and a one lands at the back.",
+    "So a problem about elimination turns out to be a problem about shifting digits. Once again, binary was hiding in the answer."
+  ]
+}

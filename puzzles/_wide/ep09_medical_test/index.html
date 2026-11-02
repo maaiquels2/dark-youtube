@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=1920, height=1080" />
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 1920px; height: 1080px; overflow: hidden; background: #f4ecd8; }
+  #root { position: relative; width: 1920px; height: 1080px; overflow: hidden; background: #f4ecd8;
+    font-family: "JetBrains Mono", monospace; color: #1c1c1c; }
+  #cv { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; }
+  .t { position: absolute; left: 0; width: 1920px; text-align: center; font-weight: 700; }
+  #title { top: 26px; font-size: 52px; white-space: nowrap; }
+  #stat { top: 92px; font-size: 28px; opacity: .7; letter-spacing: 2px; }
+  #cap { top: 958px; left: 260px; width: 1400px; font-size: 52px; line-height: 62px; height: 124px; }
+  .g { position: absolute; left: 0; top: 0; width: 1400px; text-align: center; opacity: 0; }
+  .w { opacity: .22; }
+  .w.on { opacity: 1; }
+  .w.k.on { color: #d62828; }
+</style>
+</head>
+<body>
+<div id="root" data-composition-id="main" data-start="0" data-duration="64.004" data-width="1920" data-height="1080">
+  <canvas id="cv" class="clip" data-start="0" data-duration="64.004" width="1920" height="1080"></canvas>
+  <div id="title" class="clip t" data-start="0" data-duration="64.004">A 99% test says <span style="color:#d62828">positive</span>.</div>
+  <div id="stat" class="clip t" data-start="0" data-duration="64.004"></div>
+  <div id="cap" class="clip t" data-start="0" data-duration="64.004"></div>
+  <audio id="voice" src="assets/voice.mp3" data-start="2.8" data-duration="64.004" data-volume="1"></audio>
+</div>
+<script>
+const LEAD = 2.8, CHAPTER = "PUZZLE 3 OF 6|the 99% test", WORDS = [{"w": "A", "s": 2.8, "e": 2.904}, {"w": "rare", "s": 3.009, "e": 3.23}, {"w": "disease", "s": 3.276, "e": 3.682}, {"w": "affects", "s": 3.717, "e": 4.054}, {"w": "one", "s": 4.124, "e": 4.344}, {"w": "person", "s": 4.391, "e": 4.704}, {"w": "in", "s": 4.75, "e": 4.809}, {"w": "a", "s": 4.855, "e": 4.878}, {"w": "hundred.", "s": 4.948, "e": 5.366}, {"w": "You", "s": 5.772, "e": 5.911}, {"w": "take", "s": 5.981, "e": 6.202}, {"w": "a", "s": 6.237, "e": 6.271}, {"w": "test", "s": 6.329, "e": 6.596}, {"w": "that", "s": 6.631, "e": 6.747}, {"w": "is", "s": 6.794, "e": 6.875}, {"w": "ninety-nine", "s": 7.014, "e": 7.548}, {"w": "percent", "s": 7.583, "e": 7.862}, {"w": "accurate,", "s": 7.908, "e": 8.384}, {"w": "and", "s": 8.64, "e": 8.791}, {"w": "it", "s": 8.837, "e": 8.907}, {"w": "comes", "s": 8.977, "e": 9.255}, {"w": "back", "s": 9.325, "e": 9.545}, {"w": "positive.", "s": 9.627, "e": 10.312}, {"w": "What's", "s": 10.718, "e": 10.973}, {"w": "the", "s": 10.997, "e": 11.066}, {"w": "chance", "s": 11.113, "e": 11.38}, {"w": "you're", "s": 11.403, "e": 11.554}, {"w": "actually", "s": 11.577, "e": 11.914}, {"w": "sick?", "s": 11.983, "e": 12.425}, {"w": "Most", "s": 13.075, "e": 13.295}, {"w": "people", "s": 13.33, "e": 13.562}, {"w": "say", "s": 13.597, "e": 13.725}, {"w": "ninety-nine", "s": 13.795, "e": 14.236}, {"w": "percent.", "s": 14.271, "e": 14.793}, {"w": "Here's", "s": 15.095, "e": 15.339}, {"w": "what", "s": 15.362, "e": 15.501}, {"w": "ninety-nine", "s": 15.582, "e": 16.116}, {"w": "percent", "s": 16.151, "e": 16.453}, {"w": "accurate", "s": 16.511, "e": 16.894}, {"w": "means.", "s": 16.929, "e": 17.382}, {"w": "If", "s": 17.451, "e": 17.567}, {"w": "you're", "s": 17.614, "e": 17.8}, {"w": "sick,", "s": 17.834, "e": 18.252}, {"w": "the", "s": 18.554, "e": 18.659}, {"w": "test", "s": 18.717, "e": 18.937}, {"w": "catches", "s": 18.995, "e": 19.332}, {"w": "it", "s": 19.39, "e": 19.495}, {"w": "ninety-nine", "s": 19.634, "e": 20.145}, {"w": "times", "s": 20.18, "e": 20.447}, {"w": "out", "s": 20.482, "e": 20.563}, {"w": "of", "s": 20.598, "e": 20.644}, {"w": "a", "s": 20.679, "e": 20.702}, {"w": "hundred.", "s": 20.76, "e": 21.155}, {"w": "If", "s": 21.457, "e": 21.573}, {"w": "you're", "s": 21.619, "e": 21.817}, {"w": "healthy,", "s": 21.875, "e": 22.42}, {"w": "it", "s": 22.525, "e": 22.641}, {"w": "wrongly", "s": 22.687, "e": 23.047}, {"w": "says", "s": 23.117, "e": 23.326}, {"w": "positive", "s": 23.407, "e": 23.953}, {"w": "only", "s": 24.011, "e": 24.22}, {"w": "one", "s": 24.29, "e": 24.487}, {"w": "time", "s": 24.522, "e": 24.731}, {"w": "out", "s": 24.766, "e": 24.882}, {"w": "of", "s": 24.917, "e": 24.963}, {"w": "a", "s": 24.998, "e": 25.021}, {"w": "hundred.", "s": 25.079, "e": 25.462}, {"w": "Picture", "s": 25.822, "e": 26.194}, {"w": "a", "s": 26.228, "e": 26.263}, {"w": "thousand", "s": 26.333, "e": 26.739}, {"w": "people.", "s": 26.809, "e": 27.25}, {"w": "One", "s": 27.656, "e": 27.877}, {"w": "percent", "s": 27.924, "e": 28.26}, {"w": "are", "s": 28.295, "e": 28.388}, {"w": "sick,", "s": 28.434, "e": 28.806}, {"w": "and", "s": 28.841, "e": 28.98}, {"w": "that's", "s": 29.027, "e": 29.224}, {"w": "ten", "s": 29.282, "e": 29.468}, {"w": "people.", "s": 29.537, "e": 29.921}, {"w": "The", "s": 30.327, "e": 30.455}, {"w": "test", "s": 30.513, "e": 30.768}, {"w": "catches", "s": 30.826, "e": 31.209}, {"w": "nearly", "s": 31.279, "e": 31.569}, {"w": "all", "s": 31.639, "e": 31.848}, {"w": "of", "s": 31.906, "e": 31.964}, {"w": "them,", "s": 32.01, "e": 32.219}, {"w": "so", "s": 32.266, "e": 32.44}, {"w": "about", "s": 32.498, "e": 32.765}, {"w": "ten", "s": 32.811, "e": 33.044}, {"w": "true", "s": 33.113, "e": 33.345}, {"w": "positives.", "s": 33.392, "e": 34.1}, {"w": "Now", "s": 34.356, "e": 34.495}, {"w": "the", "s": 34.541, "e": 34.611}, {"w": "healthy", "s": 34.681, "e": 34.994}, {"w": "ones.", "s": 35.064, "e": 35.482}, {"w": "There", "s": 35.784, "e": 35.969}, {"w": "are", "s": 35.993, "e": 36.109}, {"w": "nine", "s": 36.167, "e": 36.399}, {"w": "hundred", "s": 36.434, "e": 36.701}, {"w": "ninety", "s": 36.759, "e": 37.037}, {"w": "of", "s": 37.107, "e": 37.165}, {"w": "them,", "s": 37.212, "e": 37.479}, {"w": "and", "s": 37.618, "e": 37.769}, {"w": "one", "s": 37.873, "e": 38.036}, {"w": "percent", "s": 38.082, "e": 38.442}, {"w": "get", "s": 38.489, "e": 38.593}, {"w": "a", "s": 38.628, "e": 38.651}, {"w": "false", "s": 38.698, "e": 38.941}, {"w": "alarm.", "s": 38.976, "e": 39.417}, {"w": "That's", "s": 39.719, "e": 39.963}, {"w": "about", "s": 39.998, "e": 40.288}, {"w": "ten", "s": 40.358, "e": 40.602}, {"w": "more", "s": 40.671, "e": 40.834}, {"w": "positives.", "s": 40.88, "e": 41.542}, {"w": "So", "s": 41.844, "e": 41.984}, {"w": "about", "s": 42.03, "e": 42.262}, {"w": "twenty", "s": 42.297, "e": 42.564}, {"w": "people", "s": 42.611, "e": 42.843}, {"w": "test", "s": 42.889, "e": 43.063}, {"w": "positive.", "s": 43.121, "e": 43.69}, {"w": "Ten", "s": 44.05, "e": 44.236}, {"w": "are", "s": 44.294, "e": 44.399}, {"w": "sick,", "s": 44.433, "e": 44.851}, {"w": "and", "s": 44.921, "e": 45.072}, {"w": "ten", "s": 45.118, "e": 45.269}, {"w": "are", "s": 45.316, "e": 45.409}, {"w": "healthy.", "s": 45.443, "e": 45.931}, {"w": "If", "s": 46.337, "e": 46.465}, {"w": "you", "s": 46.512, "e": 46.593}, {"w": "test", "s": 46.662, "e": 46.906}, {"w": "positive,", "s": 46.976, "e": 47.638}, {"w": "your", "s": 47.707, "e": 47.847}, {"w": "chance", "s": 47.905, "e": 48.172}, {"w": "of", "s": 48.207, "e": 48.253}, {"w": "being", "s": 48.311, "e": 48.508}, {"w": "sick", "s": 48.578, "e": 48.81}, {"w": "is", "s": 48.857, "e": 48.926}, {"w": "about", "s": 48.961, "e": 49.193}, {"w": "fifty", "s": 49.252, "e": 49.519}, {"w": "percent.", "s": 49.588, "e": 50.099}, {"w": "Not", "s": 50.401, "e": 50.587}, {"w": "ninety-nine.", "s": 50.645, "e": 51.306}, {"w": "The", "s": 51.666, "e": 51.794}, {"w": "test", "s": 51.841, "e": 52.073}, {"w": "is", "s": 52.119, "e": 52.212}, {"w": "accurate,", "s": 52.282, "e": 52.769}, {"w": "but", "s": 52.827, "e": 52.978}, {"w": "the", "s": 53.013, "e": 53.083}, {"w": "disease", "s": 53.141, "e": 53.547}, {"w": "is", "s": 53.582, "e": 53.675}, {"w": "rare.", "s": 53.779, "e": 54.221}, {"w": "When", "s": 54.627, "e": 54.801}, {"w": "something", "s": 54.848, "e": 55.138}, {"w": "is", "s": 55.184, "e": 55.254}, {"w": "rare,", "s": 55.335, "e": 55.625}, {"w": "even", "s": 55.672, "e": 55.858}, {"w": "a", "s": 55.892, "e": 55.927}, {"w": "small", "s": 55.985, "e": 56.299}, {"w": "error", "s": 56.368, "e": 56.693}, {"w": "rate", "s": 56.752, "e": 56.995}, {"w": "makes", "s": 57.053, "e": 57.262}, {"w": "as", "s": 57.297, "e": 57.367}, {"w": "many", "s": 57.425, "e": 57.599}, {"w": "false", "s": 57.657, "e": 57.913}, {"w": "alarms", "s": 57.936, "e": 58.296}, {"w": "as", "s": 58.342, "e": 58.423}, {"w": "real", "s": 58.481, "e": 58.644}, {"w": "cases.", "s": 58.69, "e": 59.201}, {"w": "That's", "s": 59.608, "e": 59.828}, {"w": "why", "s": 59.863, "e": 59.979}, {"w": "a", "s": 60.037, "e": 60.06}, {"w": "positive", "s": 60.13, "e": 60.606}, {"w": "result", "s": 60.641, "e": 60.966}, {"w": "is", "s": 61.001, "e": 61.07}, {"w": "a", "s": 61.117, "e": 61.152}, {"w": "reason", "s": 61.198, "e": 61.442}, {"w": "to", "s": 61.477, "e": 61.523}, {"w": "test", "s": 61.593, "e": 61.837}, {"w": "again,", "s": 61.883, "e": 62.336}, {"w": "not", "s": 62.452, "e": 62.615}, {"w": "to", "s": 62.638, "e": 62.696}, {"w": "panic.", "s": 62.765, "e": 63.404}], B = [2.8, 15.095, 25.822, 34.356, 41.844, 51.666, 63.704], VEND = 63.404, DUR = 64.004, NB = B.length - 1;
+const KEYS = new Set(["fifty", "ninety-nine", "rare", "false", "positive"]);
+const INK = "#1c1c1c", RED = "#d62828", OR = "#e07a00", GRN = "#2a9d5c", DOT = "#4a4a4a";
+const clamp = v => Math.max(0, Math.min(1, v));
+const ease = v => { v = clamp(v); return v * v * (3 - 2 * v); };
+const bit = (i, k) => (i >> k) & 1;
+const cvs = document.getElementById("cv"), x = cvs.getContext("2d");
+const stat = document.getElementById("stat"), cap = document.getElementById("cap");
+const FONT = "'JetBrains Mono', monospace";
+function txt(s, px, py, size, col, align, weight) {
+  x.font = (weight || "bold") + " " + Math.round(size * 1.12) + "px " + FONT; x.fillStyle = col || INK;
+  x.textAlign = align || "center"; x.textBaseline = "middle"; x.fillText(s, px, py);
+}
+function circ(cx, cy, r, fill, stroke, lw, alpha) {
+  x.globalAlpha = alpha == null ? 1 : alpha; x.beginPath(); x.arc(cx, cy, r, 0, 6.283);
+  if (fill) { x.fillStyle = fill; x.fill(); } if (stroke) { x.strokeStyle = stroke; x.lineWidth = lw || 4; x.stroke(); }
+  x.globalAlpha = 1;
+}
+function rect(px, py, w, h, fill, stroke, lw, alpha) {
+  x.globalAlpha = alpha == null ? 1 : alpha;
+  if (fill) { x.fillStyle = fill; x.fillRect(px, py, w, h); }
+  if (stroke) { x.strokeStyle = stroke; x.lineWidth = lw || 4; x.strokeRect(px, py, w, h); }
+  x.globalAlpha = 1;
+}
+function line(x1, y1, x2, y2, col, lw, alpha) {
+  x.globalAlpha = alpha == null ? 1 : alpha; x.strokeStyle = col || INK; x.lineWidth = lw || 3;
+  x.beginPath(); x.moveTo(x1, y1); x.lineTo(x2, y2); x.stroke(); x.globalAlpha = 1;
+}
+function show(w) {
+  const m = w.match(/^((?:one|zero)(?:-(?:one|zero))+)([.,?!]*)$/i);
+  if (m) return m[1].toLowerCase().split("-").map(p => p === "one" ? 1 : 0).join("") + m[2];
+  return w;
+}
+const groups = []; {
+  let g = [];
+  const flush = () => { if (g.length) { groups.push(g); g = []; } };
+  WORDS.forEach((w, i) => {
+    const t = show(w.w);
+    if (g.length && (g.length >= 4 || g.map(o => show(o.w)).join(" ").length + t.length > 24)) flush();
+    g.push({ ...w, i, txt: t });
+    if (/[.?!]$/.test(w.w) || /,$/.test(w.w)) flush();
+  });
+  flush();
+}
+groups.forEach((g, gi) => {
+  const el = document.createElement("div"); el.className = "g"; el.id = "g" + gi;
+  g.forEach(w => {
+    const s = document.createElement("span");
+    s.className = "w" + (KEYS.has(w.txt.toLowerCase().replace(/[.,?!]/g, "")) ? " k" : "");
+    s.textContent = w.txt + " "; w.el = s; el.appendChild(s);
+  });
+  cap.appendChild(el); g.el = el;
+  g.start = g[0].s - 0.05; g.end = DUR;
+});
+groups.forEach((g, gi) => { if (gi + 1 < groups.length) g.end = Math.min(g[g.length - 1].e + 0.25, groups[gi + 1][0].s - 0.05); });
+function blockOf(t) { let b = 0; for (let i = 0; i < NB; i++) if (t >= B[i]) b = i; return b; }
+
+const GX = 80, GY = 330, CS = 23, RS = 24;
+const SICK = new Set(Array.from({ length: 10 }, (_, k) => 37 + k * 97));
+const FALSE_POS = new Set(Array.from({ length: 10 }, (_, k) => 11 + k * 99 + (k % 3) * 2));
+FALSE_POS.forEach(i => { if (SICK.has(i)) FALSE_POS.delete(i); });
+function dotAt(i) { return [GX + (i % 40) * CS + CS / 2, GY + Math.floor(i / 40) * RS + RS / 2]; }
+function grid(sickOn, tpOn, fpOn, fade) {
+  for (let i = 0; i < 1000; i++) {
+    const [cx, cy] = dotAt(i); const s = SICK.has(i), f = FALSE_POS.has(i);
+    let col = DOT, a = 0.55, r = 5.5;
+    if (s && sickOn) { col = RED; a = 1; r = 8; }
+    if (fade && !(s && sickOn) && !(f && fpOn)) a = 0.1;
+    circ(cx, cy, r, col, null, 0, a);
+    if (s && tpOn) circ(cx, cy, 15, null, RED, 3.5);
+    if (f && fpOn) circ(cx, cy, 15, OR, null, 0, 0.9);
+  }
+}
+function scene(t, b, u) {
+  if (b === 0) { grid(false, false, false, false); txt("1 in 100 is sick", 540, 1010, 44, INK); return u < 0.5 ? "1,000 PEOPLE" : "POSITIVE TEST. HOW SURE?"; }
+  if (b === 1) {
+    grid(false, false, false, false);
+    txt("sick → positive 99 of 100", 540, 1000, 40, RED); txt("healthy → positive 1 of 100", 540, 1060, 40, OR);
+    return "WHAT 99% ACCURATE MEANS";
+  }
+  if (b === 2) { grid(true, u > 0.4, false, false); txt(u > 0.4 ? "10 sick · 10 positives" : "10 sick", 540, 1040, 52, RED); return "THE SICK"; }
+  if (b === 3) { grid(true, true, u > 0.35, false); txt(u > 0.35 ? "990 healthy · 10 false alarms" : "990 healthy", 540, 1040, 46, OR); return "THE HEALTHY"; }
+  if (b === 4) {
+    grid(true, true, true, u > 0.3);
+    txt("20 positives: 10 sick + 10 healthy", 540, 985, 40, INK);
+    if (u > 0.55) txt("about 50%", 540, 1055, 80, RED);
+    return "WHO TESTS POSITIVE";
+  }
+  grid(true, true, true, true);
+  txt("rare + small error = many false alarms", 540, 1040, 40, INK);
+  return "TEST AGAIN, DON'T PANIC";
+}
+
+
+function renderAt(t) {
+  x.fillStyle = "#f4ecd8"; x.fillRect(0, 0, 1920, 1080);
+  x.strokeStyle = "rgba(60,90,140,0.16)"; x.lineWidth = 2;
+  for (let g = 0; g <= 1920; g += 40) { x.beginPath(); x.moveTo(g, 0); x.lineTo(g, 1080); x.stroke(); }
+  for (let g = 0; g <= 1080; g += 40) { x.beginPath(); x.moveTo(0, g); x.lineTo(1920, g); x.stroke(); }
+  const b = blockOf(t), u = clamp((t - B[b]) / (B[b + 1] - B[b]));
+  if (t < LEAD) {
+    stat.textContent = ""; x.textAlign = "center"; x.textBaseline = "middle";
+    x.fillStyle = RED; x.font = "bold 44px " + FONT; x.fillText(CHAPTER.split("|")[0], 960, 430);
+    x.fillStyle = INK; x.font = "bold 84px " + FONT; x.fillText(CHAPTER.split("|")[1], 960, 540);
+    groups.forEach(g => { g.el.style.opacity = 0; });
+    return;
+  }
+  x.save(); x.translate(463, -126); x.scale(0.92, 0.92);
+  stat.textContent = scene(t, b, u) || "";
+  x.restore();
+  groups.forEach(g => {
+    const on = t >= g.start && t < g.end;
+    g.el.style.opacity = on ? 1 : 0;
+    if (on) g.forEach(w => w.el.classList.toggle("on", t >= w.s));
+  });
+}
+window.addEventListener("hf-seek", e => renderAt(e.detail.time));
+renderAt(0);
+const tl = gsap.timeline({ paused: true });
+tl.fromTo("#title", { opacity: 0 }, { opacity: 1, duration: 0.5, ease: "power2.out" }, 0);
+window.__timelines = window.__timelines || {};
+window.__timelines["main"] = tl;
+</script>
+</body>
+</html>

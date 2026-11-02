@@ -1,0 +1,550 @@
+{
+ "comp": "ibuprofen",
+ "out": "ibuprofen",
+ "music": "library/music/incompetech/interloper.mp3",
+ "music_gain": 0.16,
+ "finish": {
+  "glow": 0.5
+ },
+ "blocks": [
+  {
+   "scenes": [
+    {
+     "t": "organ_focus",
+     "image": "02_ankle.jpg",
+     "photo": true,
+     "color": [
+      1,
+      0.32,
+      0.3
+     ],
+     "zoom": [
+      100,
+      116
+     ],
+     "emit": {
+      "at": 0.4,
+      "from": [
+       450,
+       1160
+      ],
+      "dir": [
+       0,
+       -1
+      ],
+      "color": [
+       1,
+       0.32,
+       0.3
+      ],
+      "type": 2
+     }
+    },
+    {
+     "t": "impact_title",
+     "at": 0.3,
+     "until": "end",
+     "fade": [
+      0.2,
+      0.3
+     ],
+     "lines": [
+      {
+       "text": "IT CUTS THE",
+       "size": 100,
+       "y": 420,
+       "color": [
+        1,
+        0.92,
+        0.85
+       ]
+      },
+      {
+       "text": "ALARM WIRE",
+       "size": 130,
+       "y": 540,
+       "color": [
+        1,
+        0.32,
+        0.3
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "cut": "whoosh",
+   "scenes": [
+    {
+     "t": "body_map",
+     "image": "01_body.jpg",
+     "photo": true,
+     "color": [
+      1,
+      0.32,
+      0.3
+     ],
+     "spots": [
+      {
+       "x": 550,
+       "y": 1395,
+       "at": "injured",
+       "label": "INJURED TISSUE",
+       "color": [
+        1,
+        0.32,
+        0.3
+       ],
+       "dy": -120,
+       "size": 56,
+       "side": "left"
+      }
+     ],
+     "focus": {
+      "spot": 0,
+      "at": "enzyme",
+      "zoom": 2.5
+     }
+    },
+    {
+     "t": "impact_title",
+     "at": "cyclooxygenase-0.1",
+     "until": "end",
+     "fade": [
+      0.2,
+      0.3
+     ],
+     "lines": [
+      {
+       "text": "CYCLOOXYGENASE",
+       "size": 90,
+       "y": 420,
+       "color": [
+        1,
+        0.75,
+        0.7
+       ]
+      },
+      {
+       "text": "THE ALARM ENZYME",
+       "size": 50,
+       "y": 510,
+       "font": "Inter",
+       "color": [
+        1,
+        0.92,
+        0.85
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "scenes": [
+    {
+     "t": "organ_focus",
+     "image": "02_ankle.jpg",
+     "photo": true,
+     "color": [
+      1,
+      0.32,
+      0.3
+     ],
+     "label": {
+      "text": "PROSTAGLANDINS",
+      "at": "prostaglandins"
+     },
+     "emit": {
+      "at": "prostaglandins",
+      "from": [
+       450,
+       1160
+      ],
+      "dir": [
+       0,
+       -1
+      ],
+      "color": [
+       1,
+       0.32,
+       0.3
+      ],
+      "type": 2,
+      "rate": 6
+     }
+    },
+    {
+     "t": "meter",
+     "bg": false,
+     "dir": "h",
+     "value": false,
+     "colors": [
+      [
+       1,
+       0.75,
+       0.7
+      ],
+      [
+       1,
+       0.32,
+       0.3
+      ],
+      [
+       1,
+       0.3,
+       0.72
+      ]
+     ],
+     "y": 1300,
+     "label": "PAIN SENSITIVITY",
+     "from": 15,
+     "to": 90,
+     "at": "sensitive-1.2",
+     "reach": "sensitive+0.6"
+    }
+   ]
+  },
+  {
+   "scenes": [
+    {
+     "t": "organ_focus",
+     "image": "05_brain.jpg",
+     "photo": true,
+     "color": [
+      1,
+      0.32,
+      0.3
+     ],
+     "scale": 0.9,
+     "label": {
+      "text": "BRAIN",
+      "at": 0.3
+     },
+     "emit": {
+      "at": "brain",
+      "from": [
+       440,
+       592
+      ],
+      "dir": [
+       0,
+       -1
+      ],
+      "color": [
+       1,
+       0.32,
+       0.3
+      ],
+      "type": 2
+     }
+    },
+    {
+     "t": "meter",
+     "bg": false,
+     "dir": "h",
+     "value": false,
+     "colors": [
+      [
+       1,
+       0.75,
+       0.7
+      ],
+      [
+       1,
+       0.32,
+       0.3
+      ],
+      [
+       1,
+       0.3,
+       0.72
+      ]
+     ],
+     "y": 1300,
+     "label": "THERMOSTAT",
+     "from": 20,
+     "to": 85,
+     "at": "thermostat",
+     "reach": "up+0.4"
+    },
+    {
+     "t": "impact_title",
+     "at": "fever-0.1",
+     "until": "end",
+     "fade": [
+      0.2,
+      0.3
+     ],
+     "lines": [
+      {
+       "text": "FEVER",
+       "size": 150,
+       "y": 780,
+       "color": [
+        1,
+        0.32,
+        0.3
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "scenes": [
+    {
+     "t": "organ_focus",
+     "image": "02_ankle.jpg",
+     "photo": true,
+     "color": [
+      1,
+      0.32,
+      0.3
+     ],
+     "emit": {
+      "at": 0.3,
+      "from": [
+       450,
+       1160
+      ],
+      "dir": [
+       0,
+       -1
+      ],
+      "color": [
+       1,
+       0.32,
+       0.3
+      ],
+      "type": 2
+     },
+     "hold": {
+      "at": "blocks",
+      "x": 450,
+      "y": 600,
+      "color": [
+       1,
+       0.3,
+       0.72
+      ],
+      "text": "IBUPROFEN"
+     }
+    },
+    {
+     "t": "meter",
+     "bg": false,
+     "dir": "h",
+     "value": false,
+     "colors": [
+      [
+       1,
+       0.75,
+       0.7
+      ],
+      [
+       1,
+       0.32,
+       0.3
+      ],
+      [
+       1,
+       0.3,
+       0.72
+      ]
+     ],
+     "y": 1230,
+     "at": "fewer",
+     "reach": "fever",
+     "meters": [
+      {
+       "label": "PAIN",
+       "from": 85,
+       "to": 25
+      },
+      {
+       "label": "SWELLING",
+       "from": 85,
+       "to": 25
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "cut": "whoosh",
+   "scenes": [
+    {
+     "t": "fact_card",
+     "text": "to clear about half the dose",
+     "source": "StatPearls: Ibuprofen (NCBI Bookshelf)",
+     "color": [
+      1,
+      0.32,
+      0.3
+     ],
+     "big": "~2 HOURS"
+    }
+   ]
+  },
+  {
+   "scenes": [
+    {
+     "t": "organ_focus",
+     "image": "04_stomach.jpg",
+     "photo": true,
+     "color": [
+      1,
+      0.32,
+      0.3
+     ],
+     "label": {
+      "text": "STOMACH LINING",
+      "at": "same"
+     },
+     "emit": {
+      "at": "protect",
+      "from": [
+       330,
+       800
+      ],
+      "dir": [
+       0,
+       -1
+      ],
+      "color": [
+       0.3,
+       0.9,
+       1
+      ],
+      "type": 3
+     },
+     "hold": {
+      "at": "blocks",
+      "x": 420,
+      "y": 700,
+      "color": [
+       1,
+       0.3,
+       0.72
+      ],
+      "text": "IBUPROFEN"
+     }
+    },
+    {
+     "t": "impact_title",
+     "at": "start",
+     "until": "same",
+     "fade": [
+      0.2,
+      0.3
+     ],
+     "lines": [
+      {
+       "text": "HERE'S THE CATCH",
+       "size": 110,
+       "y": 420,
+       "color": [
+        1,
+        0.75,
+        0.7
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "scenes": [
+    {
+     "t": "end_card",
+     "until": "dur",
+     "color": [
+      1,
+      0.32,
+      0.3
+     ],
+     "lines": [
+      "READ THE LABEL",
+      {
+       "text": "Stomach bleeding, heart attack and stroke risk",
+       "size": 46
+      },
+      {
+       "text": "Not medical advice. Ask a pharmacist or doctor.",
+       "size": 46
+      }
+     ],
+     "at": "over-0.2"
+    },
+    {
+     "t": "body_map",
+     "image": "01_body.jpg",
+     "photo": true,
+     "until": "over-0.2",
+     "color": [
+      1,
+      0.32,
+      0.3
+     ],
+     "spots": [
+      {
+       "x": 482,
+       "y": 530,
+       "at": "stomach",
+       "label": "BLEEDING",
+       "side": "left",
+       "dy": -60,
+       "size": 56,
+       "color": [
+        1,
+        0.32,
+        0.3
+       ]
+      },
+      {
+       "x": 470,
+       "y": 390,
+       "at": "heart",
+       "label": "HEART ATTACK",
+       "side": "right",
+       "dy": -60,
+       "size": 56,
+       "color": [
+        1,
+        0.32,
+        0.3
+       ]
+      },
+      {
+       "x": 432,
+       "y": 105,
+       "at": "stroke",
+       "label": "STROKE",
+       "side": "left",
+       "dy": 180,
+       "size": 56,
+       "color": [
+        1,
+        0.32,
+        0.3
+       ]
+      }
+     ]
+    },
+    {
+     "t": "lower_third",
+     "text": "Warnings: FDA (2015), MedlinePlus",
+     "corner": "tl",
+     "color": [
+      1,
+      0.32,
+      0.3
+     ],
+     "at": "over"
+    }
+   ]
+  }
+ ]
+}

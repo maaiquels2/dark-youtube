@@ -1,0 +1,81 @@
+REELS DO INSTAGRAM - Show Your Work (19:00). Max 90 s. Enquete em todo Reel (Add a poll, 60 caracteres).
+Corte o cartao final 'Follow for the next one'. Datas sugeridas; ajuste conforme o que ja agendou.
+
+01 | 26/10 19:00 | 01_26-10_ep02_monty_hall_ig90.mp4 | 88 s
+LEGENDA:
+100 doors, one car. You pick one, the host opens 98 empty ones. Stay or switch? 🚪
+#math #montyhall #probability #puzzle
+ENQUETE: Stay or switch? | Stay | Switch
+
+02 | 27/10 19:00 | 02_27-10_ep03_birthday_paradox_ig90.mp4 | 89 s
+LEGENDA:
+Why do just 23 people give you a 50% chance of a shared birthday? Count the pairs. 🎂
+#math #probability #birthdayparadox #puzzle
+ENQUETE: 23 people: shared birthday odds? | Under 10% | Over 50%
+
+03 | 28/10 19:00 | 03_28-10_ep04_josephus_loud.mp4 | 88 s
+LEGENDA:
+41 people in a circle, every second one is out. Who survives? A binary shortcut knows. ⭕
+#math #puzzle #binary #josephus
+ENQUETE: Who survives in the circle of 41? | Position 19 | Position 41
+
+04 | 29/10 19:00 | 04_29-10_ep05_tower_of_hanoi_loud.mp4 | 81 s
+LEGENDA:
+Move 64 disks one at a time and it takes about 585 billion years. ⏳
+#math #towerofhanoi #exponential #puzzle
+ENQUETE: 64 disks: how long to move them? | Years | Billions of years
+
+05 | 30/10 19:00 | 05_30-10_ep06_hh_vs_ht_loud.mp4 | 79 s
+LEGENDA:
+Same coin, same odds, but waiting for HH takes 6 flips and HT only 4. 🪙
+#math #probability #coinflip #puzzle
+ENQUETE: Which waits longer on average? | HH | HT
+
+06 | 31/10 19:00 | 06_31-10_ep07_moser_circle_loud.mp4 | 65 s
+LEGENDA:
+1, 2, 4, 8, 16... what's next? The pattern breaks at 6. Count the regions of a circle and see why. ⭕
+#math #puzzle #pattern #regions
+ENQUETE: 1, 2, 4, 8, 16... next? | 31 | 32
+
+07 | 01/11 19:00 | 07_01-11_ep08_party_of_six_loud.mp4 | 75 s
+LEGENDA:
+Among any 6 people, 3 always know each other or are all strangers. Here is why. 🎉
+#math #ramsey #graphtheory #puzzle
+ENQUETE: 6 people: always a trio? | Yes, always | Not always
+
+08 | 02/11 19:00 | 08_02-11_ep09_medical_test_loud.mp4 | 65 s
+LEGENDA:
+A 99% accurate test says positive. Your chance of being sick? About 50%. 🧪
+#math #probability #bayes #puzzle
+ENQUETE: 99% test positive. Sick? | About 99% | About 50%
+
+09 | 03/11 19:00 | 09_03-11_ep10_simpson_loud.mp4 | 71 s
+LEGENDA:
+A beats B in each group, but B wins overall. Simpson's paradox with real data. 📊
+#math #statistics #simpsonsparadox #puzzle
+ENQUETE: Can A win every group and lose? | Impossible | It can happen
+
+10 | 04/11 19:00 | 10_04-11_ep11_hat_prisoners_loud.mp4 | 79 s
+LEGENDA:
+100 prisoners, red or blue hats: one bit of parity saves 99. 🎩
+#math #puzzle #logic #hats
+ENQUETE: How many can be saved for sure? | About 50 | 99
+
+11 | 05/11 19:00 | 11_05-11_ep12_ant_rope_loud.mp4 | 82 s
+LEGENDA:
+An ant on a rope that stretches 1 km per second: does it ever arrive? Yes. 🐜
+#math #infinity #harmonicseries #puzzle
+ENQUETE: Will the ant ever arrive? | Never | Yes, eventually
+
+12 | 06/11 19:00 | 12_06-11_ep13_two_envelopes_loud.mp4 | 60 s
+LEGENDA:
+Two envelopes. One holds twice the other. You open yours: $100. Switch? The math says yes... and then it says switch back. 🤔
+#math #probability #paradox #puzzle
+ENQUETE: Open it: $100. Switch? | Switch | Stay
+
+13 | 07/11 19:00 | 13_07-11_ep14_prisoner_boxes_loud.mp4 | 64 s
+LEGENDA:
+100 prisoners, 100 boxes, 50 tries each. Random guessing: about 0%. With the right plan: about 31%. 📦
+#math #puzzle #probability #logic
+ENQUETE: All 100 must succeed. Their odds? | About 0% | About 31%
+

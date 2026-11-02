@@ -1,0 +1,557 @@
+{
+  "version": 1,
+  "historyId": "96baeb63-da38-485f-97c2-cbd8ef3a81f1",
+  "currentRevision": "04e50d76-f01e-4b44-ba6d-599e31d5fdc2",
+  "pendingChanges": false,
+  "files": {
+    "assets/timing.json": {
+      "hash": "819fe02800cc6197c0a0ce3e1c370cb220809bf862532422206a52d49ad17d91",
+      "content": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\96baeb63-da38-485f-97c2-cbd8ef3a81f1\\blobs\\81\\819fe02800cc6197c0a0ce3e1c370cb220809bf862532422206a52d49ad17d91"
+    },
+    "ep.json": {
+      "hash": "3668b43d6d527f03d4d51a6c6576ce1936ddb01d1c68bdf4ba409957a793c320",
+      "content": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\96baeb63-da38-485f-97c2-cbd8ef3a81f1\\blobs\\36\\3668b43d6d527f03d4d51a6c6576ce1936ddb01d1c68bdf4ba409957a793c320"
+    },
+    "hyperframes.json": {
+      "hash": "c7a3009d23e471acfb1ca9ec252ea16a0ca4dfe55e3b3b9d7089c8f0764f4a43",
+      "content": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\96baeb63-da38-485f-97c2-cbd8ef3a81f1\\blobs\\c7\\c7a3009d23e471acfb1ca9ec252ea16a0ca4dfe55e3b3b9d7089c8f0764f4a43"
+    },
+    "index.html": {
+      "hash": "9df1c9a0a879a517aa4f7c2bf1c26a7ab85f5ee6a01795c3f377a4918fa8c569",
+      "content": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\96baeb63-da38-485f-97c2-cbd8ef3a81f1\\blobs\\9d\\9df1c9a0a879a517aa4f7c2bf1c26a7ab85f5ee6a01795c3f377a4918fa8c569"
+    },
+    "package.json": {
+      "hash": "7d2f2aef5caed2864209fbdd0d1a934d1c80fbf660150a477dd31ae24cb21f35",
+      "content": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\96baeb63-da38-485f-97c2-cbd8ef3a81f1\\blobs\\7d\\7d2f2aef5caed2864209fbdd0d1a934d1c80fbf660150a477dd31ae24cb21f35"
+    },
+    "scene.js": {
+      "hash": "014656e168d3dd0221758761a9dda96f4c6116ddc0f04e7e37af5e9d6685fa17",
+      "content": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\96baeb63-da38-485f-97c2-cbd8ef3a81f1\\blobs\\01\\014656e168d3dd0221758761a9dda96f4c6116ddc0f04e7e37af5e9d6685fa17"
+    },
+    "assets/voice.mp3": {
+      "hash": "64c0f641029b6a7ff0c5533783aa9cf152fb856d168a0a5a21751eb396af662d",
+      "content": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\96baeb63-da38-485f-97c2-cbd8ef3a81f1\\blobs\\64\\64c0f641029b6a7ff0c5533783aa9cf152fb856d168a0a5a21751eb396af662d"
+    }
+  },
+  "revisions": {
+    "e7d69095-de12-442c-87ba-9d5f62cf300a": {
+      "actor": {
+        "kind": "outside",
+        "name": "Outside"
+      },
+      "label": "Changed outside the app",
+      "startedAt": 1792935607881,
+      "endedAt": 1792935607897,
+      "files": {
+        "ep.json": {
+          "before": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\96baeb63-da38-485f-97c2-cbd8ef3a81f1\\blobs\\9e\\9e0fa29b4fc5af4ace3561a8b4e56a308a535cabe4fb11dc98500aeadeb58560",
+          "after": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\96baeb63-da38-485f-97c2-cbd8ef3a81f1\\blobs\\36\\3668b43d6d527f03d4d51a6c6576ce1936ddb01d1c68bdf4ba409957a793c320"
+        },
+        "index.html": {
+          "before": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\96baeb63-da38-485f-97c2-cbd8ef3a81f1\\blobs\\0f\\0facc8733757ea1a65eede457d256dc4c5d0b0adb72dc9911ff929772c7fb139",
+          "after": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\96baeb63-da38-485f-97c2-cbd8ef3a81f1\\blobs\\90\\90b61946e8e615dc90d9c2f67abfa6d4735c65d929192100c58902e5688f021a"
+        },
+        "scene.js": {
+          "before": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\96baeb63-da38-485f-97c2-cbd8ef3a81f1\\blobs\\db\\dba3b08e147555d88dc81f3583ca920e9a9a97db2b56760a7f32d12b5c28a739",
+          "after": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\96baeb63-da38-485f-97c2-cbd8ef3a81f1\\blobs\\46\\46b0784fe2870801372220abad1ca64044584e051591adc96a29f48d001e7a32"
+        }
+      }
+    },
+    "43f66e5d-d652-46e3-9930-cbac6321a18d": {
+      "actor": {
+        "kind": "outside",
+        "name": "Outside"
+      },
+      "label": "Changed outside the app",
+      "startedAt": 1792955887539,
+      "endedAt": 1792955887540,
+      "files": {
+        "index.html": {
+          "before": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\96baeb63-da38-485f-97c2-cbd8ef3a81f1\\blobs\\90\\90b61946e8e615dc90d9c2f67abfa6d4735c65d929192100c58902e5688f021a",
+          "after": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\96baeb63-da38-485f-97c2-cbd8ef3a81f1\\blobs\\a1\\a19592958636c28c336ae884f603acd8626060054fb38255ec7c04a5d0d54a39"
+        }
+      }
+    },
+    "04e50d76-f01e-4b44-ba6d-599e31d5fdc2": {
+      "actor": {
+        "kind": "outside",
+        "name": "Outside"
+      },
+      "label": "Changed outside the app",
+      "startedAt": 1792956159968,
+      "endedAt": 1792956159980,
+      "files": {
+        "index.html": {
+          "before": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\96baeb63-da38-485f-97c2-cbd8ef3a81f1\\blobs\\a1\\a19592958636c28c336ae884f603acd8626060054fb38255ec7c04a5d0d54a39",
+          "after": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\96baeb63-da38-485f-97c2-cbd8ef3a81f1\\blobs\\9d\\9df1c9a0a879a517aa4f7c2bf1c26a7ab85f5ee6a01795c3f377a4918fa8c569"
+        },
+        "scene.js": {
+          "before": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\96baeb63-da38-485f-97c2-cbd8ef3a81f1\\blobs\\46\\46b0784fe2870801372220abad1ca64044584e051591adc96a29f48d001e7a32",
+          "after": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\96baeb63-da38-485f-97c2-cbd8ef3a81f1\\blobs\\01\\014656e168d3dd0221758761a9dda96f4c6116ddc0f04e7e37af5e9d6685fa17"
+        }
+      }
+    }
+  },
+  "checks": {
+    "latest": {
+      "revision": null,
+      "id": "db9838cb-c859-4a10-a6e2-8387d034f6ce"
+    },
+    "revisions": {},
+    "unversioned": [
+      {
+        "id": "db9838cb-c859-4a10-a6e2-8387d034f6ce",
+        "scope": "project",
+        "report": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\puzzles\\ep03_birthday_paradox\\.hyperframes\\artifacts\\checks\\db9838cb-c859-4a10-a6e2-8387d034f6ce.json",
+        "metadata": {
+          "ok": true,
+          "browserSkipped": false,
+          "options": {
+            "samples": 9,
+            "atTransitions": false,
+            "maxIssues": 80,
+            "collapseStatic": true,
+            "tolerance": 2,
+            "timeout": 3000,
+            "contrast": true,
+            "strict": false,
+            "snapshots": false,
+            "browserGpuMode": "auto"
+          }
+        },
+        "createdAt": 1792935377453,
+        "contentHash": "b3fc32698fd5659e93e17ccbfdb7f0c97c870bba8e86536447015f41ca040575",
+        "revision": null,
+        "inputFingerprint": "c7ca5db9d3f221dae1caaed4fdfc2a032414b7d7aa528859e10e25f777705279",
+        "inputScope": "local-project-files",
+        "attribution": "unversioned"
+      }
+    ]
+  },
+  "snapshots": {
+    "latest": {
+      "revision": "43f66e5d-d652-46e3-9930-cbac6321a18d",
+      "id": "6d2f33a5-5973-4097-8d75-c89f5395c6a5-7"
+    },
+    "revisions": {
+      "43f66e5d-d652-46e3-9930-cbac6321a18d": [
+        {
+          "scope": "full",
+          "id": "6d2f33a5-5973-4097-8d75-c89f5395c6a5-0",
+          "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\safe_ep03_birthday_paradox\\frame-00-at-0s.png",
+          "time": 0,
+          "metadata": {
+            "width": 1080,
+            "height": 1920,
+            "zoomScale": 1,
+            "browserGpuMode": "auto",
+            "warnings": [],
+            "partial": false
+          },
+          "createdAt": 1792955890192,
+          "contentHash": "8499c5fc4bc66818661ef7ffd496968004c02a0e0a736e5b0fdeca1e859cae32",
+          "revision": "43f66e5d-d652-46e3-9930-cbac6321a18d",
+          "inputFingerprint": "2930660fcc44330cac01f60e6302bfa5d0c018e8f76d338d5b873b47bb1b4cc7",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        },
+        {
+          "scope": "full",
+          "id": "6d2f33a5-5973-4097-8d75-c89f5395c6a5-1",
+          "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\safe_ep03_birthday_paradox\\frame-01-at-13.533s.png",
+          "time": 13.533,
+          "metadata": {
+            "width": 1080,
+            "height": 1920,
+            "zoomScale": 1,
+            "browserGpuMode": "auto",
+            "warnings": [],
+            "partial": false
+          },
+          "createdAt": 1792955890193,
+          "contentHash": "fa6f6412dcc6dcf48fc2bbd4f1c79d4122663c490a9e10b4ec6ca24a1b0c8dff",
+          "revision": "43f66e5d-d652-46e3-9930-cbac6321a18d",
+          "inputFingerprint": "2930660fcc44330cac01f60e6302bfa5d0c018e8f76d338d5b873b47bb1b4cc7",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        },
+        {
+          "scope": "full",
+          "id": "6d2f33a5-5973-4097-8d75-c89f5395c6a5-2",
+          "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\safe_ep03_birthday_paradox\\frame-02-at-27.067s.png",
+          "time": 27.067,
+          "metadata": {
+            "width": 1080,
+            "height": 1920,
+            "zoomScale": 1,
+            "browserGpuMode": "auto",
+            "warnings": [],
+            "partial": false
+          },
+          "createdAt": 1792955890193,
+          "contentHash": "411c423761c45c567967f461a9f64f848cba8358f1ece7c70b5f5a5a46c08c8e",
+          "revision": "43f66e5d-d652-46e3-9930-cbac6321a18d",
+          "inputFingerprint": "2930660fcc44330cac01f60e6302bfa5d0c018e8f76d338d5b873b47bb1b4cc7",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        },
+        {
+          "scope": "full",
+          "id": "6d2f33a5-5973-4097-8d75-c89f5395c6a5-3",
+          "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\safe_ep03_birthday_paradox\\frame-03-at-40.6s.png",
+          "time": 40.6,
+          "metadata": {
+            "width": 1080,
+            "height": 1920,
+            "zoomScale": 1,
+            "browserGpuMode": "auto",
+            "warnings": [],
+            "partial": false
+          },
+          "createdAt": 1792955890194,
+          "contentHash": "f44589199dd2442bea207d9911a33950962a99bc600888dd1c271db50d4a397f",
+          "revision": "43f66e5d-d652-46e3-9930-cbac6321a18d",
+          "inputFingerprint": "2930660fcc44330cac01f60e6302bfa5d0c018e8f76d338d5b873b47bb1b4cc7",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        },
+        {
+          "scope": "full",
+          "id": "6d2f33a5-5973-4097-8d75-c89f5395c6a5-4",
+          "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\safe_ep03_birthday_paradox\\frame-04-at-54.133s.png",
+          "time": 54.133,
+          "metadata": {
+            "width": 1080,
+            "height": 1920,
+            "zoomScale": 1,
+            "browserGpuMode": "auto",
+            "warnings": [],
+            "partial": false
+          },
+          "createdAt": 1792955890195,
+          "contentHash": "9c619b83d8128edfeafff4c6375ea3bda91f6f17b0029285daa71de905eda4ac",
+          "revision": "43f66e5d-d652-46e3-9930-cbac6321a18d",
+          "inputFingerprint": "2930660fcc44330cac01f60e6302bfa5d0c018e8f76d338d5b873b47bb1b4cc7",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        },
+        {
+          "scope": "full",
+          "id": "6d2f33a5-5973-4097-8d75-c89f5395c6a5-5",
+          "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\safe_ep03_birthday_paradox\\frame-05-at-67.666s.png",
+          "time": 67.666,
+          "metadata": {
+            "width": 1080,
+            "height": 1920,
+            "zoomScale": 1,
+            "browserGpuMode": "auto",
+            "warnings": [],
+            "partial": false
+          },
+          "createdAt": 1792955890196,
+          "contentHash": "aa4b99f518b443f7d994bd4e08c7e1bb7b4b11eb50d50153c32197050b746858",
+          "revision": "43f66e5d-d652-46e3-9930-cbac6321a18d",
+          "inputFingerprint": "2930660fcc44330cac01f60e6302bfa5d0c018e8f76d338d5b873b47bb1b4cc7",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        },
+        {
+          "scope": "full",
+          "id": "6d2f33a5-5973-4097-8d75-c89f5395c6a5-6",
+          "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\safe_ep03_birthday_paradox\\frame-06-at-81.2s.png",
+          "time": 81.2,
+          "metadata": {
+            "width": 1080,
+            "height": 1920,
+            "zoomScale": 1,
+            "browserGpuMode": "auto",
+            "warnings": [],
+            "partial": false
+          },
+          "createdAt": 1792955890197,
+          "contentHash": "833a90e42877731b4371800f37d305ced761b3ba643467bb05a8b747c84e95ad",
+          "revision": "43f66e5d-d652-46e3-9930-cbac6321a18d",
+          "inputFingerprint": "2930660fcc44330cac01f60e6302bfa5d0c018e8f76d338d5b873b47bb1b4cc7",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        },
+        {
+          "scope": "full",
+          "id": "6d2f33a5-5973-4097-8d75-c89f5395c6a5-7",
+          "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\safe_ep03_birthday_paradox\\frame-07-at-94.733s.png",
+          "time": 94.733,
+          "metadata": {
+            "width": 1080,
+            "height": 1920,
+            "zoomScale": 1,
+            "browserGpuMode": "auto",
+            "warnings": [],
+            "partial": false
+          },
+          "createdAt": 1792955890198,
+          "contentHash": "4f38b8e62a01fc53b7e4c71ab305bc7403bdeda9a177f59d8fe9372d2294cd55",
+          "revision": "43f66e5d-d652-46e3-9930-cbac6321a18d",
+          "inputFingerprint": "2930660fcc44330cac01f60e6302bfa5d0c018e8f76d338d5b873b47bb1b4cc7",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        }
+      ]
+    },
+    "unversioned": [
+      {
+        "scope": "full",
+        "id": "5791c638-3444-4e80-bf2c-6c9ae5c1cac5-0",
+        "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\snap_ep03_birthday_paradox\\frame-00-at-0s.png",
+        "time": 0,
+        "metadata": {
+          "width": 1080,
+          "height": 1920,
+          "zoomScale": 1,
+          "browserGpuMode": "auto",
+          "warnings": [],
+          "partial": false
+        },
+        "createdAt": 1792935383216,
+        "contentHash": "46f953de8820877d45727e57d42fc5d6dd62aacb66be2d0dc038aa938bf3470b",
+        "revision": null,
+        "inputFingerprint": "c7ca5db9d3f221dae1caaed4fdfc2a032414b7d7aa528859e10e25f777705279",
+        "inputScope": "local-project-files",
+        "attribution": "unversioned"
+      },
+      {
+        "scope": "full",
+        "id": "5791c638-3444-4e80-bf2c-6c9ae5c1cac5-1",
+        "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\snap_ep03_birthday_paradox\\frame-01-at-8.612s.png",
+        "time": 8.612,
+        "metadata": {
+          "width": 1080,
+          "height": 1920,
+          "zoomScale": 1,
+          "browserGpuMode": "auto",
+          "warnings": [],
+          "partial": false
+        },
+        "createdAt": 1792935383216,
+        "contentHash": "1d7c0d79eb502f4b2f5f2a8ec6a5be916dcfc3e4d0c224d5b1763c8850751f4c",
+        "revision": null,
+        "inputFingerprint": "c7ca5db9d3f221dae1caaed4fdfc2a032414b7d7aa528859e10e25f777705279",
+        "inputScope": "local-project-files",
+        "attribution": "unversioned"
+      },
+      {
+        "scope": "full",
+        "id": "5791c638-3444-4e80-bf2c-6c9ae5c1cac5-2",
+        "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\snap_ep03_birthday_paradox\\frame-02-at-17.224s.png",
+        "time": 17.224,
+        "metadata": {
+          "width": 1080,
+          "height": 1920,
+          "zoomScale": 1,
+          "browserGpuMode": "auto",
+          "warnings": [],
+          "partial": false
+        },
+        "createdAt": 1792935383216,
+        "contentHash": "964d03bd690010013a45c9a79fe762c25036bb95822f4e9d2420b99622c37c70",
+        "revision": null,
+        "inputFingerprint": "c7ca5db9d3f221dae1caaed4fdfc2a032414b7d7aa528859e10e25f777705279",
+        "inputScope": "local-project-files",
+        "attribution": "unversioned"
+      },
+      {
+        "scope": "full",
+        "id": "5791c638-3444-4e80-bf2c-6c9ae5c1cac5-3",
+        "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\snap_ep03_birthday_paradox\\frame-03-at-25.836s.png",
+        "time": 25.836,
+        "metadata": {
+          "width": 1080,
+          "height": 1920,
+          "zoomScale": 1,
+          "browserGpuMode": "auto",
+          "warnings": [],
+          "partial": false
+        },
+        "createdAt": 1792935383216,
+        "contentHash": "66d629f303cfff8d5826dfe5a679e34a41b6812aab03b923e40bc4a1cc2378dd",
+        "revision": null,
+        "inputFingerprint": "c7ca5db9d3f221dae1caaed4fdfc2a032414b7d7aa528859e10e25f777705279",
+        "inputScope": "local-project-files",
+        "attribution": "unversioned"
+      },
+      {
+        "scope": "full",
+        "id": "5791c638-3444-4e80-bf2c-6c9ae5c1cac5-4",
+        "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\snap_ep03_birthday_paradox\\frame-04-at-34.448s.png",
+        "time": 34.448,
+        "metadata": {
+          "width": 1080,
+          "height": 1920,
+          "zoomScale": 1,
+          "browserGpuMode": "auto",
+          "warnings": [],
+          "partial": false
+        },
+        "createdAt": 1792935383216,
+        "contentHash": "38891743ed5e1ddd2910b86e6ae8b6338cee1667afda19acbf5b0c09b799be59",
+        "revision": null,
+        "inputFingerprint": "c7ca5db9d3f221dae1caaed4fdfc2a032414b7d7aa528859e10e25f777705279",
+        "inputScope": "local-project-files",
+        "attribution": "unversioned"
+      },
+      {
+        "scope": "full",
+        "id": "5791c638-3444-4e80-bf2c-6c9ae5c1cac5-5",
+        "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\snap_ep03_birthday_paradox\\frame-05-at-43.06s.png",
+        "time": 43.06,
+        "metadata": {
+          "width": 1080,
+          "height": 1920,
+          "zoomScale": 1,
+          "browserGpuMode": "auto",
+          "warnings": [],
+          "partial": false
+        },
+        "createdAt": 1792935383217,
+        "contentHash": "0cc367f820ea348d8d4c602747087ef3741a997744662f3620378947949d6733",
+        "revision": null,
+        "inputFingerprint": "c7ca5db9d3f221dae1caaed4fdfc2a032414b7d7aa528859e10e25f777705279",
+        "inputScope": "local-project-files",
+        "attribution": "unversioned"
+      },
+      {
+        "scope": "full",
+        "id": "5791c638-3444-4e80-bf2c-6c9ae5c1cac5-6",
+        "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\snap_ep03_birthday_paradox\\frame-06-at-51.673s.png",
+        "time": 51.673,
+        "metadata": {
+          "width": 1080,
+          "height": 1920,
+          "zoomScale": 1,
+          "browserGpuMode": "auto",
+          "warnings": [],
+          "partial": false
+        },
+        "createdAt": 1792935383217,
+        "contentHash": "249969cbeb9703753842dd0d53e9eac71242f82a618760f1ae9622253c4b35d8",
+        "revision": null,
+        "inputFingerprint": "c7ca5db9d3f221dae1caaed4fdfc2a032414b7d7aa528859e10e25f777705279",
+        "inputScope": "local-project-files",
+        "attribution": "unversioned"
+      },
+      {
+        "scope": "full",
+        "id": "5791c638-3444-4e80-bf2c-6c9ae5c1cac5-7",
+        "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\snap_ep03_birthday_paradox\\frame-07-at-60.285s.png",
+        "time": 60.285,
+        "metadata": {
+          "width": 1080,
+          "height": 1920,
+          "zoomScale": 1,
+          "browserGpuMode": "auto",
+          "warnings": [],
+          "partial": false
+        },
+        "createdAt": 1792935383218,
+        "contentHash": "b8628a3905e03fd083263d31e89e42470b862eb7c47cd399921ae7f180790406",
+        "revision": null,
+        "inputFingerprint": "c7ca5db9d3f221dae1caaed4fdfc2a032414b7d7aa528859e10e25f777705279",
+        "inputScope": "local-project-files",
+        "attribution": "unversioned"
+      },
+      {
+        "scope": "full",
+        "id": "5791c638-3444-4e80-bf2c-6c9ae5c1cac5-8",
+        "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\snap_ep03_birthday_paradox\\frame-08-at-68.897s.png",
+        "time": 68.897,
+        "metadata": {
+          "width": 1080,
+          "height": 1920,
+          "zoomScale": 1,
+          "browserGpuMode": "auto",
+          "warnings": [],
+          "partial": false
+        },
+        "createdAt": 1792935383218,
+        "contentHash": "f277eff150544068007d4782ea88a952964cac06d3c2a03077c503aa1a515e6b",
+        "revision": null,
+        "inputFingerprint": "c7ca5db9d3f221dae1caaed4fdfc2a032414b7d7aa528859e10e25f777705279",
+        "inputScope": "local-project-files",
+        "attribution": "unversioned"
+      },
+      {
+        "scope": "full",
+        "id": "5791c638-3444-4e80-bf2c-6c9ae5c1cac5-9",
+        "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\snap_ep03_birthday_paradox\\frame-09-at-77.509s.png",
+        "time": 77.509,
+        "metadata": {
+          "width": 1080,
+          "height": 1920,
+          "zoomScale": 1,
+          "browserGpuMode": "auto",
+          "warnings": [],
+          "partial": false
+        },
+        "createdAt": 1792935383219,
+        "contentHash": "6a99ce25fa255b953d47f4c56e8f3bfeeb5e0d5b72011fa6d8af2d48dde17a10",
+        "revision": null,
+        "inputFingerprint": "c7ca5db9d3f221dae1caaed4fdfc2a032414b7d7aa528859e10e25f777705279",
+        "inputScope": "local-project-files",
+        "attribution": "unversioned"
+      },
+      {
+        "scope": "full",
+        "id": "5791c638-3444-4e80-bf2c-6c9ae5c1cac5-10",
+        "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\snap_ep03_birthday_paradox\\frame-10-at-86.121s.png",
+        "time": 86.121,
+        "metadata": {
+          "width": 1080,
+          "height": 1920,
+          "zoomScale": 1,
+          "browserGpuMode": "auto",
+          "warnings": [],
+          "partial": false
+        },
+        "createdAt": 1792935383219,
+        "contentHash": "48bb046bed9e3e4db99d24fea2544a5c713dd722e874f69c3c0c63d7ba024566",
+        "revision": null,
+        "inputFingerprint": "c7ca5db9d3f221dae1caaed4fdfc2a032414b7d7aa528859e10e25f777705279",
+        "inputScope": "local-project-files",
+        "attribution": "unversioned"
+      },
+      {
+        "scope": "full",
+        "id": "5791c638-3444-4e80-bf2c-6c9ae5c1cac5-11",
+        "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\snap_ep03_birthday_paradox\\frame-11-at-94.733s.png",
+        "time": 94.733,
+        "metadata": {
+          "width": 1080,
+          "height": 1920,
+          "zoomScale": 1,
+          "browserGpuMode": "auto",
+          "warnings": [],
+          "partial": false
+        },
+        "createdAt": 1792935383220,
+        "contentHash": "4f38b8e62a01fc53b7e4c71ab305bc7403bdeda9a177f59d8fe9372d2294cd55",
+        "revision": null,
+        "inputFingerprint": "c7ca5db9d3f221dae1caaed4fdfc2a032414b7d7aa528859e10e25f777705279",
+        "inputScope": "local-project-files",
+        "attribution": "unversioned"
+      }
+    ]
+  },
+  "renders": {
+    "latest": {
+      "id": "4c5d08bf-6a27-4293-82c2-deb78925c3a0",
+      "completedAt": 1792956257237,
+      "output": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\puzzles\\ep03_birthday_paradox\\renders\\ep03_birthday_paradox.mp4",
+      "status": "completed",
+      "revision": "04e50d76-f01e-4b44-ba6d-599e31d5fdc2"
+    },
+    "retainedRevisions": [
+      "04e50d76-f01e-4b44-ba6d-599e31d5fdc2",
+      "e7d69095-de12-442c-87ba-9d5f62cf300a"
+    ]
+  },
+  "pendingArtifactCleanup": []
+}

@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=1920, height=1080" />
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 1920px; height: 1080px; overflow: hidden; background: #f4ecd8; }
+  #root { position: relative; width: 1920px; height: 1080px; overflow: hidden; background: #f4ecd8;
+    font-family: "JetBrains Mono", monospace; color: #1c1c1c; }
+  #cv { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; }
+  .t { position: absolute; left: 0; width: 1920px; text-align: center; font-weight: 700; }
+  #title { top: 26px; font-size: 52px; white-space: nowrap; }
+  #stat { top: 92px; font-size: 28px; opacity: .7; letter-spacing: 2px; }
+  #cap { top: 958px; left: 260px; width: 1400px; font-size: 52px; line-height: 62px; height: 124px; }
+  .g { position: absolute; left: 0; top: 0; width: 1400px; text-align: center; opacity: 0; }
+  .w { opacity: .22; }
+  .w.on { opacity: 1; }
+  .w.k.on { color: #d62828; }
+</style>
+</head>
+<body>
+<div id="root" data-composition-id="main" data-start="0" data-duration="74.035" data-width="1920" data-height="1080">
+  <canvas id="cv" class="clip" data-start="0" data-duration="74.035" width="1920" height="1080"></canvas>
+  <div id="title" class="clip t" data-start="0" data-duration="74.035">6 people. Always <span style="color:#d62828">three</span>.</div>
+  <div id="stat" class="clip t" data-start="0" data-duration="74.035"></div>
+  <div id="cap" class="clip t" data-start="0" data-duration="74.035"></div>
+  <audio id="voice" src="assets/voice.mp3" data-start="2.8" data-duration="74.035" data-volume="1"></audio>
+</div>
+<script>
+const LEAD = 2.8, CHAPTER = "PUZZLE 2 OF 6|party of six", WORDS = [{"w": "Six", "s": 2.8, "e": 3.102}, {"w": "people", "s": 3.172, "e": 3.439}, {"w": "at", "s": 3.473, "e": 3.543}, {"w": "a", "s": 3.578, "e": 3.601}, {"w": "party.", "s": 3.671, "e": 4.17}, {"w": "Some", "s": 4.425, "e": 4.658}, {"w": "know", "s": 4.692, "e": 4.832}, {"w": "each", "s": 4.878, "e": 5.018}, {"w": "other,", "s": 5.064, "e": 5.308}, {"w": "some", "s": 5.343, "e": 5.563}, {"w": "don't.", "s": 5.61, "e": 6.004}, {"w": "Here's", "s": 6.759, "e": 7.014}, {"w": "a", "s": 7.049, "e": 7.084}, {"w": "promise:", "s": 7.142, "e": 7.676}, {"w": "there", "s": 8.036, "e": 8.21}, {"w": "are", "s": 8.245, "e": 8.373}, {"w": "always", "s": 8.431, "e": 8.791}, {"w": "three", "s": 8.86, "e": 9.162}, {"w": "people", "s": 9.22, "e": 9.557}, {"w": "who", "s": 9.592, "e": 9.743}, {"w": "all", "s": 9.847, "e": 10.114}, {"w": "know", "s": 10.184, "e": 10.323}, {"w": "each", "s": 10.37, "e": 10.509}, {"w": "other,", "s": 10.567, "e": 10.95}, {"w": "or", "s": 11.148, "e": 11.31}, {"w": "three", "s": 11.391, "e": 11.74}, {"w": "who", "s": 11.775, "e": 11.891}, {"w": "are", "s": 11.949, "e": 12.088}, {"w": "all", "s": 12.146, "e": 12.355}, {"w": "strangers.", "s": 12.425, "e": 13.156}, {"w": "Always.", "s": 13.458, "e": 14.201}, {"w": "Draw", "s": 14.956, "e": 15.327}, {"w": "each", "s": 15.432, "e": 15.629}, {"w": "person", "s": 15.699, "e": 16.093}, {"w": "as", "s": 16.175, "e": 16.337}, {"w": "a", "s": 16.395, "e": 16.43}, {"w": "dot.", "s": 16.488, "e": 16.929}, {"w": "Draw", "s": 17.58, "e": 17.858}, {"w": "a", "s": 17.916, "e": 17.939}, {"w": "blue", "s": 17.986, "e": 18.195}, {"w": "line", "s": 18.241, "e": 18.485}, {"w": "between", "s": 18.52, "e": 18.845}, {"w": "two", "s": 18.891, "e": 19.065}, {"w": "people", "s": 19.135, "e": 19.402}, {"w": "who", "s": 19.425, "e": 19.53}, {"w": "know", "s": 19.576, "e": 19.716}, {"w": "each", "s": 19.762, "e": 19.901}, {"w": "other,", "s": 19.948, "e": 20.366}, {"w": "and", "s": 20.528, "e": 20.737}, {"w": "a", "s": 20.784, "e": 20.807}, {"w": "red", "s": 20.877, "e": 21.028}, {"w": "line", "s": 21.074, "e": 21.271}, {"w": "between", "s": 21.306, "e": 21.701}, {"w": "two", "s": 21.805, "e": 22.026}, {"w": "who", "s": 22.084, "e": 22.212}, {"w": "don't.", "s": 22.27, "e": 22.641}, {"w": "Every", "s": 23.291, "e": 23.547}, {"w": "pair", "s": 23.605, "e": 23.791}, {"w": "gets", "s": 23.849, "e": 24.023}, {"w": "exactly", "s": 24.081, "e": 24.708}, {"w": "one", "s": 24.812, "e": 25.01}, {"w": "line.", "s": 25.056, "e": 25.544}, {"w": "We're", "s": 25.95, "e": 26.148}, {"w": "looking", "s": 26.171, "e": 26.415}, {"w": "for", "s": 26.461, "e": 26.577}, {"w": "a", "s": 26.624, "e": 26.658}, {"w": "triangle", "s": 26.705, "e": 27.239}, {"w": "with", "s": 27.262, "e": 27.401}, {"w": "all", "s": 27.448, "e": 27.576}, {"w": "three", "s": 27.645, "e": 27.866}, {"w": "sides", "s": 27.901, "e": 28.168}, {"w": "the", "s": 28.191, "e": 28.261}, {"w": "same", "s": 28.295, "e": 28.493}, {"w": "color.", "s": 28.539, "e": 28.934}, {"w": "With", "s": 29.34, "e": 29.526}, {"w": "five", "s": 29.596, "e": 29.898}, {"w": "people,", "s": 29.944, "e": 30.234}, {"w": "you", "s": 30.257, "e": 30.327}, {"w": "can", "s": 30.374, "e": 30.478}, {"w": "avoid", "s": 30.501, "e": 30.78}, {"w": "it.", "s": 30.815, "e": 31.012}, {"w": "Put", "s": 31.372, "e": 31.558}, {"w": "them", "s": 31.593, "e": 31.72}, {"w": "in", "s": 31.767, "e": 31.825}, {"w": "a", "s": 31.86, "e": 31.894}, {"w": "ring,", "s": 31.964, "e": 32.44}, {"w": "color", "s": 32.661, "e": 32.928}, {"w": "the", "s": 32.986, "e": 33.056}, {"w": "ring", "s": 33.125, "e": 33.311}, {"w": "blue", "s": 33.381, "e": 33.648}, {"w": "and", "s": 33.682, "e": 33.752}, {"w": "the", "s": 33.787, "e": 33.857}, {"w": "star", "s": 33.891, "e": 34.1}, {"w": "inside", "s": 34.158, "e": 34.437}, {"w": "red.", "s": 34.472, "e": 34.809}, {"w": "Look", "s": 35.366, "e": 35.575}, {"w": "for", "s": 35.621, "e": 35.737}, {"w": "a", "s": 35.784, "e": 35.819}, {"w": "triangle", "s": 35.877, "e": 36.48}, {"w": "of", "s": 36.515, "e": 36.585}, {"w": "one", "s": 36.655, "e": 36.817}, {"w": "color.", "s": 36.875, "e": 37.258}, {"w": "There", "s": 37.328, "e": 37.525}, {"w": "isn't", "s": 37.56, "e": 37.758}, {"w": "one.", "s": 37.816, "e": 38.129}, {"w": "Add", "s": 38.535, "e": 38.744}, {"w": "a", "s": 38.779, "e": 38.814}, {"w": "sixth", "s": 38.895, "e": 39.174}, {"w": "person,", "s": 39.244, "e": 39.754}, {"w": "and", "s": 39.894, "e": 40.045}, {"w": "it", "s": 40.091, "e": 40.161}, {"w": "breaks.", "s": 40.219, "e": 40.776}, {"w": "Pick", "s": 41.078, "e": 41.287}, {"w": "any", "s": 41.333, "e": 41.484}, {"w": "one", "s": 41.589, "e": 41.786}, {"w": "person.", "s": 41.844, "e": 42.32}, {"w": "They", "s": 42.622, "e": 42.773}, {"w": "have", "s": 42.808, "e": 42.936}, {"w": "five", "s": 42.982, "e": 43.226}, {"w": "lines.", "s": 43.284, "e": 43.737}, {"w": "Five", "s": 44.143, "e": 44.491}, {"w": "lines,", "s": 44.549, "e": 44.874}, {"w": "two", "s": 44.898, "e": 45.049}, {"w": "colors,", "s": 45.118, "e": 45.652}, {"w": "so", "s": 45.815, "e": 45.954}, {"w": "at", "s": 46.024, "e": 46.094}, {"w": "least", "s": 46.163, "e": 46.384}, {"w": "three", "s": 46.43, "e": 46.639}, {"w": "of", "s": 46.674, "e": 46.732}, {"w": "them", "s": 46.779, "e": 46.918}, {"w": "share", "s": 47.057, "e": 47.301}, {"w": "a", "s": 47.324, "e": 47.347}, {"w": "color.", "s": 47.405, "e": 47.823}, {"w": "Say", "s": 48.381, "e": 48.589}, {"w": "three", "s": 48.659, "e": 48.891}, {"w": "are", "s": 48.926, "e": 49.042}, {"w": "blue.", "s": 49.077, "e": 49.576}, {"w": "Look", "s": 49.983, "e": 50.18}, {"w": "at", "s": 50.226, "e": 50.285}, {"w": "the", "s": 50.319, "e": 50.389}, {"w": "three", "s": 50.459, "e": 50.703}, {"w": "people", "s": 50.761, "e": 51.074}, {"w": "on", "s": 51.109, "e": 51.19}, {"w": "the", "s": 51.225, "e": 51.295}, {"w": "ends", "s": 51.364, "e": 51.562}, {"w": "of", "s": 51.596, "e": 51.655}, {"w": "those", "s": 51.701, "e": 51.875}, {"w": "blue", "s": 51.91, "e": 52.131}, {"w": "lines.", "s": 52.165, "e": 52.723}, {"w": "If", "s": 53.477, "e": 53.617}, {"w": "any", "s": 53.686, "e": 53.86}, {"w": "line", "s": 53.93, "e": 54.162}, {"w": "between", "s": 54.197, "e": 54.569}, {"w": "them", "s": 54.603, "e": 54.731}, {"w": "is", "s": 54.789, "e": 54.87}, {"w": "blue,", "s": 54.94, "e": 55.393}, {"w": "it", "s": 55.555, "e": 55.672}, {"w": "makes", "s": 55.73, "e": 55.927}, {"w": "a", "s": 55.962, "e": 55.997}, {"w": "blue", "s": 56.055, "e": 56.287}, {"w": "triangle", "s": 56.322, "e": 56.844}, {"w": "with", "s": 56.867, "e": 56.995}, {"w": "our", "s": 57.03, "e": 57.134}, {"w": "person.", "s": 57.192, "e": 57.657}, {"w": "If", "s": 58.307, "e": 58.446}, {"w": "all", "s": 58.516, "e": 58.76}, {"w": "three", "s": 58.829, "e": 59.073}, {"w": "lines", "s": 59.131, "e": 59.41}, {"w": "between", "s": 59.468, "e": 59.805}, {"w": "them", "s": 59.84, "e": 59.967}, {"w": "are", "s": 60.014, "e": 60.13}, {"w": "red,", "s": 60.188, "e": 60.641}, {"w": "they", "s": 60.803, "e": 60.942}, {"w": "form", "s": 60.989, "e": 61.186}, {"w": "a", "s": 61.233, "e": 61.256}, {"w": "red", "s": 61.314, "e": 61.477}, {"w": "triangle.", "s": 61.523, "e": 62.15}, {"w": "Either", "s": 62.556, "e": 62.893}, {"w": "way,", "s": 62.974, "e": 63.23}, {"w": "there's", "s": 63.253, "e": 63.45}, {"w": "a", "s": 63.485, "e": 63.52}, {"w": "triangle.", "s": 63.566, "e": 64.205}, {"w": "No", "s": 64.565, "e": 64.669}, {"w": "matter", "s": 64.716, "e": 64.913}, {"w": "how", "s": 64.971, "e": 65.087}, {"w": "you", "s": 65.157, "e": 65.238}, {"w": "color", "s": 65.308, "e": 65.529}, {"w": "the", "s": 65.587, "e": 65.656}, {"w": "lines,", "s": 65.714, "e": 66.016}, {"w": "you", "s": 66.039, "e": 66.121}, {"w": "can't", "s": 66.179, "e": 66.376}, {"w": "escape.", "s": 66.422, "e": 66.898}, {"w": "Six", "s": 67.374, "e": 67.653}, {"w": "is", "s": 67.723, "e": 67.816}, {"w": "the", "s": 67.862, "e": 67.932}, {"w": "smallest", "s": 68.001, "e": 68.454}, {"w": "crowd", "s": 68.512, "e": 68.826}, {"w": "where", "s": 68.872, "e": 69.023}, {"w": "it's", "s": 69.058, "e": 69.151}, {"w": "guaranteed.", "s": 69.197, "e": 69.929}, {"w": "Order", "s": 70.579, "e": 70.869}, {"w": "hides", "s": 70.927, "e": 71.171}, {"w": "inside", "s": 71.217, "e": 71.531}, {"w": "chaos,", "s": 71.577, "e": 72.007}, {"w": "once", "s": 72.042, "e": 72.227}, {"w": "the", "s": 72.262, "e": 72.332}, {"w": "crowd", "s": 72.367, "e": 72.587}, {"w": "is", "s": 72.622, "e": 72.692}, {"w": "big", "s": 72.738, "e": 72.866}, {"w": "enough.", "s": 72.912, "e": 73.435}], B = [2.8, 14.956, 29.34, 38.535, 49.983, 64.565, 73.735], VEND = 73.435, DUR = 74.035, NB = B.length - 1;
+const KEYS = new Set(["three", "always", "six", "triangle", "chaos"]);
+const INK = "#1c1c1c", RED = "#d62828", OR = "#e07a00", GRN = "#2a9d5c", DOT = "#4a4a4a";
+const clamp = v => Math.max(0, Math.min(1, v));
+const ease = v => { v = clamp(v); return v * v * (3 - 2 * v); };
+const bit = (i, k) => (i >> k) & 1;
+const cvs = document.getElementById("cv"), x = cvs.getContext("2d");
+const stat = document.getElementById("stat"), cap = document.getElementById("cap");
+const FONT = "'JetBrains Mono', monospace";
+function txt(s, px, py, size, col, align, weight) {
+  x.font = (weight || "bold") + " " + Math.round(size * 1.12) + "px " + FONT; x.fillStyle = col || INK;
+  x.textAlign = align || "center"; x.textBaseline = "middle"; x.fillText(s, px, py);
+}
+function circ(cx, cy, r, fill, stroke, lw, alpha) {
+  x.globalAlpha = alpha == null ? 1 : alpha; x.beginPath(); x.arc(cx, cy, r, 0, 6.283);
+  if (fill) { x.fillStyle = fill; x.fill(); } if (stroke) { x.strokeStyle = stroke; x.lineWidth = lw || 4; x.stroke(); }
+  x.globalAlpha = 1;
+}
+function rect(px, py, w, h, fill, stroke, lw, alpha) {
+  x.globalAlpha = alpha == null ? 1 : alpha;
+  if (fill) { x.fillStyle = fill; x.fillRect(px, py, w, h); }
+  if (stroke) { x.strokeStyle = stroke; x.lineWidth = lw || 4; x.strokeRect(px, py, w, h); }
+  x.globalAlpha = 1;
+}
+function line(x1, y1, x2, y2, col, lw, alpha) {
+  x.globalAlpha = alpha == null ? 1 : alpha; x.strokeStyle = col || INK; x.lineWidth = lw || 3;
+  x.beginPath(); x.moveTo(x1, y1); x.lineTo(x2, y2); x.stroke(); x.globalAlpha = 1;
+}
+function show(w) {
+  const m = w.match(/^((?:one|zero)(?:-(?:one|zero))+)([.,?!]*)$/i);
+  if (m) return m[1].toLowerCase().split("-").map(p => p === "one" ? 1 : 0).join("") + m[2];
+  return w;
+}
+const groups = []; {
+  let g = [];
+  const flush = () => { if (g.length) { groups.push(g); g = []; } };
+  WORDS.forEach((w, i) => {
+    const t = show(w.w);
+    if (g.length && (g.length >= 4 || g.map(o => show(o.w)).join(" ").length + t.length > 24)) flush();
+    g.push({ ...w, i, txt: t });
+    if (/[.?!]$/.test(w.w) || /,$/.test(w.w)) flush();
+  });
+  flush();
+}
+groups.forEach((g, gi) => {
+  const el = document.createElement("div"); el.className = "g"; el.id = "g" + gi;
+  g.forEach(w => {
+    const s = document.createElement("span");
+    s.className = "w" + (KEYS.has(w.txt.toLowerCase().replace(/[.,?!]/g, "")) ? " k" : "");
+    s.textContent = w.txt + " "; w.el = s; el.appendChild(s);
+  });
+  cap.appendChild(el); g.el = el;
+  g.start = g[0].s - 0.05; g.end = DUR;
+});
+groups.forEach((g, gi) => { if (gi + 1 < groups.length) g.end = Math.min(g[g.length - 1].e + 0.25, groups[gi + 1][0].s - 0.05); });
+function blockOf(t) { let b = 0; for (let i = 0; i < NB; i++) if (t >= B[i]) b = i; return b; }
+
+const BLU = "#1f5fbf";
+function ring(n, cx, cy, r) { const o = []; for (let i = 0; i < n; i++) { const a = -1.5708 + i * 6.283 / n; o.push([cx + r * Math.cos(a), cy + r * Math.sin(a)]); } return o; }
+const H = ring(6, 540, 640, 290), PEN = ring(5, 540, 640, 290);
+function edge(P, a, b, col, lw, al) { line(P[a][0], P[a][1], P[b][0], P[b][1], col, lw || 6, al == null ? 1 : al); }
+function dots(P, hi) { P.forEach((p, i) => circ(p[0], p[1], i === hi ? 24 : 18, INK)); }
+function tri(P, a, b, c, col) { x.globalAlpha = 0.22; x.fillStyle = col; x.beginPath(); x.moveTo(P[a][0], P[a][1]); x.lineTo(P[b][0], P[b][1]); x.lineTo(P[c][0], P[c][1]); x.closePath(); x.fill(); x.globalAlpha = 1; }
+const COL6 = (i, j) => ((i * 5 + j * 3 + i * j) % 3 === 0) ? RED : BLU;
+function scene(t, b, u) {
+  if (b === 0) { dots(H, -1); return u < 0.5 ? "6 PEOPLE AT A PARTY" : "ALWAYS 3 WHO KNOW EACH OTHER, OR 3 STRANGERS"; }
+  if (b === 1) {
+    const n = Math.floor(u * 16);
+    let k = 0; for (let i = 0; i < 6; i++) for (let j = i + 1; j < 6; j++) { if (k++ < n) edge(H, i, j, COL6(i, j), 5, 0.85); }
+    dots(H, -1); txt("blue = know each other", 300, 1050, 34, BLU); txt("red = strangers", 780, 1050, 34, RED);
+    return "ONE LINE PER PAIR";
+  }
+  if (b === 2) {
+    for (let i = 0; i < 5; i++) { edge(PEN, i, (i + 1) % 5, BLU, 8); edge(PEN, i, (i + 2) % 5, RED, 6); }
+    dots(PEN, -1); txt("ring = blue, star = red", 540, 1050, 40, INK);
+    return "5 PEOPLE: NO SINGLE-COLOR TRIANGLE";
+  }
+  if (b === 3) {
+    const cols = [BLU, BLU, BLU, RED, RED];
+    cols.forEach((c, k) => { if (u > 0.1 + k * 0.12) edge(H, 0, k + 1, c, 9); });
+    dots(H, 0); txt("5 lines, 2 colors: 3 must match", 540, 1050, 42, INK);
+    return "ONE PERSON · FIVE LINES";
+  }
+  if (b === 4) {
+    [1, 2, 3].forEach(k => edge(H, 0, k, BLU, 9, 0.5));
+    if (u < 0.5) { edge(H, 1, 2, BLU, 9); tri(H, 0, 1, 2, BLU); txt("one blue line = blue triangle", 540, 1050, 40, BLU); }
+    else { edge(H, 1, 2, RED, 9); edge(H, 2, 3, RED, 9); edge(H, 1, 3, RED, 9); tri(H, 1, 2, 3, RED); txt("all red = red triangle", 540, 1050, 40, RED); }
+    dots(H, 0);
+    return u < 0.5 ? "IF ANY LINE IS BLUE" : "IF ALL THREE ARE RED";
+  }
+  for (let i = 0; i < 6; i++) for (let j = i + 1; j < 6; j++) edge(H, i, j, COL6(i, j), 4, 0.35);
+  for (let i = 0; i < 6; i++) for (let j = i + 1; j < 6; j++) for (let k = j + 1; k < 6; k++)
+    if (!window.__mono && COL6(i, j) === COL6(j, k) && COL6(i, j) === COL6(i, k)) window.__mono = [i, j, k];
+  const m = window.__mono; if (m) { tri(H, m[0], m[1], m[2], COL6(m[0], m[1])); edge(H, m[0], m[1], COL6(m[0], m[1]), 10); edge(H, m[1], m[2], COL6(m[0], m[1]), 10); edge(H, m[0], m[2], COL6(m[0], m[1]), 10); }
+  dots(H, -1); txt("6 is the smallest crowd that guarantees it", 540, 1000, 38, INK);
+  return "ORDER INSIDE CHAOS";
+}
+
+
+function renderAt(t) {
+  x.fillStyle = "#f4ecd8"; x.fillRect(0, 0, 1920, 1080);
+  x.strokeStyle = "rgba(60,90,140,0.16)"; x.lineWidth = 2;
+  for (let g = 0; g <= 1920; g += 40) { x.beginPath(); x.moveTo(g, 0); x.lineTo(g, 1080); x.stroke(); }
+  for (let g = 0; g <= 1080; g += 40) { x.beginPath(); x.moveTo(0, g); x.lineTo(1920, g); x.stroke(); }
+  const b = blockOf(t), u = clamp((t - B[b]) / (B[b + 1] - B[b]));
+  if (t < LEAD) {
+    stat.textContent = ""; x.textAlign = "center"; x.textBaseline = "middle";
+    x.fillStyle = RED; x.font = "bold 44px " + FONT; x.fillText(CHAPTER.split("|")[0], 960, 430);
+    x.fillStyle = INK; x.font = "bold 84px " + FONT; x.fillText(CHAPTER.split("|")[1], 960, 540);
+    groups.forEach(g => { g.el.style.opacity = 0; });
+    return;
+  }
+  x.save(); x.translate(463, -126); x.scale(0.92, 0.92);
+  stat.textContent = scene(t, b, u) || "";
+  x.restore();
+  groups.forEach(g => {
+    const on = t >= g.start && t < g.end;
+    g.el.style.opacity = on ? 1 : 0;
+    if (on) g.forEach(w => w.el.classList.toggle("on", t >= w.s));
+  });
+}
+window.addEventListener("hf-seek", e => renderAt(e.detail.time));
+renderAt(0);
+const tl = gsap.timeline({ paused: true });
+tl.fromTo("#title", { opacity: 0 }, { opacity: 1, duration: 0.5, ease: "power2.out" }, 0);
+window.__timelines = window.__timelines || {};
+window.__timelines["main"] = tl;
+</script>
+</body>
+</html>

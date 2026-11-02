@@ -1,0 +1,12 @@
+{
+  "title": "An ant on a stretching <span style=\"color:#d62828\">rope</span>.",
+  "keys": ["yes", "forever", "harmonic", "digits", "never"],
+  "blocks": [
+    "An ant starts walking along a rubber rope one kilometer long, at one centimeter per second. At the same time, the rope starts stretching by one kilometer every second. Can the ant ever reach the end?",
+    "Here are the rules. The rope stretches evenly, so the ant is carried forward as it stretches. Its own speed never changes. Does it get there?",
+    "It looks impossible. The ant moves one centimeter per second, and the end of the rope runs away a hundred thousand times faster than that.",
+    "But the ant does reach the end. The trick is to track the fraction of the rope it has covered. After the first second, it has covered one hundred-thousandth of the rope. After the second, the rope is longer, so the same step covers a smaller fraction, but the ant keeps all its earlier progress.",
+    "After a thousand seconds, it has covered about seven thousandths of a percent. After a billion seconds, about two hundredths of a percent. The fractions add up as one plus one half plus one third, and so on, the harmonic series, which never stops growing.",
+    "So the ant arrives, after about e to the power of one hundred thousand seconds. That's a number with over forty-three thousand digits. Infinite doesn't mean never, and slow doesn't mean stuck. Even the slowest growth wins, if it never stops."
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "title": "1, 2, 4, 8, 16... <span style=\"color:#d62828\">what's next</span>?",
+  "keys": ["thirty-one", "32", "31", "wrong", "crossings", "coincidence"],
+  "blocks": [
+    "Here's a pattern. One, two, four, eight, sixteen. What comes next? Everyone says thirty-two. Everyone is wrong.",
+    "Here's the game. Put some points on a circle. Draw a straight line between every pair of points. Then count the regions the circle is cut into.",
+    "One point makes one region. Two points make one line, so two regions. Three points make a triangle: four regions. Four points: eight regions. Five points: sixteen regions.",
+    "Now six points. Everyone expects thirty-two. But when you count carefully, there are only thirty-one.",
+    "Why? Start with one region, add one for every line you draw, and one more for every place two lines cross. Six points give fifteen lines and fifteen crossings. One plus fifteen plus fifteen is thirty-one. With seven points, it's fifty-seven.",
+    "The doubling was a coincidence, not a rule. Five examples can fit a hundred different patterns. A pattern is only a guess until you can prove why it continues."
+  ]
+}

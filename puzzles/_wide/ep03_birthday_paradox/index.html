@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=1920, height=1080" />
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 1920px; height: 1080px; overflow: hidden; background: #f4ecd8; }
+  #root { position: relative; width: 1920px; height: 1080px; overflow: hidden; background: #f4ecd8;
+    font-family: "JetBrains Mono", monospace; color: #1c1c1c; }
+  #cv { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; }
+  .t { position: absolute; left: 0; width: 1920px; text-align: center; font-weight: 700; }
+  #title { top: 26px; font-size: 52px; white-space: nowrap; }
+  #stat { top: 92px; font-size: 28px; opacity: .7; letter-spacing: 2px; }
+  #cap { top: 958px; left: 260px; width: 1400px; font-size: 52px; line-height: 62px; height: 124px; }
+  .g { position: absolute; left: 0; top: 0; width: 1400px; text-align: center; opacity: 0; }
+  .w { opacity: .22; }
+  .w.on { opacity: 1; }
+  .w.k.on { color: #d62828; }
+</style>
+</head>
+<body>
+<div id="root" data-composition-id="main" data-start="0" data-duration="93.633" data-width="1920" data-height="1080">
+  <canvas id="cv" class="clip" data-start="0" data-duration="93.633" width="1920" height="1080"></canvas>
+  <div id="title" class="clip t" data-start="0" data-duration="93.633">Birthday match: how <span style="color:#d62828">many</span>?</div>
+  <div id="stat" class="clip t" data-start="0" data-duration="93.633"></div>
+  <div id="cap" class="clip t" data-start="0" data-duration="93.633"></div>
+  <audio id="voice" src="assets/voice.mp3" data-start="2.8" data-duration="93.633" data-volume="1"></audio>
+</div>
+<script>
+const LEAD = 2.8, CHAPTER = "PUZZLE 3 OF 6|23 people", WORDS = [{"w": "How", "s": 2.8, "e": 3.009}, {"w": "many", "s": 3.055, "e": 3.218}, {"w": "people", "s": 3.276, "e": 3.531}, {"w": "do", "s": 3.566, "e": 3.636}, {"w": "you", "s": 3.694, "e": 3.764}, {"w": "need", "s": 3.822, "e": 3.973}, {"w": "in", "s": 4.019, "e": 4.077}, {"w": "a", "s": 4.124, "e": 4.147}, {"w": "room", "s": 4.216, "e": 4.425}, {"w": "before", "s": 4.483, "e": 4.75}, {"w": "two", "s": 4.785, "e": 4.901}, {"w": "of", "s": 4.971, "e": 5.029}, {"w": "them", "s": 5.064, "e": 5.192}, {"w": "probably", "s": 5.25, "e": 5.552}, {"w": "share", "s": 5.598, "e": 5.784}, {"w": "a", "s": 5.807, "e": 5.842}, {"w": "birthday?", "s": 5.877, "e": 6.422}, {"w": "Not", "s": 7.072, "e": 7.258}, {"w": "183.", "s": 7.316, "e": 8.199}, {"w": "The", "s": 8.222, "e": 8.292}, {"w": "real", "s": 8.35, "e": 8.524}, {"w": "answer", "s": 8.582, "e": 8.814}, {"w": "is", "s": 8.837, "e": 8.884}, {"w": "just", "s": 8.93, "e": 9.081}, {"w": "23.", "s": 9.127, "e": 9.766}, {"w": "Here", "s": 11.159, "e": 11.38}, {"w": "are", "s": 11.403, "e": 11.507}, {"w": "the", "s": 11.531, "e": 11.6}, {"w": "rules.", "s": 11.647, "e": 12.03}, {"w": "Ignore", "s": 12.053, "e": 12.541}, {"w": "leap", "s": 12.61, "e": 12.843}, {"w": "years.", "s": 12.912, "e": 13.435}, {"w": "Every", "s": 13.737, "e": 13.969}, {"w": "day", "s": 14.027, "e": 14.166}, {"w": "is", "s": 14.213, "e": 14.294}, {"w": "equally", "s": 14.352, "e": 14.665}, {"w": "likely.", "s": 14.723, "e": 15.199}, {"w": "And", "s": 15.501, "e": 15.641}, {"w": "we", "s": 15.699, "e": 15.803}, {"w": "want", "s": 15.873, "e": 16.082}, {"w": "the", "s": 16.128, "e": 16.21}, {"w": "chance", "s": 16.279, "e": 16.674}, {"w": "that", "s": 16.709, "e": 16.836}, {"w": "at", "s": 16.883, "e": 16.953}, {"w": "least", "s": 17.022, "e": 17.254}, {"w": "two", "s": 17.301, "e": 17.475}, {"w": "people", "s": 17.545, "e": 17.823}, {"w": "share", "s": 17.858, "e": 18.044}, {"w": "a", "s": 18.079, "e": 18.102}, {"w": "birthday.", "s": 18.148, "e": 18.729}, {"w": "Don't", "s": 19.379, "e": 19.623}, {"w": "count", "s": 19.681, "e": 19.902}, {"w": "people.", "s": 19.948, "e": 20.343}, {"w": "Count", "s": 20.703, "e": 20.993}, {"w": "pairs.", "s": 21.063, "e": 21.713}, {"w": "With", "s": 22.467, "e": 22.665}, {"w": "two", "s": 22.734, "e": 22.932}, {"w": "people,", "s": 23.001, "e": 23.501}, {"w": "there's", "s": 23.756, "e": 24.023}, {"w": "one", "s": 24.093, "e": 24.278}, {"w": "pair.", "s": 24.325, "e": 24.766}, {"w": "Three", "s": 25.416, "e": 25.718}, {"w": "people,", "s": 25.765, "e": 26.217}, {"w": "three", "s": 26.519, "e": 26.798}, {"w": "pairs.", "s": 26.856, "e": 27.448}, {"w": "Ten", "s": 28.098, "e": 28.33}, {"w": "people,", "s": 28.4, "e": 28.83}, {"w": "forty-five", "s": 29.027, "e": 29.584}, {"w": "pairs.", "s": 29.631, "e": 30.165}, {"w": "Twenty-three", "s": 30.815, "e": 31.372}, {"w": "people,", "s": 31.419, "e": 31.871}, {"w": "two", "s": 32.278, "e": 32.475}, {"w": "hundred", "s": 32.545, "e": 32.835}, {"w": "fifty-three", "s": 32.974, "e": 33.52}, {"w": "pairs.", "s": 33.566, "e": 34.124}, {"w": "Each", "s": 34.878, "e": 35.122}, {"w": "pair", "s": 35.192, "e": 35.447}, {"w": "has", "s": 35.517, "e": 35.668}, {"w": "only", "s": 35.738, "e": 35.958}, {"w": "a", "s": 36.028, "e": 36.063}, {"w": "one", "s": 36.167, "e": 36.481}, {"w": "in", "s": 36.539, "e": 36.643}, {"w": "three", "s": 36.713, "e": 36.945}, {"w": "hundred", "s": 36.992, "e": 37.282}, {"w": "sixty-five", "s": 37.421, "e": 38.025}, {"w": "chance", "s": 38.071, "e": 38.338}, {"w": "to", "s": 38.373, "e": 38.431}, {"w": "match.", "s": 38.501, "e": 38.907}, {"w": "But", "s": 39.267, "e": 39.418}, {"w": "there", "s": 39.441, "e": 39.581}, {"w": "are", "s": 39.615, "e": 39.732}, {"w": "two", "s": 39.778, "e": 39.952}, {"w": "hundred", "s": 40.057, "e": 40.359}, {"w": "fifty-three", "s": 40.498, "e": 41.136}, {"w": "of", "s": 41.171, "e": 41.229}, {"w": "them,", "s": 41.276, "e": 41.578}, {"w": "and", "s": 41.833, "e": 41.984}, {"w": "every", "s": 42.054, "e": 42.228}, {"w": "pair", "s": 42.274, "e": 42.437}, {"w": "gets", "s": 42.495, "e": 42.646}, {"w": "a", "s": 42.681, "e": 42.715}, {"w": "try.", "s": 42.762, "e": 43.238}, {"w": "With", "s": 43.598, "e": 43.772}, {"w": "23", "s": 43.842, "e": 44.318}, {"w": "people,", "s": 44.387, "e": 44.712}, {"w": "the", "s": 44.735, "e": 44.805}, {"w": "chance", "s": 44.863, "e": 45.153}, {"w": "passes", "s": 45.2, "e": 45.548}, {"w": "fifty", "s": 45.653, "e": 45.955}, {"w": "percent.", "s": 46.013, "e": 46.5}, {"w": "With", "s": 46.802, "e": 46.988}, {"w": "30,", "s": 47.057, "e": 47.383}, {"w": "seventy", "s": 47.406, "e": 47.708}, {"w": "percent.", "s": 47.766, "e": 48.218}, {"w": "With", "s": 48.52, "e": 48.706}, {"w": "50,", "s": 48.776, "e": 49.147}, {"w": "ninety-seven", "s": 49.217, "e": 49.763}, {"w": "percent.", "s": 49.821, "e": 50.296}, {"w": "With", "s": 50.552, "e": 50.738}, {"w": "70,", "s": 50.842, "e": 51.33}, {"w": "over", "s": 51.376, "e": 51.574}, {"w": "ninety-nine", "s": 51.678, "e": 52.293}, {"w": "point", "s": 52.351, "e": 52.572}, {"w": "nine", "s": 52.63, "e": 52.816}, {"w": "percent.", "s": 52.851, "e": 53.303}, {"w": "The", "s": 53.663, "e": 53.791}, {"w": "easy", "s": 53.896, "e": 54.197}, {"w": "way", "s": 54.267, "e": 54.395}, {"w": "to", "s": 54.441, "e": 54.488}, {"w": "compute", "s": 54.557, "e": 54.975}, {"w": "it", "s": 55.01, "e": 55.103}, {"w": "is", "s": 55.173, "e": 55.266}, {"w": "to", "s": 55.312, "e": 55.37}, {"w": "ask", "s": 55.44, "e": 55.649}, {"w": "the", "s": 55.695, "e": 55.776}, {"w": "opposite.", "s": 55.834, "e": 56.392}, {"w": "What's", "s": 56.798, "e": 57.065}, {"w": "the", "s": 57.123, "e": 57.204}, {"w": "chance", "s": 57.262, "e": 57.564}, {"w": "that", "s": 57.588, "e": 57.704}, {"w": "everyone", "s": 57.762, "e": 58.11}, {"w": "has", "s": 58.145, "e": 58.261}, {"w": "a", "s": 58.307, "e": 58.342}, {"w": "different", "s": 58.389, "e": 58.644}, {"w": "birthday?", "s": 58.667, "e": 59.19}, {"w": "The", "s": 59.55, "e": 59.677}, {"w": "second", "s": 59.782, "e": 60.095}, {"w": "person", "s": 60.165, "e": 60.467}, {"w": "must", "s": 60.513, "e": 60.687}, {"w": "avoid", "s": 60.734, "e": 61.012}, {"w": "one", "s": 61.082, "e": 61.256}, {"w": "day:", "s": 61.291, "e": 61.628}, {"w": "three", "s": 61.883, "e": 62.127}, {"w": "hundred", "s": 62.185, "e": 62.499}, {"w": "sixty-four", "s": 62.661, "e": 63.288}, {"w": "out", "s": 63.334, "e": 63.416}, {"w": "of", "s": 63.451, "e": 63.497}, {"w": "three", "s": 63.543, "e": 63.718}, {"w": "hundred", "s": 63.752, "e": 63.973}, {"w": "sixty-five.", "s": 64.112, "e": 64.855}, {"w": "The", "s": 65.215, "e": 65.355}, {"w": "third", "s": 65.424, "e": 65.715}, {"w": "must", "s": 65.773, "e": 65.947}, {"w": "avoid", "s": 65.993, "e": 66.283}, {"w": "two", "s": 66.318, "e": 66.469}, {"w": "days.", "s": 66.539, "e": 67.015}, {"w": "And", "s": 67.177, "e": 67.34}, {"w": "so", "s": 67.421, "e": 67.595}, {"w": "on.", "s": 67.665, "e": 67.99}, {"w": "Multiply", "s": 68.35, "e": 68.872}, {"w": "them", "s": 68.942, "e": 69.058}, {"w": "all,", "s": 69.116, "e": 69.546}, {"w": "and", "s": 69.65, "e": 69.801}, {"w": "by", "s": 69.859, "e": 69.952}, {"w": "person", "s": 70.022, "e": 70.358}, {"w": "twenty-three,", "s": 70.428, "e": 71.264}, {"w": "the", "s": 71.427, "e": 71.519}, {"w": "product", "s": 71.578, "e": 71.914}, {"w": "drops", "s": 71.937, "e": 72.216}, {"w": "below", "s": 72.274, "e": 72.518}, {"w": "one", "s": 72.588, "e": 72.75}, {"w": "half.", "s": 72.808, "e": 73.215}, {"w": "It", "s": 73.772, "e": 73.9}, {"w": "feels", "s": 73.958, "e": 74.225}, {"w": "wrong", "s": 74.271, "e": 74.55}, {"w": "because", "s": 74.619, "e": 74.944}, {"w": "we", "s": 74.979, "e": 75.072}, {"w": "compare", "s": 75.13, "e": 75.467}, {"w": "ourselves", "s": 75.502, "e": 75.896}, {"w": "to", "s": 75.931, "e": 75.989}, {"w": "the", "s": 76.047, "e": 76.117}, {"w": "room:", "s": 76.152, "e": 76.593}, {"w": "you", "s": 77.069, "e": 77.243}, {"w": "against", "s": 77.324, "e": 77.615}, {"w": "twenty-two", "s": 77.638, "e": 78.056}, {"w": "others.", "s": 78.125, "e": 78.613}, {"w": "But", "s": 78.973, "e": 79.136}, {"w": "the", "s": 79.17, "e": 79.24}, {"w": "room", "s": 79.31, "e": 79.53}, {"w": "compares", "s": 79.6, "e": 80.041}, {"w": "everyone", "s": 80.146, "e": 80.587}, {"w": "to", "s": 80.622, "e": 80.668}, {"w": "everyone.", "s": 80.738, "e": 81.295}, {"w": "That's", "s": 81.655, "e": 81.91}, {"w": "two", "s": 81.98, "e": 82.235}, {"w": "hundred", "s": 82.34, "e": 82.642}, {"w": "fifty-three", "s": 82.711, "e": 83.28}, {"w": "pairs,", "s": 83.338, "e": 83.733}, {"w": "not", "s": 83.791, "e": 83.965}, {"w": "twenty-two.", "s": 84.0, "e": 84.697}, {"w": "So", "s": 85.173, "e": 85.3}, {"w": "when", "s": 85.347, "e": 85.475}, {"w": "a", "s": 85.509, "e": 85.533}, {"w": "coincidence", "s": 85.591, "e": 86.276}, {"w": "seems", "s": 86.299, "e": 86.554}, {"w": "too", "s": 86.624, "e": 86.798}, {"w": "big", "s": 86.868, "e": 87.019}, {"w": "to", "s": 87.065, "e": 87.112}, {"w": "be", "s": 87.158, "e": 87.239}, {"w": "chance,", "s": 87.286, "e": 87.831}, {"w": "count", "s": 88.238, "e": 88.482}, {"w": "the", "s": 88.528, "e": 88.598}, {"w": "pairs", "s": 88.656, "e": 88.934}, {"w": "first.", "s": 89.004, "e": 89.468}, {"w": "The", "s": 89.77, "e": 89.91}, {"w": "odds", "s": 89.979, "e": 90.235}, {"w": "you're", "s": 90.258, "e": 90.42}, {"w": "ignoring", "s": 90.444, "e": 90.827}, {"w": "are", "s": 90.862, "e": 90.966}, {"w": "usually", "s": 91.036, "e": 91.349}, {"w": "hiding", "s": 91.396, "e": 91.663}, {"w": "in", "s": 91.698, "e": 91.744}, {"w": "the", "s": 91.779, "e": 91.848}, {"w": "number", "s": 91.883, "e": 92.092}, {"w": "of", "s": 92.127, "e": 92.174}, {"w": "chances.", "s": 92.232, "e": 93.033}], B = [2.8, 11.159, 19.379, 34.878, 53.663, 73.772, 85.173, 93.333], VEND = 93.033, DUR = 93.633, NB = B.length - 1;
+const KEYS = new Set(["birthday", "23", "pairs", "253", "opposite", "everyone"]);
+const INK = "#1c1c1c", RED = "#d62828", OR = "#e07a00", GRN = "#2a9d5c", DOT = "#4a4a4a";
+const clamp = v => Math.max(0, Math.min(1, v));
+const ease = v => { v = clamp(v); return v * v * (3 - 2 * v); };
+const bit = (i, k) => (i >> k) & 1;
+const cvs = document.getElementById("cv"), x = cvs.getContext("2d");
+const stat = document.getElementById("stat"), cap = document.getElementById("cap");
+const FONT = "'JetBrains Mono', monospace";
+function txt(s, px, py, size, col, align, weight) {
+  x.font = (weight || "bold") + " " + Math.round(size * 1.12) + "px " + FONT; x.fillStyle = col || INK;
+  x.textAlign = align || "center"; x.textBaseline = "middle"; x.fillText(s, px, py);
+}
+function circ(cx, cy, r, fill, stroke, lw, alpha) {
+  x.globalAlpha = alpha == null ? 1 : alpha; x.beginPath(); x.arc(cx, cy, r, 0, 6.283);
+  if (fill) { x.fillStyle = fill; x.fill(); } if (stroke) { x.strokeStyle = stroke; x.lineWidth = lw || 4; x.stroke(); }
+  x.globalAlpha = 1;
+}
+function rect(px, py, w, h, fill, stroke, lw, alpha) {
+  x.globalAlpha = alpha == null ? 1 : alpha;
+  if (fill) { x.fillStyle = fill; x.fillRect(px, py, w, h); }
+  if (stroke) { x.strokeStyle = stroke; x.lineWidth = lw || 4; x.strokeRect(px, py, w, h); }
+  x.globalAlpha = 1;
+}
+function line(x1, y1, x2, y2, col, lw, alpha) {
+  x.globalAlpha = alpha == null ? 1 : alpha; x.strokeStyle = col || INK; x.lineWidth = lw || 3;
+  x.beginPath(); x.moveTo(x1, y1); x.lineTo(x2, y2); x.stroke(); x.globalAlpha = 1;
+}
+function show(w) {
+  const m = w.match(/^((?:one|zero)(?:-(?:one|zero))+)([.,?!]*)$/i);
+  if (m) return m[1].toLowerCase().split("-").map(p => p === "one" ? 1 : 0).join("") + m[2];
+  return w;
+}
+const groups = []; {
+  let g = [];
+  const flush = () => { if (g.length) { groups.push(g); g = []; } };
+  WORDS.forEach((w, i) => {
+    const t = show(w.w);
+    if (g.length && (g.length >= 4 || g.map(o => show(o.w)).join(" ").length + t.length > 24)) flush();
+    g.push({ ...w, i, txt: t });
+    if (/[.?!]$/.test(w.w) || /,$/.test(w.w)) flush();
+  });
+  flush();
+}
+groups.forEach((g, gi) => {
+  const el = document.createElement("div"); el.className = "g"; el.id = "g" + gi;
+  g.forEach(w => {
+    const s = document.createElement("span");
+    s.className = "w" + (KEYS.has(w.txt.toLowerCase().replace(/[.,?!]/g, "")) ? " k" : "");
+    s.textContent = w.txt + " "; w.el = s; el.appendChild(s);
+  });
+  cap.appendChild(el); g.el = el;
+  g.start = g[0].s - 0.05; g.end = DUR;
+});
+groups.forEach((g, gi) => { if (gi + 1 < groups.length) g.end = Math.min(g[g.length - 1].e + 0.25, groups[gi + 1][0].s - 0.05); });
+function blockOf(t) { let b = 0; for (let i = 0; i < NB; i++) if (t >= B[i]) b = i; return b; }
+
+const pb = n => { let q = 1; for (let i = 0; i < n; i++) q *= (365 - i) / 365; return 1 - q; };
+function people(cx, cy, r, n, la, hiOne) {
+  const pts = [];
+  for (let i = 0; i < n; i++) { const a = -1.5708 + i * 6.283 / n; pts.push([cx + r * Math.cos(a), cy + r * Math.sin(a)]); }
+  if (la > 0) for (let i = 0; i < n; i++) for (let j = i + 1; j < n; j++)
+    if (!hiOne || i === 0) line(pts[i][0], pts[i][1], pts[j][0], pts[j][1], hiOne ? GRN : RED, hiOne ? 4 : 2, la);
+  pts.forEach((p, i) => circ(p[0], p[1], n > 30 ? 5 : n > 12 ? 11 : 16, hiOne && i === 0 ? GRN : INK));
+}
+const CHX = 120, CHW = 840, CHB = 1110, CHH = 330;
+function chart(upto, inv) {
+  line(CHX, CHB, CHX + CHW, CHB, INK, 3); line(CHX, CHB, CHX, CHB - CHH, INK, 3);
+  [0, 23, 50, 70].forEach(n => txt(String(n), CHX + CHW * n / 70, CHB + 28, 26, INK));
+  txt("100%", CHX - 10, CHB - CHH, 24, INK, "right"); txt("50%", CHX - 10, CHB - CHH / 2, 24, INK, "right");
+  line(CHX, CHB - CHH / 2, CHX + CHW, CHB - CHH / 2, INK, 2, 0.35);
+  x.strokeStyle = inv ? OR : RED; x.lineWidth = 7; x.beginPath();
+  for (let n = 0; n <= upto + 0.001; n += 0.5) {
+    const p = inv ? 1 - pb(n) : pb(n), px = CHX + CHW * n / 70, py = CHB - CHH * p;
+    n === 0 ? x.moveTo(px, py) : x.lineTo(px, py);
+  }
+  x.stroke();
+}
+function mark(n, upto) {
+  if (upto < n) return;
+  const p = pb(n), px = CHX + CHW * n / 70, py = CHB - CHH * p;
+  circ(px, py, 11, RED); txt((p * 100).toFixed(1) + "%", Math.min(px, 900), py - 34, 28, RED);
+}
+function scene(t, b, u) {
+  if (b === 0) {
+    people(540, 640, 300, 1 + Math.floor(ease(u / 0.8) * 22), 0, false);
+    return u < 0.5 ? "HOW MANY PEOPLE?" : "23 PEOPLE";
+  }
+  if (b === 1) {
+    for (let i = 0; i < 365; i++) circ(150 + (i % 20) * 42, 400 + Math.floor(i / 20) * 36, 9, DOT, null, 0, 0.55);
+    if (u > 0.66) { [86, 241].forEach(i => circ(150 + (i % 20) * 42, 400 + Math.floor(i / 20) * 36, 17, null, RED, 6)); }
+    return u < 0.33 ? "NO LEAP YEARS" : u < 0.66 ? "ALL DAYS EQUAL" : "AT LEAST ONE MATCH";
+  }
+  if (b === 2) {
+    const n = u < 0.2 ? 2 : u < 0.4 ? 3 : u < 0.6 ? 10 : 23;
+    people(540, 640, 300, n, 0.55, false);
+    return n + " PEOPLE  =  " + (n * (n - 1) / 2) + (n === 2 ? " PAIR" : " PAIRS");
+  }
+  if (b === 3) {
+    people(540, 520, 150, 23, 0.25, false);
+    const up = 70 * ease(u / 0.9); chart(up, false); [23, 30, 50, 70].forEach(n => mark(n, up));
+    return Math.max(1, Math.round(up)) + " PEOPLE  ·  " + (pb(Math.max(1, Math.round(up))) * 100).toFixed(1) + "% MATCH";
+  }
+  if (b === 4) {
+    people(540, 520, 150, 23, 0, false);
+    const up = 30 * ease(u / 0.9); chart(Math.max(up, 0.5), true);
+    const k = Math.min(23, Math.max(2, Math.floor(up)));
+    txt("364/365  ×  363/365  ×  362/365  ×  …", 540, 700, 30, INK);
+    if (up >= 23) { circ(CHX + CHW * 23 / 70, CHB - CHH * (1 - pb(23)), 12, OR); txt("below 50% at person 23", 540, 760, 30, OR); }
+    return "ALL DIFFERENT AMONG " + Math.max(1, Math.round(up)) + (Math.round(up) <= 1 ? " PERSON: " : " PEOPLE: ") + ((1 - pb(Math.max(1, Math.round(up)))) * 100).toFixed(1) + "%";
+  }
+  if (b === 5) {
+    if (u < 0.5) { people(540, 640, 300, 23, 0.8, true); return "YOU VS THE ROOM  ·  22 PAIRS"; }
+    people(540, 640, 300, 23, 0.4, false); return "EVERYONE VS EVERYONE  ·  253 PAIRS";
+  }
+  people(540, 640, 300, 23, 0.4 * (1 - clamp(u / 0.6)), false);
+  txt("COUNT THE PAIRS", 540, 640, 56, INK);
+  return "THE ODDS HIDE IN THE CHANCES";
+}
+
+
+function renderAt(t) {
+  x.fillStyle = "#f4ecd8"; x.fillRect(0, 0, 1920, 1080);
+  x.strokeStyle = "rgba(60,90,140,0.16)"; x.lineWidth = 2;
+  for (let g = 0; g <= 1920; g += 40) { x.beginPath(); x.moveTo(g, 0); x.lineTo(g, 1080); x.stroke(); }
+  for (let g = 0; g <= 1080; g += 40) { x.beginPath(); x.moveTo(0, g); x.lineTo(1920, g); x.stroke(); }
+  const b = blockOf(t), u = clamp((t - B[b]) / (B[b + 1] - B[b]));
+  if (t < LEAD) {
+    stat.textContent = ""; x.textAlign = "center"; x.textBaseline = "middle";
+    x.fillStyle = RED; x.font = "bold 44px " + FONT; x.fillText(CHAPTER.split("|")[0], 960, 430);
+    x.fillStyle = INK; x.font = "bold 84px " + FONT; x.fillText(CHAPTER.split("|")[1], 960, 540);
+    groups.forEach(g => { g.el.style.opacity = 0; });
+    return;
+  }
+  x.save(); x.translate(463, -126); x.scale(0.92, 0.92);
+  stat.textContent = scene(t, b, u) || "";
+  x.restore();
+  groups.forEach(g => {
+    const on = t >= g.start && t < g.end;
+    g.el.style.opacity = on ? 1 : 0;
+    if (on) g.forEach(w => w.el.classList.toggle("on", t >= w.s));
+  });
+}
+window.addEventListener("hf-seek", e => renderAt(e.detail.time));
+renderAt(0);
+const tl = gsap.timeline({ paused: true });
+tl.fromTo("#title", { opacity: 0 }, { opacity: 1, duration: 0.5, ease: "power2.out" }, 0);
+window.__timelines = window.__timelines || {};
+window.__timelines["main"] = tl;
+</script>
+</body>
+</html>

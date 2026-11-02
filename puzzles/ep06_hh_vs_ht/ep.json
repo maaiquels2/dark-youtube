@@ -1,0 +1,20 @@
+{
+  "title": "HH or HT: which <span style=\"color:#d62828\">waits</span>?",
+  "keys": [
+    "heads-heads",
+    "heads-tails",
+    "four",
+    "six",
+    "resets",
+    "tails"
+  ],
+  "blocks": [
+    "Flip a fair coin until you get two heads in a row. Then flip again until you get a head followed by a tail. Same coin, same odds. Which one takes longer? It should be a tie. It isn't.",
+    "Here are the rules. Game A: keep flipping until the last two flips are heads-heads. Game B: keep flipping until the last two flips are heads-tails. Count the flips, play many times, and take the average.",
+    "At any single spot, both patterns have the same one in four chance. But the averages are different. Heads-tails takes four flips on average. Heads-heads takes six.",
+    "Why? Look at heads-tails. Say you've flipped a head. If the next flip is another head, you're not set back. That second head is already the start of a new try. You never fall behind.",
+    "Now heads-heads. You flip a head, and then a tail. That tail resets you to zero, and the head you had is wasted. Every failure sends you right back to the start.",
+    "Race them. Heads-tails averages about four flips. Heads-heads averages about six.",
+    "Both patterns are equally likely at any spot. But heads-heads clumps together, and clumps make you wait. Averages can hide patterns that probabilities don't show."
+  ]
+}

@@ -1,0 +1,99 @@
+[
+ {
+  "file": "ftc_seal.svg",
+  "entity": "FTC",
+  "source_url": "https://commons.wikimedia.org/wiki/File:Seal_of_the_United_States_Federal_Trade_Commission.svg",
+  "author": "Tiffany &amp; Co.",
+  "license": "Public domain",
+  "size": "720x720",
+  "file_png": "ftc_seal.png"
+ },
+ {
+  "file": "blumenthal.jpg",
+  "entity": "Richard Blumenthal",
+  "source_url": "https://commons.wikimedia.org/wiki/File:Richard_Blumenthal_in_2025.jpg",
+  "author": "U.S. Embassy Kyiv Ukraine",
+  "license": "Public domain",
+  "size": "791x1002",
+  "nota": "791x1002, abaixo de 1000 px de largura; usar so se precisar"
+ },
+ {
+  "file": "chopra.jpg",
+  "entity": "Rohit Chopra",
+  "source_url": "https://commons.wikimedia.org/wiki/File:Rohit_Chopra_official_photo.jpg",
+  "author": "Federal Trade Commission",
+  "license": "Public domain",
+  "size": "1280x1600"
+ },
+ {
+  "file": "warren.jpg",
+  "entity": "Elizabeth Warren",
+  "source_url": "https://commons.wikimedia.org/wiki/File:Elizabeth_Warren%2C_official_portrait%2C_114th_Congress.jpg",
+  "author": "United States Senate",
+  "license": "Public domain",
+  "size": "1908x2385"
+ },
+ {
+  "file": "vought.jpg",
+  "entity": "Russell Vought",
+  "source_url": "https://commons.wikimedia.org/wiki/File:Russell_Vought_official_portrait_2025.jpg",
+  "author": "Consumer Financial Protection Bureau (CFPB)",
+  "license": "Public domain",
+  "size": "455x576"
+ },
+ {
+  "file": "james.jpg",
+  "entity": "Letitia James",
+  "source_url": "https://commons.wikimedia.org/wiki/File:Letitia_James_2013.jpg",
+  "author": "Matthew Cohen (Flickr) - credit required: CC BY 2.0",
+  "license": "CC BY 2.0",
+  "size": "2271x2669"
+ },
+ {
+  "file": "zelle_logo.svg",
+  "entity": "Zelle / Early Warning Services",
+  "source_url": "https://commons.wikimedia.org/wiki/File:Zelle_logo.svg",
+  "author": "Zelle logo.jpg: Zelle / derivative work: Vahurzpu",
+  "license": "Public domain",
+  "size": "1500x791"
+ },
+ {
+  "file": "chase_logo.svg",
+  "entity": "JPMorgan Chase",
+  "source_url": "https://commons.wikimedia.org/wiki/File:Chase_logo_2007.svg",
+  "author": "Original:  JPMorgan Chase / Vectorization:  en:User:Closeapple",
+  "license": "Public domain",
+  "size": "299x56"
+ },
+ {
+  "file": "bofa_logo.svg",
+  "entity": "Bank of America",
+  "source_url": "https://commons.wikimedia.org/wiki/File:Bank_of_America_logo.svg",
+  "author": "Bank of America",
+  "license": "Public domain",
+  "size": "720x73"
+ },
+ {
+  "file": "wellsfargo_logo.svg",
+  "entity": "Wells Fargo",
+  "source_url": "https://commons.wikimedia.org/wiki/File:Wells_Fargo_Logo_%282020%29.svg",
+  "author": "Wells Fargo",
+  "license": "Public domain",
+  "size": "300x300"
+ },
+ {
+  "file": "cfpb_seal.svg",
+  "entity": "CFPB",
+  "source_url": "https://commons.wikimedia.org/wiki/File:Seal_of_the_Consumer_Financial_Protection_Bureau.svg",
+  "author": "Consumer Financial Protection Bureau",
+  "license": "Public domain",
+  "size": "512x512"
+ },
+ {
+  "file": "us_states.json",
+  "entity": "US state boundaries (us_map)",
+  "source_url": "https://www.census.gov/geographies/mapping-files/time-series/geo/cartographic-boundary.html",
+  "author": "U.S. Census Bureau (via library/maps/us-states.json)",
+  "license": "Public domain"
+ }
+]

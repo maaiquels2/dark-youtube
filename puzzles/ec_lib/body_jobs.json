@@ -1,0 +1,17 @@
+[
+ {"out": "C:/Users/Admin/Documents/Codex/2026-09-10/Dark YouTube/puzzles/ec_lib/body/body_v1_violet_front.png",
+  "prompt": "A full human body seen from the front, translucent glowing silhouette, all major internal organs clearly visible (brain, heart, lungs, liver, stomach, intestines, kidneys), arms slightly away from the sides, the entire body from head to feet fits inside the frame. Medical hologram visualization, violet and magenta light with soft white highlights, pure black background, subject centered with empty dark margin around it, clean, ultra detailed, vertical 9:16 composition. No text, no letters, no numbers, no labels, no watermark, no logo.",
+  "seed": 11},
+ {"out": "C:/Users/Admin/Documents/Codex/2026-09-10/Dark YouTube/puzzles/ec_lib/body/body_v2_nerves_side.png",
+  "prompt": "A full human body seen from the side in profile, standing, translucent glowing skin, the nervous system glowing bright: brain, spinal cord and nerves branching to the arms and legs, the entire body from head to feet fits inside the frame. Medical hologram visualization, electric blue light with white sparks along the nerves, pure black background, subject centered with empty dark margin around it, clean, ultra detailed, vertical 9:16 composition. No text, no letters, no numbers, no labels, no watermark, no logo.",
+  "seed": 11},
+ {"out": "C:/Users/Admin/Documents/Codex/2026-09-10/Dark YouTube/puzzles/ec_lib/body/body_v3_torso_organs.png",
+  "prompt": "Close-up of a human torso seen from the front, from the neck to the hips, translucent glowing skin, anatomically correct internal organs in place: heart, lungs, liver, stomach, pancreas, intestines, kidneys. Medical hologram visualization, warm amber and gold light with teal accents, pure black background, subject centered with empty dark margin around it, clean, ultra detailed, vertical 9:16 composition. No text, no letters, no numbers, no labels, no watermark, no logo.",
+  "seed": 11},
+ {"out": "C:/Users/Admin/Documents/Codex/2026-09-10/Dark YouTube/puzzles/ec_lib/body/body_v4_circulation.png",
+  "prompt": "A full human body seen from the front, faint translucent silhouette, the circulatory system glowing: the heart in the chest, red arteries and blue veins branching through the whole body to the hands and feet, the entire body from head to feet fits inside the frame. Medical hologram visualization, red and blue light, pure black background, subject centered with empty dark margin around it, clean, ultra detailed, vertical 9:16 composition. No text, no letters, no numbers, no labels, no watermark, no logo.",
+  "seed": 11},
+ {"out": "C:/Users/Admin/Documents/Codex/2026-09-10/Dark YouTube/puzzles/ec_lib/body/body_v5_xray.png",
+  "prompt": "A full human body seen from the front as a medical X-ray scan, the skeleton bright white and the internal organs as soft translucent shapes inside the ribcage and abdomen, the entire body from head to feet fits inside the frame. Radiograph look, cool green and white tones, pure black background, subject centered with empty dark margin around it, clean, ultra detailed, vertical 9:16 composition. No text, no letters, no numbers, no labels, no watermark, no logo.",
+  "seed": 11}
+]

@@ -1,0 +1,371 @@
+{
+  "version": 1,
+  "historyId": "d7f5cdc8-4670-494f-af72-5bab1ab0d728",
+  "currentRevision": "d834d054-bf22-405a-a003-34f8aa1d859a",
+  "pendingChanges": false,
+  "files": {
+    "assets/timing.json": {
+      "hash": "33dc0e0dd806aaa47e45e646381bcc57237489b620d5153a853aa7320aff8856",
+      "content": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\d7f5cdc8-4670-494f-af72-5bab1ab0d728\\blobs\\33\\33dc0e0dd806aaa47e45e646381bcc57237489b620d5153a853aa7320aff8856"
+    },
+    "ep.json": {
+      "hash": "7e908ee250fe7caeab7053dd4e65fff19c0f3fdc9126a2be81e68df2223eea89",
+      "content": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\d7f5cdc8-4670-494f-af72-5bab1ab0d728\\blobs\\7e\\7e908ee250fe7caeab7053dd4e65fff19c0f3fdc9126a2be81e68df2223eea89"
+    },
+    "hyperframes.json": {
+      "hash": "c7a3009d23e471acfb1ca9ec252ea16a0ca4dfe55e3b3b9d7089c8f0764f4a43",
+      "content": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\d7f5cdc8-4670-494f-af72-5bab1ab0d728\\blobs\\c7\\c7a3009d23e471acfb1ca9ec252ea16a0ca4dfe55e3b3b9d7089c8f0764f4a43"
+    },
+    "index.html": {
+      "hash": "bc57f67c77dc832e6e31594489477543af892a2fdab4d3f91d1f9fe53c722f31",
+      "content": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\d7f5cdc8-4670-494f-af72-5bab1ab0d728\\blobs\\bc\\bc57f67c77dc832e6e31594489477543af892a2fdab4d3f91d1f9fe53c722f31"
+    },
+    "package.json": {
+      "hash": "7126e14647833af03021543e3264e8fcd282cba293b9a83a02ef4f4fcc788f94",
+      "content": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\d7f5cdc8-4670-494f-af72-5bab1ab0d728\\blobs\\71\\7126e14647833af03021543e3264e8fcd282cba293b9a83a02ef4f4fcc788f94"
+    },
+    "scene.js": {
+      "hash": "545e3d0f844c126ecea97eebc7b6420f2cc3e469e648cf5b8760a976773bd5b9",
+      "content": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\d7f5cdc8-4670-494f-af72-5bab1ab0d728\\blobs\\54\\545e3d0f844c126ecea97eebc7b6420f2cc3e469e648cf5b8760a976773bd5b9"
+    },
+    "assets/voice.mp3": {
+      "hash": "f2375da2ebd57aad00d3beb53944623ed13ea2b031c527ed6ab7d645433e7fdf",
+      "content": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\d7f5cdc8-4670-494f-af72-5bab1ab0d728\\blobs\\f2\\f2375da2ebd57aad00d3beb53944623ed13ea2b031c527ed6ab7d645433e7fdf"
+    }
+  },
+  "revisions": {
+    "f320994b-c2c1-4074-b54a-2d6d1f312eb3": {
+      "actor": {
+        "kind": "outside",
+        "name": "Outside"
+      },
+      "label": "Changed outside the app",
+      "startedAt": 1792935926758,
+      "endedAt": 1792935926770,
+      "files": {
+        "ep.json": {
+          "before": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\d7f5cdc8-4670-494f-af72-5bab1ab0d728\\blobs\\ac\\ac56a95dc050d65787f8b552864305713bce3acaf5b5ca1fcb9b0e1921bbb6f3",
+          "after": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\d7f5cdc8-4670-494f-af72-5bab1ab0d728\\blobs\\7e\\7e908ee250fe7caeab7053dd4e65fff19c0f3fdc9126a2be81e68df2223eea89"
+        },
+        "index.html": {
+          "before": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\d7f5cdc8-4670-494f-af72-5bab1ab0d728\\blobs\\e8\\e8d10e6912d678932ade0cf74a7351d48cb5d0180efa8fddfd2964190e65c862",
+          "after": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\d7f5cdc8-4670-494f-af72-5bab1ab0d728\\blobs\\2d\\2daa6ee5c35979d38ed61ffd96a3033d41cf403413bd42884368bc54071c2fdc"
+        }
+      }
+    },
+    "d834d054-bf22-405a-a003-34f8aa1d859a": {
+      "actor": {
+        "kind": "outside",
+        "name": "Outside"
+      },
+      "label": "Changed outside the app",
+      "startedAt": 1792956440261,
+      "endedAt": 1792956440262,
+      "files": {
+        "index.html": {
+          "before": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\d7f5cdc8-4670-494f-af72-5bab1ab0d728\\blobs\\2d\\2daa6ee5c35979d38ed61ffd96a3033d41cf403413bd42884368bc54071c2fdc",
+          "after": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\d7f5cdc8-4670-494f-af72-5bab1ab0d728\\blobs\\bc\\bc57f67c77dc832e6e31594489477543af892a2fdab4d3f91d1f9fe53c722f31"
+        }
+      }
+    }
+  },
+  "checks": {
+    "latest": {
+      "revision": null,
+      "id": "cb568d6f-d50e-44a8-8a21-13937e7c8ae5"
+    },
+    "revisions": {},
+    "unversioned": [
+      {
+        "id": "cb568d6f-d50e-44a8-8a21-13937e7c8ae5",
+        "scope": "project",
+        "report": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\puzzles\\ep06_hh_vs_ht\\.hyperframes\\artifacts\\checks\\cb568d6f-d50e-44a8-8a21-13937e7c8ae5.json",
+        "metadata": {
+          "ok": false,
+          "browserSkipped": false,
+          "options": {
+            "samples": 9,
+            "atTransitions": false,
+            "maxIssues": 80,
+            "collapseStatic": true,
+            "tolerance": 2,
+            "timeout": 3000,
+            "contrast": true,
+            "strict": false,
+            "snapshots": false,
+            "browserGpuMode": "auto"
+          }
+        },
+        "createdAt": 1792935452116,
+        "contentHash": "eb1cddc578ca1605787824586be414224734daae387c6792fc00ef1073974330",
+        "revision": null,
+        "inputFingerprint": "ff71e57503e4027029be23719d50589f2f80bc6c751d28a2ae39f312b0344e17",
+        "inputScope": "local-project-files",
+        "attribution": "unversioned"
+      }
+    ]
+  },
+  "snapshots": {
+    "latest": {
+      "revision": null,
+      "id": "390b08ce-4974-4972-990d-67625f40b21b-11"
+    },
+    "revisions": {},
+    "unversioned": [
+      {
+        "scope": "full",
+        "id": "390b08ce-4974-4972-990d-67625f40b21b-0",
+        "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\snap_ep06_hh_vs_ht\\frame-00-at-0s.png",
+        "time": 0,
+        "metadata": {
+          "width": 1080,
+          "height": 1920,
+          "zoomScale": 1,
+          "browserGpuMode": "auto",
+          "warnings": [],
+          "partial": false
+        },
+        "createdAt": 1792935457494,
+        "contentHash": "4efb00ba939e285b68cb2a17061476a06a93c80dfa1ece4222d3047ede04e488",
+        "revision": null,
+        "inputFingerprint": "ff71e57503e4027029be23719d50589f2f80bc6c751d28a2ae39f312b0344e17",
+        "inputScope": "local-project-files",
+        "attribution": "unversioned"
+      },
+      {
+        "scope": "full",
+        "id": "390b08ce-4974-4972-990d-67625f40b21b-1",
+        "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\snap_ep06_hh_vs_ht\\frame-01-at-7.194s.png",
+        "time": 7.194,
+        "metadata": {
+          "width": 1080,
+          "height": 1920,
+          "zoomScale": 1,
+          "browserGpuMode": "auto",
+          "warnings": [],
+          "partial": false
+        },
+        "createdAt": 1792935457494,
+        "contentHash": "ce8fe8e88f2e4cf7d381b2bf9908d9902a3b3b63dc7797bed3b98f0c21fe94ed",
+        "revision": null,
+        "inputFingerprint": "ff71e57503e4027029be23719d50589f2f80bc6c751d28a2ae39f312b0344e17",
+        "inputScope": "local-project-files",
+        "attribution": "unversioned"
+      },
+      {
+        "scope": "full",
+        "id": "390b08ce-4974-4972-990d-67625f40b21b-2",
+        "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\snap_ep06_hh_vs_ht\\frame-02-at-14.387s.png",
+        "time": 14.387,
+        "metadata": {
+          "width": 1080,
+          "height": 1920,
+          "zoomScale": 1,
+          "browserGpuMode": "auto",
+          "warnings": [],
+          "partial": false
+        },
+        "createdAt": 1792935457494,
+        "contentHash": "6c2573109ef181d5f6b10f3f75a4ec9d3eedc4378754266f43fe5b4adf0f5ce0",
+        "revision": null,
+        "inputFingerprint": "ff71e57503e4027029be23719d50589f2f80bc6c751d28a2ae39f312b0344e17",
+        "inputScope": "local-project-files",
+        "attribution": "unversioned"
+      },
+      {
+        "scope": "full",
+        "id": "390b08ce-4974-4972-990d-67625f40b21b-3",
+        "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\snap_ep06_hh_vs_ht\\frame-03-at-21.581s.png",
+        "time": 21.581,
+        "metadata": {
+          "width": 1080,
+          "height": 1920,
+          "zoomScale": 1,
+          "browserGpuMode": "auto",
+          "warnings": [],
+          "partial": false
+        },
+        "createdAt": 1792935457495,
+        "contentHash": "7dfcff791082629aa0735cb7f3ca461c61f8b738acf3a19d8fef3a540e78bdc1",
+        "revision": null,
+        "inputFingerprint": "ff71e57503e4027029be23719d50589f2f80bc6c751d28a2ae39f312b0344e17",
+        "inputScope": "local-project-files",
+        "attribution": "unversioned"
+      },
+      {
+        "scope": "full",
+        "id": "390b08ce-4974-4972-990d-67625f40b21b-4",
+        "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\snap_ep06_hh_vs_ht\\frame-04-at-28.774s.png",
+        "time": 28.774,
+        "metadata": {
+          "width": 1080,
+          "height": 1920,
+          "zoomScale": 1,
+          "browserGpuMode": "auto",
+          "warnings": [],
+          "partial": false
+        },
+        "createdAt": 1792935457495,
+        "contentHash": "24450e75d06d4bdbece65e55f847bf750ed83b3be16dba4d7d4357a6e69e8f88",
+        "revision": null,
+        "inputFingerprint": "ff71e57503e4027029be23719d50589f2f80bc6c751d28a2ae39f312b0344e17",
+        "inputScope": "local-project-files",
+        "attribution": "unversioned"
+      },
+      {
+        "scope": "full",
+        "id": "390b08ce-4974-4972-990d-67625f40b21b-5",
+        "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\snap_ep06_hh_vs_ht\\frame-05-at-35.968s.png",
+        "time": 35.968,
+        "metadata": {
+          "width": 1080,
+          "height": 1920,
+          "zoomScale": 1,
+          "browserGpuMode": "auto",
+          "warnings": [],
+          "partial": false
+        },
+        "createdAt": 1792935457495,
+        "contentHash": "f3981a5e9d334147ca964d51a36597ae5392caeaee54fce148169b502641c370",
+        "revision": null,
+        "inputFingerprint": "ff71e57503e4027029be23719d50589f2f80bc6c751d28a2ae39f312b0344e17",
+        "inputScope": "local-project-files",
+        "attribution": "unversioned"
+      },
+      {
+        "scope": "full",
+        "id": "390b08ce-4974-4972-990d-67625f40b21b-6",
+        "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\snap_ep06_hh_vs_ht\\frame-06-at-43.161s.png",
+        "time": 43.161,
+        "metadata": {
+          "width": 1080,
+          "height": 1920,
+          "zoomScale": 1,
+          "browserGpuMode": "auto",
+          "warnings": [],
+          "partial": false
+        },
+        "createdAt": 1792935457495,
+        "contentHash": "4cc8bb5967f1fdee78f4c5e8a9d468d0c94235aefe0ff36579c8d3cfe4654643",
+        "revision": null,
+        "inputFingerprint": "ff71e57503e4027029be23719d50589f2f80bc6c751d28a2ae39f312b0344e17",
+        "inputScope": "local-project-files",
+        "attribution": "unversioned"
+      },
+      {
+        "scope": "full",
+        "id": "390b08ce-4974-4972-990d-67625f40b21b-7",
+        "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\snap_ep06_hh_vs_ht\\frame-07-at-50.355s.png",
+        "time": 50.355,
+        "metadata": {
+          "width": 1080,
+          "height": 1920,
+          "zoomScale": 1,
+          "browserGpuMode": "auto",
+          "warnings": [],
+          "partial": false
+        },
+        "createdAt": 1792935457496,
+        "contentHash": "12ab4518ab2a5d09f19229fe10f727f72b568a472a692e9719e751b3f5b8b254",
+        "revision": null,
+        "inputFingerprint": "ff71e57503e4027029be23719d50589f2f80bc6c751d28a2ae39f312b0344e17",
+        "inputScope": "local-project-files",
+        "attribution": "unversioned"
+      },
+      {
+        "scope": "full",
+        "id": "390b08ce-4974-4972-990d-67625f40b21b-8",
+        "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\snap_ep06_hh_vs_ht\\frame-08-at-57.548s.png",
+        "time": 57.548,
+        "metadata": {
+          "width": 1080,
+          "height": 1920,
+          "zoomScale": 1,
+          "browserGpuMode": "auto",
+          "warnings": [],
+          "partial": false
+        },
+        "createdAt": 1792935457496,
+        "contentHash": "2d2ea642b6c5547cd31c31d7c1b6e0fc79458f4129769d25f6669421f8135888",
+        "revision": null,
+        "inputFingerprint": "ff71e57503e4027029be23719d50589f2f80bc6c751d28a2ae39f312b0344e17",
+        "inputScope": "local-project-files",
+        "attribution": "unversioned"
+      },
+      {
+        "scope": "full",
+        "id": "390b08ce-4974-4972-990d-67625f40b21b-9",
+        "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\snap_ep06_hh_vs_ht\\frame-09-at-64.742s.png",
+        "time": 64.742,
+        "metadata": {
+          "width": 1080,
+          "height": 1920,
+          "zoomScale": 1,
+          "browserGpuMode": "auto",
+          "warnings": [],
+          "partial": false
+        },
+        "createdAt": 1792935457497,
+        "contentHash": "a525e9eb37bed4dea084dffa32c9c7a0686c6cf6d7804c1e70922df8261c87bd",
+        "revision": null,
+        "inputFingerprint": "ff71e57503e4027029be23719d50589f2f80bc6c751d28a2ae39f312b0344e17",
+        "inputScope": "local-project-files",
+        "attribution": "unversioned"
+      },
+      {
+        "scope": "full",
+        "id": "390b08ce-4974-4972-990d-67625f40b21b-10",
+        "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\snap_ep06_hh_vs_ht\\frame-10-at-71.935s.png",
+        "time": 71.935,
+        "metadata": {
+          "width": 1080,
+          "height": 1920,
+          "zoomScale": 1,
+          "browserGpuMode": "auto",
+          "warnings": [],
+          "partial": false
+        },
+        "createdAt": 1792935457497,
+        "contentHash": "3f19b8c302574c489fef7d57f383a85de74eb4aee8aef63d5b6c78b85c8a0f45",
+        "revision": null,
+        "inputFingerprint": "ff71e57503e4027029be23719d50589f2f80bc6c751d28a2ae39f312b0344e17",
+        "inputScope": "local-project-files",
+        "attribution": "unversioned"
+      },
+      {
+        "scope": "full",
+        "id": "390b08ce-4974-4972-990d-67625f40b21b-11",
+        "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\snap_ep06_hh_vs_ht\\frame-11-at-79.129s.png",
+        "time": 79.129,
+        "metadata": {
+          "width": 1080,
+          "height": 1920,
+          "zoomScale": 1,
+          "browserGpuMode": "auto",
+          "warnings": [],
+          "partial": false
+        },
+        "createdAt": 1792935457498,
+        "contentHash": "4f38b8e62a01fc53b7e4c71ab305bc7403bdeda9a177f59d8fe9372d2294cd55",
+        "revision": null,
+        "inputFingerprint": "ff71e57503e4027029be23719d50589f2f80bc6c751d28a2ae39f312b0344e17",
+        "inputScope": "local-project-files",
+        "attribution": "unversioned"
+      }
+    ]
+  },
+  "renders": {
+    "latest": {
+      "id": "159a52cf-f87d-4928-9e89-ac97c37d0e7c",
+      "completedAt": 1792956517773,
+      "output": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\puzzles\\ep06_hh_vs_ht\\renders\\ep06_hh_vs_ht.mp4",
+      "status": "completed",
+      "revision": "d834d054-bf22-405a-a003-34f8aa1d859a"
+    },
+    "retainedRevisions": [
+      "d834d054-bf22-405a-a003-34f8aa1d859a",
+      "f320994b-c2c1-4074-b54a-2d6d1f312eb3"
+    ]
+  },
+  "pendingArtifactCleanup": []
+}

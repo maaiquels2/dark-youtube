@@ -1,0 +1,35 @@
+{
+ "url": "https://www.fcc.gov/document/fcc-proposes-120m-fine-robocaller-illegal-spoofing",
+ "captured": "2026-11-02",
+ "mark": "FCC Proposes|Jun 22, 2017|more than 96 million",
+ "box": [
+  395,
+  443,
+  2054,
+  230
+ ],
+ "boxes": [
+  [
+   395,
+   443,
+   2054,
+   230
+  ],
+  [
+   2049,
+   962,
+   160,
+   38
+  ],
+  [
+   425,
+   998,
+   1292,
+   128
+  ]
+ ],
+ "size": [
+  2880,
+  1800
+ ]
+}

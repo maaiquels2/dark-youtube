@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=1080, height=1920" />
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 1080px; height: 1920px; overflow: hidden; background: #f4ecd8; }
+  #root { position: relative; width: 1080px; height: 1920px; overflow: hidden; background: #f4ecd8;
+    font-family: "JetBrains Mono", monospace; color: #1c1c1c; }
+  #cv { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; }
+  .t { position: absolute; left: 0; width: 1080px; text-align: center; font-weight: 700; }
+  #title { top: 292px; font-size: 46px; white-space: nowrap; }
+  #stat { top: 356px; font-size: 28px; opacity: .7; letter-spacing: 2px; }
+  #cap { top: 1124px; left: 120px; width: 840px; font-size: 50px; line-height: 60px; height: 120px; }
+  .g { position: absolute; left: 0; top: 0; width: 840px; text-align: center; opacity: 0; }
+  .w { opacity: .22; }
+  .w.on { opacity: 1; }
+  .w.k.on { color: #d62828; }
+  #end { position: absolute; inset: 0; background: #f4ecd8; opacity: 0; }
+  #end .a { position: absolute; left: 0; width: 1080px; text-align: center; font-weight: 700; }
+</style>
+</head>
+<body>
+<div id="root" data-composition-id="main" data-start="0" data-duration="63.526" data-width="1080" data-height="1920">
+  <canvas id="cv" class="clip" data-start="0" data-duration="63.526" width="1080" height="1920"></canvas>
+  <div id="title" class="clip t" data-start="0" data-duration="63.526">100 prisoners. <span style="color:#d62828">100</span> boxes.</div>
+  <div id="stat" class="clip t" data-start="0" data-duration="63.526"></div>
+  <div id="cap" class="clip t" data-start="0" data-duration="63.526"></div>
+  <div id="end" class="clip" data-start="0" data-duration="63.526">
+    <div class="a" style="top:700px;font-size:96px;">Show Your Work</div>
+    <div class="a" style="top:850px;font-size:40px;opacity:.7;">one puzzle at a time</div>
+    <div class="a" style="top:1000px;font-size:44px;color:#d62828;">Follow for the next one</div>
+  </div>
+  <audio id="voice" src="assets/voice.mp3" data-start="0" data-duration="63.526" data-volume="1"></audio>
+</div>
+<script>
+const WORDS = [{"w": "A", "s": 0.0, "e": 0.093}, {"w": "hundred", "s": 0.174, "e": 0.464}, {"w": "prisoners,", "s": 0.522, "e": 1.149}, {"w": "a", "s": 1.219, "e": 1.289}, {"w": "hundred", "s": 1.358, "e": 1.614}, {"w": "boxes.", "s": 1.66, "e": 2.276}, {"w": "Each", "s": 2.682, "e": 2.891}, {"w": "box", "s": 2.949, "e": 3.193}, {"w": "hides", "s": 3.251, "e": 3.518}, {"w": "a", "s": 3.553, "e": 3.587}, {"w": "random", "s": 3.657, "e": 4.005}, {"w": "prisoner's", "s": 4.075, "e": 4.493}, {"w": "number.", "s": 4.551, "e": 4.969}, {"w": "Each", "s": 5.375, "e": 5.584}, {"w": "prisoner", "s": 5.654, "e": 6.107}, {"w": "may", "s": 6.177, "e": 6.316}, {"w": "open", "s": 6.385, "e": 6.606}, {"w": "fifty", "s": 6.676, "e": 6.943}, {"w": "boxes.", "s": 7.001, "e": 7.558}, {"w": "If", "s": 7.918, "e": 8.057}, {"w": "everyone", "s": 8.115, "e": 8.51}, {"w": "finds", "s": 8.557, "e": 8.812}, {"w": "his", "s": 8.847, "e": 8.94}, {"w": "own", "s": 8.986, "e": 9.125}, {"w": "number,", "s": 9.172, "e": 9.671}, {"w": "all", "s": 9.718, "e": 9.95}, {"w": "go", "s": 10.008, "e": 10.112}, {"w": "free.", "s": 10.17, "e": 10.612}, {"w": "If", "s": 11.018, "e": 11.157}, {"w": "one", "s": 11.227, "e": 11.424}, {"w": "fails,", "s": 11.471, "e": 11.923}, {"w": "all", "s": 11.97, "e": 12.156}, {"w": "are", "s": 12.202, "e": 12.307}, {"w": "lost.", "s": 12.341, "e": 12.806}, {"w": "Opening", "s": 13.456, "e": 13.839}, {"w": "boxes", "s": 13.897, "e": 14.28}, {"w": "at", "s": 14.338, "e": 14.42}, {"w": "random,", "s": 14.489, "e": 15.035}, {"w": "each", "s": 15.256, "e": 15.441}, {"w": "prisoner", "s": 15.499, "e": 15.847}, {"w": "succeeds", "s": 15.905, "e": 16.346}, {"w": "half", "s": 16.393, "e": 16.579}, {"w": "the", "s": 16.625, "e": 16.695}, {"w": "time.", "s": 16.73, "e": 17.113}, {"w": "All", "s": 17.415, "e": 17.682}, {"w": "hundred", "s": 17.751, "e": 18.018}, {"w": "succeeding", "s": 18.076, "e": 18.61}, {"w": "is", "s": 18.692, "e": 18.819}, {"w": "one", "s": 18.924, "e": 19.202}, {"w": "in", "s": 19.261, "e": 19.365}, {"w": "two", "s": 19.435, "e": 19.667}, {"w": "to", "s": 19.737, "e": 19.795}, {"w": "the", "s": 19.853, "e": 19.922}, {"w": "power", "s": 19.957, "e": 20.166}, {"w": "of", "s": 20.201, "e": 20.247}, {"w": "a", "s": 20.282, "e": 20.305}, {"w": "hundred.", "s": 20.363, "e": 20.793}, {"w": "Essentially", "s": 21.095, "e": 21.606}, {"w": "zero.", "s": 21.652, "e": 22.093}, {"w": "But", "s": 22.651, "e": 22.802}, {"w": "there", "s": 22.836, "e": 22.999}, {"w": "is", "s": 23.045, "e": 23.127}, {"w": "a", "s": 23.185, "e": 23.22}, {"w": "plan.", "s": 23.278, "e": 23.777}, {"w": "Each", "s": 23.997, "e": 24.206}, {"w": "prisoner", "s": 24.264, "e": 24.636}, {"w": "opens", "s": 24.706, "e": 24.996}, {"w": "the", "s": 25.031, "e": 25.1}, {"w": "box", "s": 25.147, "e": 25.367}, {"w": "with", "s": 25.414, "e": 25.542}, {"w": "his", "s": 25.576, "e": 25.658}, {"w": "own", "s": 25.704, "e": 25.832}, {"w": "number", "s": 25.878, "e": 26.099}, {"w": "first.", "s": 26.168, "e": 26.61}, {"w": "Inside", "s": 27.016, "e": 27.573}, {"w": "is", "s": 27.608, "e": 27.689}, {"w": "another", "s": 27.747, "e": 28.003}, {"w": "number.", "s": 28.061, "e": 28.432}, {"w": "He", "s": 28.792, "e": 28.92}, {"w": "opens", "s": 28.978, "e": 29.245}, {"w": "that", "s": 29.28, "e": 29.408}, {"w": "box", "s": 29.454, "e": 29.687}, {"w": "next,", "s": 29.768, "e": 30.07}, {"w": "and", "s": 30.093, "e": 30.186}, {"w": "so", "s": 30.244, "e": 30.372}, {"w": "on,", "s": 30.441, "e": 30.732}, {"w": "following", "s": 30.952, "e": 31.347}, {"w": "the", "s": 31.405, "e": 31.475}, {"w": "chain,", "s": 31.533, "e": 32.043}, {"w": "up", "s": 32.206, "e": 32.322}, {"w": "to", "s": 32.38, "e": 32.438}, {"w": "fifty", "s": 32.519, "e": 32.821}, {"w": "boxes.", "s": 32.891, "e": 33.518}, {"w": "Every", "s": 34.075, "e": 34.354}, {"w": "box", "s": 34.412, "e": 34.644}, {"w": "points", "s": 34.714, "e": 34.946}, {"w": "to", "s": 34.981, "e": 35.039}, {"w": "another", "s": 35.108, "e": 35.352}, {"w": "one,", "s": 35.41, "e": 35.666}, {"w": "so", "s": 35.863, "e": 35.991}, {"w": "the", "s": 36.06, "e": 36.13}, {"w": "numbers", "s": 36.177, "e": 36.467}, {"w": "form", "s": 36.513, "e": 36.734}, {"w": "loops.", "s": 36.804, "e": 37.245}, {"w": "A", "s": 37.605, "e": 37.674}, {"w": "prisoner", "s": 37.779, "e": 38.15}, {"w": "finds", "s": 38.22, "e": 38.464}, {"w": "his", "s": 38.499, "e": 38.603}, {"w": "number", "s": 38.673, "e": 38.986}, {"w": "if", "s": 39.056, "e": 39.149}, {"w": "his", "s": 39.207, "e": 39.3}, {"w": "loop", "s": 39.358, "e": 39.555}, {"w": "has", "s": 39.602, "e": 39.729}, {"w": "fifty", "s": 39.799, "e": 40.054}, {"w": "boxes", "s": 40.112, "e": 40.484}, {"w": "or", "s": 40.542, "e": 40.612}, {"w": "fewer.", "s": 40.681, "e": 41.099}, {"w": "So", "s": 41.749, "e": 41.889}, {"w": "everyone", "s": 41.97, "e": 42.365}, {"w": "survives", "s": 42.4, "e": 42.864}, {"w": "exactly", "s": 42.934, "e": 43.468}, {"w": "when", "s": 43.526, "e": 43.665}, {"w": "no", "s": 43.723, "e": 43.828}, {"w": "loop", "s": 43.898, "e": 44.072}, {"w": "is", "s": 44.13, "e": 44.2}, {"w": "longer", "s": 44.258, "e": 44.49}, {"w": "than", "s": 44.525, "e": 44.641}, {"w": "fifty.", "s": 44.687, "e": 45.128}, {"w": "For", "s": 45.488, "e": 45.662}, {"w": "a", "s": 45.732, "e": 45.767}, {"w": "random", "s": 45.871, "e": 46.266}, {"w": "arrangement", "s": 46.324, "e": 46.823}, {"w": "of", "s": 46.87, "e": 46.94}, {"w": "a", "s": 46.986, "e": 47.021}, {"w": "hundred,", "s": 47.102, "e": 47.613}, {"w": "that", "s": 47.833, "e": 47.996}, {"w": "happens", "s": 48.054, "e": 48.379}, {"w": "about", "s": 48.426, "e": 48.646}, {"w": "thirty-one", "s": 48.704, "e": 49.134}, {"w": "percent", "s": 49.169, "e": 49.424}, {"w": "of", "s": 49.459, "e": 49.505}, {"w": "the", "s": 49.54, "e": 49.61}, {"w": "time.", "s": 49.645, "e": 50.051}, {"w": "From", "s": 50.457, "e": 50.655}, {"w": "odds", "s": 50.724, "e": 51.049}, {"w": "of", "s": 51.096, "e": 51.177}, {"w": "basically", "s": 51.247, "e": 51.723}, {"w": "zero", "s": 51.827, "e": 52.338}, {"w": "to", "s": 52.594, "e": 52.71}, {"w": "nearly", "s": 52.779, "e": 53.058}, {"w": "one", "s": 53.128, "e": 53.29}, {"w": "in", "s": 53.325, "e": 53.383}, {"w": "three,", "s": 53.453, "e": 53.952}, {"w": "just", "s": 54.173, "e": 54.382}, {"w": "by", "s": 54.428, "e": 54.532}, {"w": "using", "s": 54.602, "e": 54.858}, {"w": "the", "s": 54.904, "e": 54.974}, {"w": "numbers", "s": 55.032, "e": 55.357}, {"w": "inside", "s": 55.461, "e": 55.914}, {"w": "the", "s": 55.937, "e": 56.007}, {"w": "boxes", "s": 56.053, "e": 56.39}, {"w": "as", "s": 56.436, "e": 56.506}, {"w": "directions.", "s": 56.564, "e": 57.214}, {"w": "Structure", "s": 57.621, "e": 58.085}, {"w": "beats", "s": 58.143, "e": 58.364}, {"w": "luck.", "s": 58.433, "e": 59.026}], B = [0.0, 13.456, 22.651, 34.075, 41.749, 50.457, 59.326], VEND = 59.026, DUR = 63.526, NB = B.length - 1;
+const KEYS = new Set(["loops", "loop", "fifty", "thirty-one", "zero", "chain"]);
+const INK = "#1c1c1c", RED = "#d62828", OR = "#e07a00", GRN = "#2a9d5c", DOT = "#4a4a4a";
+const clamp = v => Math.max(0, Math.min(1, v));
+const ease = v => { v = clamp(v); return v * v * (3 - 2 * v); };
+const bit = (i, k) => (i >> k) & 1;
+const cvs = document.getElementById("cv"), x = cvs.getContext("2d");
+const stat = document.getElementById("stat"), cap = document.getElementById("cap");
+const FONT = "'JetBrains Mono', monospace";
+function txt(s, px, py, size, col, align, weight) {
+  x.font = (weight || "bold") + " " + Math.round(size * 1.12) + "px " + FONT; x.fillStyle = col || INK;
+  x.textAlign = align || "center"; x.textBaseline = "middle"; x.fillText(s, px, py);
+}
+function circ(cx, cy, r, fill, stroke, lw, alpha) {
+  x.globalAlpha = alpha == null ? 1 : alpha; x.beginPath(); x.arc(cx, cy, r, 0, 6.283);
+  if (fill) { x.fillStyle = fill; x.fill(); } if (stroke) { x.strokeStyle = stroke; x.lineWidth = lw || 4; x.stroke(); }
+  x.globalAlpha = 1;
+}
+function rect(px, py, w, h, fill, stroke, lw, alpha) {
+  x.globalAlpha = alpha == null ? 1 : alpha;
+  if (fill) { x.fillStyle = fill; x.fillRect(px, py, w, h); }
+  if (stroke) { x.strokeStyle = stroke; x.lineWidth = lw || 4; x.strokeRect(px, py, w, h); }
+  x.globalAlpha = 1;
+}
+function line(x1, y1, x2, y2, col, lw, alpha) {
+  x.globalAlpha = alpha == null ? 1 : alpha; x.strokeStyle = col || INK; x.lineWidth = lw || 3;
+  x.beginPath(); x.moveTo(x1, y1); x.lineTo(x2, y2); x.stroke(); x.globalAlpha = 1;
+}
+function show(w) {
+  const m = w.match(/^((?:one|zero)(?:-(?:one|zero))+)([.,?!]*)$/i);
+  if (m) return m[1].toLowerCase().split("-").map(p => p === "one" ? 1 : 0).join("") + m[2];
+  return w;
+}
+const groups = []; {
+  let g = [];
+  const flush = () => { if (g.length) { groups.push(g); g = []; } };
+  WORDS.forEach((w, i) => {
+    const t = show(w.w);
+    if (g.length && (g.length >= 4 || g.map(o => show(o.w)).join(" ").length + t.length > 24)) flush();
+    g.push({ ...w, i, txt: t });
+    if (/[.?!]$/.test(w.w) || /,$/.test(w.w)) flush();
+  });
+  flush();
+}
+groups.forEach((g, gi) => {
+  const el = document.createElement("div"); el.className = "g"; el.id = "g" + gi;
+  g.forEach(w => {
+    const s = document.createElement("span");
+    s.className = "w" + (KEYS.has(w.txt.toLowerCase().replace(/[.,?!]/g, "")) ? " k" : "");
+    s.textContent = w.txt + " "; w.el = s; el.appendChild(s);
+  });
+  cap.appendChild(el); g.el = el;
+  g.start = g[0].s - 0.05; g.end = DUR;
+});
+groups.forEach((g, gi) => { if (gi + 1 < groups.length) g.end = Math.min(g[g.length - 1].e + 0.25, groups[gi + 1][0].s - 0.05); });
+function blockOf(t) { let b = 0; for (let i = 0; i < NB; i++) if (t >= B[i]) b = i; return b; }
+
+const P = [1, 2, 0, 4, 5, 6, 3, 8, 9, 7], CY = [[0, 1, 2], [3, 4, 5, 6], [7, 8, 9]], CC = [RED, OR, GRN];
+const NX = i => 540 + 270 * Math.cos(-1.5708 + i * 0.6283), NY = i => 700 + 270 * Math.sin(-1.5708 + i * 0.6283);
+function node(i, col) { circ(NX(i), NY(i), 34, col ? col : "#e8dcbc", INK, 4); txt("" + (i + 1), NX(i), NY(i), 32, col ? "#fff" : INK); }
+function arrow(i, col) { const j = P[i], a = Math.atan2(NY(j) - NY(i), NX(j) - NX(i)); line(NX(i) + 36 * Math.cos(a), NY(i) + 36 * Math.sin(a), NX(j) - 40 * Math.cos(a), NY(j) - 40 * Math.sin(a), col || INK, 5); circ(NX(j) - 42 * Math.cos(a), NY(j) - 42 * Math.sin(a), 7, col || INK); }
+function grid(n) { for (let k = 0; k < 100; k++) { const c = k % 10, r = Math.floor(k / 10); rect(220 + c * 64, 430 + r * 64, 52, 52, k < n ? "#f3e7c6" : "#e8dcbc", INK, 3); } }
+function scene(t, b, u) {
+  if (b === 0) { grid(100); txt("each prisoner opens 50 boxes", 540, 1120, 44, INK); return "100 PRISONERS · 100 BOXES"; }
+  if (b === 1) { grid(100); txt("50% each", 540, 1120, 56, INK); if (u > 0.5) txt("all 100: 1 in 2^100", 540, 1200, 56, RED); return "AT RANDOM: ESSENTIALLY ZERO"; }
+  if (b === 2) {
+    for (let i = 0; i < 10; i++) node(i);
+    const n = Math.min(3, Math.floor(u * 4)); let c = 0;
+    for (let s = 0; s < n; s++) { arrow(c, RED); c = P[c]; }
+    node(0, RED); txt("start at your own number", 540, 1060, 44, INK);
+    return "FOLLOW THE CHAIN";
+  }
+  if (b === 3) {
+    CY.forEach((cy, k) => cy.forEach(i => arrow(i, CC[k]))); for (let i = 0; i < 10; i++) node(i, CC.find((_, k) => CY[k].includes(i)));
+    txt("loops: 3, 4, 3", 540, 1060, 50, INK);
+    return "THE NUMBERS FORM LOOPS";
+  }
+  if (b === 4) {
+    txt("everyone lives if", 540, 560, 56, INK); txt("no loop is longer than 50", 540, 650, 56, RED);
+    rect(140, 800, 800, 60, "#e8dcbc", INK, 4); rect(140, 800, 800 * 0.31 * Math.min(1, u * 2), 60, GRN);
+    if (u > 0.5) txt("≈ 31%", 540, 940, 90, GRN);
+    return "THE ODDS";
+  }
+  txt("0%  →  31%", 540, 700, 100, GRN); txt("same boxes, smarter plan", 540, 840, 44, INK);
+  return "STRUCTURE BEATS LUCK";
+}
+
+
+function renderAt(t) {
+  x.fillStyle = "#f4ecd8"; x.fillRect(0, 0, 1080, 1920);
+  x.strokeStyle = "rgba(60,90,140,0.16)"; x.lineWidth = 2;
+  for (let g = 0; g <= 1080; g += 40) { x.beginPath(); x.moveTo(g, 0); x.lineTo(g, 1920); x.stroke(); }
+  for (let g = 0; g <= 1920; g += 40) { x.beginPath(); x.moveTo(0, g); x.lineTo(1080, g); x.stroke(); }
+  const b = blockOf(t), u = clamp((t - B[b]) / (B[b + 1] - B[b]));
+  x.save(); x.translate(130, 216.7); x.scale(0.78, 0.78);
+  stat.textContent = scene(t, b, u) || "";
+  x.restore();
+  groups.forEach(g => {
+    const on = t >= g.start && t < g.end;
+    g.el.style.opacity = on ? 1 : 0;
+    if (on) g.forEach(w => w.el.classList.toggle("on", t >= w.s));
+  });
+}
+window.addEventListener("hf-seek", e => renderAt(e.detail.time));
+renderAt(0);
+const tl = gsap.timeline({ paused: true });
+tl.fromTo("#end", { opacity: 0 }, { opacity: 1, duration: 0.6, ease: "power2.out" }, VEND + 0.6);
+window.__timelines = window.__timelines || {};
+window.__timelines["main"] = tl;
+</script>
+</body>
+</html>

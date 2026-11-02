@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=1920, height=1080" />
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 1920px; height: 1080px; overflow: hidden; background: #f4ecd8; }
+  #root { position: relative; width: 1920px; height: 1080px; overflow: hidden; background: #f4ecd8;
+    font-family: "JetBrains Mono", monospace; color: #1c1c1c; }
+  #cv { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; }
+  .t { position: absolute; left: 0; width: 1920px; text-align: center; font-weight: 700; }
+  #title { top: 26px; font-size: 52px; white-space: nowrap; }
+  #stat { top: 92px; font-size: 28px; opacity: .7; letter-spacing: 2px; }
+  #cap { top: 958px; left: 260px; width: 1400px; font-size: 52px; line-height: 62px; height: 124px; }
+  .g { position: absolute; left: 0; top: 0; width: 1400px; text-align: center; opacity: 0; }
+  .w { opacity: .22; }
+  .w.on { opacity: 1; }
+  .w.k.on { color: #d62828; }
+</style>
+</head>
+<body>
+<div id="root" data-composition-id="main" data-start="0" data-duration="80.211" data-width="1920" data-height="1080">
+  <canvas id="cv" class="clip" data-start="0" data-duration="80.211" width="1920" height="1080"></canvas>
+  <div id="title" class="clip t" data-start="0" data-duration="80.211">64 disks. How <span style="color:#d62828">long</span>?</div>
+  <div id="stat" class="clip t" data-start="0" data-duration="80.211"></div>
+  <div id="cap" class="clip t" data-start="0" data-duration="80.211"></div>
+  <audio id="voice" src="assets/voice.mp3" data-start="2.8" data-duration="80.211" data-volume="1"></audio>
+</div>
+<script>
+const LEAD = 2.8, CHAPTER = "PUZZLE 5 OF 6|64 disks", WORDS = [{"w": "There", "s": 2.8, "e": 3.021}, {"w": "are", "s": 3.055, "e": 3.16}, {"w": "sixty-four", "s": 3.218, "e": 3.822}, {"w": "golden", "s": 3.891, "e": 4.205}, {"w": "disks", "s": 4.263, "e": 4.507}, {"w": "on", "s": 4.565, "e": 4.646}, {"w": "three", "s": 4.692, "e": 4.901}, {"w": "pegs.", "s": 4.948, "e": 5.401}, {"w": "Move", "s": 5.702, "e": 5.923}, {"w": "them", "s": 5.958, "e": 6.097}, {"w": "one", "s": 6.179, "e": 6.434}, {"w": "at", "s": 6.492, "e": 6.596}, {"w": "a", "s": 6.643, "e": 6.678}, {"w": "time,", "s": 6.736, "e": 7.189}, {"w": "never", "s": 7.595, "e": 7.839}, {"w": "putting", "s": 7.897, "e": 8.129}, {"w": "a", "s": 8.164, "e": 8.199}, {"w": "big", "s": 8.268, "e": 8.431}, {"w": "disk", "s": 8.489, "e": 8.756}, {"w": "on", "s": 8.86, "e": 8.988}, {"w": "a", "s": 9.023, "e": 9.058}, {"w": "small", "s": 9.104, "e": 9.36}, {"w": "one.", "s": 9.418, "e": 9.696}, {"w": "How", "s": 10.172, "e": 10.346}, {"w": "long", "s": 10.416, "e": 10.602}, {"w": "will", "s": 10.637, "e": 10.764}, {"w": "it", "s": 10.811, "e": 10.881}, {"w": "take?", "s": 10.915, "e": 11.345}, {"w": "Longer", "s": 11.902, "e": 12.239}, {"w": "than", "s": 12.285, "e": 12.413}, {"w": "the", "s": 12.459, "e": 12.541}, {"w": "age", "s": 12.61, "e": 12.877}, {"w": "of", "s": 12.912, "e": 12.97}, {"w": "the", "s": 13.017, "e": 13.086}, {"w": "universe.", "s": 13.156, "e": 13.771}, {"w": "Here", "s": 14.131, "e": 14.317}, {"w": "are", "s": 14.352, "e": 14.445}, {"w": "the", "s": 14.468, "e": 14.538}, {"w": "rules.", "s": 14.584, "e": 15.037}, {"w": "There", "s": 15.397, "e": 15.617}, {"w": "are", "s": 15.652, "e": 15.792}, {"w": "three", "s": 15.85, "e": 16.151}, {"w": "pegs,", "s": 16.21, "e": 16.744}, {"w": "and", "s": 16.883, "e": 17.022}, {"w": "a", "s": 17.069, "e": 17.103}, {"w": "stack", "s": 17.162, "e": 17.486}, {"w": "of", "s": 17.544, "e": 17.591}, {"w": "disks", "s": 17.661, "e": 17.893}, {"w": "on", "s": 17.951, "e": 18.032}, {"w": "the", "s": 18.067, "e": 18.137}, {"w": "first", "s": 18.183, "e": 18.415}, {"w": "one,", "s": 18.485, "e": 18.764}, {"w": "biggest", "s": 19.17, "e": 19.53}, {"w": "at", "s": 19.576, "e": 19.646}, {"w": "the", "s": 19.681, "e": 19.75}, {"w": "bottom.", "s": 19.808, "e": 20.238}, {"w": "Move", "s": 20.644, "e": 20.888}, {"w": "one", "s": 20.946, "e": 21.109}, {"w": "disk", "s": 21.155, "e": 21.376}, {"w": "at", "s": 21.422, "e": 21.48}, {"w": "a", "s": 21.527, "e": 21.562}, {"w": "time.", "s": 21.608, "e": 22.014}, {"w": "Never", "s": 22.421, "e": 22.664}, {"w": "put", "s": 22.723, "e": 22.862}, {"w": "a", "s": 22.897, "e": 22.92}, {"w": "bigger", "s": 22.966, "e": 23.187}, {"w": "disk", "s": 23.233, "e": 23.477}, {"w": "on", "s": 23.558, "e": 23.686}, {"w": "a", "s": 23.721, "e": 23.756}, {"w": "smaller", "s": 23.814, "e": 24.151}, {"w": "one.", "s": 24.22, "e": 24.487}, {"w": "The", "s": 24.894, "e": 25.021}, {"w": "goal", "s": 25.091, "e": 25.323}, {"w": "is", "s": 25.393, "e": 25.474}, {"w": "to", "s": 25.521, "e": 25.579}, {"w": "move", "s": 25.648, "e": 25.834}, {"w": "the", "s": 25.869, "e": 25.939}, {"w": "whole", "s": 25.997, "e": 26.229}, {"w": "stack", "s": 26.264, "e": 26.554}, {"w": "to", "s": 26.612, "e": 26.67}, {"w": "the", "s": 26.74, "e": 26.809}, {"w": "last", "s": 26.856, "e": 27.099}, {"w": "peg.", "s": 27.158, "e": 27.599}, {"w": "One", "s": 27.959, "e": 28.191}, {"w": "disk", "s": 28.237, "e": 28.458}, {"w": "takes", "s": 28.493, "e": 28.725}, {"w": "one", "s": 28.795, "e": 28.969}, {"w": "move.", "s": 29.015, "e": 29.398}, {"w": "Two", "s": 29.758, "e": 30.002}, {"w": "disks", "s": 30.083, "e": 30.362}, {"w": "take", "s": 30.408, "e": 30.641}, {"w": "three.", "s": 30.687, "e": 31.163}, {"w": "Three", "s": 31.523, "e": 31.778}, {"w": "disks", "s": 31.813, "e": 32.034}, {"w": "take", "s": 32.081, "e": 32.29}, {"w": "seven.", "s": 32.324, "e": 32.766}, {"w": "Here's", "s": 33.068, "e": 33.335}, {"w": "the", "s": 33.369, "e": 33.439}, {"w": "pattern.", "s": 33.485, "e": 33.903}, {"w": "To", "s": 34.31, "e": 34.426}, {"w": "move", "s": 34.496, "e": 34.67}, {"w": "a", "s": 34.705, "e": 34.728}, {"w": "stack,", "s": 34.797, "e": 35.32}, {"w": "move", "s": 35.459, "e": 35.691}, {"w": "everything", "s": 35.761, "e": 36.237}, {"w": "above", "s": 36.295, "e": 36.539}, {"w": "the", "s": 36.574, "e": 36.643}, {"w": "biggest", "s": 36.701, "e": 37.003}, {"w": "disk", "s": 37.05, "e": 37.27}, {"w": "out", "s": 37.317, "e": 37.421}, {"w": "of", "s": 37.456, "e": 37.503}, {"w": "the", "s": 37.537, "e": 37.607}, {"w": "way,", "s": 37.653, "e": 38.06}, {"w": "move", "s": 38.315, "e": 38.536}, {"w": "the", "s": 38.571, "e": 38.64}, {"w": "big", "s": 38.71, "e": 38.872}, {"w": "one,", "s": 38.942, "e": 39.256}, {"w": "then", "s": 39.476, "e": 39.639}, {"w": "move", "s": 39.708, "e": 39.894}, {"w": "the", "s": 39.917, "e": 39.987}, {"w": "stack", "s": 40.022, "e": 40.324}, {"w": "back", "s": 40.393, "e": 40.568}, {"w": "on", "s": 40.637, "e": 40.73}, {"w": "top.", "s": 40.8, "e": 41.218}, {"w": "So", "s": 41.52, "e": 41.659}, {"w": "the", "s": 41.717, "e": 41.787}, {"w": "work", "s": 41.833, "e": 42.03}, {"w": "doubles,", "s": 42.088, "e": 42.506}, {"w": "plus", "s": 42.588, "e": 42.843}, {"w": "one.", "s": 42.913, "e": 43.261}, {"w": "Four", "s": 43.667, "e": 43.9}, {"w": "disks", "s": 43.958, "e": 44.329}, {"w": "take", "s": 44.492, "e": 44.712}, {"w": "fifteen", "s": 44.759, "e": 45.13}, {"w": "moves.", "s": 45.188, "e": 45.629}, {"w": "Five", "s": 45.989, "e": 46.268}, {"w": "take", "s": 46.303, "e": 46.465}, {"w": "thirty-one.", "s": 46.5, "e": 47.104}, {"w": "Ten", "s": 47.51, "e": 47.777}, {"w": "take", "s": 47.847, "e": 48.044}, {"w": "one", "s": 48.091, "e": 48.253}, {"w": "thousand", "s": 48.288, "e": 48.625}, {"w": "twenty-three.", "s": 48.671, "e": 49.356}, {"w": "Twenty", "s": 49.762, "e": 50.053}, {"w": "disks", "s": 50.111, "e": 50.436}, {"w": "take", "s": 50.482, "e": 50.668}, {"w": "over", "s": 50.703, "e": 50.877}, {"w": "a", "s": 50.923, "e": 50.947}, {"w": "million.", "s": 50.993, "e": 51.399}, {"w": "Every", "s": 51.759, "e": 52.003}, {"w": "extra", "s": 52.061, "e": 52.328}, {"w": "disk", "s": 52.375, "e": 52.63}, {"w": "doubles", "s": 52.769, "e": 53.083}, {"w": "the", "s": 53.106, "e": 53.176}, {"w": "work.", "s": 53.222, "e": 53.571}, {"w": "The", "s": 53.93, "e": 54.047}, {"w": "formula", "s": 54.105, "e": 54.464}, {"w": "is", "s": 54.523, "e": 54.604}, {"w": "two", "s": 54.65, "e": 54.824}, {"w": "to", "s": 54.894, "e": 54.964}, {"w": "the", "s": 55.022, "e": 55.091}, {"w": "power", "s": 55.126, "e": 55.358}, {"w": "of", "s": 55.405, "e": 55.463}, {"w": "n,", "s": 55.533, "e": 55.869}, {"w": "minus", "s": 55.951, "e": 56.276}, {"w": "one.", "s": 56.345, "e": 56.67}, {"w": "For", "s": 57.077, "e": 57.228}, {"w": "sixty-four", "s": 57.286, "e": 57.797}, {"w": "disks,", "s": 57.855, "e": 58.284}, {"w": "that's", "s": 58.319, "e": 58.551}, {"w": "about", "s": 58.574, "e": 58.818}, {"w": "eighteen", "s": 58.888, "e": 59.317}, {"w": "quintillion", "s": 59.399, "e": 59.979}, {"w": "moves.", "s": 60.049, "e": 60.513}, {"w": "At", "s": 60.873, "e": 61.001}, {"w": "one", "s": 61.07, "e": 61.221}, {"w": "move", "s": 61.256, "e": 61.442}, {"w": "per", "s": 61.477, "e": 61.581}, {"w": "second,", "s": 61.639, "e": 62.057}, {"w": "that's", "s": 62.162, "e": 62.371}, {"w": "about", "s": 62.394, "e": 62.58}, {"w": "five", "s": 62.649, "e": 62.916}, {"w": "hundred", "s": 62.963, "e": 63.207}, {"w": "eighty-five", "s": 63.265, "e": 63.683}, {"w": "billion", "s": 63.717, "e": 63.984}, {"w": "years.", "s": 64.031, "e": 64.46}, {"w": "The", "s": 64.762, "e": 64.89}, {"w": "universe", "s": 64.971, "e": 65.389}, {"w": "is", "s": 65.424, "e": 65.505}, {"w": "about", "s": 65.552, "e": 65.784}, {"w": "fourteen", "s": 65.854, "e": 66.341}, {"w": "billion", "s": 66.411, "e": 66.736}, {"w": "years", "s": 66.782, "e": 67.003}, {"w": "old.", "s": 67.073, "e": 67.363}, {"w": "So", "s": 67.723, "e": 67.862}, {"w": "the", "s": 67.92, "e": 67.99}, {"w": "job", "s": 68.06, "e": 68.303}, {"w": "would", "s": 68.35, "e": 68.489}, {"w": "take", "s": 68.524, "e": 68.698}, {"w": "more", "s": 68.745, "e": 68.896}, {"w": "than", "s": 68.919, "e": 69.046}, {"w": "forty", "s": 69.186, "e": 69.488}, {"w": "times", "s": 69.546, "e": 69.836}, {"w": "longer", "s": 69.906, "e": 70.242}, {"w": "than", "s": 70.312, "e": 70.474}, {"w": "the", "s": 70.509, "e": 70.579}, {"w": "universe", "s": 70.649, "e": 71.009}, {"w": "has", "s": 71.043, "e": 71.194}, {"w": "existed.", "s": 71.252, "e": 71.81}, {"w": "Doubling", "s": 72.46, "e": 72.878}, {"w": "looks", "s": 72.947, "e": 73.145}, {"w": "tiny", "s": 73.203, "e": 73.481}, {"w": "at", "s": 73.527, "e": 73.585}, {"w": "first,", "s": 73.655, "e": 74.085}, {"w": "and", "s": 74.143, "e": 74.282}, {"w": "then", "s": 74.329, "e": 74.445}, {"w": "it", "s": 74.491, "e": 74.561}, {"w": "swallows", "s": 74.619, "e": 75.025}, {"w": "everything.", "s": 75.083, "e": 75.559}, {"w": "That's", "s": 75.966, "e": 76.221}, {"w": "why", "s": 76.256, "e": 76.407}, {"w": "exponential", "s": 76.488, "e": 77.057}, {"w": "growth", "s": 77.103, "e": 77.336}, {"w": "feels", "s": 77.37, "e": 77.579}, {"w": "slow,", "s": 77.614, "e": 78.137}, {"w": "right", "s": 78.392, "e": 78.578}, {"w": "until", "s": 78.613, "e": 78.833}, {"w": "it", "s": 78.88, "e": 78.949}, {"w": "doesn't.", "s": 78.984, "e": 79.611}], B = [2.8, 14.131, 27.959, 33.068, 51.759, 64.762, 72.46, 79.911], VEND = 79.611, DUR = 80.211, NB = B.length - 1;
+const KEYS = new Set(["doubles", "billion", "585", "moves", "universe", "exponential"]);
+const INK = "#1c1c1c", RED = "#d62828", OR = "#e07a00", GRN = "#2a9d5c", DOT = "#4a4a4a";
+const clamp = v => Math.max(0, Math.min(1, v));
+const ease = v => { v = clamp(v); return v * v * (3 - 2 * v); };
+const bit = (i, k) => (i >> k) & 1;
+const cvs = document.getElementById("cv"), x = cvs.getContext("2d");
+const stat = document.getElementById("stat"), cap = document.getElementById("cap");
+const FONT = "'JetBrains Mono', monospace";
+function txt(s, px, py, size, col, align, weight) {
+  x.font = (weight || "bold") + " " + Math.round(size * 1.12) + "px " + FONT; x.fillStyle = col || INK;
+  x.textAlign = align || "center"; x.textBaseline = "middle"; x.fillText(s, px, py);
+}
+function circ(cx, cy, r, fill, stroke, lw, alpha) {
+  x.globalAlpha = alpha == null ? 1 : alpha; x.beginPath(); x.arc(cx, cy, r, 0, 6.283);
+  if (fill) { x.fillStyle = fill; x.fill(); } if (stroke) { x.strokeStyle = stroke; x.lineWidth = lw || 4; x.stroke(); }
+  x.globalAlpha = 1;
+}
+function rect(px, py, w, h, fill, stroke, lw, alpha) {
+  x.globalAlpha = alpha == null ? 1 : alpha;
+  if (fill) { x.fillStyle = fill; x.fillRect(px, py, w, h); }
+  if (stroke) { x.strokeStyle = stroke; x.lineWidth = lw || 4; x.strokeRect(px, py, w, h); }
+  x.globalAlpha = 1;
+}
+function line(x1, y1, x2, y2, col, lw, alpha) {
+  x.globalAlpha = alpha == null ? 1 : alpha; x.strokeStyle = col || INK; x.lineWidth = lw || 3;
+  x.beginPath(); x.moveTo(x1, y1); x.lineTo(x2, y2); x.stroke(); x.globalAlpha = 1;
+}
+function show(w) {
+  const m = w.match(/^((?:one|zero)(?:-(?:one|zero))+)([.,?!]*)$/i);
+  if (m) return m[1].toLowerCase().split("-").map(p => p === "one" ? 1 : 0).join("") + m[2];
+  return w;
+}
+const groups = []; {
+  let g = [];
+  const flush = () => { if (g.length) { groups.push(g); g = []; } };
+  WORDS.forEach((w, i) => {
+    const t = show(w.w);
+    if (g.length && (g.length >= 4 || g.map(o => show(o.w)).join(" ").length + t.length > 24)) flush();
+    g.push({ ...w, i, txt: t });
+    if (/[.?!]$/.test(w.w) || /,$/.test(w.w)) flush();
+  });
+  flush();
+}
+groups.forEach((g, gi) => {
+  const el = document.createElement("div"); el.className = "g"; el.id = "g" + gi;
+  g.forEach(w => {
+    const s = document.createElement("span");
+    s.className = "w" + (KEYS.has(w.txt.toLowerCase().replace(/[.,?!]/g, "")) ? " k" : "");
+    s.textContent = w.txt + " "; w.el = s; el.appendChild(s);
+  });
+  cap.appendChild(el); g.el = el;
+  g.start = g[0].s - 0.05; g.end = DUR;
+});
+groups.forEach((g, gi) => { if (gi + 1 < groups.length) g.end = Math.min(g[g.length - 1].e + 0.25, groups[gi + 1][0].s - 0.05); });
+function blockOf(t) { let b = 0; for (let i = 0; i < NB; i++) if (t >= B[i]) b = i; return b; }
+
+function mv(n, a, b, c, out) { if (n === 0) return; mv(n - 1, a, c, b, out); out.push([a, c]); mv(n - 1, b, a, c, out); }
+function state(n, k) {
+  const st = [Array.from({ length: n }, (_, i) => n - i), [], []], m = []; mv(n, 0, 1, 2, m);
+  for (let i = 0; i < Math.min(k, m.length); i++) { const [f, t] = m[i]; st[t].push(st[f].pop()); }
+  return st;
+}
+const PX = [220, 540, 860], BASE = 960;
+function pegs(st, n) {
+  PX.forEach(px => rect(px - 6, BASE - 420, 12, 420, INK, null, 0, 0.8));
+  line(100, BASE, 980, BASE, INK, 6);
+  const h = Math.min(36, 380 / n);
+  st.forEach((s, p) => s.forEach((d, i) => {
+    const w = 60 + (d - 1) * (200 / Math.max(1, n - 1));
+    rect(PX[p] - w / 2, BASE - (i + 1) * h, w, h - 3, d % 2 ? OR : "#e8dcbc", INK, 3);
+  }));
+}
+function fmt(v) { return v.toLocaleString("en-US"); }
+function scene(t, b, u) {
+  if (b === 0) { pegs(state(12, 0), 12); return u < 0.5 ? "64 GOLDEN DISKS" : "HOW LONG WILL IT TAKE?"; }
+  if (b === 1) { pegs(state(4, 0), 4);
+    if (u > 0.33 && u < 0.66) { line(PX[1] - 90, BASE - 200, PX[1] + 90, BASE - 120, RED, 10); txt("NOT ALLOWED", PX[1], BASE - 250, 34, RED); }
+    return u < 0.33 ? "ONE DISK AT A TIME" : u < 0.66 ? "NEVER BIG ON SMALL" : "MOVE THE WHOLE STACK"; }
+  if (b === 2) { const k = Math.floor(ease(u / 0.9) * 7); pegs(state(3, k), 3); return "3 DISKS  ·  " + k + " / 7 MOVES"; }
+  if (b === 3) {
+    const rows = [[4, 15], [5, 31], [10, 1023], [20, 1048575]], k = Math.floor(ease(u / 0.85) * 4.99);
+    rows.forEach((r, i) => { if (i <= k) {
+      txt("n = " + r[0], 260, 470 + i * 130, 50, INK, "center"); txt("→", 440, 470 + i * 130, 50, DOT);
+      txt(fmt(r[1]), 700, 470 + i * 130, 56, RED, "center"); } });
+    return "EACH DISK DOUBLES THE WORK  +1";
+  }
+  if (b === 4) {
+    txt("2⁶⁴ − 1", 540, 520, 110, INK);
+    txt("18,446,744,073,709,551,615", 540, 650, 38, RED); txt("moves", 540, 710, 40, INK);
+    if (u > 0.45) { txt("1 move per second", 540, 830, 40, INK); txt("≈ 585 billion years", 540, 910, 56, RED); }
+    return "64 DISKS";
+  }
+  if (b === 5) {
+    const w1 = 800 * 13.8 / 585, w2 = 800 * ease(u / 0.7);
+    txt("THE UNIVERSE", 540, 500, 34, INK); rect(140, 530, w1, 60, DOT, null, 0, 1); txt("13.8 billion years", 540, 640, 34, INK);
+    txt("HANOI, 64 DISKS", 540, 760, 34, INK); rect(140, 790, w2, 60, RED, null, 0, 1); if (u > 0.7) txt("585 billion years", 540, 900, 34, RED);
+    return "MORE THAN 40× LONGER";
+  }
+  const k = Math.floor(ease(u / 0.9) * 11);
+  for (let i = 0; i < 11; i++) { if (i > k) continue; const h = Math.max(6, 520 * Math.pow(2, i) / 1024); rect(130 + i * 78, 1010 - h, 60, h, i > 7 ? RED : OR, null, 0, 1); txt(String(i), 160 + i * 78, 1040, 24, INK); }
+  return "EXPONENTIAL: SLOW, THEN ALL AT ONCE";
+}
+
+
+function renderAt(t) {
+  x.fillStyle = "#f4ecd8"; x.fillRect(0, 0, 1920, 1080);
+  x.strokeStyle = "rgba(60,90,140,0.16)"; x.lineWidth = 2;
+  for (let g = 0; g <= 1920; g += 40) { x.beginPath(); x.moveTo(g, 0); x.lineTo(g, 1080); x.stroke(); }
+  for (let g = 0; g <= 1080; g += 40) { x.beginPath(); x.moveTo(0, g); x.lineTo(1920, g); x.stroke(); }
+  const b = blockOf(t), u = clamp((t - B[b]) / (B[b + 1] - B[b]));
+  if (t < LEAD) {
+    stat.textContent = ""; x.textAlign = "center"; x.textBaseline = "middle";
+    x.fillStyle = RED; x.font = "bold 44px " + FONT; x.fillText(CHAPTER.split("|")[0], 960, 430);
+    x.fillStyle = INK; x.font = "bold 84px " + FONT; x.fillText(CHAPTER.split("|")[1], 960, 540);
+    groups.forEach(g => { g.el.style.opacity = 0; });
+    return;
+  }
+  x.save(); x.translate(463, -126); x.scale(0.92, 0.92);
+  stat.textContent = scene(t, b, u) || "";
+  x.restore();
+  groups.forEach(g => {
+    const on = t >= g.start && t < g.end;
+    g.el.style.opacity = on ? 1 : 0;
+    if (on) g.forEach(w => w.el.classList.toggle("on", t >= w.s));
+  });
+}
+window.addEventListener("hf-seek", e => renderAt(e.detail.time));
+renderAt(0);
+const tl = gsap.timeline({ paused: true });
+tl.fromTo("#title", { opacity: 0 }, { opacity: 1, duration: 0.5, ease: "power2.out" }, 0);
+window.__timelines = window.__timelines || {};
+window.__timelines["main"] = tl;
+</script>
+</body>
+</html>

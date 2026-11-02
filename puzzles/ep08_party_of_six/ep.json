@@ -1,0 +1,12 @@
+{
+  "title": "6 people. Always <span style=\"color:#d62828\">three</span>.",
+  "keys": ["three", "always", "six", "triangle", "chaos"],
+  "blocks": [
+    "Six people at a party. Some know each other, some don't. Here's a promise: there are always three people who all know each other, or three who are all strangers. Always.",
+    "Draw each person as a dot. Draw a blue line between two people who know each other, and a red line between two who don't. Every pair gets exactly one line. We're looking for a triangle with all three sides the same color.",
+    "With five people, you can avoid it. Put them in a ring, color the ring blue and the star inside red. Look for a triangle of one color. There isn't one.",
+    "Add a sixth person, and it breaks. Pick any one person. They have five lines. Five lines, two colors, so at least three of them share a color. Say three are blue.",
+    "Look at the three people on the ends of those blue lines. If any line between them is blue, it makes a blue triangle with our person. If all three lines between them are red, they form a red triangle. Either way, there's a triangle.",
+    "No matter how you color the lines, you can't escape. Six is the smallest crowd where it's guaranteed. Order hides inside chaos, once the crowd is big enough."
+  ]
+}

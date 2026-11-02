@@ -1,0 +1,398 @@
+{
+ "theme": "rulechanged",
+ "format": "vertical",
+ "comp": "main",
+ "out": "s1_local_number",
+ "music": "library/music/incompetech/interloper.mp3",
+ "music_gain": 0.14,
+ "lufs": -14,
+ "tail": 1.0,
+ "captions": true,
+ "blocks": [
+  {
+   "act": "scam",
+   "scenes": [
+    {
+     "t": "organ_focus",
+     "image": "phone_screen.jpg",
+     "screen": false,
+     "photo": true,
+     "zoom": [
+      100,
+      108
+     ],
+     "illustration": true
+    },
+    {
+     "t": "impact_title",
+     "at": "start",
+     "fade": [
+      0.15,
+      0.25
+     ],
+     "lines": [
+      {
+       "text": "THAT LOCAL NUMBER?",
+       "size": 104,
+       "y": 860,
+       "color": [
+        1,
+        0.96,
+        0.9
+       ],
+       "font": "Anton"
+      }
+     ]
+    },
+    {
+     "t": "impact_title",
+     "at": "not",
+     "fade": [
+      0.15,
+      0.25
+     ],
+     "lines": [
+      {
+       "text": "MIGHT BE FAKE",
+       "size": 104,
+       "y": 990,
+       "color": [
+        0.82,
+        0.25,
+        0.18
+       ],
+       "font": "Anton"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "act": "scam",
+   "scenes": [
+    {
+     "t": "fact_card",
+     "big": "96 MILLION",
+     "size": 150,
+     "at": "months",
+     "image": "stack_phones.jpg",
+     "text": "robocalls in three months, Oct to Dec 2016",
+     "source": "Source: FCC order FCC 18-58",
+     "until": "callers-0.1"
+    },
+    {
+     "t": "organ_focus",
+     "image": "city_night.jpg",
+     "screen": false,
+     "photo": true,
+     "zoom": [
+      100,
+      108
+     ],
+     "illustration": true,
+     "at": "callers-0.2"
+    },
+    {
+     "t": "impact_title",
+     "at": "faked",
+     "fade": [
+      0.15,
+      0.25
+     ],
+     "lines": [
+      {
+       "text": "FAKED TO LOOK LOCAL",
+       "size": 96,
+       "y": 900,
+       "color": [
+        1,
+        0.96,
+        0.9
+       ],
+       "font": "Anton"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "act": "scam",
+   "scenes": [
+    {
+     "t": "fact_card",
+     "big": "SAME 6 DIGITS",
+     "size": 120,
+     "at": "start",
+     "image": "phone_kitchen.jpg",
+     "text": "Neighbor spoofing copies the first six digits of your own number",
+     "source": "Source: FCC order FCC 18-58"
+    }
+   ]
+  },
+  {
+   "act": "scam",
+   "scenes": [
+    {
+     "t": "organ_focus",
+     "image": "callcenter.jpg",
+     "screen": false,
+     "photo": true,
+     "zoom": [
+      100,
+      108
+     ],
+     "illustration": true,
+     "label": {
+      "text": "PRESS 1",
+      "at": 0.3
+     },
+     "until": "tripadvisor-0.2"
+    },
+    {
+     "t": "impact_title",
+     "at": "press",
+     "fade": [
+      0.15,
+      0.25
+     ],
+     "lines": [
+      {
+       "text": "PRESS 1",
+       "size": 170,
+       "y": 900,
+       "color": [
+        1,
+        0.96,
+        0.9
+       ],
+       "font": "Anton"
+      }
+     ],
+     "until": "tripadvisor-0.3"
+    },
+    {
+     "t": "organ_focus",
+     "image": "l_brands.jpg",
+     "screen": false,
+     "photo": true,
+     "zoom": [
+      100,
+      108
+     ],
+     "illustration": false,
+     "label": {
+      "text": "NAMES USED WITHOUT PERMISSION",
+      "at": 0.3
+     },
+     "at": "tripadvisor-0.3"
+    }
+   ]
+  },
+  {
+   "act": "scam",
+   "scenes": [
+    {
+     "t": "organ_focus",
+     "image": "angry_phone.jpg",
+     "screen": false,
+     "photo": true,
+     "zoom": [
+      100,
+      108
+     ],
+     "illustration": true
+    },
+    {
+     "t": "impact_title",
+     "at": "twist",
+     "fade": [
+      0.15,
+      0.25
+     ],
+     "lines": [
+      {
+       "text": "THE TWIST",
+       "size": 150,
+       "y": 900,
+       "color": [
+        1,
+        0.96,
+        0.9
+       ],
+       "font": "Anton"
+      }
+     ],
+     "until": "angry-0.2"
+    },
+    {
+     "t": "impact_title",
+     "at": "angry",
+     "fade": [
+      0.15,
+      0.25
+     ],
+     "lines": [
+      {
+       "text": "ANGRY CALLS BACK",
+       "size": 96,
+       "y": 900,
+       "color": [
+        1,
+        0.96,
+        0.9
+       ],
+       "font": "Anton"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "act": "rule",
+   "scenes": [
+    {
+     "t": "organ_focus",
+     "image": "hangup.jpg",
+     "screen": false,
+     "photo": true,
+     "zoom": [
+      100,
+      108
+     ],
+     "illustration": true
+    },
+    {
+     "t": "impact_title",
+     "at": "local",
+     "fade": [
+      0.15,
+      0.25
+     ],
+     "lines": [
+      {
+       "text": "A LOCAL NUMBER",
+       "size": 110,
+       "y": 820,
+       "color": [
+        1,
+        0.96,
+        0.9
+       ],
+       "font": "Anton"
+      }
+     ]
+    },
+    {
+     "t": "impact_title",
+     "at": "proves",
+     "fade": [
+      0.15,
+      0.25
+     ],
+     "lines": [
+      {
+       "text": "PROVES NOTHING",
+       "size": 110,
+       "y": 950,
+       "color": [
+        0.82,
+        0.25,
+        0.18
+       ],
+       "font": "Anton"
+      }
+     ]
+    },
+    {
+     "t": "impact_title",
+     "at": "hang",
+     "fade": [
+      0.15,
+      0.25
+     ],
+     "lines": [
+      {
+       "text": "HANG UP.",
+       "size": 130,
+       "y": 1150,
+       "color": [
+        1,
+        0.96,
+        0.9
+       ],
+       "font": "Anton"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "act": "case",
+   "scenes": [
+    {
+     "t": "web_clip",
+     "image": "fcc_final_2018.png",
+     "site": "FCC.GOV",
+     "date": "MAY 10, 2018",
+     "source": "Source: FCC order FCC 18-58",
+     "marks": [
+      {
+       "box": [
+        395,
+        443,
+        1871,
+        230
+       ],
+       "at": "record"
+      }
+     ],
+     "until": "is-0.1"
+    },
+    {
+     "t": "impact_title",
+     "at": "is",
+     "fade": [
+      0.15,
+      0.25
+     ],
+     "lines": [
+      {
+       "text": "FULL CASE",
+       "size": 150,
+       "y": 900,
+       "color": [
+        1,
+        0.96,
+        0.9
+       ],
+       "font": "Anton"
+      }
+     ],
+     "until": "dur"
+    },
+    {
+     "t": "impact_title",
+     "at": "is+0.15",
+     "fade": [
+      0.15,
+      0.25
+     ],
+     "lines": [
+      {
+       "text": "ON THE RULE CHANGED",
+       "size": 66,
+       "y": 1010,
+       "color": [
+        0.82,
+        0.25,
+        0.18
+       ],
+       "font": "Anton"
+      }
+     ],
+     "until": "dur"
+    }
+   ]
+  }
+ ]
+}

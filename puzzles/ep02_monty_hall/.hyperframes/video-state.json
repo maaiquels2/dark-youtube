@@ -1,0 +1,351 @@
+{
+  "version": 1,
+  "historyId": "0a03844f-6a45-4843-bbd8-cde626ed705e",
+  "currentRevision": "cb93819d-18c2-4a9f-9808-9de66cefdbb5",
+  "pendingChanges": false,
+  "files": {
+    "assets/timing.json": {
+      "hash": "b8d8dbb78fd4381a75b1741de6d1f53a6d73dd88ea9f5c8666807edfa739a28a",
+      "content": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\0a03844f-6a45-4843-bbd8-cde626ed705e\\blobs\\b8\\b8d8dbb78fd4381a75b1741de6d1f53a6d73dd88ea9f5c8666807edfa739a28a"
+    },
+    "ep.json": {
+      "hash": "78cb9a69354e1c97d55d05ee6710f00a1148ed5a8d643aed7c06bf0e8d77af32",
+      "content": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\0a03844f-6a45-4843-bbd8-cde626ed705e\\blobs\\78\\78cb9a69354e1c97d55d05ee6710f00a1148ed5a8d643aed7c06bf0e8d77af32"
+    },
+    "hyperframes.json": {
+      "hash": "c7a3009d23e471acfb1ca9ec252ea16a0ca4dfe55e3b3b9d7089c8f0764f4a43",
+      "content": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\0a03844f-6a45-4843-bbd8-cde626ed705e\\blobs\\c7\\c7a3009d23e471acfb1ca9ec252ea16a0ca4dfe55e3b3b9d7089c8f0764f4a43"
+    },
+    "index.html": {
+      "hash": "a6718e0a60fff4a665395d5cbc3f75d3b23151d7d019d60d202cd4feb646aae0",
+      "content": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\0a03844f-6a45-4843-bbd8-cde626ed705e\\blobs\\a6\\a6718e0a60fff4a665395d5cbc3f75d3b23151d7d019d60d202cd4feb646aae0"
+    },
+    "package.json": {
+      "hash": "5827b2eba550ff0f6fc88ee7cf82d228a6bec8dc45111567c3209db8df77720e",
+      "content": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\0a03844f-6a45-4843-bbd8-cde626ed705e\\blobs\\58\\5827b2eba550ff0f6fc88ee7cf82d228a6bec8dc45111567c3209db8df77720e"
+    },
+    "scene.js": {
+      "hash": "940bb066fc1b3a936a8a27325c70368616bd6abaf44c596b533c58a60747baf0",
+      "content": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\0a03844f-6a45-4843-bbd8-cde626ed705e\\blobs\\94\\940bb066fc1b3a936a8a27325c70368616bd6abaf44c596b533c58a60747baf0"
+    },
+    "assets/voice.mp3": {
+      "hash": "63a816c7936484dc540e4cb3b44d493c316eb1a0942c07ac1c5b39fab4e14f14",
+      "content": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\0a03844f-6a45-4843-bbd8-cde626ed705e\\blobs\\63\\63a816c7936484dc540e4cb3b44d493c316eb1a0942c07ac1c5b39fab4e14f14"
+    }
+  },
+  "revisions": {
+    "cb93819d-18c2-4a9f-9808-9de66cefdbb5": {
+      "actor": {
+        "kind": "outside",
+        "name": "Outside"
+      },
+      "label": "Changed outside the app",
+      "startedAt": 1792956061527,
+      "endedAt": 1792956061528,
+      "files": {
+        "index.html": {
+          "before": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\0a03844f-6a45-4843-bbd8-cde626ed705e\\blobs\\39\\3956663efb57d0a1d4b1bfb44f7dd05a008fff5f677013bdd6e115082f3987f4",
+          "after": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\0a03844f-6a45-4843-bbd8-cde626ed705e\\blobs\\a6\\a6718e0a60fff4a665395d5cbc3f75d3b23151d7d019d60d202cd4feb646aae0"
+        }
+      }
+    }
+  },
+  "checks": {
+    "latest": {
+      "revision": null,
+      "id": "de380c12-2b3a-4691-978b-ddd40f5b978b"
+    },
+    "revisions": {},
+    "unversioned": [
+      {
+        "id": "de380c12-2b3a-4691-978b-ddd40f5b978b",
+        "scope": "project",
+        "report": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\puzzles\\ep02_monty_hall\\.hyperframes\\artifacts\\checks\\de380c12-2b3a-4691-978b-ddd40f5b978b.json",
+        "metadata": {
+          "ok": true,
+          "browserSkipped": false,
+          "options": {
+            "samples": 9,
+            "atTransitions": false,
+            "maxIssues": 80,
+            "collapseStatic": true,
+            "tolerance": 2,
+            "timeout": 3000,
+            "contrast": true,
+            "strict": false,
+            "snapshots": false,
+            "browserGpuMode": "auto"
+          }
+        },
+        "createdAt": 1792935351995,
+        "contentHash": "b89a1ad45f56b0cdc63412f3b0b968a12f6ca7756588a5a9de737eb6676cca3f",
+        "revision": null,
+        "inputFingerprint": "4bc8f5f92b197c7ce4432caa8f3f26a90fc7ed4a5907e60e13ff0a2ae49f1820",
+        "inputScope": "local-project-files",
+        "attribution": "unversioned"
+      }
+    ]
+  },
+  "snapshots": {
+    "latest": {
+      "revision": null,
+      "id": "99fb12cc-718f-4a69-b442-c1131848728d-11"
+    },
+    "revisions": {},
+    "unversioned": [
+      {
+        "scope": "full",
+        "id": "99fb12cc-718f-4a69-b442-c1131848728d-0",
+        "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\snap_ep02_monty_hall\\frame-00-at-0s.png",
+        "time": 0,
+        "metadata": {
+          "width": 1080,
+          "height": 1920,
+          "zoomScale": 1,
+          "browserGpuMode": "auto",
+          "warnings": [],
+          "partial": false
+        },
+        "createdAt": 1792935357427,
+        "contentHash": "03399b242e9f7cf557c8ae75f03882024abbcf8891d0759893247fb082fe9d9b",
+        "revision": null,
+        "inputFingerprint": "4bc8f5f92b197c7ce4432caa8f3f26a90fc7ed4a5907e60e13ff0a2ae49f1820",
+        "inputScope": "local-project-files",
+        "attribution": "unversioned"
+      },
+      {
+        "scope": "full",
+        "id": "99fb12cc-718f-4a69-b442-c1131848728d-1",
+        "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\snap_ep02_monty_hall\\frame-01-at-8.485s.png",
+        "time": 8.485,
+        "metadata": {
+          "width": 1080,
+          "height": 1920,
+          "zoomScale": 1,
+          "browserGpuMode": "auto",
+          "warnings": [],
+          "partial": false
+        },
+        "createdAt": 1792935357427,
+        "contentHash": "43fec519a612eec816cabc3806e62e0984b711323540c048820248bce111dbb2",
+        "revision": null,
+        "inputFingerprint": "4bc8f5f92b197c7ce4432caa8f3f26a90fc7ed4a5907e60e13ff0a2ae49f1820",
+        "inputScope": "local-project-files",
+        "attribution": "unversioned"
+      },
+      {
+        "scope": "full",
+        "id": "99fb12cc-718f-4a69-b442-c1131848728d-2",
+        "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\snap_ep02_monty_hall\\frame-02-at-16.971s.png",
+        "time": 16.971,
+        "metadata": {
+          "width": 1080,
+          "height": 1920,
+          "zoomScale": 1,
+          "browserGpuMode": "auto",
+          "warnings": [],
+          "partial": false
+        },
+        "createdAt": 1792935357427,
+        "contentHash": "6a5708b87a4fe08d51008be768912507c52df519764bd5eea3cc2ef53705cdfa",
+        "revision": null,
+        "inputFingerprint": "4bc8f5f92b197c7ce4432caa8f3f26a90fc7ed4a5907e60e13ff0a2ae49f1820",
+        "inputScope": "local-project-files",
+        "attribution": "unversioned"
+      },
+      {
+        "scope": "full",
+        "id": "99fb12cc-718f-4a69-b442-c1131848728d-3",
+        "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\snap_ep02_monty_hall\\frame-03-at-25.456s.png",
+        "time": 25.456,
+        "metadata": {
+          "width": 1080,
+          "height": 1920,
+          "zoomScale": 1,
+          "browserGpuMode": "auto",
+          "warnings": [],
+          "partial": false
+        },
+        "createdAt": 1792935357428,
+        "contentHash": "bf1a833f94482485f7d22d0deb92a53e8812babbe6286c462d79fce5a636dbd5",
+        "revision": null,
+        "inputFingerprint": "4bc8f5f92b197c7ce4432caa8f3f26a90fc7ed4a5907e60e13ff0a2ae49f1820",
+        "inputScope": "local-project-files",
+        "attribution": "unversioned"
+      },
+      {
+        "scope": "full",
+        "id": "99fb12cc-718f-4a69-b442-c1131848728d-4",
+        "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\snap_ep02_monty_hall\\frame-04-at-33.942s.png",
+        "time": 33.942,
+        "metadata": {
+          "width": 1080,
+          "height": 1920,
+          "zoomScale": 1,
+          "browserGpuMode": "auto",
+          "warnings": [],
+          "partial": false
+        },
+        "createdAt": 1792935357428,
+        "contentHash": "da2e94c24c51e2ae668cde42cdafd0870a4b569b16e3bd2f6793d9680d68e195",
+        "revision": null,
+        "inputFingerprint": "4bc8f5f92b197c7ce4432caa8f3f26a90fc7ed4a5907e60e13ff0a2ae49f1820",
+        "inputScope": "local-project-files",
+        "attribution": "unversioned"
+      },
+      {
+        "scope": "full",
+        "id": "99fb12cc-718f-4a69-b442-c1131848728d-5",
+        "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\snap_ep02_monty_hall\\frame-05-at-42.427s.png",
+        "time": 42.427,
+        "metadata": {
+          "width": 1080,
+          "height": 1920,
+          "zoomScale": 1,
+          "browserGpuMode": "auto",
+          "warnings": [],
+          "partial": false
+        },
+        "createdAt": 1792935357428,
+        "contentHash": "150b87c58b13ba4cafd29fce3282655576dd4968347435862b532d111a969917",
+        "revision": null,
+        "inputFingerprint": "4bc8f5f92b197c7ce4432caa8f3f26a90fc7ed4a5907e60e13ff0a2ae49f1820",
+        "inputScope": "local-project-files",
+        "attribution": "unversioned"
+      },
+      {
+        "scope": "full",
+        "id": "99fb12cc-718f-4a69-b442-c1131848728d-6",
+        "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\snap_ep02_monty_hall\\frame-06-at-50.913s.png",
+        "time": 50.913,
+        "metadata": {
+          "width": 1080,
+          "height": 1920,
+          "zoomScale": 1,
+          "browserGpuMode": "auto",
+          "warnings": [],
+          "partial": false
+        },
+        "createdAt": 1792935357428,
+        "contentHash": "5abf54ad7afe1bb5a2816ff2f879f1c0ff5bc85d2ad49bf93731f92c74bb3293",
+        "revision": null,
+        "inputFingerprint": "4bc8f5f92b197c7ce4432caa8f3f26a90fc7ed4a5907e60e13ff0a2ae49f1820",
+        "inputScope": "local-project-files",
+        "attribution": "unversioned"
+      },
+      {
+        "scope": "full",
+        "id": "99fb12cc-718f-4a69-b442-c1131848728d-7",
+        "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\snap_ep02_monty_hall\\frame-07-at-59.398s.png",
+        "time": 59.398,
+        "metadata": {
+          "width": 1080,
+          "height": 1920,
+          "zoomScale": 1,
+          "browserGpuMode": "auto",
+          "warnings": [],
+          "partial": false
+        },
+        "createdAt": 1792935357429,
+        "contentHash": "8b23c49d6ed5173d08b4a73c780a94d3a012d9ec9af4148bfb0dd574e002e383",
+        "revision": null,
+        "inputFingerprint": "4bc8f5f92b197c7ce4432caa8f3f26a90fc7ed4a5907e60e13ff0a2ae49f1820",
+        "inputScope": "local-project-files",
+        "attribution": "unversioned"
+      },
+      {
+        "scope": "full",
+        "id": "99fb12cc-718f-4a69-b442-c1131848728d-8",
+        "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\snap_ep02_monty_hall\\frame-08-at-67.884s.png",
+        "time": 67.884,
+        "metadata": {
+          "width": 1080,
+          "height": 1920,
+          "zoomScale": 1,
+          "browserGpuMode": "auto",
+          "warnings": [],
+          "partial": false
+        },
+        "createdAt": 1792935357429,
+        "contentHash": "44a0a6f931c762237ee477196254c781711cdd42e0c0c296cbced828300fa96c",
+        "revision": null,
+        "inputFingerprint": "4bc8f5f92b197c7ce4432caa8f3f26a90fc7ed4a5907e60e13ff0a2ae49f1820",
+        "inputScope": "local-project-files",
+        "attribution": "unversioned"
+      },
+      {
+        "scope": "full",
+        "id": "99fb12cc-718f-4a69-b442-c1131848728d-9",
+        "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\snap_ep02_monty_hall\\frame-09-at-76.369s.png",
+        "time": 76.369,
+        "metadata": {
+          "width": 1080,
+          "height": 1920,
+          "zoomScale": 1,
+          "browserGpuMode": "auto",
+          "warnings": [],
+          "partial": false
+        },
+        "createdAt": 1792935357430,
+        "contentHash": "e8758b0cb45d613e684cb8968d689f0c15cf7afcb531c64f2b65d692bacfecfd",
+        "revision": null,
+        "inputFingerprint": "4bc8f5f92b197c7ce4432caa8f3f26a90fc7ed4a5907e60e13ff0a2ae49f1820",
+        "inputScope": "local-project-files",
+        "attribution": "unversioned"
+      },
+      {
+        "scope": "full",
+        "id": "99fb12cc-718f-4a69-b442-c1131848728d-10",
+        "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\snap_ep02_monty_hall\\frame-10-at-84.855s.png",
+        "time": 84.855,
+        "metadata": {
+          "width": 1080,
+          "height": 1920,
+          "zoomScale": 1,
+          "browserGpuMode": "auto",
+          "warnings": [],
+          "partial": false
+        },
+        "createdAt": 1792935357430,
+        "contentHash": "fa87b1d076018ec5bfbb196f46aedebf8e3c9fb863bd1450bd9ffdcd813d6d4a",
+        "revision": null,
+        "inputFingerprint": "4bc8f5f92b197c7ce4432caa8f3f26a90fc7ed4a5907e60e13ff0a2ae49f1820",
+        "inputScope": "local-project-files",
+        "attribution": "unversioned"
+      },
+      {
+        "scope": "full",
+        "id": "99fb12cc-718f-4a69-b442-c1131848728d-11",
+        "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\snap_ep02_monty_hall\\frame-11-at-93.34s.png",
+        "time": 93.34,
+        "metadata": {
+          "width": 1080,
+          "height": 1920,
+          "zoomScale": 1,
+          "browserGpuMode": "auto",
+          "warnings": [],
+          "partial": false
+        },
+        "createdAt": 1792935357431,
+        "contentHash": "4f38b8e62a01fc53b7e4c71ab305bc7403bdeda9a177f59d8fe9372d2294cd55",
+        "revision": null,
+        "inputFingerprint": "4bc8f5f92b197c7ce4432caa8f3f26a90fc7ed4a5907e60e13ff0a2ae49f1820",
+        "inputScope": "local-project-files",
+        "attribution": "unversioned"
+      }
+    ]
+  },
+  "renders": {
+    "latest": {
+      "id": "711ad9d5-f74a-45c1-9547-e7a137b54771",
+      "completedAt": 1792956153916,
+      "output": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\puzzles\\ep02_monty_hall\\renders\\ep02_monty_hall.mp4",
+      "status": "completed",
+      "revision": "cb93819d-18c2-4a9f-9808-9de66cefdbb5"
+    },
+    "retainedRevisions": [
+      "cb93819d-18c2-4a9f-9808-9de66cefdbb5"
+    ]
+  },
+  "pendingArtifactCleanup": []
+}

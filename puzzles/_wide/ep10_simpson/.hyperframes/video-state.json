@@ -1,0 +1,54 @@
+{
+  "version": 1,
+  "historyId": "a7b335b8-474f-4d6f-b8bc-a547fcaf7122",
+  "currentRevision": null,
+  "pendingChanges": false,
+  "files": {
+    "assets/timing.json": {
+      "hash": "15fcfd3933cd10ff760e3a5948ee20379b8b92e603bd5c19a667b9d91aac7352",
+      "content": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\a7b335b8-474f-4d6f-b8bc-a547fcaf7122\\blobs\\15\\15fcfd3933cd10ff760e3a5948ee20379b8b92e603bd5c19a667b9d91aac7352"
+    },
+    "hyperframes.json": {
+      "hash": "c7a3009d23e471acfb1ca9ec252ea16a0ca4dfe55e3b3b9d7089c8f0764f4a43",
+      "content": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\a7b335b8-474f-4d6f-b8bc-a547fcaf7122\\blobs\\c7\\c7a3009d23e471acfb1ca9ec252ea16a0ca4dfe55e3b3b9d7089c8f0764f4a43"
+    },
+    "index.html": {
+      "hash": "df07ac25934867c459d3dab3701c791e901ad32ef165b15cf03d4df4217ae208",
+      "content": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\a7b335b8-474f-4d6f-b8bc-a547fcaf7122\\blobs\\df\\df07ac25934867c459d3dab3701c791e901ad32ef165b15cf03d4df4217ae208"
+    },
+    "package.json": {
+      "hash": "e6c3359985dff3ee38cefffa144ec811cc4af98dd46e6b9f69cf148bc054040e",
+      "content": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\a7b335b8-474f-4d6f-b8bc-a547fcaf7122\\blobs\\e6\\e6c3359985dff3ee38cefffa144ec811cc4af98dd46e6b9f69cf148bc054040e"
+    },
+    "scene.js": {
+      "hash": "175be61d18e9bda0f06d9dad06ac9a46d2867edfc6bbd9b22137e78323205937",
+      "content": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\a7b335b8-474f-4d6f-b8bc-a547fcaf7122\\blobs\\17\\175be61d18e9bda0f06d9dad06ac9a46d2867edfc6bbd9b22137e78323205937"
+    },
+    "assets/voice.mp3": {
+      "hash": "6f8d400a5749a8c2e3646c6db06655bc152b3aa027e708d24a0bbb0529889a84",
+      "content": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\a7b335b8-474f-4d6f-b8bc-a547fcaf7122\\blobs\\6f\\6f8d400a5749a8c2e3646c6db06655bc152b3aa027e708d24a0bbb0529889a84"
+    }
+  },
+  "revisions": {},
+  "checks": {
+    "latest": null,
+    "revisions": {},
+    "unversioned": []
+  },
+  "snapshots": {
+    "latest": null,
+    "revisions": {},
+    "unversioned": []
+  },
+  "renders": {
+    "latest": {
+      "id": "3e334750-8ab3-4db0-a033-f59f1d09d2ec",
+      "completedAt": 1792971711012,
+      "output": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\puzzles\\_wide\\ep10_simpson\\renders\\ep10_simpson.mp4",
+      "status": "completed",
+      "revision": null
+    },
+    "retainedRevisions": []
+  },
+  "pendingArtifactCleanup": []
+}

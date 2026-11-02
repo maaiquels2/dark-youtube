@@ -1,0 +1,54 @@
+{
+  "version": 1,
+  "historyId": "44875a38-ada9-4216-a1c5-0921728c5fe0",
+  "currentRevision": null,
+  "pendingChanges": false,
+  "files": {
+    "assets/timing.json": {
+      "hash": "8ea053dab6a66ecf7c9d355fc8397b186b3f26f73f17419c50ccca04d1f2ee75",
+      "content": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\44875a38-ada9-4216-a1c5-0921728c5fe0\\blobs\\8e\\8ea053dab6a66ecf7c9d355fc8397b186b3f26f73f17419c50ccca04d1f2ee75"
+    },
+    "assets/voice.mp3": {
+      "hash": "e6525e0fcccc3cce51c3ad7a4819265bcd3cab354f5dea9166a55797cb657a7d",
+      "content": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\44875a38-ada9-4216-a1c5-0921728c5fe0\\blobs\\e6\\e6525e0fcccc3cce51c3ad7a4819265bcd3cab354f5dea9166a55797cb657a7d"
+    },
+    "hyperframes.json": {
+      "hash": "c7a3009d23e471acfb1ca9ec252ea16a0ca4dfe55e3b3b9d7089c8f0764f4a43",
+      "content": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\44875a38-ada9-4216-a1c5-0921728c5fe0\\blobs\\c7\\c7a3009d23e471acfb1ca9ec252ea16a0ca4dfe55e3b3b9d7089c8f0764f4a43"
+    },
+    "index.html": {
+      "hash": "7f0edbb5a35a0e1596a1d7e20a3741db1c6174ed23662c4679dc7d56ffc7a3f6",
+      "content": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\44875a38-ada9-4216-a1c5-0921728c5fe0\\blobs\\7f\\7f0edbb5a35a0e1596a1d7e20a3741db1c6174ed23662c4679dc7d56ffc7a3f6"
+    },
+    "package.json": {
+      "hash": "a4c3700c641961f350fb083f19e9c6d99ddc1977b9fa16885d2da984e9f83a07",
+      "content": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\44875a38-ada9-4216-a1c5-0921728c5fe0\\blobs\\a4\\a4c3700c641961f350fb083f19e9c6d99ddc1977b9fa16885d2da984e9f83a07"
+    },
+    "scene.js": {
+      "hash": "e22bc4ad1796496635a45be6b9c6d49b63463bcd6e2144ebdde4bb83a20b815d",
+      "content": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\44875a38-ada9-4216-a1c5-0921728c5fe0\\blobs\\e2\\e22bc4ad1796496635a45be6b9c6d49b63463bcd6e2144ebdde4bb83a20b815d"
+    }
+  },
+  "revisions": {},
+  "checks": {
+    "latest": null,
+    "revisions": {},
+    "unversioned": []
+  },
+  "snapshots": {
+    "latest": null,
+    "revisions": {},
+    "unversioned": []
+  },
+  "renders": {
+    "latest": {
+      "id": "d2430a62-be97-4a69-bb2f-e4f1728590d1",
+      "completedAt": 1792971224237,
+      "output": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\puzzles\\_wide\\ep07_moser_circle\\renders\\ep07_moser_circle.mp4",
+      "status": "completed",
+      "revision": null
+    },
+    "retainedRevisions": []
+  },
+  "pendingArtifactCleanup": []
+}

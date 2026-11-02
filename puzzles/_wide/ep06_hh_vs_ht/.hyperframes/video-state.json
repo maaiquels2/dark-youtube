@@ -1,0 +1,54 @@
+{
+  "version": 1,
+  "historyId": "12c2280d-8ca3-473b-8127-6b75cf69d6ac",
+  "currentRevision": null,
+  "pendingChanges": false,
+  "files": {
+    "assets/timing.json": {
+      "hash": "33dc0e0dd806aaa47e45e646381bcc57237489b620d5153a853aa7320aff8856",
+      "content": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\12c2280d-8ca3-473b-8127-6b75cf69d6ac\\blobs\\33\\33dc0e0dd806aaa47e45e646381bcc57237489b620d5153a853aa7320aff8856"
+    },
+    "hyperframes.json": {
+      "hash": "c7a3009d23e471acfb1ca9ec252ea16a0ca4dfe55e3b3b9d7089c8f0764f4a43",
+      "content": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\12c2280d-8ca3-473b-8127-6b75cf69d6ac\\blobs\\c7\\c7a3009d23e471acfb1ca9ec252ea16a0ca4dfe55e3b3b9d7089c8f0764f4a43"
+    },
+    "index.html": {
+      "hash": "760d42cec4de59081d67040f67aeb4e5dfdf35e731254478c1bd1c557499fddd",
+      "content": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\12c2280d-8ca3-473b-8127-6b75cf69d6ac\\blobs\\76\\760d42cec4de59081d67040f67aeb4e5dfdf35e731254478c1bd1c557499fddd"
+    },
+    "package.json": {
+      "hash": "7126e14647833af03021543e3264e8fcd282cba293b9a83a02ef4f4fcc788f94",
+      "content": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\12c2280d-8ca3-473b-8127-6b75cf69d6ac\\blobs\\71\\7126e14647833af03021543e3264e8fcd282cba293b9a83a02ef4f4fcc788f94"
+    },
+    "scene.js": {
+      "hash": "545e3d0f844c126ecea97eebc7b6420f2cc3e469e648cf5b8760a976773bd5b9",
+      "content": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\12c2280d-8ca3-473b-8127-6b75cf69d6ac\\blobs\\54\\545e3d0f844c126ecea97eebc7b6420f2cc3e469e648cf5b8760a976773bd5b9"
+    },
+    "assets/voice.mp3": {
+      "hash": "f2375da2ebd57aad00d3beb53944623ed13ea2b031c527ed6ab7d645433e7fdf",
+      "content": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\12c2280d-8ca3-473b-8127-6b75cf69d6ac\\blobs\\f2\\f2375da2ebd57aad00d3beb53944623ed13ea2b031c527ed6ab7d645433e7fdf"
+    }
+  },
+  "revisions": {},
+  "checks": {
+    "latest": null,
+    "revisions": {},
+    "unversioned": []
+  },
+  "snapshots": {
+    "latest": null,
+    "revisions": {},
+    "unversioned": []
+  },
+  "renders": {
+    "latest": {
+      "id": "d000e3c4-9bcf-432e-b8ab-3b70cb3cd47a",
+      "completedAt": 1792959623388,
+      "output": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\puzzles\\_wide\\ep06_hh_vs_ht\\renders\\ep06_hh_vs_ht.mp4",
+      "status": "completed",
+      "revision": null
+    },
+    "retainedRevisions": []
+  },
+  "pendingArtifactCleanup": []
+}

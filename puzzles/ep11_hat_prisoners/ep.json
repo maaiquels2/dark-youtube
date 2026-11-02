@@ -1,0 +1,12 @@
+{
+  "title": "100 hats. How many <span style=\"color:#d62828\">survive</span>?",
+  "keys": ["ninety-nine", "parity", "bit", "code", "one"],
+  "blocks": [
+    "A hundred prisoners stand in a line, each wearing a red or blue hat. Each one sees only the hats in front of him. From the back, each guesses his own color, and a wrong guess means execution. They can plan together first. How many can they save for certain?",
+    "Here are the rules. They agree on a plan in advance. Then, starting at the back, each prisoner says one word, red or blue, out loud, and everyone hears it.",
+    "Start with just two prisoners. The one in back says the color of the hat in front of him. The prisoner in front hears it and knows his own hat. So one is saved for sure, and the other is a coin flip.",
+    "For a hundred, the prisoner at the back counts the red hats he sees. If the number is even, he says red. If it's odd, he says blue. That word is not a guess about his hat. It's a code.",
+    "The next prisoner hears the code and counts the red hats he sees. If the parity matches the code, his own hat is blue. If it doesn't, it's red. He says it, and everyone behind updates the count. Each prisoner repeats the same step.",
+    "Everyone except the first is saved. Ninety-nine for sure, and the first has a fifty-fifty chance. The whole trick is one bit of information, passed down the line. It's the same idea as the binary in the poisoned bottles."
+  ]
+}

@@ -1,0 +1,54 @@
+{
+  "version": 1,
+  "historyId": "ad74fe64-5879-4f94-9d9b-f62535852a66",
+  "currentRevision": null,
+  "pendingChanges": false,
+  "files": {
+    "assets/timing.json": {
+      "hash": "c04a620934384f2a3922d2c137a6d065ec1e82f0fcdcf28d6ced91197865533a",
+      "content": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\ad74fe64-5879-4f94-9d9b-f62535852a66\\blobs\\c0\\c04a620934384f2a3922d2c137a6d065ec1e82f0fcdcf28d6ced91197865533a"
+    },
+    "assets/voice.mp3": {
+      "hash": "ab6d960cc71aee13e643738fdae1ee9feb290b7c99655d004b5ea885498257dc",
+      "content": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\ad74fe64-5879-4f94-9d9b-f62535852a66\\blobs\\ab\\ab6d960cc71aee13e643738fdae1ee9feb290b7c99655d004b5ea885498257dc"
+    },
+    "hyperframes.json": {
+      "hash": "c7a3009d23e471acfb1ca9ec252ea16a0ca4dfe55e3b3b9d7089c8f0764f4a43",
+      "content": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\ad74fe64-5879-4f94-9d9b-f62535852a66\\blobs\\c7\\c7a3009d23e471acfb1ca9ec252ea16a0ca4dfe55e3b3b9d7089c8f0764f4a43"
+    },
+    "index.html": {
+      "hash": "00d73330d67142aa80f2ab75ee60707aa14d07a20cfd98016e8257bbeb09e7b8",
+      "content": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\ad74fe64-5879-4f94-9d9b-f62535852a66\\blobs\\00\\00d73330d67142aa80f2ab75ee60707aa14d07a20cfd98016e8257bbeb09e7b8"
+    },
+    "package.json": {
+      "hash": "82567e3572c00ca9eef66b7b7f345dfb2ba54b2ebffcfdd209ec09921b724e94",
+      "content": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\ad74fe64-5879-4f94-9d9b-f62535852a66\\blobs\\82\\82567e3572c00ca9eef66b7b7f345dfb2ba54b2ebffcfdd209ec09921b724e94"
+    },
+    "scene.js": {
+      "hash": "9040f1273ba4af2bd67ca84f1edc0dc62c584e0ef73df73be0df25451c655c02",
+      "content": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\ad74fe64-5879-4f94-9d9b-f62535852a66\\blobs\\90\\9040f1273ba4af2bd67ca84f1edc0dc62c584e0ef73df73be0df25451c655c02"
+    }
+  },
+  "revisions": {},
+  "checks": {
+    "latest": null,
+    "revisions": {},
+    "unversioned": []
+  },
+  "snapshots": {
+    "latest": null,
+    "revisions": {},
+    "unversioned": []
+  },
+  "renders": {
+    "latest": {
+      "id": "9348a512-c285-46bc-87b6-a3044e08b5b6",
+      "completedAt": 1792971583491,
+      "output": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\puzzles\\_wide\\ep09_medical_test\\renders\\ep09_medical_test.mp4",
+      "status": "completed",
+      "revision": null
+    },
+    "retainedRevisions": []
+  },
+  "pendingArtifactCleanup": []
+}

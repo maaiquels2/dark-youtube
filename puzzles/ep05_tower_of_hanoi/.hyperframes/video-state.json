@@ -1,0 +1,534 @@
+{
+  "version": 1,
+  "historyId": "0c8f1c0e-8711-4a92-9754-9190023985da",
+  "currentRevision": "ade209cf-5ff6-4e8f-a0c4-ef5755f8a3e6",
+  "pendingChanges": false,
+  "files": {
+    "assets/timing.json": {
+      "hash": "140f3d51f23ac137e53174e2d532d5e23e8d406b44e4c13be4ebb07b535383e9",
+      "content": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\0c8f1c0e-8711-4a92-9754-9190023985da\\blobs\\14\\140f3d51f23ac137e53174e2d532d5e23e8d406b44e4c13be4ebb07b535383e9"
+    },
+    "ep.json": {
+      "hash": "612457f45ee2238709d762b19bef341042fd3bab288e002a3d7176a44e563fc9",
+      "content": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\0c8f1c0e-8711-4a92-9754-9190023985da\\blobs\\61\\612457f45ee2238709d762b19bef341042fd3bab288e002a3d7176a44e563fc9"
+    },
+    "hyperframes.json": {
+      "hash": "c7a3009d23e471acfb1ca9ec252ea16a0ca4dfe55e3b3b9d7089c8f0764f4a43",
+      "content": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\0c8f1c0e-8711-4a92-9754-9190023985da\\blobs\\c7\\c7a3009d23e471acfb1ca9ec252ea16a0ca4dfe55e3b3b9d7089c8f0764f4a43"
+    },
+    "index.html": {
+      "hash": "643503c350396611be18f49c248aa8ffddb546e75996b59d958c4bf9590b2f9a",
+      "content": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\0c8f1c0e-8711-4a92-9754-9190023985da\\blobs\\64\\643503c350396611be18f49c248aa8ffddb546e75996b59d958c4bf9590b2f9a"
+    },
+    "package.json": {
+      "hash": "2a04ab4f510c254f2b430a5c1eed72bac74b0985fa69388749c9c0738f859652",
+      "content": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\0c8f1c0e-8711-4a92-9754-9190023985da\\blobs\\2a\\2a04ab4f510c254f2b430a5c1eed72bac74b0985fa69388749c9c0738f859652"
+    },
+    "scene.js": {
+      "hash": "590be25ac9f4f65a2e9a4fd21ee909a87a027726dea6d257c79f151cbd100f6a",
+      "content": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\0c8f1c0e-8711-4a92-9754-9190023985da\\blobs\\59\\590be25ac9f4f65a2e9a4fd21ee909a87a027726dea6d257c79f151cbd100f6a"
+    },
+    "assets/voice.mp3": {
+      "hash": "961412542849cd364fd7e7d6e957df75fd75168e71c07fd91647d78f975caa46",
+      "content": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\0c8f1c0e-8711-4a92-9754-9190023985da\\blobs\\96\\961412542849cd364fd7e7d6e957df75fd75168e71c07fd91647d78f975caa46"
+    }
+  },
+  "revisions": {
+    "6f263e8d-0acd-402d-864b-6720c3dde37c": {
+      "actor": {
+        "kind": "outside",
+        "name": "Outside"
+      },
+      "label": "Changed outside the app",
+      "startedAt": 1792935840710,
+      "endedAt": 1792935840723,
+      "files": {
+        "ep.json": {
+          "before": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\0c8f1c0e-8711-4a92-9754-9190023985da\\blobs\\e1\\e1ae5dd1e68e460149ffbf5a6669448cb4dcc87780b7aaeef36314996930f2a6",
+          "after": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\0c8f1c0e-8711-4a92-9754-9190023985da\\blobs\\61\\612457f45ee2238709d762b19bef341042fd3bab288e002a3d7176a44e563fc9"
+        },
+        "index.html": {
+          "before": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\0c8f1c0e-8711-4a92-9754-9190023985da\\blobs\\6f\\6f6c418a4fc2c3f305d708d98512d7862faaea0caab5c02d48469855ed79df95",
+          "after": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\0c8f1c0e-8711-4a92-9754-9190023985da\\blobs\\50\\5051bc5b85ebc99fb90b64407d06f091faf2f4f4739e308d31d5ead7e84fbeef"
+        }
+      }
+    },
+    "ade209cf-5ff6-4e8f-a0c4-ef5755f8a3e6": {
+      "actor": {
+        "kind": "outside",
+        "name": "Outside"
+      },
+      "label": "Changed outside the app",
+      "startedAt": 1792955897237,
+      "endedAt": 1792955897239,
+      "files": {
+        "index.html": {
+          "before": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\0c8f1c0e-8711-4a92-9754-9190023985da\\blobs\\50\\5051bc5b85ebc99fb90b64407d06f091faf2f4f4739e308d31d5ead7e84fbeef",
+          "after": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\0c8f1c0e-8711-4a92-9754-9190023985da\\blobs\\64\\643503c350396611be18f49c248aa8ffddb546e75996b59d958c4bf9590b2f9a"
+        }
+      }
+    }
+  },
+  "checks": {
+    "latest": {
+      "revision": null,
+      "id": "fff97b24-a051-4dc8-bf9e-804fcdc07d81"
+    },
+    "revisions": {},
+    "unversioned": [
+      {
+        "id": "fff97b24-a051-4dc8-bf9e-804fcdc07d81",
+        "scope": "project",
+        "report": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\puzzles\\ep05_tower_of_hanoi\\.hyperframes\\artifacts\\checks\\fff97b24-a051-4dc8-bf9e-804fcdc07d81.json",
+        "metadata": {
+          "ok": true,
+          "browserSkipped": false,
+          "options": {
+            "samples": 9,
+            "atTransitions": false,
+            "maxIssues": 80,
+            "collapseStatic": true,
+            "tolerance": 2,
+            "timeout": 3000,
+            "contrast": true,
+            "strict": false,
+            "snapshots": false,
+            "browserGpuMode": "auto"
+          }
+        },
+        "createdAt": 1792935427525,
+        "contentHash": "337f7d4ae9b59a6a4b0f9f81dcc73d49122e113e4c541541bad6cc29d28d565c",
+        "revision": null,
+        "inputFingerprint": "9a43643dc235d403282d14dd2c1575c3ed368cf5efd506bede907c60548c5c3c",
+        "inputScope": "local-project-files",
+        "attribution": "unversioned"
+      }
+    ]
+  },
+  "snapshots": {
+    "latest": {
+      "revision": "ade209cf-5ff6-4e8f-a0c4-ef5755f8a3e6",
+      "id": "ed6e987a-e094-41d8-863b-c1b27c807299-7"
+    },
+    "revisions": {
+      "ade209cf-5ff6-4e8f-a0c4-ef5755f8a3e6": [
+        {
+          "scope": "full",
+          "id": "ed6e987a-e094-41d8-863b-c1b27c807299-0",
+          "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\safe_ep05_tower_of_hanoi\\frame-00-at-0s.png",
+          "time": 0,
+          "metadata": {
+            "width": 1080,
+            "height": 1920,
+            "zoomScale": 1,
+            "browserGpuMode": "auto",
+            "warnings": [],
+            "partial": false
+          },
+          "createdAt": 1792955899753,
+          "contentHash": "0071ae3e728dbf68d58c85df896208bb0efbf3ad27436ea3b47dd154f5e8ba18",
+          "revision": "ade209cf-5ff6-4e8f-a0c4-ef5755f8a3e6",
+          "inputFingerprint": "afeb5f751f31b9f0937d7d7bdb94e2bd77826226769cf7c3013eee85171a04a1",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        },
+        {
+          "scope": "full",
+          "id": "ed6e987a-e094-41d8-863b-c1b27c807299-1",
+          "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\safe_ep05_tower_of_hanoi\\frame-01-at-11.616s.png",
+          "time": 11.616,
+          "metadata": {
+            "width": 1080,
+            "height": 1920,
+            "zoomScale": 1,
+            "browserGpuMode": "auto",
+            "warnings": [],
+            "partial": false
+          },
+          "createdAt": 1792955899754,
+          "contentHash": "a3238d4a1432e4e43d556a5f2d35caef999e00bb264e76c1b1321d7ca91aad14",
+          "revision": "ade209cf-5ff6-4e8f-a0c4-ef5755f8a3e6",
+          "inputFingerprint": "afeb5f751f31b9f0937d7d7bdb94e2bd77826226769cf7c3013eee85171a04a1",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        },
+        {
+          "scope": "full",
+          "id": "ed6e987a-e094-41d8-863b-c1b27c807299-2",
+          "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\safe_ep05_tower_of_hanoi\\frame-02-at-23.232s.png",
+          "time": 23.232,
+          "metadata": {
+            "width": 1080,
+            "height": 1920,
+            "zoomScale": 1,
+            "browserGpuMode": "auto",
+            "warnings": [],
+            "partial": false
+          },
+          "createdAt": 1792955899755,
+          "contentHash": "a68ba487c5d5f97b8c109df6cbee1203bf7f0c63946f8439d03fcfc10aa409aa",
+          "revision": "ade209cf-5ff6-4e8f-a0c4-ef5755f8a3e6",
+          "inputFingerprint": "afeb5f751f31b9f0937d7d7bdb94e2bd77826226769cf7c3013eee85171a04a1",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        },
+        {
+          "scope": "full",
+          "id": "ed6e987a-e094-41d8-863b-c1b27c807299-3",
+          "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\safe_ep05_tower_of_hanoi\\frame-03-at-34.848s.png",
+          "time": 34.848,
+          "metadata": {
+            "width": 1080,
+            "height": 1920,
+            "zoomScale": 1,
+            "browserGpuMode": "auto",
+            "warnings": [],
+            "partial": false
+          },
+          "createdAt": 1792955899756,
+          "contentHash": "1cac0b12ba64c4c51d1b755d844d398c4cd9fa38b405e3b17c60d385fecad7e6",
+          "revision": "ade209cf-5ff6-4e8f-a0c4-ef5755f8a3e6",
+          "inputFingerprint": "afeb5f751f31b9f0937d7d7bdb94e2bd77826226769cf7c3013eee85171a04a1",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        },
+        {
+          "scope": "full",
+          "id": "ed6e987a-e094-41d8-863b-c1b27c807299-4",
+          "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\safe_ep05_tower_of_hanoi\\frame-04-at-46.463s.png",
+          "time": 46.463,
+          "metadata": {
+            "width": 1080,
+            "height": 1920,
+            "zoomScale": 1,
+            "browserGpuMode": "auto",
+            "warnings": [],
+            "partial": false
+          },
+          "createdAt": 1792955899757,
+          "contentHash": "c929ddb0600f0523c4a0e6683ff47b0ae1532a45e92903e3647848209a424d6c",
+          "revision": "ade209cf-5ff6-4e8f-a0c4-ef5755f8a3e6",
+          "inputFingerprint": "afeb5f751f31b9f0937d7d7bdb94e2bd77826226769cf7c3013eee85171a04a1",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        },
+        {
+          "scope": "full",
+          "id": "ed6e987a-e094-41d8-863b-c1b27c807299-5",
+          "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\safe_ep05_tower_of_hanoi\\frame-05-at-58.079s.png",
+          "time": 58.079,
+          "metadata": {
+            "width": 1080,
+            "height": 1920,
+            "zoomScale": 1,
+            "browserGpuMode": "auto",
+            "warnings": [],
+            "partial": false
+          },
+          "createdAt": 1792955899757,
+          "contentHash": "0ebf05be4b63149022e60bc6b45bc92192b83736ed7af996853e6d60045a3768",
+          "revision": "ade209cf-5ff6-4e8f-a0c4-ef5755f8a3e6",
+          "inputFingerprint": "afeb5f751f31b9f0937d7d7bdb94e2bd77826226769cf7c3013eee85171a04a1",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        },
+        {
+          "scope": "full",
+          "id": "ed6e987a-e094-41d8-863b-c1b27c807299-6",
+          "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\safe_ep05_tower_of_hanoi\\frame-06-at-69.695s.png",
+          "time": 69.695,
+          "metadata": {
+            "width": 1080,
+            "height": 1920,
+            "zoomScale": 1,
+            "browserGpuMode": "auto",
+            "warnings": [],
+            "partial": false
+          },
+          "createdAt": 1792955899758,
+          "contentHash": "d21a9cf13d7e680f522a6c6cd4a2410b82f475995eeeab69d69a07ee221007d4",
+          "revision": "ade209cf-5ff6-4e8f-a0c4-ef5755f8a3e6",
+          "inputFingerprint": "afeb5f751f31b9f0937d7d7bdb94e2bd77826226769cf7c3013eee85171a04a1",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        },
+        {
+          "scope": "full",
+          "id": "ed6e987a-e094-41d8-863b-c1b27c807299-7",
+          "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\safe_ep05_tower_of_hanoi\\frame-07-at-81.311s.png",
+          "time": 81.311,
+          "metadata": {
+            "width": 1080,
+            "height": 1920,
+            "zoomScale": 1,
+            "browserGpuMode": "auto",
+            "warnings": [],
+            "partial": false
+          },
+          "createdAt": 1792955899759,
+          "contentHash": "4f38b8e62a01fc53b7e4c71ab305bc7403bdeda9a177f59d8fe9372d2294cd55",
+          "revision": "ade209cf-5ff6-4e8f-a0c4-ef5755f8a3e6",
+          "inputFingerprint": "afeb5f751f31b9f0937d7d7bdb94e2bd77826226769cf7c3013eee85171a04a1",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        }
+      ]
+    },
+    "unversioned": [
+      {
+        "scope": "full",
+        "id": "430f860a-bd12-4f82-a7b4-bccf6e4e431b-0",
+        "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\snap_ep05_tower_of_hanoi\\frame-00-at-0s.png",
+        "time": 0,
+        "metadata": {
+          "width": 1080,
+          "height": 1920,
+          "zoomScale": 1,
+          "browserGpuMode": "auto",
+          "warnings": [],
+          "partial": false
+        },
+        "createdAt": 1792935433042,
+        "contentHash": "411fa137f7e220f599f98aa5e88406b3a71cfc0524407267772e2fcc15a94819",
+        "revision": null,
+        "inputFingerprint": "9a43643dc235d403282d14dd2c1575c3ed368cf5efd506bede907c60548c5c3c",
+        "inputScope": "local-project-files",
+        "attribution": "unversioned"
+      },
+      {
+        "scope": "full",
+        "id": "430f860a-bd12-4f82-a7b4-bccf6e4e431b-1",
+        "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\snap_ep05_tower_of_hanoi\\frame-01-at-7.392s.png",
+        "time": 7.392,
+        "metadata": {
+          "width": 1080,
+          "height": 1920,
+          "zoomScale": 1,
+          "browserGpuMode": "auto",
+          "warnings": [],
+          "partial": false
+        },
+        "createdAt": 1792935433042,
+        "contentHash": "98db8a138014b4a51bb15fde3359657874e24504fe7cf4a5959bb5526ff0fd13",
+        "revision": null,
+        "inputFingerprint": "9a43643dc235d403282d14dd2c1575c3ed368cf5efd506bede907c60548c5c3c",
+        "inputScope": "local-project-files",
+        "attribution": "unversioned"
+      },
+      {
+        "scope": "full",
+        "id": "430f860a-bd12-4f82-a7b4-bccf6e4e431b-2",
+        "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\snap_ep05_tower_of_hanoi\\frame-02-at-14.784s.png",
+        "time": 14.784,
+        "metadata": {
+          "width": 1080,
+          "height": 1920,
+          "zoomScale": 1,
+          "browserGpuMode": "auto",
+          "warnings": [],
+          "partial": false
+        },
+        "createdAt": 1792935433042,
+        "contentHash": "37b4efad8b245b8b1900fbaf8e33a3003b246a2cc60fb8647e3ec0b89715df10",
+        "revision": null,
+        "inputFingerprint": "9a43643dc235d403282d14dd2c1575c3ed368cf5efd506bede907c60548c5c3c",
+        "inputScope": "local-project-files",
+        "attribution": "unversioned"
+      },
+      {
+        "scope": "full",
+        "id": "430f860a-bd12-4f82-a7b4-bccf6e4e431b-3",
+        "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\snap_ep05_tower_of_hanoi\\frame-03-at-22.176s.png",
+        "time": 22.176,
+        "metadata": {
+          "width": 1080,
+          "height": 1920,
+          "zoomScale": 1,
+          "browserGpuMode": "auto",
+          "warnings": [],
+          "partial": false
+        },
+        "createdAt": 1792935433042,
+        "contentHash": "0ac90a5763e03bf96a26599514ba332e329fcc7340e15bac7e0229124630dada",
+        "revision": null,
+        "inputFingerprint": "9a43643dc235d403282d14dd2c1575c3ed368cf5efd506bede907c60548c5c3c",
+        "inputScope": "local-project-files",
+        "attribution": "unversioned"
+      },
+      {
+        "scope": "full",
+        "id": "430f860a-bd12-4f82-a7b4-bccf6e4e431b-4",
+        "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\snap_ep05_tower_of_hanoi\\frame-04-at-29.568s.png",
+        "time": 29.568,
+        "metadata": {
+          "width": 1080,
+          "height": 1920,
+          "zoomScale": 1,
+          "browserGpuMode": "auto",
+          "warnings": [],
+          "partial": false
+        },
+        "createdAt": 1792935433042,
+        "contentHash": "5bd15e8623eb7fe7abebb29a36a21c52ae9b111542cecfc9fcf4665eb3ef374f",
+        "revision": null,
+        "inputFingerprint": "9a43643dc235d403282d14dd2c1575c3ed368cf5efd506bede907c60548c5c3c",
+        "inputScope": "local-project-files",
+        "attribution": "unversioned"
+      },
+      {
+        "scope": "full",
+        "id": "430f860a-bd12-4f82-a7b4-bccf6e4e431b-5",
+        "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\snap_ep05_tower_of_hanoi\\frame-05-at-36.96s.png",
+        "time": 36.96,
+        "metadata": {
+          "width": 1080,
+          "height": 1920,
+          "zoomScale": 1,
+          "browserGpuMode": "auto",
+          "warnings": [],
+          "partial": false
+        },
+        "createdAt": 1792935433042,
+        "contentHash": "362264c51a98938af217284bfcb838c44348aa6ae3d43e10fbf22980bab7cea1",
+        "revision": null,
+        "inputFingerprint": "9a43643dc235d403282d14dd2c1575c3ed368cf5efd506bede907c60548c5c3c",
+        "inputScope": "local-project-files",
+        "attribution": "unversioned"
+      },
+      {
+        "scope": "full",
+        "id": "430f860a-bd12-4f82-a7b4-bccf6e4e431b-6",
+        "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\snap_ep05_tower_of_hanoi\\frame-06-at-44.351s.png",
+        "time": 44.351,
+        "metadata": {
+          "width": 1080,
+          "height": 1920,
+          "zoomScale": 1,
+          "browserGpuMode": "auto",
+          "warnings": [],
+          "partial": false
+        },
+        "createdAt": 1792935433043,
+        "contentHash": "732e74af7199129e47a7ecb60e3885435ef7cd754e13d5ef2b4f31f731330ad1",
+        "revision": null,
+        "inputFingerprint": "9a43643dc235d403282d14dd2c1575c3ed368cf5efd506bede907c60548c5c3c",
+        "inputScope": "local-project-files",
+        "attribution": "unversioned"
+      },
+      {
+        "scope": "full",
+        "id": "430f860a-bd12-4f82-a7b4-bccf6e4e431b-7",
+        "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\snap_ep05_tower_of_hanoi\\frame-07-at-51.743s.png",
+        "time": 51.743,
+        "metadata": {
+          "width": 1080,
+          "height": 1920,
+          "zoomScale": 1,
+          "browserGpuMode": "auto",
+          "warnings": [],
+          "partial": false
+        },
+        "createdAt": 1792935433043,
+        "contentHash": "f5d60c2e4aa5d1f48468cb7ee0ef5e7a115b12b5e13457a79f909a3d4174b992",
+        "revision": null,
+        "inputFingerprint": "9a43643dc235d403282d14dd2c1575c3ed368cf5efd506bede907c60548c5c3c",
+        "inputScope": "local-project-files",
+        "attribution": "unversioned"
+      },
+      {
+        "scope": "full",
+        "id": "430f860a-bd12-4f82-a7b4-bccf6e4e431b-8",
+        "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\snap_ep05_tower_of_hanoi\\frame-08-at-59.135s.png",
+        "time": 59.135,
+        "metadata": {
+          "width": 1080,
+          "height": 1920,
+          "zoomScale": 1,
+          "browserGpuMode": "auto",
+          "warnings": [],
+          "partial": false
+        },
+        "createdAt": 1792935433044,
+        "contentHash": "9c29ef907bb938b5d0547cda39ef2f5f295666958aea52dde0d177bb57b727fa",
+        "revision": null,
+        "inputFingerprint": "9a43643dc235d403282d14dd2c1575c3ed368cf5efd506bede907c60548c5c3c",
+        "inputScope": "local-project-files",
+        "attribution": "unversioned"
+      },
+      {
+        "scope": "full",
+        "id": "430f860a-bd12-4f82-a7b4-bccf6e4e431b-9",
+        "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\snap_ep05_tower_of_hanoi\\frame-09-at-66.527s.png",
+        "time": 66.527,
+        "metadata": {
+          "width": 1080,
+          "height": 1920,
+          "zoomScale": 1,
+          "browserGpuMode": "auto",
+          "warnings": [],
+          "partial": false
+        },
+        "createdAt": 1792935433044,
+        "contentHash": "7556eb452c430f85efa10eb6f56dddcaf5eae0bef6c8fad3649b06644941f009",
+        "revision": null,
+        "inputFingerprint": "9a43643dc235d403282d14dd2c1575c3ed368cf5efd506bede907c60548c5c3c",
+        "inputScope": "local-project-files",
+        "attribution": "unversioned"
+      },
+      {
+        "scope": "full",
+        "id": "430f860a-bd12-4f82-a7b4-bccf6e4e431b-10",
+        "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\snap_ep05_tower_of_hanoi\\frame-10-at-73.919s.png",
+        "time": 73.919,
+        "metadata": {
+          "width": 1080,
+          "height": 1920,
+          "zoomScale": 1,
+          "browserGpuMode": "auto",
+          "warnings": [],
+          "partial": false
+        },
+        "createdAt": 1792935433045,
+        "contentHash": "e20bad2d68f7460c621a516f31a64074d7d5fd0356c5b2bc3d3a457955e7a2ac",
+        "revision": null,
+        "inputFingerprint": "9a43643dc235d403282d14dd2c1575c3ed368cf5efd506bede907c60548c5c3c",
+        "inputScope": "local-project-files",
+        "attribution": "unversioned"
+      },
+      {
+        "scope": "full",
+        "id": "430f860a-bd12-4f82-a7b4-bccf6e4e431b-11",
+        "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\snap_ep05_tower_of_hanoi\\frame-11-at-81.311s.png",
+        "time": 81.311,
+        "metadata": {
+          "width": 1080,
+          "height": 1920,
+          "zoomScale": 1,
+          "browserGpuMode": "auto",
+          "warnings": [],
+          "partial": false
+        },
+        "createdAt": 1792935433045,
+        "contentHash": "4f38b8e62a01fc53b7e4c71ab305bc7403bdeda9a177f59d8fe9372d2294cd55",
+        "revision": null,
+        "inputFingerprint": "9a43643dc235d403282d14dd2c1575c3ed368cf5efd506bede907c60548c5c3c",
+        "inputScope": "local-project-files",
+        "attribution": "unversioned"
+      }
+    ]
+  },
+  "renders": {
+    "latest": {
+      "id": "d82b263a-a598-467f-a1b2-e165294895c8",
+      "completedAt": 1792956434629,
+      "output": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\puzzles\\ep05_tower_of_hanoi\\renders\\ep05_tower_of_hanoi.mp4",
+      "status": "completed",
+      "revision": "ade209cf-5ff6-4e8f-a0c4-ef5755f8a3e6"
+    },
+    "retainedRevisions": [
+      "ade209cf-5ff6-4e8f-a0c4-ef5755f8a3e6",
+      "6f263e8d-0acd-402d-864b-6720c3dde37c"
+    ]
+  },
+  "pendingArtifactCleanup": []
+}

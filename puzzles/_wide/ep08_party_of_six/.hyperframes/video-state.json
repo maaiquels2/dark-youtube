@@ -1,0 +1,54 @@
+{
+  "version": 1,
+  "historyId": "98724a19-766e-4c4b-8c17-0d1a28d6d135",
+  "currentRevision": null,
+  "pendingChanges": false,
+  "files": {
+    "assets/timing.json": {
+      "hash": "f7674a3d5d91fa5917ac79f2166cf0af8b2ae43579d001d110621151b93922dd",
+      "content": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\98724a19-766e-4c4b-8c17-0d1a28d6d135\\blobs\\f7\\f7674a3d5d91fa5917ac79f2166cf0af8b2ae43579d001d110621151b93922dd"
+    },
+    "hyperframes.json": {
+      "hash": "c7a3009d23e471acfb1ca9ec252ea16a0ca4dfe55e3b3b9d7089c8f0764f4a43",
+      "content": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\98724a19-766e-4c4b-8c17-0d1a28d6d135\\blobs\\c7\\c7a3009d23e471acfb1ca9ec252ea16a0ca4dfe55e3b3b9d7089c8f0764f4a43"
+    },
+    "index.html": {
+      "hash": "dfffc9e089e5485db89bd5cd3f3950b51a62eca2f2e40c43b87531e3f9de0504",
+      "content": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\98724a19-766e-4c4b-8c17-0d1a28d6d135\\blobs\\df\\dfffc9e089e5485db89bd5cd3f3950b51a62eca2f2e40c43b87531e3f9de0504"
+    },
+    "package.json": {
+      "hash": "8cd3691bfc6a77884a687857df9fec5a1e69bbdcffbf6dbc0bd5c1aaf6caeb1a",
+      "content": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\98724a19-766e-4c4b-8c17-0d1a28d6d135\\blobs\\8c\\8cd3691bfc6a77884a687857df9fec5a1e69bbdcffbf6dbc0bd5c1aaf6caeb1a"
+    },
+    "scene.js": {
+      "hash": "69cb7d272077f2d73e7227364eef41daf138cca37dde14eb71de86d701722eea",
+      "content": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\98724a19-766e-4c4b-8c17-0d1a28d6d135\\blobs\\69\\69cb7d272077f2d73e7227364eef41daf138cca37dde14eb71de86d701722eea"
+    },
+    "assets/voice.mp3": {
+      "hash": "b1b1c7e2b8426da45d0d8764062a346da777b614edc7f06228563331c451db84",
+      "content": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\98724a19-766e-4c4b-8c17-0d1a28d6d135\\blobs\\b1\\b1b1c7e2b8426da45d0d8764062a346da777b614edc7f06228563331c451db84"
+    }
+  },
+  "revisions": {},
+  "checks": {
+    "latest": null,
+    "revisions": {},
+    "unversioned": []
+  },
+  "snapshots": {
+    "latest": null,
+    "revisions": {},
+    "unversioned": []
+  },
+  "renders": {
+    "latest": {
+      "id": "661f34e8-ad8d-4d10-9c05-2a279d7465a8",
+      "completedAt": 1792971405822,
+      "output": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\puzzles\\_wide\\ep08_party_of_six\\renders\\ep08_party_of_six.mp4",
+      "status": "completed",
+      "revision": null
+    },
+    "retainedRevisions": []
+  },
+  "pendingArtifactCleanup": []
+}

@@ -1,0 +1,54 @@
+{
+  "version": 1,
+  "historyId": "6ad1e1df-34f1-4c83-bcb5-88ed3777c51e",
+  "currentRevision": null,
+  "pendingChanges": false,
+  "files": {
+    "assets/timing.json": {
+      "hash": "1e7ea633180134bfcd054531eb972fa2296dd8802ea94238264c4eaa8c0b6d25",
+      "content": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\6ad1e1df-34f1-4c83-bcb5-88ed3777c51e\\blobs\\1e\\1e7ea633180134bfcd054531eb972fa2296dd8802ea94238264c4eaa8c0b6d25"
+    },
+    "hyperframes.json": {
+      "hash": "c7a3009d23e471acfb1ca9ec252ea16a0ca4dfe55e3b3b9d7089c8f0764f4a43",
+      "content": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\6ad1e1df-34f1-4c83-bcb5-88ed3777c51e\\blobs\\c7\\c7a3009d23e471acfb1ca9ec252ea16a0ca4dfe55e3b3b9d7089c8f0764f4a43"
+    },
+    "index.html": {
+      "hash": "e72108c43db92a1c4fa72dd4e829728ab43f15820638ea3556ef6c865aca9a9f",
+      "content": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\6ad1e1df-34f1-4c83-bcb5-88ed3777c51e\\blobs\\e7\\e72108c43db92a1c4fa72dd4e829728ab43f15820638ea3556ef6c865aca9a9f"
+    },
+    "package.json": {
+      "hash": "8da60419b4d3e53b8f9c37ec5ea705760b0602e4993838faa6c2a1dfce6a978d",
+      "content": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\6ad1e1df-34f1-4c83-bcb5-88ed3777c51e\\blobs\\8d\\8da60419b4d3e53b8f9c37ec5ea705760b0602e4993838faa6c2a1dfce6a978d"
+    },
+    "scene.js": {
+      "hash": "bc4669f88df766ab88eb6c5ad7c7e6c5ccee68ce26977664c25c32433b42438d",
+      "content": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\6ad1e1df-34f1-4c83-bcb5-88ed3777c51e\\blobs\\bc\\bc4669f88df766ab88eb6c5ad7c7e6c5ccee68ce26977664c25c32433b42438d"
+    },
+    "assets/voice.mp3": {
+      "hash": "41acd2210e6e7e198f2e9d91d8b2c23b276a024f868a6c513d02973cbb901a3f",
+      "content": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\6ad1e1df-34f1-4c83-bcb5-88ed3777c51e\\blobs\\41\\41acd2210e6e7e198f2e9d91d8b2c23b276a024f868a6c513d02973cbb901a3f"
+    }
+  },
+  "revisions": {},
+  "checks": {
+    "latest": null,
+    "revisions": {},
+    "unversioned": []
+  },
+  "snapshots": {
+    "latest": null,
+    "revisions": {},
+    "unversioned": []
+  },
+  "renders": {
+    "latest": {
+      "id": "afbab8ae-89e5-4549-9c3d-84ab86eb4fc8",
+      "completedAt": 1792971842141,
+      "output": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\puzzles\\_wide\\ep11_hat_prisoners\\renders\\ep11_hat_prisoners.mp4",
+      "status": "completed",
+      "revision": null
+    },
+    "retainedRevisions": []
+  },
+  "pendingArtifactCleanup": []
+}

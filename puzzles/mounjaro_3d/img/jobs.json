@@ -1,0 +1,32 @@
+[
+ {
+  "out": "C:/Users/Admin/Documents/Codex/2026-09-10/Dark YouTube/puzzles/mounjaro_3d/img/body_s11.png",
+  "prompt": "clean 3D medical animation still like a professional pharmaceutical explainer, smooth glossy surfaces, soft studio light, deep blue background, full-body human figure standing facing the camera, semi-transparent smooth skin showing the internal organs: brain in the head, stomach and pancreas in the upper abdomen, neutral pose, arms at the sides, centered, whole body visible from head to feet, not graphic, no genitals detail, smooth mannequin-like body, no text, no letters, no labels, no logo, no watermark, vertical 9:16 composition.",
+  "seed": 11
+ },
+ {
+  "out": "C:/Users/Admin/Documents/Codex/2026-09-10/Dark YouTube/puzzles/mounjaro_3d/img/body_s22.png",
+  "prompt": "clean 3D medical animation still like a professional pharmaceutical explainer, smooth glossy surfaces, soft studio light, deep blue background, full-body human figure standing facing the camera, semi-transparent smooth skin showing the internal organs: brain in the head, stomach and pancreas in the upper abdomen, neutral pose, arms at the sides, centered, whole body visible from head to feet, not graphic, no genitals detail, smooth mannequin-like body, no text, no letters, no labels, no logo, no watermark, vertical 9:16 composition.",
+  "seed": 22
+ },
+ {
+  "out": "C:/Users/Admin/Documents/Codex/2026-09-10/Dark YouTube/puzzles/mounjaro_3d/img/stomach_s11.png",
+  "prompt": "clean 3D medical animation still like a professional pharmaceutical explainer, smooth glossy surfaces, soft studio light, deep blue background, a human stomach organ seen up close from the front, J-shaped, esophagus entering at the top left, small intestine leaving at the bottom right, centered with empty space above and below, no text, no letters, no labels, no logo, no watermark, vertical 9:16 composition.",
+  "seed": 11
+ },
+ {
+  "out": "C:/Users/Admin/Documents/Codex/2026-09-10/Dark YouTube/puzzles/mounjaro_3d/img/stomach_s22.png",
+  "prompt": "clean 3D medical animation still like a professional pharmaceutical explainer, smooth glossy surfaces, soft studio light, deep blue background, a human stomach organ seen up close from the front, J-shaped, esophagus entering at the top left, small intestine leaving at the bottom right, centered with empty space above and below, no text, no letters, no labels, no logo, no watermark, vertical 9:16 composition.",
+  "seed": 22
+ },
+ {
+  "out": "C:/Users/Admin/Documents/Codex/2026-09-10/Dark YouTube/puzzles/mounjaro_3d/img/brain_s11.png",
+  "prompt": "clean 3D medical animation still like a professional pharmaceutical explainer, smooth glossy surfaces, soft studio light, deep blue background, side view of a human head in profile facing right, semi-transparent smooth skin showing the brain inside, the hypothalamus at the base of the brain glowing softly, head centered in the frame with empty space above and below, no text, no letters, no labels, no logo, no watermark, vertical 9:16 composition.",
+  "seed": 11
+ },
+ {
+  "out": "C:/Users/Admin/Documents/Codex/2026-09-10/Dark YouTube/puzzles/mounjaro_3d/img/brain_s22.png",
+  "prompt": "clean 3D medical animation still like a professional pharmaceutical explainer, smooth glossy surfaces, soft studio light, deep blue background, side view of a human head in profile facing right, semi-transparent smooth skin showing the brain inside, the hypothalamus at the base of the brain glowing softly, head centered in the frame with empty space above and below, no text, no letters, no labels, no logo, no watermark, vertical 9:16 composition.",
+  "seed": 22
+ }
+]

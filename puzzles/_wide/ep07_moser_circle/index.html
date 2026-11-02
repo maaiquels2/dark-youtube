@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=1920, height=1080" />
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 1920px; height: 1080px; overflow: hidden; background: #f4ecd8; }
+  #root { position: relative; width: 1920px; height: 1080px; overflow: hidden; background: #f4ecd8;
+    font-family: "JetBrains Mono", monospace; color: #1c1c1c; }
+  #cv { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; }
+  .t { position: absolute; left: 0; width: 1920px; text-align: center; font-weight: 700; }
+  #title { top: 26px; font-size: 52px; white-space: nowrap; }
+  #stat { top: 92px; font-size: 28px; opacity: .7; letter-spacing: 2px; }
+  #cap { top: 958px; left: 260px; width: 1400px; font-size: 52px; line-height: 62px; height: 124px; }
+  .g { position: absolute; left: 0; top: 0; width: 1400px; text-align: center; opacity: 0; }
+  .w { opacity: .22; }
+  .w.on { opacity: 1; }
+  .w.k.on { color: #d62828; }
+</style>
+</head>
+<body>
+<div id="root" data-composition-id="main" data-start="0" data-duration="63.493" data-width="1920" data-height="1080">
+  <canvas id="cv" class="clip" data-start="0" data-duration="63.493" width="1920" height="1080"></canvas>
+  <div id="title" class="clip t" data-start="0" data-duration="63.493">1, 2, 4, 8, 16... <span style="color:#d62828">what's next</span>?</div>
+  <div id="stat" class="clip t" data-start="0" data-duration="63.493"></div>
+  <div id="cap" class="clip t" data-start="0" data-duration="63.493"></div>
+  <audio id="voice" src="assets/voice.mp3" data-start="2.8" data-duration="63.493" data-volume="1"></audio>
+</div>
+<script>
+const LEAD = 2.8, CHAPTER = "PUZZLE 1 OF 6|1, 2, 4, 8, 16, ?", WORDS = [{"w": "Here's", "s": 2.8, "e": 3.079}, {"w": "a", "s": 3.113, "e": 3.137}, {"w": "pattern.", "s": 3.195, "e": 3.578}, {"w": "One,", "s": 3.775, "e": 4.112}, {"w": "two,", "s": 4.17, "e": 4.483}, {"w": "four,", "s": 4.53, "e": 4.82}, {"w": "eight,", "s": 4.867, "e": 5.134}, {"w": "sixteen.", "s": 5.203, "e": 5.807}, {"w": "What", "s": 6.167, "e": 6.341}, {"w": "comes", "s": 6.387, "e": 6.585}, {"w": "next?", "s": 6.655, "e": 7.014}, {"w": "Everyone", "s": 7.421, "e": 7.804}, {"w": "says", "s": 7.839, "e": 8.013}, {"w": "thirty-two.", "s": 8.071, "e": 8.721}, {"w": "Everyone", "s": 8.977, "e": 9.348}, {"w": "is", "s": 9.383, "e": 9.453}, {"w": "wrong.", "s": 9.499, "e": 9.917}, {"w": "Here's", "s": 10.277, "e": 10.544}, {"w": "the", "s": 10.567, "e": 10.637}, {"w": "game.", "s": 10.695, "e": 11.031}, {"w": "Put", "s": 11.438, "e": 11.612}, {"w": "some", "s": 11.647, "e": 11.798}, {"w": "points", "s": 11.844, "e": 12.123}, {"w": "on", "s": 12.169, "e": 12.239}, {"w": "a", "s": 12.285, "e": 12.309}, {"w": "circle.", "s": 12.367, "e": 12.819}, {"w": "Draw", "s": 13.179, "e": 13.446}, {"w": "a", "s": 13.493, "e": 13.516}, {"w": "straight", "s": 13.586, "e": 13.922}, {"w": "line", "s": 13.969, "e": 14.178}, {"w": "between", "s": 14.213, "e": 14.514}, {"w": "every", "s": 14.584, "e": 14.793}, {"w": "pair", "s": 14.84, "e": 15.002}, {"w": "of", "s": 15.037, "e": 15.083}, {"w": "points.", "s": 15.13, "e": 15.559}, {"w": "Then", "s": 15.919, "e": 16.128}, {"w": "count", "s": 16.21, "e": 16.453}, {"w": "the", "s": 16.488, "e": 16.558}, {"w": "regions", "s": 16.628, "e": 16.999}, {"w": "the", "s": 17.069, "e": 17.15}, {"w": "circle", "s": 17.208, "e": 17.522}, {"w": "is", "s": 17.557, "e": 17.626}, {"w": "cut", "s": 17.673, "e": 17.835}, {"w": "into.", "s": 17.882, "e": 18.288}, {"w": "One", "s": 18.694, "e": 18.88}, {"w": "point", "s": 18.927, "e": 19.147}, {"w": "makes", "s": 19.194, "e": 19.391}, {"w": "one", "s": 19.461, "e": 19.635}, {"w": "region.", "s": 19.681, "e": 20.111}, {"w": "Two", "s": 20.471, "e": 20.668}, {"w": "points", "s": 20.749, "e": 21.028}, {"w": "make", "s": 21.098, "e": 21.272}, {"w": "one", "s": 21.33, "e": 21.504}, {"w": "line,", "s": 21.551, "e": 21.98}, {"w": "so", "s": 22.085, "e": 22.224}, {"w": "two", "s": 22.282, "e": 22.421}, {"w": "regions.", "s": 22.491, "e": 23.048}, {"w": "Three", "s": 23.455, "e": 23.698}, {"w": "points", "s": 23.745, "e": 23.977}, {"w": "make", "s": 24.023, "e": 24.151}, {"w": "a", "s": 24.186, "e": 24.209}, {"w": "triangle:", "s": 24.256, "e": 24.859}, {"w": "four", "s": 25.219, "e": 25.451}, {"w": "regions.", "s": 25.521, "e": 26.113}, {"w": "Four", "s": 26.473, "e": 26.705}, {"w": "points:", "s": 26.775, "e": 27.216}, {"w": "eight", "s": 27.297, "e": 27.506}, {"w": "regions.", "s": 27.564, "e": 28.133}, {"w": "Five", "s": 28.435, "e": 28.714}, {"w": "points:", "s": 28.772, "e": 29.201}, {"w": "sixteen", "s": 29.364, "e": 29.805}, {"w": "regions.", "s": 29.875, "e": 30.397}, {"w": "Now", "s": 30.699, "e": 30.873}, {"w": "six", "s": 30.955, "e": 31.164}, {"w": "points.", "s": 31.233, "e": 31.709}, {"w": "Everyone", "s": 32.116, "e": 32.475}, {"w": "expects", "s": 32.51, "e": 32.847}, {"w": "thirty-two.", "s": 32.881, "e": 33.543}, {"w": "But", "s": 34.019, "e": 34.17}, {"w": "when", "s": 34.205, "e": 34.333}, {"w": "you", "s": 34.367, "e": 34.437}, {"w": "count", "s": 34.507, "e": 34.739}, {"w": "carefully,", "s": 34.797, "e": 35.354}, {"w": "there", "s": 35.401, "e": 35.563}, {"w": "are", "s": 35.598, "e": 35.703}, {"w": "only", "s": 35.737, "e": 35.923}, {"w": "thirty-one.", "s": 35.97, "e": 36.608}, {"w": "Why?", "s": 37.015, "e": 37.491}, {"w": "Start", "s": 37.897, "e": 38.21}, {"w": "with", "s": 38.245, "e": 38.384}, {"w": "one", "s": 38.454, "e": 38.64}, {"w": "region,", "s": 38.686, "e": 39.197}, {"w": "add", "s": 39.302, "e": 39.511}, {"w": "one", "s": 39.58, "e": 39.754}, {"w": "for", "s": 39.813, "e": 39.94}, {"w": "every", "s": 40.021, "e": 40.277}, {"w": "line", "s": 40.335, "e": 40.544}, {"w": "you", "s": 40.579, "e": 40.66}, {"w": "draw,", "s": 40.718, "e": 41.182}, {"w": "and", "s": 41.38, "e": 41.531}, {"w": "one", "s": 41.612, "e": 41.821}, {"w": "more", "s": 41.867, "e": 42.065}, {"w": "for", "s": 42.123, "e": 42.251}, {"w": "every", "s": 42.332, "e": 42.599}, {"w": "place", "s": 42.657, "e": 42.982}, {"w": "two", "s": 43.087, "e": 43.272}, {"w": "lines", "s": 43.342, "e": 43.563}, {"w": "cross.", "s": 43.609, "e": 44.062}, {"w": "Six", "s": 44.619, "e": 44.874}, {"w": "points", "s": 44.944, "e": 45.211}, {"w": "give", "s": 45.258, "e": 45.432}, {"w": "fifteen", "s": 45.478, "e": 45.861}, {"w": "lines", "s": 45.919, "e": 46.221}, {"w": "and", "s": 46.256, "e": 46.337}, {"w": "fifteen", "s": 46.384, "e": 46.72}, {"w": "crossings.", "s": 46.778, "e": 47.452}, {"w": "One", "s": 47.858, "e": 48.09}, {"w": "plus", "s": 48.137, "e": 48.415}, {"w": "fifteen", "s": 48.485, "e": 48.903}, {"w": "plus", "s": 48.961, "e": 49.205}, {"w": "fifteen", "s": 49.274, "e": 49.716}, {"w": "is", "s": 49.785, "e": 49.867}, {"w": "thirty-one.", "s": 49.913, "e": 50.528}, {"w": "With", "s": 50.888, "e": 51.062}, {"w": "seven", "s": 51.109, "e": 51.341}, {"w": "points,", "s": 51.411, "e": 51.771}, {"w": "it's", "s": 51.817, "e": 51.98}, {"w": "fifty-seven.", "s": 52.014, "e": 52.723}, {"w": "The", "s": 53.083, "e": 53.21}, {"w": "doubling", "s": 53.28, "e": 53.686}, {"w": "was", "s": 53.744, "e": 53.849}, {"w": "a", "s": 53.907, "e": 53.93}, {"w": "coincidence,", "s": 54.0, "e": 54.743}, {"w": "not", "s": 54.905, "e": 55.091}, {"w": "a", "s": 55.138, "e": 55.161}, {"w": "rule.", "s": 55.219, "e": 55.614}, {"w": "Five", "s": 56.02, "e": 56.368}, {"w": "examples", "s": 56.415, "e": 56.983}, {"w": "can", "s": 57.042, "e": 57.169}, {"w": "fit", "s": 57.216, "e": 57.378}, {"w": "a", "s": 57.413, "e": 57.448}, {"w": "hundred", "s": 57.552, "e": 57.912}, {"w": "different", "s": 57.97, "e": 58.249}, {"w": "patterns.", "s": 58.295, "e": 58.806}, {"w": "A", "s": 59.108, "e": 59.178}, {"w": "pattern", "s": 59.282, "e": 59.654}, {"w": "is", "s": 59.712, "e": 59.793}, {"w": "only", "s": 59.863, "e": 60.049}, {"w": "a", "s": 60.107, "e": 60.13}, {"w": "guess", "s": 60.199, "e": 60.559}, {"w": "until", "s": 60.664, "e": 60.966}, {"w": "you", "s": 61.024, "e": 61.093}, {"w": "can", "s": 61.14, "e": 61.256}, {"w": "prove", "s": 61.326, "e": 61.662}, {"w": "why", "s": 61.697, "e": 61.825}, {"w": "it", "s": 61.883, "e": 61.953}, {"w": "continues.", "s": 61.999, "e": 62.893}], B = [2.8, 10.277, 18.694, 30.699, 37.015, 53.083, 63.193], VEND = 62.893, DUR = 63.493, NB = B.length - 1;
+const KEYS = new Set(["thirty-one", "32", "31", "wrong", "crossings", "coincidence"]);
+const INK = "#1c1c1c", RED = "#d62828", OR = "#e07a00", GRN = "#2a9d5c", DOT = "#4a4a4a";
+const clamp = v => Math.max(0, Math.min(1, v));
+const ease = v => { v = clamp(v); return v * v * (3 - 2 * v); };
+const bit = (i, k) => (i >> k) & 1;
+const cvs = document.getElementById("cv"), x = cvs.getContext("2d");
+const stat = document.getElementById("stat"), cap = document.getElementById("cap");
+const FONT = "'JetBrains Mono', monospace";
+function txt(s, px, py, size, col, align, weight) {
+  x.font = (weight || "bold") + " " + Math.round(size * 1.12) + "px " + FONT; x.fillStyle = col || INK;
+  x.textAlign = align || "center"; x.textBaseline = "middle"; x.fillText(s, px, py);
+}
+function circ(cx, cy, r, fill, stroke, lw, alpha) {
+  x.globalAlpha = alpha == null ? 1 : alpha; x.beginPath(); x.arc(cx, cy, r, 0, 6.283);
+  if (fill) { x.fillStyle = fill; x.fill(); } if (stroke) { x.strokeStyle = stroke; x.lineWidth = lw || 4; x.stroke(); }
+  x.globalAlpha = 1;
+}
+function rect(px, py, w, h, fill, stroke, lw, alpha) {
+  x.globalAlpha = alpha == null ? 1 : alpha;
+  if (fill) { x.fillStyle = fill; x.fillRect(px, py, w, h); }
+  if (stroke) { x.strokeStyle = stroke; x.lineWidth = lw || 4; x.strokeRect(px, py, w, h); }
+  x.globalAlpha = 1;
+}
+function line(x1, y1, x2, y2, col, lw, alpha) {
+  x.globalAlpha = alpha == null ? 1 : alpha; x.strokeStyle = col || INK; x.lineWidth = lw || 3;
+  x.beginPath(); x.moveTo(x1, y1); x.lineTo(x2, y2); x.stroke(); x.globalAlpha = 1;
+}
+function show(w) {
+  const m = w.match(/^((?:one|zero)(?:-(?:one|zero))+)([.,?!]*)$/i);
+  if (m) return m[1].toLowerCase().split("-").map(p => p === "one" ? 1 : 0).join("") + m[2];
+  return w;
+}
+const groups = []; {
+  let g = [];
+  const flush = () => { if (g.length) { groups.push(g); g = []; } };
+  WORDS.forEach((w, i) => {
+    const t = show(w.w);
+    if (g.length && (g.length >= 4 || g.map(o => show(o.w)).join(" ").length + t.length > 24)) flush();
+    g.push({ ...w, i, txt: t });
+    if (/[.?!]$/.test(w.w) || /,$/.test(w.w)) flush();
+  });
+  flush();
+}
+groups.forEach((g, gi) => {
+  const el = document.createElement("div"); el.className = "g"; el.id = "g" + gi;
+  g.forEach(w => {
+    const s = document.createElement("span");
+    s.className = "w" + (KEYS.has(w.txt.toLowerCase().replace(/[.,?!]/g, "")) ? " k" : "");
+    s.textContent = w.txt + " "; w.el = s; el.appendChild(s);
+  });
+  cap.appendChild(el); g.el = el;
+  g.start = g[0].s - 0.05; g.end = DUR;
+});
+groups.forEach((g, gi) => { if (gi + 1 < groups.length) g.end = Math.min(g[g.length - 1].e + 0.25, groups[gi + 1][0].s - 0.05); });
+function blockOf(t) { let b = 0; for (let i = 0; i < NB; i++) if (t >= B[i]) b = i; return b; }
+
+const ANG = [8, 62, 131, 187, 243, 301, 337], R = 290, CX = 540, CY = 600;
+const PT = ANG.map(a => { const t = (a - 90) * Math.PI / 180; return [CX + R * Math.cos(t), CY + R * Math.sin(t)]; });
+const REG = [1, 2, 4, 8, 16, 31, 57];
+function ix(i, k, j, l) {
+  const [x1, y1] = PT[i], [x2, y2] = PT[k], [x3, y3] = PT[j], [x4, y4] = PT[l];
+  const d = (x1 - x2) * (y3 - y4) - (y1 - y2) * (x3 - x4), tt = ((x1 - x3) * (y3 - y4) - (y1 - y3) * (x3 - x4)) / d;
+  return [x1 + tt * (x2 - x1), y1 + tt * (y2 - y1)];
+}
+function board(n, showX, al) {
+  circ(CX, CY, R, null, INK, 4, 0.5);
+  for (let i = 0; i < n; i++) for (let j = i + 1; j < n; j++) line(PT[i][0], PT[i][1], PT[j][0], PT[j][1], INK, 3, al == null ? 0.8 : al);
+  if (showX) for (let i = 0; i < n; i++) for (let j = i + 1; j < n; j++) for (let k = j + 1; k < n; k++) for (let l = k + 1; l < n; l++) { const p = ix(i, k, j, l); circ(p[0], p[1], 8, RED); }
+  for (let i = 0; i < n; i++) circ(PT[i][0], PT[i][1], 12, INK);
+}
+function scene(t, b, u) {
+  if (b === 0) {
+    circ(CX, CY, R, null, INK, 4, 0.4);
+    ["1", "2", "4", "8", "16", "?"].forEach((s, i) => { if (u > 0.08 + i * 0.12) txt(s, 150 + i * 155, CY, i === 5 ? 120 : 92, i === 5 ? RED : INK); });
+    return "WHAT COMES NEXT?";
+  }
+  if (b === 1) { const n = Math.min(5, 2 + Math.floor(u * 4)); board(n, false); return "EVERY PAIR OF POINTS IS JOINED"; }
+  if (b === 2) {
+    const n = Math.min(5, 1 + Math.floor(u * 5)); board(n, false);
+    txt(REG[n - 1] + (REG[n - 1] === 1 ? " region" : " regions"), 540, 1000, 80, RED);
+    return n + (n === 1 ? " POINT" : " POINTS");
+  }
+  if (b === 3) {
+    board(6, u > 0.55);
+    if (u < 0.55) txt("32 ?", 540, 1000, 100, RED); else txt("31", 540, 1000, 110, RED);
+    return "6 POINTS";
+  }
+  if (b === 4) {
+    board(6, true);
+    txt("1 + 15 lines + 15 crossings = 31", 540, 975, 44, INK);
+    if (u > 0.7) txt("7 points: 57", 540, 1050, 56, RED);
+    return "COUNT LINES AND CROSSINGS";
+  }
+  board(7, true, 0.35);
+  txt("5 examples, 100 patterns", 540, 1010, 50, RED);
+  return "A PATTERN IS A GUESS";
+}
+
+
+function renderAt(t) {
+  x.fillStyle = "#f4ecd8"; x.fillRect(0, 0, 1920, 1080);
+  x.strokeStyle = "rgba(60,90,140,0.16)"; x.lineWidth = 2;
+  for (let g = 0; g <= 1920; g += 40) { x.beginPath(); x.moveTo(g, 0); x.lineTo(g, 1080); x.stroke(); }
+  for (let g = 0; g <= 1080; g += 40) { x.beginPath(); x.moveTo(0, g); x.lineTo(1920, g); x.stroke(); }
+  const b = blockOf(t), u = clamp((t - B[b]) / (B[b + 1] - B[b]));
+  if (t < LEAD) {
+    stat.textContent = ""; x.textAlign = "center"; x.textBaseline = "middle";
+    x.fillStyle = RED; x.font = "bold 44px " + FONT; x.fillText(CHAPTER.split("|")[0], 960, 430);
+    x.fillStyle = INK; x.font = "bold 84px " + FONT; x.fillText(CHAPTER.split("|")[1], 960, 540);
+    groups.forEach(g => { g.el.style.opacity = 0; });
+    return;
+  }
+  x.save(); x.translate(463, -126); x.scale(0.92, 0.92);
+  stat.textContent = scene(t, b, u) || "";
+  x.restore();
+  groups.forEach(g => {
+    const on = t >= g.start && t < g.end;
+    g.el.style.opacity = on ? 1 : 0;
+    if (on) g.forEach(w => w.el.classList.toggle("on", t >= w.s));
+  });
+}
+window.addEventListener("hf-seek", e => renderAt(e.detail.time));
+renderAt(0);
+const tl = gsap.timeline({ paused: true });
+tl.fromTo("#title", { opacity: 0 }, { opacity: 1, duration: 0.5, ease: "power2.out" }, 0);
+window.__timelines = window.__timelines || {};
+window.__timelines["main"] = tl;
+</script>
+</body>
+</html>

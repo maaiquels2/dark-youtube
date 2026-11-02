@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=1080, height=1920" />
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 1080px; height: 1920px; overflow: hidden; background: #f4ecd8; }
+  #root { position: relative; width: 1080px; height: 1920px; overflow: hidden; background: #f4ecd8;
+    font-family: "JetBrains Mono", monospace; color: #1c1c1c; }
+  #cv { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; }
+  .t { position: absolute; left: 0; width: 1080px; text-align: center; font-weight: 700; }
+  #title { top: 292px; font-size: 46px; white-space: nowrap; }
+  #stat { top: 356px; font-size: 28px; opacity: .7; letter-spacing: 2px; }
+  #cap { top: 1124px; left: 120px; width: 840px; font-size: 50px; line-height: 60px; height: 120px; }
+  .g { position: absolute; left: 0; top: 0; width: 840px; text-align: center; opacity: 0; }
+  .w { opacity: .22; }
+  .w.on { opacity: 1; }
+  .w.k.on { color: #d62828; }
+  #end { position: absolute; inset: 0; background: #f4ecd8; opacity: 0; }
+  #end .a { position: absolute; left: 0; width: 1080px; text-align: center; font-weight: 700; }
+</style>
+</head>
+<body>
+<div id="root" data-composition-id="main" data-start="0" data-duration="93.340" data-width="1080" data-height="1920">
+  <canvas id="cv" class="clip" data-start="0" data-duration="93.340" width="1080" height="1920"></canvas>
+  <div id="title" class="clip t" data-start="0" data-duration="93.340">100 doors. <span style="color:#d62828">Switch</span> or stay?</div>
+  <div id="stat" class="clip t" data-start="0" data-duration="93.340"></div>
+  <div id="cap" class="clip t" data-start="0" data-duration="93.340"></div>
+  <div id="end" class="clip" data-start="0" data-duration="93.340">
+    <div class="a" style="top:700px;font-size:96px;">Show Your Work</div>
+    <div class="a" style="top:850px;font-size:40px;opacity:.7;">one puzzle at a time</div>
+    <div class="a" style="top:1000px;font-size:44px;color:#d62828;">Follow for the next one</div>
+  </div>
+  <audio id="voice" src="assets/voice.mp3" data-start="0" data-duration="93.340" data-volume="1"></audio>
+</div>
+<script>
+const WORDS = [{"w": "There", "s": 0.0, "e": 0.232}, {"w": "are", "s": 0.267, "e": 0.406}, {"w": "100", "s": 0.453, "e": 0.894}, {"w": "doors.", "s": 0.929, "e": 1.231}, {"w": "Behind", "s": 1.289, "e": 1.625}, {"w": "one", "s": 1.695, "e": 1.811}, {"w": "is", "s": 1.846, "e": 1.916}, {"w": "a", "s": 1.962, "e": 1.985}, {"w": "car.", "s": 2.043, "e": 2.531}, {"w": "You", "s": 2.833, "e": 2.961}, {"w": "pick", "s": 3.03, "e": 3.181}, {"w": "a", "s": 3.228, "e": 3.251}, {"w": "door,", "s": 3.297, "e": 3.715}, {"w": "and", "s": 3.762, "e": 3.913}, {"w": "then", "s": 3.959, "e": 4.075}, {"w": "the", "s": 4.11, "e": 4.18}, {"w": "host", "s": 4.238, "e": 4.47}, {"w": "opens", "s": 4.528, "e": 4.818}, {"w": "98", "s": 4.957, "e": 5.375}, {"w": "other", "s": 5.41, "e": 5.561}, {"w": "doors,", "s": 5.608, "e": 6.049}, {"w": "all", "s": 6.095, "e": 6.304}, {"w": "empty.", "s": 6.362, "e": 6.78}, {"w": "Two", "s": 7.14, "e": 7.326}, {"w": "doors", "s": 7.384, "e": 7.616}, {"w": "are", "s": 7.651, "e": 7.755}, {"w": "left.", "s": 7.802, "e": 8.197}, {"w": "Do", "s": 8.499, "e": 8.603}, {"w": "you", "s": 8.673, "e": 8.754}, {"w": "stay,", "s": 8.812, "e": 9.079}, {"w": "or", "s": 9.102, "e": 9.172}, {"w": "switch?", "s": 9.242, "e": 9.752}, {"w": "It", "s": 10.112, "e": 10.252}, {"w": "is", "s": 10.31, "e": 10.403}, {"w": "not", "s": 10.507, "e": 10.716}, {"w": "fifty-fifty.", "s": 10.774, "e": 11.587}, {"w": "Here", "s": 11.749, "e": 11.947}, {"w": "are", "s": 11.981, "e": 12.063}, {"w": "the", "s": 12.098, "e": 12.167}, {"w": "rules.", "s": 12.214, "e": 12.713}, {"w": "Behind", "s": 13.015, "e": 13.386}, {"w": "one", "s": 13.468, "e": 13.653}, {"w": "door", "s": 13.688, "e": 13.909}, {"w": "is", "s": 13.978, "e": 14.083}, {"w": "a", "s": 14.129, "e": 14.164}, {"w": "car.", "s": 14.234, "e": 14.745}, {"w": "Behind", "s": 14.965, "e": 15.337}, {"w": "the", "s": 15.383, "e": 15.453}, {"w": "other", "s": 15.522, "e": 15.72}, {"w": "ninety-nine,", "s": 15.789, "e": 16.463}, {"w": "goats.", "s": 16.532, "e": 17.043}, {"w": "You", "s": 17.264, "e": 17.38}, {"w": "pick", "s": 17.45, "e": 17.601}, {"w": "one", "s": 17.67, "e": 17.821}, {"w": "door.", "s": 17.856, "e": 18.239}, {"w": "The", "s": 18.541, "e": 18.657}, {"w": "host", "s": 18.715, "e": 18.913}, {"w": "knows", "s": 18.971, "e": 19.156}, {"w": "where", "s": 19.191, "e": 19.319}, {"w": "the", "s": 19.342, "e": 19.412}, {"w": "car", "s": 19.447, "e": 19.632}, {"w": "is.", "s": 19.702, "e": 20.004}, {"w": "He", "s": 20.259, "e": 20.375}, {"w": "opens", "s": 20.445, "e": 20.724}, {"w": "every", "s": 20.793, "e": 21.026}, {"w": "other", "s": 21.084, "e": 21.235}, {"w": "door", "s": 21.281, "e": 21.443}, {"w": "except", "s": 21.49, "e": 21.792}, {"w": "one,", "s": 21.861, "e": 22.245}, {"w": "and", "s": 22.442, "e": 22.593}, {"w": "he", "s": 22.639, "e": 22.697}, {"w": "never", "s": 22.802, "e": 23.034}, {"w": "opens", "s": 23.104, "e": 23.359}, {"w": "the", "s": 23.406, "e": 23.475}, {"w": "car.", "s": 23.51, "e": 23.893}, {"w": "Start", "s": 24.543, "e": 24.845}, {"w": "with", "s": 24.88, "e": 25.019}, {"w": "just", "s": 25.077, "e": 25.275}, {"w": "three", "s": 25.321, "e": 25.542}, {"w": "doors.", "s": 25.588, "e": 26.064}, {"w": "You", "s": 26.285, "e": 26.401}, {"w": "pick", "s": 26.471, "e": 26.645}, {"w": "one,", "s": 26.726, "e": 27.063}, {"w": "so", "s": 27.202, "e": 27.318}, {"w": "you", "s": 27.388, "e": 27.457}, {"w": "have", "s": 27.516, "e": 27.655}, {"w": "a", "s": 27.69, "e": 27.713}, {"w": "one", "s": 27.817, "e": 28.061}, {"w": "in", "s": 28.108, "e": 28.235}, {"w": "three", "s": 28.305, "e": 28.537}, {"w": "chance.", "s": 28.583, "e": 29.129}, {"w": "The", "s": 29.605, "e": 29.721}, {"w": "host", "s": 29.779, "e": 29.988}, {"w": "opens", "s": 30.058, "e": 30.348}, {"w": "a", "s": 30.395, "e": 30.418}, {"w": "goat", "s": 30.488, "e": 30.685}, {"w": "door.", "s": 30.731, "e": 31.149}, {"w": "Most", "s": 31.451, "e": 31.672}, {"w": "people", "s": 31.718, "e": 31.95}, {"w": "say", "s": 31.985, "e": 32.113}, {"w": "it's", "s": 32.148, "e": 32.252}, {"w": "now", "s": 32.287, "e": 32.392}, {"w": "fifty-fifty.", "s": 32.461, "e": 33.239}, {"w": "It", "s": 33.541, "e": 33.669}, {"w": "isn't.", "s": 33.727, "e": 34.098}, {"w": "Your", "s": 34.505, "e": 34.667}, {"w": "first", "s": 34.714, "e": 34.923}, {"w": "pick", "s": 34.981, "e": 35.155}, {"w": "is", "s": 35.213, "e": 35.282}, {"w": "still", "s": 35.317, "e": 35.515}, {"w": "a", "s": 35.573, "e": 35.596}, {"w": "one", "s": 35.666, "e": 35.875}, {"w": "in", "s": 35.909, "e": 35.967}, {"w": "three", "s": 36.037, "e": 36.258}, {"w": "shot,", "s": 36.316, "e": 36.71}, {"w": "so", "s": 36.745, "e": 36.85}, {"w": "the", "s": 36.919, "e": 36.989}, {"w": "other", "s": 37.036, "e": 37.186}, {"w": "door", "s": 37.221, "e": 37.372}, {"w": "holds", "s": 37.43, "e": 37.639}, {"w": "the", "s": 37.674, "e": 37.744}, {"w": "other", "s": 37.79, "e": 37.953}, {"w": "two", "s": 37.988, "e": 38.127}, {"w": "thirds.", "s": 38.197, "e": 38.719}, {"w": "Switching", "s": 39.079, "e": 39.508}, {"w": "wins", "s": 39.567, "e": 39.787}, {"w": "two", "s": 39.845, "e": 40.031}, {"w": "times", "s": 40.101, "e": 40.402}, {"w": "out", "s": 40.449, "e": 40.553}, {"w": "of", "s": 40.577, "e": 40.635}, {"w": "three.", "s": 40.681, "e": 41.18}, {"w": "Now", "s": 41.587, "e": 41.761}, {"w": "ten", "s": 41.83, "e": 42.028}, {"w": "doors.", "s": 42.086, "e": 42.597}, {"w": "You", "s": 42.899, "e": 43.026}, {"w": "pick", "s": 43.096, "e": 43.282}, {"w": "one,", "s": 43.363, "e": 43.746}, {"w": "a", "s": 44.002, "e": 44.071}, {"w": "one", "s": 44.187, "e": 44.35}, {"w": "in", "s": 44.385, "e": 44.443}, {"w": "ten", "s": 44.501, "e": 44.663}, {"w": "chance.", "s": 44.733, "e": 45.279}, {"w": "The", "s": 45.685, "e": 45.813}, {"w": "host", "s": 45.883, "e": 46.126}, {"w": "opens", "s": 46.196, "e": 46.509}, {"w": "eight", "s": 46.591, "e": 46.776}, {"w": "goats.", "s": 46.835, "e": 47.322}, {"w": "If", "s": 47.543, "e": 47.67}, {"w": "you", "s": 47.74, "e": 47.833}, {"w": "switch,", "s": 47.937, "e": 48.495}, {"w": "you", "s": 48.657, "e": 48.762}, {"w": "win", "s": 48.82, "e": 48.971}, {"w": "nine", "s": 49.052, "e": 49.284}, {"w": "times", "s": 49.319, "e": 49.574}, {"w": "out", "s": 49.609, "e": 49.714}, {"w": "of", "s": 49.749, "e": 49.795}, {"w": "ten.", "s": 49.853, "e": 50.271}, {"w": "With", "s": 50.828, "e": 51.014}, {"w": "a", "s": 51.049, "e": 51.084}, {"w": "hundred", "s": 51.165, "e": 51.479}, {"w": "doors,", "s": 51.525, "e": 51.85}, {"w": "your", "s": 51.885, "e": 52.013}, {"w": "pick", "s": 52.059, "e": 52.233}, {"w": "has", "s": 52.268, "e": 52.396}, {"w": "a", "s": 52.454, "e": 52.489}, {"w": "one", "s": 52.57, "e": 52.825}, {"w": "in", "s": 52.883, "e": 52.965}, {"w": "a", "s": 53.011, "e": 53.034}, {"w": "hundred", "s": 53.104, "e": 53.348}, {"w": "chance.", "s": 53.383, "e": 53.882}, {"w": "If", "s": 54.288, "e": 54.427}, {"w": "you", "s": 54.486, "e": 54.567}, {"w": "switch,", "s": 54.671, "e": 55.217}, {"w": "you", "s": 55.379, "e": 55.472}, {"w": "win", "s": 55.53, "e": 55.681}, {"w": "ninety-nine", "s": 55.751, "e": 56.297}, {"w": "times", "s": 56.331, "e": 56.587}, {"w": "out", "s": 56.622, "e": 56.715}, {"w": "of", "s": 56.749, "e": 56.796}, {"w": "a", "s": 56.831, "e": 56.854}, {"w": "hundred.", "s": 56.912, "e": 57.319}, {"w": "Why?", "s": 57.62, "e": 58.131}, {"w": "Your", "s": 58.433, "e": 58.619}, {"w": "first", "s": 58.677, "e": 58.909}, {"w": "pick", "s": 58.967, "e": 59.141}, {"w": "was", "s": 59.188, "e": 59.316}, {"w": "almost", "s": 59.385, "e": 59.78}, {"w": "surely", "s": 59.826, "e": 60.151}, {"w": "wrong.", "s": 60.198, "e": 60.651}, {"w": "Ninety-nine", "s": 61.127, "e": 61.684}, {"w": "percent", "s": 61.719, "e": 61.974}, {"w": "of", "s": 62.009, "e": 62.055}, {"w": "the", "s": 62.09, "e": 62.16}, {"w": "time,", "s": 62.195, "e": 62.59}, {"w": "the", "s": 62.81, "e": 62.903}, {"w": "car", "s": 62.961, "e": 63.124}, {"w": "is", "s": 63.158, "e": 63.205}, {"w": "somewhere", "s": 63.24, "e": 63.53}, {"w": "else.", "s": 63.565, "e": 63.948}, {"w": "And", "s": 64.25, "e": 64.401}, {"w": "the", "s": 64.447, "e": 64.517}, {"w": "host", "s": 64.586, "e": 64.853}, {"w": "can't", "s": 64.912, "e": 65.121}, {"w": "open", "s": 65.155, "e": 65.341}, {"w": "the", "s": 65.364, "e": 65.434}, {"w": "car,", "s": 65.469, "e": 65.922}, {"w": "so", "s": 66.061, "e": 66.189}, {"w": "if", "s": 66.258, "e": 66.328}, {"w": "it's", "s": 66.374, "e": 66.514}, {"w": "there,", "s": 66.56, "e": 66.978}, {"w": "he", "s": 67.117, "e": 67.199}, {"w": "has", "s": 67.268, "e": 67.408}, {"w": "to", "s": 67.454, "e": 67.501}, {"w": "leave", "s": 67.547, "e": 67.686}, {"w": "it", "s": 67.721, "e": 67.768}, {"w": "closed.", "s": 67.802, "e": 68.29}, {"w": "His", "s": 68.65, "e": 68.824}, {"w": "choice", "s": 68.894, "e": 69.196}, {"w": "carries", "s": 69.23, "e": 69.509}, {"w": "information.", "s": 69.567, "e": 70.229}, {"w": "The", "s": 70.531, "e": 70.647}, {"w": "closed", "s": 70.717, "e": 71.077}, {"w": "door", "s": 71.112, "e": 71.321}, {"w": "is", "s": 71.367, "e": 71.413}, {"w": "where", "s": 71.46, "e": 71.599}, {"w": "the", "s": 71.634, "e": 71.704}, {"w": "missing", "s": 71.75, "e": 72.04}, {"w": "ninety-nine", "s": 72.145, "e": 72.633}, {"w": "percent", "s": 72.667, "e": 72.969}, {"w": "went.", "s": 73.016, "e": 73.318}, {"w": "Play", "s": 73.677, "e": 73.886}, {"w": "it", "s": 73.921, "e": 73.979}, {"w": "a", "s": 74.014, "e": 74.037}, {"w": "hundred", "s": 74.095, "e": 74.316}, {"w": "times.", "s": 74.351, "e": 74.792}, {"w": "Staying", "s": 75.152, "e": 75.489}, {"w": "wins", "s": 75.547, "e": 75.721}, {"w": "about", "s": 75.756, "e": 75.976}, {"w": "once.", "s": 76.046, "e": 76.452}, {"w": "Switching", "s": 76.812, "e": 77.218}, {"w": "wins", "s": 77.277, "e": 77.52}, {"w": "about", "s": 77.567, "e": 77.799}, {"w": "ninety-nine", "s": 77.88, "e": 78.368}, {"w": "times.", "s": 78.403, "e": 78.844}, {"w": "The", "s": 79.204, "e": 79.331}, {"w": "host", "s": 79.401, "e": 79.68}, {"w": "isn't", "s": 79.749, "e": 79.993}, {"w": "opening", "s": 80.028, "e": 80.342}, {"w": "doors", "s": 80.388, "e": 80.632}, {"w": "at", "s": 80.667, "e": 80.736}, {"w": "random.", "s": 80.794, "e": 81.27}, {"w": "He", "s": 81.328, "e": 81.456}, {"w": "knows.", "s": 81.514, "e": 81.967}, {"w": "And", "s": 82.269, "e": 82.408}, {"w": "when", "s": 82.466, "e": 82.605}, {"w": "someone", "s": 82.687, "e": 83.07}, {"w": "who", "s": 83.093, "e": 83.221}, {"w": "knows", "s": 83.279, "e": 83.534}, {"w": "shows", "s": 83.58, "e": 83.813}, {"w": "you", "s": 83.859, "e": 83.94}, {"w": "a", "s": 83.998, "e": 84.033}, {"w": "choice,", "s": 84.091, "e": 84.66}, {"w": "that", "s": 85.067, "e": 85.264}, {"w": "choice", "s": 85.322, "e": 85.601}, {"w": "is", "s": 85.635, "e": 85.705}, {"w": "evidence.", "s": 85.786, "e": 86.286}, {"w": "Don't", "s": 86.692, "e": 86.947}, {"w": "ignore", "s": 86.994, "e": 87.307}, {"w": "what", "s": 87.342, "e": 87.458}, {"w": "the", "s": 87.493, "e": 87.563}, {"w": "other", "s": 87.609, "e": 87.772}, {"w": "side", "s": 87.83, "e": 88.039}, {"w": "reveals.", "s": 88.074, "e": 88.84}], B = [0.0, 11.749, 24.543, 41.587, 57.62, 73.677, 79.204, 89.14], VEND = 88.840, DUR = 93.340, NB = B.length - 1;
+const KEYS = new Set(["switch", "ninety-nine", "wrong", "knows", "information", "doors"]);
+const INK = "#1c1c1c", RED = "#d62828", OR = "#e07a00", GRN = "#2a9d5c", DOT = "#4a4a4a";
+const clamp = v => Math.max(0, Math.min(1, v));
+const ease = v => { v = clamp(v); return v * v * (3 - 2 * v); };
+const bit = (i, k) => (i >> k) & 1;
+const cvs = document.getElementById("cv"), x = cvs.getContext("2d");
+const stat = document.getElementById("stat"), cap = document.getElementById("cap");
+const FONT = "'JetBrains Mono', monospace";
+function txt(s, px, py, size, col, align, weight) {
+  x.font = (weight || "bold") + " " + Math.round(size * 1.12) + "px " + FONT; x.fillStyle = col || INK;
+  x.textAlign = align || "center"; x.textBaseline = "middle"; x.fillText(s, px, py);
+}
+function circ(cx, cy, r, fill, stroke, lw, alpha) {
+  x.globalAlpha = alpha == null ? 1 : alpha; x.beginPath(); x.arc(cx, cy, r, 0, 6.283);
+  if (fill) { x.fillStyle = fill; x.fill(); } if (stroke) { x.strokeStyle = stroke; x.lineWidth = lw || 4; x.stroke(); }
+  x.globalAlpha = 1;
+}
+function rect(px, py, w, h, fill, stroke, lw, alpha) {
+  x.globalAlpha = alpha == null ? 1 : alpha;
+  if (fill) { x.fillStyle = fill; x.fillRect(px, py, w, h); }
+  if (stroke) { x.strokeStyle = stroke; x.lineWidth = lw || 4; x.strokeRect(px, py, w, h); }
+  x.globalAlpha = 1;
+}
+function line(x1, y1, x2, y2, col, lw, alpha) {
+  x.globalAlpha = alpha == null ? 1 : alpha; x.strokeStyle = col || INK; x.lineWidth = lw || 3;
+  x.beginPath(); x.moveTo(x1, y1); x.lineTo(x2, y2); x.stroke(); x.globalAlpha = 1;
+}
+function show(w) {
+  const m = w.match(/^((?:one|zero)(?:-(?:one|zero))+)([.,?!]*)$/i);
+  if (m) return m[1].toLowerCase().split("-").map(p => p === "one" ? 1 : 0).join("") + m[2];
+  return w;
+}
+const groups = []; {
+  let g = [];
+  const flush = () => { if (g.length) { groups.push(g); g = []; } };
+  WORDS.forEach((w, i) => {
+    const t = show(w.w);
+    if (g.length && (g.length >= 4 || g.map(o => show(o.w)).join(" ").length + t.length > 24)) flush();
+    g.push({ ...w, i, txt: t });
+    if (/[.?!]$/.test(w.w) || /,$/.test(w.w)) flush();
+  });
+  flush();
+}
+groups.forEach((g, gi) => {
+  const el = document.createElement("div"); el.className = "g"; el.id = "g" + gi;
+  g.forEach(w => {
+    const s = document.createElement("span");
+    s.className = "w" + (KEYS.has(w.txt.toLowerCase().replace(/[.,?!]/g, "")) ? " k" : "");
+    s.textContent = w.txt + " "; w.el = s; el.appendChild(s);
+  });
+  cap.appendChild(el); g.el = el;
+  g.start = g[0].s - 0.05; g.end = DUR;
+});
+groups.forEach((g, gi) => { if (gi + 1 < groups.length) g.end = Math.min(g[g.length - 1].e + 0.25, groups[gi + 1][0].s - 0.05); });
+function blockOf(t) { let b = 0; for (let i = 0; i < NB; i++) if (t >= B[i]) b = i; return b; }
+
+const CAR = 57, PICK = 6;
+const gx = i => 126 + (i % 10) * 92, gy = i => 370 + Math.floor(i / 10) * 64;
+const OTH = []; for (let i = 0; i < 100; i++) if (i !== CAR && i !== PICK) OTH.push(i);
+function door(cx, cy, w, h, o) {
+  const a = o.alpha == null ? 1 : o.alpha;
+  if (o.open) { rect(cx - w / 2, cy - h / 2, w, h, "rgba(60,90,140,0.10)", INK, 2, a * 0.35); return; }
+  rect(cx - w / 2, cy - h / 2, w, h, "#e8dcbc", o.pick ? OR : INK, o.pick ? 8 : 3, a);
+  if (o.car) circ(cx, cy, Math.min(w, h) * 0.22, RED, null, 0, a);
+}
+function bars(sp, wp, y, a) {
+  txt("STAY", 180, y, 30, INK, "right"); rect(200, y - 22, 700 * sp, 44, DOT, null, 0, a);
+  txt(Math.round(sp * 100) + "%", 200 + 700 * sp + 14, y, 30, INK, "left");
+  txt("SWITCH", 180, y + 64, 30, INK, "right"); rect(200, y + 42, 700 * wp, 44, GRN, null, 0, a);
+  txt(Math.round(wp * 100) + "%", 200 + 700 * wp - 14, y + 64, 30, "#fff", "right");
+}
+function grid(opened, showCar, pickOn, carPulse) {
+  const op = new Set(OTH.slice(0, opened));
+  for (let i = 0; i < 100; i++)
+    door(gx(i), gy(i), 58, 48, { open: op.has(i), car: showCar && i === CAR, pick: pickOn && i === PICK });
+  if (carPulse) circ(gx(CAR), gy(CAR), 40 + 5 * Math.sin(T * 6), null, GRN, 6);
+}
+let T = 0;
+function scene(t, b, u) {
+  T = t;
+  if (b === 0) {
+    grid(u > 0.6 ? Math.floor((u - 0.6) / 0.4 * 98) : 0, false, u > 0.3, false);
+    return u < 0.3 ? "100 DOORS  ·  1 CAR" : u < 0.6 ? "YOU PICK DOOR 7" : "THE HOST OPENS 98 DOORS";
+  }
+  if (b === 1) {
+    grid(u > 0.66 ? Math.floor((u - 0.66) / 0.34 * 98) : 0, u < 0.33, u > 0.33, false);
+    return u < 0.33 ? "1 CAR  ·  99 GOATS" : u < 0.66 ? "THE HOST KNOWS" : "HE NEVER OPENS THE CAR";
+  }
+  if (b === 2) {
+    const xs = [220, 540, 860];
+    for (let i = 0; i < 3; i++) {
+      txt(String(i + 1), xs[i], 360, 44, INK);
+      door(xs[i], 560, 200, 300, { open: i === 2 && u > 0.25, car: i === 1 && u > 0.85, pick: i === 0 });
+    }
+    if (u > 0.25) txt("goat", xs[2], 560, 40, INK, "center", "bold");
+    if (u > 0.5) bars(1 / 3, 2 / 3, 900, 1);
+    return u < 0.25 ? "3 DOORS  ·  YOU PICK ONE" : u < 0.5 ? "THE HOST OPENS A GOAT" : "STAY 1/3  ·  SWITCH 2/3";
+  }
+  if (b === 3) {
+    if (u < 0.5) {
+      for (let i = 0; i < 10; i++) door(126 + i * 92, 560, 70, 140, { open: i !== 2 && i !== 6, car: false, pick: i === 2 });
+      bars(0.1, 0.9, 860, 1);
+      return "10 DOORS  ·  STAY 10%  ·  SWITCH 90%";
+    }
+    grid(98, false, true, false); bars(0.01, 0.99, 1040, 1);
+    return "100 DOORS  ·  STAY 1%  ·  SWITCH 99%";
+  }
+  if (b === 4) {
+    grid(98, false, true, u > 0.6);
+    const px = gx(PICK), py = gy(PICK), cx = gx(CAR), cy = gy(CAR);
+    txt("YOUR PICK: 1%", px, py + 60, 30, OR, "center");
+    if (u > 0.3) txt("THE OTHER DOOR: 99%", cx, cy + 60, 30, GRN, "center");
+    return "WHERE DID THE 99% GO?";
+  }
+  if (b === 5) {
+    const n = Math.floor(clamp(u / 0.8) * 100);
+    for (let i = 0; i < 100; i++) {
+      const cx = gx(i), cy = gy(i), played = i < n, stay = i === 37;
+      circ(cx, cy, played ? 20 : 8, played ? (stay ? RED : GRN) : DOT, null, 0, played ? 1 : 0.35);
+    }
+    const sw = n - (n > 37 ? 1 : 0), st = n > 37 ? 1 : 0;
+    txt("STAY WINS " + st, 300, 1060, 34, RED, "center");
+    txt("SWITCH WINS " + sw, 740, 1060, 34, GRN, "center");
+    return "100 GAMES";
+  }
+  const f = 1 - clamp(u / 0.5);
+  for (let i = 0; i < 100; i++) door(gx(i), gy(i), 58, 48, { open: i !== CAR, car: i === CAR, alpha: i === CAR ? 1 : f });
+  circ(gx(CAR), gy(CAR), 40, null, GRN, 6);
+  return "A CHOICE IS EVIDENCE";
+}
+
+
+function renderAt(t) {
+  x.fillStyle = "#f4ecd8"; x.fillRect(0, 0, 1080, 1920);
+  x.strokeStyle = "rgba(60,90,140,0.16)"; x.lineWidth = 2;
+  for (let g = 0; g <= 1080; g += 40) { x.beginPath(); x.moveTo(g, 0); x.lineTo(g, 1920); x.stroke(); }
+  for (let g = 0; g <= 1920; g += 40) { x.beginPath(); x.moveTo(0, g); x.lineTo(1080, g); x.stroke(); }
+  const b = blockOf(t), u = clamp((t - B[b]) / (B[b + 1] - B[b]));
+  x.save(); x.translate(130, 216.7); x.scale(0.78, 0.78);
+  stat.textContent = scene(t, b, u) || "";
+  x.restore();
+  groups.forEach(g => {
+    const on = t >= g.start && t < g.end;
+    g.el.style.opacity = on ? 1 : 0;
+    if (on) g.forEach(w => w.el.classList.toggle("on", t >= w.s));
+  });
+}
+window.addEventListener("hf-seek", e => renderAt(e.detail.time));
+renderAt(0);
+const tl = gsap.timeline({ paused: true });
+tl.fromTo("#end", { opacity: 0 }, { opacity: 1, duration: 0.6, ease: "power2.out" }, VEND + 0.6);
+window.__timelines = window.__timelines || {};
+window.__timelines["main"] = tl;
+</script>
+</body>
+</html>

@@ -1,0 +1,12 @@
+{
+  "title": "A beats B twice. B <span style=\"color:#d62828\">wins</span>.",
+  "keys": ["simpson", "wins", "groups", "average", "who"],
+  "blocks": [
+    "Two treatments for kidney stones. Treatment A beats Treatment B for small stones, and A beats B for large stones. But when you add everyone up, B wins. How is that possible?",
+    "Here's the real data from a famous study. For small stones, A cured ninety-three percent of patients and B cured eighty-seven. For large stones, A cured seventy-three percent and B cured sixty-nine.",
+    "Now add up everyone. A treated three hundred fifty patients and cured two hundred seventy-three, that's seventy-eight percent. B also treated three hundred fifty and cured two hundred eighty-nine, that's eighty-three percent. B wins overall.",
+    "Look at who got what. Treatment A was used mostly on large stones, the hard cases: two hundred sixty-three of its three hundred fifty patients. Treatment B was used mostly on small stones, the easy ones: two hundred seventy of its three hundred fifty.",
+    "So A looked worse overall only because it got the hard cases. The groups were not the same size, so the average hid the truth.",
+    "Whenever an average hides groups, ask who is in each group. That's Simpson's paradox: the trend can flip when you combine the data."
+  ]
+}

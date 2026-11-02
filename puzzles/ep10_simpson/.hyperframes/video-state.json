@@ -1,0 +1,333 @@
+{
+  "version": 1,
+  "historyId": "0b36b2c2-4a38-4134-9903-41397f7353e4",
+  "currentRevision": null,
+  "pendingChanges": false,
+  "files": {
+    "assets/timing.json": {
+      "hash": "15fcfd3933cd10ff760e3a5948ee20379b8b92e603bd5c19a667b9d91aac7352",
+      "content": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\0b36b2c2-4a38-4134-9903-41397f7353e4\\blobs\\15\\15fcfd3933cd10ff760e3a5948ee20379b8b92e603bd5c19a667b9d91aac7352"
+    },
+    "ep.json": {
+      "hash": "57b12cbcca3521b64a1037a13fdfa49b617086bd9095725bbc394fa5754f4897",
+      "content": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\0b36b2c2-4a38-4134-9903-41397f7353e4\\blobs\\57\\57b12cbcca3521b64a1037a13fdfa49b617086bd9095725bbc394fa5754f4897"
+    },
+    "hyperframes.json": {
+      "hash": "c7a3009d23e471acfb1ca9ec252ea16a0ca4dfe55e3b3b9d7089c8f0764f4a43",
+      "content": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\0b36b2c2-4a38-4134-9903-41397f7353e4\\blobs\\c7\\c7a3009d23e471acfb1ca9ec252ea16a0ca4dfe55e3b3b9d7089c8f0764f4a43"
+    },
+    "index.html": {
+      "hash": "d5a3080ca2b0059e9087437c57d6c6d32908321df55b5fbd448137e0ac5aeab8",
+      "content": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\0b36b2c2-4a38-4134-9903-41397f7353e4\\blobs\\d5\\d5a3080ca2b0059e9087437c57d6c6d32908321df55b5fbd448137e0ac5aeab8"
+    },
+    "package.json": {
+      "hash": "e6c3359985dff3ee38cefffa144ec811cc4af98dd46e6b9f69cf148bc054040e",
+      "content": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\0b36b2c2-4a38-4134-9903-41397f7353e4\\blobs\\e6\\e6c3359985dff3ee38cefffa144ec811cc4af98dd46e6b9f69cf148bc054040e"
+    },
+    "scene.js": {
+      "hash": "175be61d18e9bda0f06d9dad06ac9a46d2867edfc6bbd9b22137e78323205937",
+      "content": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\0b36b2c2-4a38-4134-9903-41397f7353e4\\blobs\\17\\175be61d18e9bda0f06d9dad06ac9a46d2867edfc6bbd9b22137e78323205937"
+    },
+    "assets/voice.mp3": {
+      "hash": "6f8d400a5749a8c2e3646c6db06655bc152b3aa027e708d24a0bbb0529889a84",
+      "content": "C:\\Users\\Admin\\.cache\\hyperframes\\history\\0b36b2c2-4a38-4134-9903-41397f7353e4\\blobs\\6f\\6f8d400a5749a8c2e3646c6db06655bc152b3aa027e708d24a0bbb0529889a84"
+    }
+  },
+  "revisions": {},
+  "checks": {
+    "latest": {
+      "revision": null,
+      "id": "5a731c44-74b2-4dac-b8ef-15e77065f665"
+    },
+    "revisions": {},
+    "unversioned": [
+      {
+        "id": "5a731c44-74b2-4dac-b8ef-15e77065f665",
+        "scope": "project",
+        "report": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\puzzles\\ep10_simpson\\.hyperframes\\artifacts\\checks\\5a731c44-74b2-4dac-b8ef-15e77065f665.json",
+        "metadata": {
+          "ok": true,
+          "browserSkipped": false,
+          "options": {
+            "samples": 9,
+            "atTransitions": false,
+            "maxIssues": 80,
+            "collapseStatic": true,
+            "tolerance": 2,
+            "timeout": 3000,
+            "contrast": true,
+            "strict": false,
+            "snapshots": false,
+            "browserGpuMode": "auto"
+          }
+        },
+        "createdAt": 1792969918532,
+        "contentHash": "fbab3186a5af0940b59e31e17939fdbf54d2600dc5f4a519e577b7e8ed7c2f00",
+        "revision": null,
+        "inputFingerprint": "7967d6725a25cc8fc3aaaf46f527fd650360975375616e550ca1117293b0acfd",
+        "inputScope": "local-project-files",
+        "attribution": "unversioned"
+      }
+    ]
+  },
+  "snapshots": {
+    "latest": {
+      "revision": null,
+      "id": "8c26e460-d894-47b8-a3d6-a8c09ccd5f77-11"
+    },
+    "revisions": {},
+    "unversioned": [
+      {
+        "scope": "full",
+        "id": "8c26e460-d894-47b8-a3d6-a8c09ccd5f77-0",
+        "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\w2_ep10_simpson\\frame-00-at-0s.png",
+        "time": 0,
+        "metadata": {
+          "width": 1080,
+          "height": 1920,
+          "zoomScale": 1,
+          "browserGpuMode": "auto",
+          "warnings": [],
+          "partial": false
+        },
+        "createdAt": 1792969924675,
+        "contentHash": "3407f524216d6727dc6b9b4e5b1addc22503206ea8e03db49bfaf8360bccfeb2",
+        "revision": null,
+        "inputFingerprint": "7967d6725a25cc8fc3aaaf46f527fd650360975375616e550ca1117293b0acfd",
+        "inputScope": "local-project-files",
+        "attribution": "unversioned"
+      },
+      {
+        "scope": "full",
+        "id": "8c26e460-d894-47b8-a3d6-a8c09ccd5f77-1",
+        "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\w2_ep10_simpson\\frame-01-at-6.446s.png",
+        "time": 6.446,
+        "metadata": {
+          "width": 1080,
+          "height": 1920,
+          "zoomScale": 1,
+          "browserGpuMode": "auto",
+          "warnings": [],
+          "partial": false
+        },
+        "createdAt": 1792969924675,
+        "contentHash": "7621436857ac9e7c4c88bb14675c5ebe45bef9c1a3c8dd9dfa3fec5b8f3c032b",
+        "revision": null,
+        "inputFingerprint": "7967d6725a25cc8fc3aaaf46f527fd650360975375616e550ca1117293b0acfd",
+        "inputScope": "local-project-files",
+        "attribution": "unversioned"
+      },
+      {
+        "scope": "full",
+        "id": "8c26e460-d894-47b8-a3d6-a8c09ccd5f77-2",
+        "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\w2_ep10_simpson\\frame-02-at-12.893s.png",
+        "time": 12.893,
+        "metadata": {
+          "width": 1080,
+          "height": 1920,
+          "zoomScale": 1,
+          "browserGpuMode": "auto",
+          "warnings": [],
+          "partial": false
+        },
+        "createdAt": 1792969924675,
+        "contentHash": "4aaff2a7ad5691934df4214e27778d0f854abddfaf1fc397e647d65a0df7ddd3",
+        "revision": null,
+        "inputFingerprint": "7967d6725a25cc8fc3aaaf46f527fd650360975375616e550ca1117293b0acfd",
+        "inputScope": "local-project-files",
+        "attribution": "unversioned"
+      },
+      {
+        "scope": "full",
+        "id": "8c26e460-d894-47b8-a3d6-a8c09ccd5f77-3",
+        "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\w2_ep10_simpson\\frame-03-at-19.339s.png",
+        "time": 19.339,
+        "metadata": {
+          "width": 1080,
+          "height": 1920,
+          "zoomScale": 1,
+          "browserGpuMode": "auto",
+          "warnings": [],
+          "partial": false
+        },
+        "createdAt": 1792969924676,
+        "contentHash": "627a1240de4cd4e2558e625be0b6f44f66032eb034226d23cb48228657f6a242",
+        "revision": null,
+        "inputFingerprint": "7967d6725a25cc8fc3aaaf46f527fd650360975375616e550ca1117293b0acfd",
+        "inputScope": "local-project-files",
+        "attribution": "unversioned"
+      },
+      {
+        "scope": "full",
+        "id": "8c26e460-d894-47b8-a3d6-a8c09ccd5f77-4",
+        "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\w2_ep10_simpson\\frame-04-at-25.785s.png",
+        "time": 25.785,
+        "metadata": {
+          "width": 1080,
+          "height": 1920,
+          "zoomScale": 1,
+          "browserGpuMode": "auto",
+          "warnings": [],
+          "partial": false
+        },
+        "createdAt": 1792969924676,
+        "contentHash": "d1f5c1ea07921e594c95b0bc57960cc2f4bdfaf6351ab1bc6f32bfa0ca1502ae",
+        "revision": null,
+        "inputFingerprint": "7967d6725a25cc8fc3aaaf46f527fd650360975375616e550ca1117293b0acfd",
+        "inputScope": "local-project-files",
+        "attribution": "unversioned"
+      },
+      {
+        "scope": "full",
+        "id": "8c26e460-d894-47b8-a3d6-a8c09ccd5f77-5",
+        "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\w2_ep10_simpson\\frame-05-at-32.231s.png",
+        "time": 32.231,
+        "metadata": {
+          "width": 1080,
+          "height": 1920,
+          "zoomScale": 1,
+          "browserGpuMode": "auto",
+          "warnings": [],
+          "partial": false
+        },
+        "createdAt": 1792969924677,
+        "contentHash": "0b0403c5d6efd701af645deef7ac63ecc592f1df1224684072bbd67452ba4def",
+        "revision": null,
+        "inputFingerprint": "7967d6725a25cc8fc3aaaf46f527fd650360975375616e550ca1117293b0acfd",
+        "inputScope": "local-project-files",
+        "attribution": "unversioned"
+      },
+      {
+        "scope": "full",
+        "id": "8c26e460-d894-47b8-a3d6-a8c09ccd5f77-6",
+        "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\w2_ep10_simpson\\frame-06-at-38.678s.png",
+        "time": 38.678,
+        "metadata": {
+          "width": 1080,
+          "height": 1920,
+          "zoomScale": 1,
+          "browserGpuMode": "auto",
+          "warnings": [],
+          "partial": false
+        },
+        "createdAt": 1792969924677,
+        "contentHash": "261cf05c4913b3070fcbf9c15d0ff3c855a1d43de8932136dc3c3c6a3d387b7e",
+        "revision": null,
+        "inputFingerprint": "7967d6725a25cc8fc3aaaf46f527fd650360975375616e550ca1117293b0acfd",
+        "inputScope": "local-project-files",
+        "attribution": "unversioned"
+      },
+      {
+        "scope": "full",
+        "id": "8c26e460-d894-47b8-a3d6-a8c09ccd5f77-7",
+        "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\w2_ep10_simpson\\frame-07-at-45.124s.png",
+        "time": 45.124,
+        "metadata": {
+          "width": 1080,
+          "height": 1920,
+          "zoomScale": 1,
+          "browserGpuMode": "auto",
+          "warnings": [],
+          "partial": false
+        },
+        "createdAt": 1792969924678,
+        "contentHash": "5a9de9612e1c5e97947fa3e6fdad6de9c487bcb413afa63f1dc5dc1436100a58",
+        "revision": null,
+        "inputFingerprint": "7967d6725a25cc8fc3aaaf46f527fd650360975375616e550ca1117293b0acfd",
+        "inputScope": "local-project-files",
+        "attribution": "unversioned"
+      },
+      {
+        "scope": "full",
+        "id": "8c26e460-d894-47b8-a3d6-a8c09ccd5f77-8",
+        "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\w2_ep10_simpson\\frame-08-at-51.57s.png",
+        "time": 51.57,
+        "metadata": {
+          "width": 1080,
+          "height": 1920,
+          "zoomScale": 1,
+          "browserGpuMode": "auto",
+          "warnings": [],
+          "partial": false
+        },
+        "createdAt": 1792969924679,
+        "contentHash": "0eaed3d98c10fad55608d4b1ecba0ebc262acf6934c41a2f6d0ada1f601bf585",
+        "revision": null,
+        "inputFingerprint": "7967d6725a25cc8fc3aaaf46f527fd650360975375616e550ca1117293b0acfd",
+        "inputScope": "local-project-files",
+        "attribution": "unversioned"
+      },
+      {
+        "scope": "full",
+        "id": "8c26e460-d894-47b8-a3d6-a8c09ccd5f77-9",
+        "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\w2_ep10_simpson\\frame-09-at-58.016s.png",
+        "time": 58.016,
+        "metadata": {
+          "width": 1080,
+          "height": 1920,
+          "zoomScale": 1,
+          "browserGpuMode": "auto",
+          "warnings": [],
+          "partial": false
+        },
+        "createdAt": 1792969924679,
+        "contentHash": "c0415780cb26c87696782d5c392634ab66819179b584219dc0572f3c1da74673",
+        "revision": null,
+        "inputFingerprint": "7967d6725a25cc8fc3aaaf46f527fd650360975375616e550ca1117293b0acfd",
+        "inputScope": "local-project-files",
+        "attribution": "unversioned"
+      },
+      {
+        "scope": "full",
+        "id": "8c26e460-d894-47b8-a3d6-a8c09ccd5f77-10",
+        "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\w2_ep10_simpson\\frame-10-at-64.463s.png",
+        "time": 64.463,
+        "metadata": {
+          "width": 1080,
+          "height": 1920,
+          "zoomScale": 1,
+          "browserGpuMode": "auto",
+          "warnings": [],
+          "partial": false
+        },
+        "createdAt": 1792969924680,
+        "contentHash": "dcf884265cab92ec1712f96609f2e621e3153eb859540291435e4273bd1034fb",
+        "revision": null,
+        "inputFingerprint": "7967d6725a25cc8fc3aaaf46f527fd650360975375616e550ca1117293b0acfd",
+        "inputScope": "local-project-files",
+        "attribution": "unversioned"
+      },
+      {
+        "scope": "full",
+        "id": "8c26e460-d894-47b8-a3d6-a8c09ccd5f77-11",
+        "image": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\scratch\\w2_ep10_simpson\\frame-11-at-70.909s.png",
+        "time": 70.909,
+        "metadata": {
+          "width": 1080,
+          "height": 1920,
+          "zoomScale": 1,
+          "browserGpuMode": "auto",
+          "warnings": [],
+          "partial": false
+        },
+        "createdAt": 1792969924681,
+        "contentHash": "4f38b8e62a01fc53b7e4c71ab305bc7403bdeda9a177f59d8fe9372d2294cd55",
+        "revision": null,
+        "inputFingerprint": "7967d6725a25cc8fc3aaaf46f527fd650360975375616e550ca1117293b0acfd",
+        "inputScope": "local-project-files",
+        "attribution": "unversioned"
+      }
+    ]
+  },
+  "renders": {
+    "latest": {
+      "id": "33915a2a-7fae-458e-a8cc-e54554172a5a",
+      "completedAt": 1792970779628,
+      "output": "C:\\Users\\Admin\\Documents\\Codex\\2026-09-10\\Dark YouTube\\puzzles\\ep10_simpson\\renders\\ep10_simpson.mp4",
+      "status": "completed",
+      "revision": null
+    },
+    "retainedRevisions": []
+  },
+  "pendingArtifactCleanup": []
+}
