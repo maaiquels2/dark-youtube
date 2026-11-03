@@ -60,7 +60,7 @@ def _():
         for _ in range(4):
             out = rodar(ok=bool(paradas)); paradas.append(produce.estado(PID)[1].get("parada"))
         assert paradas == ["parada:roteiro", "parada:logos", "parada:cenas", "parada:final"], paradas
-        assert log[:4] == ["notas", "pesquisa", "roteiro", "graficos"] and log[-1] == "montagem", log
+        assert log[:4] == ["notas", "pesquisa", "roteiro", "graficos"] and log[-2:] == ["montagem", "qa_render"], log
         out = rodar(ok=True); assert "PRONTO" in out, out
     finally: produce.ETAPAS = orig
 
@@ -96,7 +96,10 @@ def _():
     with contextlib.redirect_stdout(io.StringIO()): remake.run_steps(PID, ["convert", "cues"])
     d = projfile.read(PID)
     tipos = [((s.get("ec") or {}).get("full") or {}).get("type") for s in d["scenes"]]
-    assert tipos == ["counter", "timeline", "flow", "statement", None, None], tipos
+    assert tipos == [None, "timeline", "flow", "statement", None, None], tipos
+    # abertura de capitulo: o contador vira nota lateral, para o cartao do capitulo ficar sozinho na tela
+    nota = [o for o in d["scenes"][0]["ec"]["overlay"] if o["type"] == "callout"]
+    assert nota and "47" in nota[0]["text"], d["scenes"][0]["ec"]
     assert all("gfx_legacy" in s for s in d["scenes"]) and d.get("music_cues"), d.get("music_cues")
     assert all((ROOT / "projects" / PID / c["file"]).is_file() for c in d["music_cues"])  # projeto novo tambem recebe as trilhas
 

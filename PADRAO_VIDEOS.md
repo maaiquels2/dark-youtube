@@ -1,5 +1,12 @@
 # The Cracked Ledger — Padrão de produção de vídeos
+
+> **Regras organizadas em 01/11/2026:** o que vale para todo canal está em [`REGRAS_UNIVERSAIS.md`](REGRAS_UNIVERSAIS.md); a identidade de cada canal está em [`canais/`](canais/) (mapa em [`canais/MAPEAMENTO.md`](canais/MAPEAMENTO.md)). Este arquivo continua valendo como detalhe do The Cracked Ledger.
+
+> **Antes de qualquer vídeo, siga o checklist único: [CHECKLIST_VIDEO_YOUTUBE.md](CHECKLIST_VIDEO_YOUTUBE.md).** Ele junta este padrão e o `GEMINI.md` na ordem do pipeline. Erro novo vira regra lá.
 Mantido pelo Maiskinho. Atualizado em 17/10/2026 (seções de Título, Tema e Depois de publicar acrescentadas pelo Claude com base em dados do YouTube). Revise/edite à vontade (ex.: com o Claude Code); avise o Maiskinho quando mudar algo.
+
+## REGRA DE OURO N.º 1 (OBRIGATÓRIA ANTES DE QUALQUER CRIAÇÃO DE VÍDEO)
+- **SEMPRE TENHA IMAGENS REAIS DAS PESSOAS ANTES DE CRIAR QUALQUER VÍDEO:** Antes de iniciar a renderização de qualquer projeto, **todas as pessoas citadas na narrativa** (cientistas, professores, técnicos, executivos, políticos, juízes, fundadores) devem ter suas fotos reais baixadas e preparadas em `entities/` (preferencialmente em preto e branco de alto contraste documental com restauração/upscale 4x Real-ESRGAN) e vinculadas aos templates `person`, `evidence_doc` (`photo` + `photo_caption`) e `statement` (`photo` + `photo_caption`). Nenhum quadro sobre uma pessoa ou citação de uma pessoa pode ir ao ar sem a foto real dela.
 
 ## Canal
 - Documentários de Business & Finance em inglês, @thecrackedledger.
@@ -61,6 +68,21 @@ Cada prompt do Grok precisa **explicar** a frase narrada, não só criar clima. 
 ## Narrativa
 Gancho forte, protagonista humanizado, tensão crescente, 3 atos, emoção autêntica, mostrar em vez de contar, ritmo variado e narração expressiva.
 
+### Padrões de retenção (24/10/2026, de 10 vídeos do nicho com 8+ min, últimos 90 dias)
+Os que mais retêm (Sriracha, Jaguar, Dollar Shave Club, AirAsia, transporte na Austrália) repetem isto; os fracos (lista genérica, venda disfarçada, especulação) não têm nada disso.
+1. **Número concreto na primeira ou segunda frase** (ex.: "49 carros na Europa inteira", "um anúncio de US$ 4.500"). Valor exato, com fonte.
+2. **Contradição como motor:** o que a empresa disse contra o que aconteceu. A prévia de abertura já mostra a contradição e promete resolvê-la.
+3. **Um conflito central com personagens claros** (vilão e vítima, ou decisão e consequência), num único tema (ex.: confiança). Nada de desvio para assunto vizinho.
+4. **Culpa deslocada:** quando a empresa culpa clima, combustível ou mercado, mostrar o que decisão própria causou.
+5. **"Quem paga a conta"** tem um trecho próprio perto do fim: trabalhadores, fornecedores, contribuintes, credores, na ordem em que recebem.
+6. **Uma pausa útil no meio** que explica algo prático ao espectador (um direito, um mecanismo, uma regra). Não vale repetir pedido de like.
+7. **Honestidade explícita:** separar fato, alegação e decisão judicial em voz alta ("é alegação, não decisão"; "aqui o registro é fraco"). Corrigir a manchete quando ela exagera (ex.: "nada foi protocolado").
+8. **Fecho que espelha o gancho** (mesma frase, número ou imagem, agora com outro peso) e termina pedindo inscrição, como já manda a regra de QA.
+9. **Capítulos com tese dita cedo** (uma frase que diz por que a história deu errado) e uma lição nomeada no fim.
+10. **Nada de especulação como fato.** Hipótese só com "pode", atribuída a alguém, e nunca no título nem no gancho. Sem opinião política ou macro sem fonte.
+11. **Sem resíduo no texto falado** (marcadores como "TTS script", "Chapter 8" fora do padrão, links de "assista a seguir").
+12. **Sem anúncio no meio.** O vídeo não tem patrocinador nem venda de serviço, e pedido de like/inscrição só no fim.
+
 ## Áudio
 - **Uma música calma só, o vídeo inteiro, sem trocar entre os atos.**
 - A música fica sempre bem mais baixa que a narração (abaixa quando a voz entra).
@@ -111,3 +133,53 @@ Conferi cada regra com o código e os projetos. O resto bate (voz onyx, 1080p co
 - [x] **Regras de clique no programa** *(17/10)*: a etapa Ideia agora pede ao ChatGPT títulos nas fórmulas A/B/C, sem o nome da empresa no início, com até 60 caracteres, texto de capa que completa o título, nota de procura do tema (alta/média/baixa) e uma série sugerida. Títulos fora do padrão aparecem com ⚠ na lista e na Validação (só aviso, não bloqueia). O roteiro mantém o título escolhido e entrega a promessa dele nos primeiros 15 segundos.
 - [x] **"Netflix-style" no botão Copiar prompt** *(corrigido 17/10)*: o código do servidor já não usava, mas o botão "Copiar prompt completo" da tela de cenas ainda montava o prompt antigo com "Netflix-style". Agora ele monta exatamente o mesmo prompt do servidor. (FTX e WeWork, já publicados, ainda têm o termo guardado; não foram refeitos.)
 - [ ] **Gráfico com uma barra só** *(a Validação avisa desde 17/10, sem bloquear)*: a regra diz "nunca", mas o SVB (publicado) tem 6 e o Lehman tem 3 (cenas 16, 25 e 69: alavancagem de 31 para 1, prejuízo do 2º trimestre e os US$ 50 bilhões do Repo 105). Para o Lehman: trocar por um gráfico de escala (`scale`) ou comparar com outro valor real.
+
+## Regras de Acabamento Visual, Mapas, Fotos P&B e Logos nos Gráficos (22/10/2026)
+- **Retratos de Pessoas e Figuras Históricas (`person`):**
+  - **NUNCA** esticar retratos de pessoas (fotos 3:4 ou verticais) em tela cheia 16:9 como fundo de parallax 2.5D ou plano aberto. Isso causa zoom digital agressivo, perda drástica de nitidez, desfoque e cortes bizarros em olhos, queixo ou ternos.
+  - **SEMPRE** utilizar o template documental `person` do EffectCraft (`ec["full"] = {"type": "person", ...}`). A foto real em preto e branco de alto contraste documental é apresentada em sua proporção original dentro de uma moldura de card Polaroid inclinada (-3°) com sombra natural, nome em destaque em Playfair Display, kicker/cargo em caixa alta e dourado/âmbar (`track: 240`), texto de mandato/papel histórico e tópicos factuais com marcadores em âmbar (`points`), além de crédito e fonte oficial no rodapé (padrão de referência visual: Ben Bernanke na Cena 35 do documentário Lehman Brothers).
+  - Cenas que utilizam o card `person` em tela cheia não recebem overlay de `lower_third` redundante.
+- **Lugar citado sem mapa (30/10/2026):** o `qa_gate` avisa (`lugar_sem_mapa`, nunca bloqueia) quando pais, estado ou cidade aparece na fala e nao ha cena `map` ate 2 cenas de distancia. So vale mapa se o lugar sustenta a historia; citacao de passagem pode ficar sem, anotando no gate.
+- **Mapas (`map`):** Nunca exibir apenas uma grade vazia com pontos soltos. Sempre mostrar a silhueta cartográfica real do país e estado (`map_img`, ex.: mapa dos EUA com a Flórida destacada ou mapa do Brasil com estados demarcados), marcando a cidade no mapa do país e abrindo um quadro de zoom (`inset`) para os pontos locais.
+- **Parallax 2.5D (`tools/parallax.py`):** Objetos apoiados em superfícies no primeiro plano (capacetes num banco, frascos numa bancada, documentos numa mesa) nunca podem ter deslocamento horizontal oposto ao fundo nem sair do quadro (`grounded_zoom` / `camera: "zoom"`).
+- **Fotos Reais em Preto e Branco (`evidence_doc`, `statement`, `person`):** Sempre buscar foto histórica real (preferencialmente em preto e branco de alto contraste documental) dos personagens citados (cientistas, professores, técnicos, executivos, juízes) e exibi-la em moldura de arquivo (`photo` + `photo_caption`) ao lado do documento (`evidence_doc`) ou da citação (`statement`).
+- **Logos Reais nos Gráficos (`breakdown`, `chart_line`, `versus`):** Sempre incluir os logos reais das equipes, universidades e empresas envolvidas (`logo` / `logos`, ex.: Florida Gators, Gatorade, PepsiCo) dentro dos próprios gráficos comparativos e curvas de evolução (`Valuation Curve`) para identificação imediata do espectador.
+- **Alinhamento de Valores em Barras (`breakdown`):** Os números e unidades das barras horizontais ficam alinhados em coluna à direita fora do trilho escuro (`BX + BW + 28`), nunca sobrepostos à barra de fundo.
+- **Abertura de Capítulo (`chapter`):** o capítulo é uma cena própria narrada ("Chapter two. Title.") com `hold`. Cenas com `chapter` nunca recebem gráfico de tela cheia (`ec.full`) ao mesmo tempo, e qualquer `callout`/`lower_third`/`logo` só entra após `t >= 3.6s` (verificado automaticamente pelo `readcheck`). Mesma regra do `CHECKLIST_VIDEO_YOUTUBE.md` e do `GEMINI.md`.
+
+## Acrescentado em 22/10/2026 (Maiskinho, aprovado pelo usuário)
+
+### Retratos (vindo do GEMINI.md)
+- Nunca esticar foto vertical de pessoa em 16:9 com parallax. Sempre usar o card `person` do EffectCraft, com foto tratada no Real-ESRGAN na proporção original, nome em Playfair Display, cargo em âmbar e crédito da foto no rodapé. Cena com card `person` não leva `lower_third`.
+
+### Publicação
+- **Regra Mandatória de Legendas e Hashtags (TikTok, Instagram Reels, Facebook e YouTube Shorts):** Todo vídeo publicado nas 4 plataformas deve conter **legenda descritiva concisa + exatamente 5 hashtags** (mix de tema e nicho do canal, como #TheCrackedLedger). Nem mais, nem menos.
+- TikTok vai pelo Telegram: o vídeo e a legenda chegam no seu Telegram e você baixa e posta pelo celular. Nada sobe pro TikTok pelo PC (config/publish.json, tiktok_mode).
+- Nenhum Short ou Reel vai pro TikTok, Facebook ou Instagram sem aprovação do usuário. A fila `social/queue.json` só publica itens marcados como aprovados; o `meta_publish.py --run` não deve postar nada sem esse ok.
+
+### Movimento (gráficos e cenas em código)
+- **Lista de proibidos:** sem brilho/glow, partículas decorativas, lens flare, degradê roxo ou azul, tudo surgindo junto, fade-and-slide-up em todo elemento, layout todo centralizado, texto que se mexe enquanto é lido. Depois de cada render, nomear o padrão que apareceu mesmo assim e acrescentar aqui.
+- **Números em vez de adjetivos:** entradas com ease-out-expo (0.16, 1, 0.3, 1), movimentos com ease-in-out-quart (0.76, 0, 0.24, 1), saídas com ease-in-expo (0.7, 0, 0.84, 0) e 40–50% mais curtas que a entrada. Molas com damping 0.7–0.85. Nunca easing linear em movimento (só em rotação e barra de progresso).
+- **Uma ação principal por cena:** o resto entra 100–200 ms depois e se move 50–70% do caminho. Texto fica parado pelo menos 0,3 s por palavra + 0,5 s.
+- **Revisão por frame:** contact sheet antes do render final, notas sempre com número de frame (ex.: frame 84 atrasado). Som de impacto 1 frame depois da imagem, nunca antes.
+
+## Motion (HyperFrames) nos vídeos longos (28/10/2026, aprovado pelo Maiquel no vídeo do Tricolor)
+- Usar HyperFrames para as cenas de explicação: diagramas de níveis/fluxo, contas (parcela, juros), barras comparativas, "quem paga", fechamento. 14 cenas, ~4 min num vídeo de 11 min funcionaram. Gerador de referência: `tools/hyperframes/make_tricolor_scenes.py`; modelo visual: `tools/hyperframes/tricolor-s21`.
+- **Tipografia fixa (a do s21_inter):** números grandes em Inter 700 com brilho; rótulos em Inter 500 caixa-alta com espaçamento largo, cor âmbar; legendas/frases em Playfair Display itálico; linha "SOURCE · fonte" embaixo à esquerda em toda cena. Nunca Playfair nos números (o "$" fica ornamentado e os traços finos somem com o brilho).
+- **Identidade do canal (30/10/2026): ver `IDENTIDADE_CANAL_LEDGER.md`** (paleta fixa, uma cor de acento por video em `accent`, proibicoes). Conferir com `tools/palette_check.py <id>`.
+- Paleta: fundo #0b0e14, creme #f6f2ea, âmbar #f4b042, vermelho #d63a34 (só alegação/perda), cartões #ece4d0.
+- Tempos de cada elemento vêm de `audio/words.json` (palavra falada -> instante). Alegação sempre com etiqueta ALLEGED; ilustração sempre rotulada.
+- Revisão: quadros-chave no mínimo; clipe inteiro a 6 fps no Gate 4.
+- **Mistura de formatos (decisão do Maiquel, 28/10/2026):** em cada vídeo longo, escolher por cena o formato de Motion que serve ao conteúdo. F2 = SVG + curvas (fluxos, ligações, setas desenhadas); F3 = tipografia cinética (números e frases de impacto, valores que mudam); F4 = câmera virtual com paralaxe e profundidade (vários blocos em sequência, cartões lado a lado). No Tricolor: F2 em 13, 17, 18, 39, 44; F3 em 5, 14, 19, 36, 45; F4 em 15, 38, 40; 21 fica com barras simples. Gerador: `tools/hyperframes/make_tricolor_final.py`.
+
+## Shorts nativos verticais (padrão desde 30/10/2026, aprovado pelo Maiquel)
+- Não recortar o vídeo longo. Montar cada Short do zero em 1080x1920 (HyperFrames), reaproveitando as falas já gravadas (cortadas pelo words.json) e os blocos visuais do longo.
+- Estrutura: frase-gancho que se sustenta sozinha nos 2-3 s iniciais (pode ser fala nova curta) + desenvolvimento com 1 número forte e 1 virada + fecho + chamada "full story on the channel". 45 a 90 s (Reels da Meta: até 90 s e com enquete).
+- Legendas grandes por fala (blocos de até 3 palavras, números em âmbar), mesma tipografia do longo (números Inter 700, títulos Playfair), créditos na linha SOURCE.
+- Áudio: voz + trilha com ducking, -14 LUFS, pico <= -1,5 dBFS. Gerador: `scratch/short_native.py` (piloto: Tricolor native-1).
+- Shorts nativos: o primeiro elemento de cada bloco entra nos primeiros 0,3 s do bloco (nunca esperar a palavra falada com a tela só com o rótulo); os demais entram na palavra. Nenhum bloco fica mais de 4 s sem elemento novo: trecho longo de fala vira dois blocos (`end_before`/`start`). Toda empresa ou órgão citado no trecho aparece com logo (`logos`); sem logo licenciado, cartão de texto `"text:Nome"` (02/11/2026, Shorts da Binance). Backlog de Shorts antigos (recorte horizontal) em `social/queue.json` deve ser refeito no formato nativo antes de publicar (gerador `scratch/short_native.py`, `SHORT_PID=<projeto>`).
+
+- **Sem deslize lateral (30/10/2026, pedido do Maiquel, todos os canais):** nenhuma imagem parada anda para o lado. Foto/fundo so faz zoom centrado lento (aproximar ou recuar). Aplicado em tools/parallax.py, montage.py (Ken Burns) e walt_montage.py. Conferir ao olhar os quadros: o assunto nao pode "escorregar".
+
+- **Shorts proprios, nao cortes do audio do longo (01/11/2026, pedido do Maiquel; vale para videos futuros):** depois do longo pronto, escrever 3 roteiros NOVOS de Short (45 a 60 s cada) com o que a pesquisa e o video descobriram (numero forte, virada, quem paga), com narracao gerada so para o Short (TTS proprio, voz do canal), e nao reaproveitar as falas gravadas do longo. Cada Short: gancho nos 3 primeiros segundos, nenhum bloco de mais de ~3 s sem elemento novo na tela (foto de fundo, logo, cartao de pessoa, barras, bolinhas), sem pulsacao/tremida, trilha bem baixa (0,045) e barra de progresso. Meta: 3 Shorts "campeoes" nota >= 8, revisados quadro a quadro antes de mostrar. Weil: weil-1 e weil-3 aprovados com audio reaproveitado (excecao); weil-2 refeito.
+- Shorts: quadro de capa e primeiro quadro (02/11/2026). O YouTube escolhe sozinho um quadro do meio como capa se ninguem definir (Weil Short 3 saiu com o cartao "MA / And"). Regra de geracao: (1) o quadro 0 ja mostra o gancho (frase ou numero legivel, nunca so fundo); (2) o quadro 0,5 s deve se sustentar como capa (texto grande, sem legenda cortada como "And"); (3) o Short so conta como enviado depois de abrir o Studio e fixar a capa em "Miniatura > Selecionar no video" num quadro dos 2 primeiros segundos; (4) conferir a capa na lista do Studio antes de dizer "agendado".

@@ -123,8 +123,11 @@ def build_html(name, spec, segs, words, TOT):
         v = sg["vis"]; s0 = round(segs[k][0], 2); s1 = round(segs[k + 1][0], 2) if k + 1 < len(segs) else TOT; ids = []; gb = []
         def el(i, style, html, cls=""):
             ids.append(i); gb.append(f'<div id="{i}" class="h {cls}" style="{style}">{html}</div>\n')
-        for j, lf in enumerate(sg.get("logos") or []):  # logos dos citados, em cartoes claros
-            n_ = len(sg["logos"]); el(f"lg{k}_{j}", f"left:{(1080 - (n_ * 440 + (n_ - 1) * 40)) / 2 + j * 480:.0f}px;top:1210px;width:440px;height:240px", f'<img src="{A(lf)}" style="width:100%;height:100%;object-fit:contain">', "logo")
+        for j, lf in enumerate(sg.get("logos") or []):  # logos dos citados, em cartoes claros; "text:Nome" = cartao de texto (sem logo licenciado)
+            n_ = len(sg["logos"]); lw = min(440, (1000 - (n_ - 1) * 30) / n_); lh = sg.get("logos_h") or (lw * 240 / 440 if n_ < 3 else 170); gap = 40 if n_ < 3 else 30
+            inner = (f'<div style="font:700 {min(64, lw / 6):.0f}px/1.1 Inter;color:#221e1a;display:flex;align-items:center;justify-content:center;height:100%;text-align:center">{lf[5:]}</div>'
+                     if lf.startswith("text:") else f'<img src="{A(lf)}" style="width:100%;height:100%;object-fit:contain">')
+            el(f"lg{k}_{j}", f"left:{(1080 - (n_ * lw + (n_ - 1) * gap)) / 2 + j * (lw + gap):.0f}px;top:{sg.get('logos_y', 1210)}px;width:{lw:.0f}px;height:{lh:.0f}px", inner, "logo")
             js.append(f'POP("#lg{k}_{j}",{s0 + .6 + j * .25:.2f})')
         if sg.get("faces"):  # rostos (cartoes de monograma) que entram um a um
             n_ = len(sg["faces"])
@@ -216,8 +219,8 @@ def main(name):
     segs, words, TOT = build_audio(name, spec, WK); D = build_html(name, spec, segs, words, TOT)
     vid = WK / "video.mp4"
     subprocess.run(f'npx --yes hyperframes@0.8.191 render --output "{vid}"', cwd=D, shell=True, check=True, capture_output=True)
-    out = PD / "output" / "shorts" / f"{name}.mp4"
-    fc = ("[2:a]volume=0.045[m];[1:a]asplit=2[v][sc];[m][sc]sidechaincompress=threshold=0.02:ratio=12:attack=10:release=500[d];"
+    out = PD / "output" / "shorts" / f"{name}.mp4"; out.parent.mkdir(parents=True, exist_ok=True)
+    fc =("[2:a]volume=0.045[m];[1:a]asplit=2[v][sc];[m][sc]sidechaincompress=threshold=0.02:ratio=12:attack=10:release=500[d];"
           "[v][d]amix=inputs=2:duration=first:normalize=0,loudnorm=I=-14:TP=-2:LRA=11,alimiter=limit=0.7:level=disabled[a]")
     subprocess.run(["ffmpeg", "-hide_banner", "-loglevel", "error", "-y", "-i", str(vid), "-i", str(WK / "voice.wav"), "-stream_loop", "-1", "-i", str(PD / "music" / spec["music"]),
                     "-filter_complex", fc, "-map", "0:v", "-map", "[a]", "-c:v", "copy", "-c:a", "aac", "-b:a", "256k", "-shortest", str(out)], check=True)

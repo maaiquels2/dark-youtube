@@ -1,0 +1,57 @@
+[
+ {
+  "cena": 4,
+  "visual_prompt": "Dark data center aisle with rows of server racks and cool blue indicator lights, empty, shallow depth of field",
+  "prompt": "Dark data center aisle with rows of server racks and cool blue indicator lights, empty, shallow depth of field. Photorealistic documentary still of the real place and era, natural film look, subtle film grain, moody low-key light with readable shadows, cold teal and warm amber accents, 16:9. No text, no signage, no logos, no watermark; screens and papers blank or turned away. If the scene has people, they are seen only from behind, in silhouette or far away, with no faces; add no people the scene does not describe."
+ },
+ {
+  "cena": 11,
+  "visual_prompt": "Dim network operations room at night, wall of blank monitors glowing cold blue, empty desks",
+  "prompt": "Dim network operations room at night, wall of blank monitors glowing cold blue, empty desks. Photorealistic documentary still of the real place and era, natural film look, subtle film grain, moody low-key light with readable shadows, cold teal and warm amber accents, 16:9. No text, no signage, no logos, no watermark; screens and papers blank or turned away. If the scene has people, they are seen only from behind, in silhouette or far away, with no faces; add no people the scene does not describe."
+ },
+ {
+  "cena": 17,
+  "visual_prompt": "Wall of dark monitors in a security operations room, blue glow, empty chairs, photographed from behind a desk",
+  "prompt": "Wall of dark monitors in a security operations room, blue glow, empty chairs, photographed from behind a desk. Photorealistic documentary still of the real place and era, natural film look, subtle film grain, moody low-key light with readable shadows, cold teal and warm amber accents, 16:9. No text, no signage, no logos, no watermark; screens and papers blank or turned away. If the scene has people, they are seen only from behind, in silhouette or far away, with no faces; add no people the scene does not describe."
+ },
+ {
+  "cena": 18,
+  "visual_prompt": "Quiet office desk at night with a closed laptop and a coffee cup, city lights blurred behind the window, nobody present",
+  "prompt": "Quiet office desk at night with a closed laptop and a coffee cup, city lights blurred behind the window, nobody present. Photorealistic documentary still of the real place and era, natural film look, subtle film grain, moody low-key light with readable shadows, cold teal and warm amber accents, 16:9. No text, no signage, no logos, no watermark; screens and papers blank or turned away. If the scene has people, they are seen only from behind, in silhouette or far away, with no faces; add no people the scene does not describe."
+ },
+ {
+  "cena": 20,
+  "visual_prompt": "Open laptop on a dark desk in an empty server-room office, screen turned away, blue light",
+  "prompt": "Open laptop on a dark desk in an empty server-room office, screen turned away, blue light. Photorealistic documentary still of the real place and era, natural film look, subtle film grain, moody low-key light with readable shadows, cold teal and warm amber accents, 16:9. No text, no signage, no logos, no watermark; screens and papers blank or turned away. If the scene has people, they are seen only from behind, in silhouette or far away, with no faces; add no people the scene does not describe."
+ },
+ {
+  "cena": 24,
+  "visual_prompt": "Washington D.C. government office building at dusk, long exposure, rain on the street, no people",
+  "prompt": "Washington D.C. government office building at dusk, long exposure, rain on the street, no people. Photorealistic documentary still of the real place and era, natural film look, subtle film grain, moody low-key light with readable shadows, cold teal and warm amber accents, 16:9. No text, no signage, no logos, no watermark; screens and papers blank or turned away. If the scene has people, they are seen only from behind, in silhouette or far away, with no faces; add no people the scene does not describe."
+ },
+ {
+  "cena": 30,
+  "visual_prompt": "Close view of server rack cables and blinking indicator lights in a data center, shallow focus",
+  "prompt": "Close view of server rack cables and blinking indicator lights in a data center, shallow focus. Photorealistic documentary still of the real place and era, natural film look, subtle film grain, moody low-key light with readable shadows, cold teal and warm amber accents, 16:9. No text, no signage, no logos, no watermark; screens and papers blank or turned away. If the scene has people, they are seen only from behind, in silhouette or far away, with no faces; add no people the scene does not describe."
+ },
+ {
+  "cena": 31,
+  "visual_prompt": "Empty trading floor at night, rows of monitors with blank dark screens, a single desk lamp on",
+  "prompt": "Empty trading floor at night, rows of monitors with blank dark screens, a single desk lamp on. Photorealistic documentary still of the real place and era, natural film look, subtle film grain, moody low-key light with readable shadows, cold teal and warm amber accents, 16:9. No text, no signage, no logos, no watermark; screens and papers blank or turned away. If the scene has people, they are seen only from behind, in silhouette or far away, with no faces; add no people the scene does not describe."
+ },
+ {
+  "cena": 37,
+  "visual_prompt": "Federal courthouse stone facade with columns on an overcast morning, empty steps",
+  "prompt": "Federal courthouse stone facade with columns on an overcast morning, empty steps. Photorealistic documentary still of the real place and era, natural film look, subtle film grain, moody low-key light with readable shadows, cold teal and warm amber accents, 16:9. No text, no signage, no logos, no watermark; screens and papers blank or turned away. If the scene has people, they are seen only from behind, in silhouette or far away, with no faces; add no people the scene does not describe."
+ },
+ {
+  "cena": 44,
+  "visual_prompt": "Financial district skyline at night seen from a quiet street, lit office windows, wet pavement",
+  "prompt": "Financial district skyline at night seen from a quiet street, lit office windows, wet pavement. Photorealistic documentary still of the real place and era, natural film look, subtle film grain, moody low-key light with readable shadows, cold teal and warm amber accents, 16:9. No text, no signage, no logos, no watermark; screens and papers blank or turned away. If the scene has people, they are seen only from behind, in silhouette or far away, with no faces; add no people the scene does not describe."
+ },
+ {
+  "cena": 54,
+  "visual_prompt": "Empty office corridor at night, glass walls, a single light at the far end",
+  "prompt": "Empty office corridor at night, glass walls, a single light at the far end. Photorealistic documentary still of the real place and era, natural film look, subtle film grain, moody low-key light with readable shadows, cold teal and warm amber accents, 16:9. No text, no signage, no logos, no watermark; screens and papers blank or turned away. If the scene has people, they are seen only from behind, in silhouette or far away, with no faces; add no people the scene does not describe."
+ }
+]
