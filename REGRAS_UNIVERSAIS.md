@@ -49,6 +49,11 @@ Criado em 01/11/2026, com a aprovação do Maiquel.
 - **Ilustração rotulada:** reconstrução de fato real leva rótulo de ilustração quando pode ser confundida com registro.
 - **Clipe de vídeo:** revisar a 6 fps em toda ação e conferir a lógica (mesmo número de pessoas, ninguém surge do nada, carros na pista). *(CHECKLIST §6, memória realism)*
 - **Imagem parada:** no máximo 45% do tempo, e nenhum trecho parado passa de 8 s. *(Tricolor, final_sweep)*
+- **Composição** (05/11/2026, aprovado pelo Maiquel; ideia de Eian, @EianLu):
+  - em foto, reconstrução e clipe, o rosto ou o objeto principal fica perto de 38% ou 62% da largura, não no centro. Gráficos, mapas e cartões seguem o layout do canal;
+  - a paleta de cada bloco do vídeo é escolhida antes da primeira imagem e anotada no projeto;
+  - teste em preto e branco nos quadros de referência: se o assunto some no fundo, falta contraste e a imagem volta;
+  - não emendar várias cenas seguidas com o mesmo enquadramento: alternar plano aberto, médio e fechado.
 
 ## 5. Movimento
 - **Proibidos:** partículas decorativas, lens flare, degradê roxo ou azul, tudo surgindo junto, fade-and-slide-up em todo elemento, texto que se mexe enquanto é lido. *(PADRAO "Movimento")*
@@ -107,6 +112,79 @@ Criado em 01/11/2026, com a aprovação do Maiquel.
 
 ## 11. Erro novo vira regra
 - Erro apontado pelo Maiquel vira regra no mesmo dia: aqui, se vale para todos; no arquivo do canal, se é de um só. O caso vai para o registro de erros do canal.
+
+## 12. Ideia, título e capa
+Fonte: artigo de Paddy Galloway, "5 Principles That Helped Me Generate 50 Billion Views" (X, 02/11/2026). Aprovado pelo Maiquel em 03/11/2026. As regras do canal sobre título (por exemplo, The Rule Changed sem números) e a seção 2 (Verdade) vencem em caso de conflito.
+- **Tempo para a embalagem:** ideia, título e capa decidem cerca de metade do resultado, então ganham tempo de verdade.
+  - Antes de escolher o tema, levantar pelo menos 10 ideias e escolher a mais forte.
+  - Para cada vídeo, fazer pelo menos 5 títulos e 3 capas e escolher olhando lado a lado, no tamanho do feed do celular.
+- **Teste do relance:** ideia, título e capa precisam ser entendidos em menos de 1 segundo. Se não forem, simplificar.
+  - Título com menos de 60 caracteres.
+  - No máximo 5 palavras na capa.
+  - De 1 a 3 pontos de foco na imagem.
+  - O texto da capa se destaca do fundo (contraste da seção 6) e não se mistura com a imagem.
+- **Vantagem própria:** antes de aprovar uma ideia, perguntar: "qualquer canal poderia dizer isso?". Se a resposta for sim, achar o ângulo que só este canal tem: a fonte primária, o documento, a montagem peça por peça, o personagem.
+- **Algo em jogo:** todo vídeo diz no gancho o que o espectador ganha ou perde, mesmo um vídeo educativo. Pode ser uma consequência ("a chave quase certa não gira") ou um adversário real. A consequência precisa ser verdadeira e ter fonte (seção 2). Adversário inventado ou exagerado é proibido, assim como título sensacionalista (`CLAUDE_YT_ANTI_DEMONETIZATION.md`).
+- **"Algoritmo" vira "público":** na análise de métricas, não culpar o algoritmo. "O algoritmo não entregou" se escreve "o público não clicou ou não ficou", e a causa vai para a ideia, a embalagem ou o vídeo (`CLAUDE_ANALYTICS_FEEDBACK.md`).
+
+Acrescentado em 05/11/2026, com aprovação do Maiquel (guia de Pierre François, @pierrestories, X, 05/11/2026; só a parte que serve a canal de anúncio):
+- **Ideias 70-20-10:** na escolha de temas, ~70% do *tipo* de tema que já funciona no canal, ~20% vizinho a ele e ~10% totalmente novo. Os 70% são o tipo de tema, nunca o mesmo vídeo refeito (`CLAUDE_YT_ANTI_DEMONETIZATION.md` 6c).
+- **Padrão, não acaso:** um vídeo que estourou sozinho ensina pouco. Só tirar conclusão comparando vários vídeos acima da média do canal lado a lado e anotando o que se repete em todos.
+- **Primeiros 30 s (Gate 2):** cada frase da abertura tem uma função, nesta ordem: por que este vídeo é diferente do que o espectador já viu; por que confiar (a fonte, o documento); o que ele ganha assistindo; o que vem a seguir. Antes de aprovar o roteiro, conferir que os primeiros 30 s entregam o que o título e a capa prometem.
+- **Vídeo abaixo do esperado:** primeiro definir o que era "esperado" para ele. Depois investigar na ordem ideia → título e capa → gancho (30 s) → roteiro e edição, parar na primeira etapa que explica e anotar a causa e a correção na ficha do canal ("Deu certo / não deu").
+- **Não largar formato por tédio:** formato que funciona continua até os dados dizerem o contrário; mudança de formato só com a análise acima e OK do Maiquel.
+
+Acrescentado em 03/11/2026, com aprovação do Maiquel, e conferido nas fontes primárias:
+- Central de Ajuda, "Testar e comparar": support.google.com/youtube/answer/13861714
+- entrevista no Creator Insider (27/10/2026) com Todd Beaupré e Rene Ritchie: youtube.com/watch?v=Au_x7IRClH4
+- blog do Made on YouTube (23/09/2026)
+
+Detalhes em `research/youtube_ab_2026-11-03/validacao_ab_oficial.md`.
+- **Capas no "Testar e comparar"** (já existe):
+  - nos vídeos longos, subir até 3 opções no teste A/B do Studio em vez de escolher uma só. Pode ser capa, título ou os dois; o título segue a regra do canal;
+  - o teste decide pelo tempo assistido, não pelo clique. Vence a opção que mantém o espectador;
+  - a posição 1 é sempre a capa principal do vídeo (o Studio a preenche sozinho) e é ela que fica se o resultado der "Inconclusive". Em vídeo novo, enviar a favorita como capa principal no upload; em vídeo já publicado, a atual fica na posição 1;
+  - o teste dura até 2 semanas. Não mexer em título nem em capa nesse período, porque qualquer mudança encerra o teste;
+  - só funciona no computador, com recursos avançados ativos. Não vale para Shorts, Premieres, lives nem vídeos para crianças.
+- **Nenhuma métrica sozinha:** segundo Rene Ritchie, o YouTube pesa as coisas de forma diferente para cada espectador. Na análise, ler juntos views, retenção e satisfação (curtidas, comentários, inscrições vindas do vídeo). CTR sozinho não decide nada.
+- **Título e descrição em linguagem natural:** dizer com clareza, em frases normais, do que o vídeo trata e para quem é. O sistema entende o assunto pelo sentido, não pelo texto literal do título (Todd Beaupré), então lista de palavras-chave não ajuda.
+- **Só anunciado (sem data; reavaliar quando sair):** teste A/B de Shorts (2 ou 3 versões, com gráfico de retenção), capas dinâmicas, revisão do catálogo antigo com IA (Ask Studio) e feeds personalizados por linguagem (primeiro nos EUA).
+- **Canal novo:** o YouTube mostra vídeos de canais pequenos a alguns espectadores ("exploration") e amplia o alcance quando eles gostam. No Rule Changed e no SYW, manter o tema constante e fazer o primeiro público assistir até o fim vale mais do que olhar o número do Studio.
+
+### Capas com teste A/B (padrão desde 03/11/2026, aprovado pelo Maiquel)
+Vale para todo vídeo longo do Ledger e do The Rule Changed. Não vale para o SYW nem para Shorts até o teste de Shorts sair. O primeiro caso foi Binance e Weil, em `canais/CRACKED_LEDGER.md` (03/11). Esta é uma regra de **processo**: o **estilo** que vence só vira regra depois dos resultados (último item).
+- **3 capas por vídeo:** a principal e mais 2 variações, cada uma com um conceito diferente. Exemplos de conceito:
+  - fundo claro de papel quadriculado com seta verde subindo e vermelha caindo;
+  - objeto fundido com a marca (moeda com o símbolo, prédio real da sede);
+  - antes e depois;
+  - dado desenhado (recibo, barras, linha do tempo, cronômetro);
+  - versão escura do canal.
+- **Toda capa:**
+  - passa no teste do relance acima, com no máximo 5 palavras;
+  - tem 1 objeto que mostra o acontecimento (cofre vazio, não cofre fechado; cadeira vazia, não escritório genérico), de preferência fundido com a marca;
+  - logo ou foto real conferidos (seção 3);
+  - todo número e afirmação estão no vídeo, com fonte (seção 2). Alegação leva ALLEGED ou crédito ("per TRM Labs");
+  - no Rule Changed, segue a regra do canal: sem número nem multa na capa.
+- **Composição** (lista colada pelo Maiquel em 05/11/2026, sem autor; aprovada por ele):
+  - **reviravolta que o título não diz:** a capa completa o título, não repete. Ex.: título "Who Really Killed Red Lobster?" e capa com o prato de camarão vazio e o recibo;
+  - **a cor mais forte vai na reviravolta:** o elemento que gera a curiosidade é o primeiro que o olho encontra; o resto fica em tons de apoio;
+  - **quebrar só um elemento do visual do nicho** (cor de fundo, ângulo, objeto inesperado); quebrar tudo deixa a capa irreconhecível;
+  - **dica, não regra:** o olho tende a ler em Z, então gancho em cima à esquerda e prova embaixo à direita;
+  - **variação para o teste A/B:** uma das 3 capas pode fugir de vermelho, branco e preto como cores principais (a página do YouTube usa essas cores). Vira regra só se vencer nos testes.
+- **Proibido, mesmo que os concorrentes façam:**
+  - rosto de pessoa real gerado por IA;
+  - imitar post ou foto de político;
+  - "NOW ILLEGAL", multa em dinheiro ou alerta falso na capa;
+  - texto gerado dentro da imagem (placa, tela, papel com letras falsas).
+- **Revisão:** olhar as 3 lado a lado no tamanho do feed (~400 px) e em tamanho cheio antes de enviar. Depois, converter as 3 para preto e branco no tamanho do feed: se não der para dizer na hora o que importa mais, falta contraste e a capa volta. Procurar texto encostando em seta ou objeto, objeto flutuando sem sombra, recorte com sobra de fundo e logo cortado.
+- **Teste no Studio:**
+  - "Teste A/B" → "Somente miniatura": a principal fica na posição 1 e as 2 variações nas posições 2 e 3;
+  - "Começar teste" e depois **"Salvar"** no topo da página: sem salvar, o teste não fica;
+  - conferir reabrindo o "Teste A/B": o aviso "Isso exclui o teste atual" quer dizer que o teste está ativo. Clicar em "Cancelar".
+  - Detalhes da automação na memória "Teste A/B de capa no Studio".
+- **Resultado:**
+  - em até 2 semanas, anotar na ficha do canal o vencedor, o conceito de cada opção e a porcentagem de tempo assistido;
+  - depois de uns 5 testes no mesmo canal, o conceito que mais venceu vira o conceito **principal** do canal, por decisão do Maiquel, mas não o único: duas capas vizinhas na página do canal nunca têm o mesmo conceito, e o vencedor se reveza com os outros (cor do texto, o que fica no centro: objeto, mapa, prédio, documento). A identidade do canal fica na paleta e na fonte, não num modelo repetido (`CLAUDE_YT_ANTI_DEMONETIZATION.md` item 6d; corrigido em 05/11/2026).
 
 ## Em aberto (o Maiquel decide)
 | Tema | Situação |

@@ -1,0 +1,286 @@
+{
+ "A": {
+  "n": 12,
+  "len_min": 37,
+  "len_med": 50.5,
+  "len_max": 93,
+  "le60": 8,
+  "patterns": {
+   "pergunta (?)": 3,
+   "número/valor": 2,
+   "How…": 1,
+   "Why…": 1,
+   "What Happened/What…": 2,
+   "Rise and Fall / Collapse / Fall": 5,
+   "consequência/stake (fine, illegal, jail, die…)": 2,
+   "reviravolta (—, …, Then, Until)": 2,
+   "personagem/adversário (CEO, judge, scammer, manager…)": 0,
+   "MAIÚSCULAS (palavra inteira ≥4 letras)": 0,
+   "emoji": 0,
+   "hashtag": 0
+  },
+  "top_words": [
+   [
+    "bankrupt",
+    2
+   ],
+   [
+    "america",
+    2
+   ],
+   [
+    "finally",
+    2
+   ],
+   [
+    "getting",
+    2
+   ],
+   [
+    "deserve",
+    2
+   ],
+   [
+    "happened",
+    2
+   ],
+   [
+    "biggest",
+    2
+   ],
+   [
+    "which",
+    1
+   ],
+   [
+    "rich",
+    1
+   ],
+   [
+    "country",
+    1
+   ],
+   [
+    "goes",
+    1
+   ],
+   [
+    "first",
+    1
+   ]
+  ]
+ },
+ "B": {
+  "n": 11,
+  "len_min": 23,
+  "len_med": 51,
+  "len_max": 99,
+  "le60": 6,
+  "patterns": {
+   "pergunta (?)": 2,
+   "número/valor": 6,
+   "How…": 0,
+   "Why…": 0,
+   "What Happened/What…": 0,
+   "Rise and Fall / Collapse / Fall": 0,
+   "consequência/stake (fine, illegal, jail, die…)": 4,
+   "reviravolta (—, …, Then, Until)": 4,
+   "personagem/adversário (CEO, judge, scammer, manager…)": 2,
+   "MAIÚSCULAS (palavra inteira ≥4 letras)": 4,
+   "emoji": 1,
+   "hashtag": 0
+  },
+  "top_words": [
+   [
+    "new",
+    4
+   ],
+   [
+    "law",
+    2
+   ],
+   [
+    "drivers",
+    2
+   ],
+   [
+    "fines",
+    2
+   ],
+   [
+    "laws",
+    2
+   ],
+   [
+    "judge",
+    1
+   ],
+   [
+    "jailed",
+    1
+   ],
+   [
+    "two",
+    1
+   ],
+   [
+    "kids",
+    1
+   ],
+   [
+    "window",
+    1
+   ],
+   [
+    "breaks",
+    1
+   ],
+   [
+    "japan's",
+    1
+   ]
+  ]
+ },
+ "C": {
+  "n": 11,
+  "len_min": 32,
+  "len_med": 43,
+  "len_max": 60,
+  "le60": 11,
+  "patterns": {
+   "pergunta (?)": 4,
+   "número/valor": 0,
+   "How…": 8,
+   "Why…": 2,
+   "What Happened/What…": 0,
+   "Rise and Fall / Collapse / Fall": 0,
+   "consequência/stake (fine, illegal, jail, die…)": 0,
+   "reviravolta (—, …, Then, Until)": 1,
+   "personagem/adversário (CEO, judge, scammer, manager…)": 0,
+   "MAIÚSCULAS (palavra inteira ≥4 letras)": 0,
+   "emoji": 5,
+   "hashtag": 0
+  },
+  "top_words": [
+   [
+    "does",
+    2
+   ],
+   [
+    "works",
+    2
+   ],
+   [
+    "becomes",
+    2
+   ],
+   [
+    "solve",
+    2
+   ],
+   [
+    "riddle",
+    2
+   ],
+   [
+    "dobermans",
+    1
+   ],
+   [
+    "have",
+    1
+   ],
+   [
+    "cropped",
+    1
+   ],
+   [
+    "ears",
+    1
+   ],
+   [
+    "air",
+    1
+   ],
+   [
+    "force",
+    1
+   ],
+   [
+    "one",
+    1
+   ]
+  ]
+ },
+ "D": {
+  "n": 11,
+  "len_min": 39,
+  "len_med": 61,
+  "len_max": 97,
+  "le60": 5,
+  "patterns": {
+   "pergunta (?)": 0,
+   "número/valor": 6,
+   "How…": 0,
+   "Why…": 0,
+   "What Happened/What…": 0,
+   "Rise and Fall / Collapse / Fall": 0,
+   "consequência/stake (fine, illegal, jail, die…)": 2,
+   "reviravolta (—, …, Then, Until)": 4,
+   "personagem/adversário (CEO, judge, scammer, manager…)": 4,
+   "MAIÚSCULAS (palavra inteira ≥4 letras)": 0,
+   "emoji": 1,
+   "hashtag": 0
+  },
+  "top_words": [
+   [
+    "old",
+    6
+   ],
+   [
+    "age",
+    4
+   ],
+   [
+    "people",
+    3
+   ],
+   [
+    "life",
+    3
+   ],
+   [
+    "manager",
+    2
+   ],
+   [
+    "until",
+    2
+   ],
+   [
+    "make",
+    2
+   ],
+   [
+    "lessons",
+    2
+   ],
+   [
+    "habits",
+    2
+   ],
+   [
+    "thought",
+    1
+   ],
+   [
+    "cheap",
+    1
+   ],
+   [
+    "silver",
+    1
+   ]
+  ]
+ }
+}

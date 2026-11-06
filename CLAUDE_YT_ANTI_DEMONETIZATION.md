@@ -180,6 +180,10 @@ Aplicar no roteiro, thumb, título e primeiros 30s:
 4. **EDSA** (context / disclaimer educativo) cedo quando o episódio entrar em zona cinzenta.
 5. **Transformar clipes:** se reutilizar arquivo, mudar ritmo, contexto, narração, framing — não reupload com overlay.
 6. **Variar template** de série (cores, lower-thirds, pacing) ao longo da temporada, sem perder identidade de marca.
+6a. **Revezar o molde do título** (Ledger, Rule Changed, SYW longo): antes de aprovar o título, listar o molde dos 2 últimos vídeos do canal (ex.: "What (Actually) Happened to X", "Who Really Killed X?", pergunta simples, "X: frase", afirmação curta, "A — B" com travessão). O título novo não repete nenhum dos dois, e o molde com travessão ou dois-pontos aparece no máximo 3 vezes a cada 10 vídeos. Sem sufixo fixo ("| History for Sleep") em todo título. No teste A/B de título vale o mesmo para as 3 opções.
+6b. **Abertura do roteiro diferente** (Gate 2): comparar os primeiros ~30 s do roteiro novo com os 3 últimos do canal. Se a frase de abertura, o tipo de gancho ou a ordem dos blocos forem iguais, reescrever. Os padrões de retenção dizem *o que* o gancho faz, não *como* começa. Ao usar um roteiro antigo como exemplo, copiar a voz, nunca as frases.
+6c. **Ideias pelo que falta:** para escolher tema, dar ao agente a lista completa de vídeos já publicados no canal e pedir as lacunas, não "mais ideias". Proibido refazer um vídeo que foi bem trocando só número ou título.
+6d. **Capas vizinhas diferentes:** duas capas seguidas na página do canal nunca têm o mesmo conceito (ver `REGRAS_UNIVERSAIS.md` §12). Conferir olhando a grade dos últimos 6 vídeos antes do upload.
 7. **Sem clickbait sexual ou de violência extrema** em título/thumb.
 8. Upload config (Ledger checklist): não é para crianças; conteúdo alterado = Sim quando houver IA/avatar; idioma EN; categoria adequada (Educação / Entertainment conforme o canal).
 
@@ -299,6 +303,7 @@ Simular review de canal (seção 3) e preencher checklist seção 6 no log.
 
 | Data | Mudança |
 |------|---------|
+| 2026-11-05 | Itens 6a–6d (molde de título revezado, abertura diferente, ideias pelo que falta, capas vizinhas diferentes). Base: @ytajourney, canal de história para dormir desmonetizado por "repetitive content" em 21/10/2026 (x.com/ytajourney/status/2118452265145254022). Aprovado pelo Maiquel. |
 | 2026-10-26 | Criação. Base: julianfaceless (3 juízes, review de canal, AI ≠ ban) + blain_fury (Generic & Repetitive em history CMS 3–4/dia; appeal falhou; automação arquivo+voz). Regras por canal: Walt, Ledger, SYW. |
 
 Quando o Maiquel apontar um erro novo de monetização/YPP, **acrescentar neste arquivo no mesmo dia** (como o checklist do Ledger faz com erros de produção).

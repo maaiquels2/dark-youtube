@@ -19,6 +19,8 @@ Vale junto com [`REGRAS_UNIVERSAIS.md`](../REGRAS_UNIVERSAIS.md). Em conflito, a
 ## Estrutura de cada vídeo
 O arco é fixo. A estrutura interna varia de caso para caso (regra anti-fábrica, `CLAUDE_YT_ANTI_DEMONETIZATION.md` §2).
 
+**Três atos (padrão desde 05/11/2026, elogiado pelo Maiquel no ep03):** todo episódio se organiza e se marca na tela em THE SCAM · THE CASE · THE RULE (marcador de ato, cor do ato, linha dos atos no cartão final). Os capítulos e a ordem interna variam; os três atos não.
+
 1. **Gancho:** a vítima e o dinheiro, com número concreto na 1ª ou 2ª frase.
 2. **THE SCAM:** como o golpe funcionava, em passos, sem receita que dê para repetir.
 3. **THE CASE:** quem foi pego, órgão ou tribunal, decisão. Usar "alegou", "segundo o FCC", "foi condenado" só quando for o caso.
@@ -154,12 +156,20 @@ Segue a regra universal, §3 de `REGRAS_UNIVERSAIS.md`. No canal:
 ## Título, capa e descrição
 - **Título e capa vendem o engano que motivou a lei, sem números** (Maiquel, 01/11). A fórmula de "valor exato" do Ledger não vale aqui; os números ficam dentro do vídeo.
   - Ep01: título "The Fake Local Number That Changed the Law", capa "IT LOOKED LOCAL. / IT WASN'T.".
+  - **Teste A/B com número (aprovado por Maiquel em 03/11/2026):** em `research/youtube_ab_2026-11-03/canais_vencedores.md`, 6 de 11 vencedores do nicho têm número ou data no título.
+    - A partir do próximo vídeo longo, testar no "Testar e comparar" (REGRAS_UNIVERSAIS §12) o título sem número, que vai como 1ª opção e segue a regra acima, contra um título com número ou data.
+    - O número precisa ser verdadeiro, ter fonte e aparecer no vídeo.
+    - A capa continua sem multa nem valor.
+    - O resultado de cada teste fica em "Deu certo / não deu". Depois de 3 testes, o Maiquel decide se a regra muda.
 - Seguem também o checklist de `research/canal_golpes_lei/PESQUISA.md`: factual e cumprido pelo vídeo, sem cadáver, choro ou rosto de vítima.
 - **Descrição:** fontes primárias, capítulos, "educational, not legal advice" e links de denúncia.
 - **Rótulos do upload:** AI use = Sim; checagem de privacidade.
 - **Ep01 no YouTube:** `czjOFwcyQjU`, agendado público para 02/11 19:00 ET (versão com recortes de notícia). O envio de 01/11 sem recortes foi apagado.
 - **Ep02 no YouTube:** `e8Z_ZhxGjuQ`, "Why Your Bank Says \"You Sent It Yourself\"", agendado público para 03/11 19:00 ET.
-- **Tela final:** o Studio exige pelo menos 1 vídeo ou playlist; só o botão de inscrição não salva. Padrão desde 02/11: playlist pública "The Rule Changed" sobre a caixa NEXT VIDEO do cartão final + inscrição sobre o botão SUBSCRIBE, do início do cartão até o fim. Todo episódio novo entra na playlist. O Studio não importa a tela final de outro vídeo: adicionar Playlist e Subscribe, pôr o início no 1º segundo do cartão final e arrastar sobre as caixas (no ep02: playlist a 51%/27% do quadro com 39% de largura; inscrição centrada no botão, 28%/48%).
+- **Ep03 no YouTube:** `0KcgXT7tf5Q`, "The President Called. It Wasn't Him.", agendado público para 05/11 19:00 ET; teste A/B de capa ativo desde 05/11 (resultado até 19/11). O teste de título com número fica para o ep04 (o Studio só aceita um teste por vez).
+- **Ep04 no YouTube:** `vKPtK12VcbI`, "They Didn't Hack the SEC. They Took Its Phone Number.", agendado público para 06/11 19:00 ET (teste A/B de capa ativo). Shorts: `F_ktqVpt_K8` 10/11, `vXC1psUcEBo` 11/11, `aIYsz_wmGpc` 12/11, todos 22:00 ET.
+- **Ep05 no YouTube:** `K8zxoTfYVso`, "The Fake IRS Got Caught. Who Pays the Victims Back?", agendado público para 07/11 19:00 ET (21:00 GMT-3), com OK do Maiquel em 05/11 ("Pode prosseguir com o que falta pra agendar o vídeo"); teste A/B de capa ativo (A/B/C). Shorts do ep05 ainda não feitos.
+- **Tela final:** o Studio exige pelo menos 1 vídeo ou playlist; só o botão de inscrição não salva. Padrão desde 02/11: playlist pública "The Rule Changed" sobre a caixa NEXT VIDEO do cartão final + inscrição sobre o botão SUBSCRIBE, do início do cartão até o fim. Todo episódio novo entra na playlist. Desde 05/11 o Studio tem "Import from video" / "Import from latest video" na etapa Video elements: importa a playlist e a inscrição já posicionadas (conferir o início, que vem do vídeo de origem). Sem o botão: adicionar Playlist e Subscribe, pôr o início no 1º segundo do cartão final e arrastar sobre as caixas (no ep02: playlist a 51%/27% do quadro com 39% de largura; inscrição centrada no botão, 28%/48%).
 - **Ritmo (Maiquel, 02/11):** longo às 19h ET e Short às 22h ET, todo dia.
 - **Busca no YouTube:** skill principal `youtube-seo` (decisão de 02/11); `claude-youtube` avaliada e não instalada.
 
@@ -184,3 +194,10 @@ Segue a regra universal, §3 de `REGRAS_UNIVERSAIS.md`. No canal:
 | 02/11 | não deu | envio do master de 1 GB pelo CDP estourou os 30 s do `DOM.setFileInputFiles` e travou a aba; com tempo limite de 10 min passou. Conferir a lista do Studio antes de reenviar |
 | 02/11 | deu certo | ep02 (9:06) do pedido ao agendamento na mesma tarde (~4 h): pesquisa e Motion em paralelo com Sonnet, roteiro Opus, troca de imagem no meio de bloco para nenhum plano parado passar de 8 s |
 | 02/11 | deu certo | Maiquel assistiu ao ep02: "Estamos chegando a um nível de produção muito bom. Nenhum ajuste identificado." Manter o padrão do ep02 (6 capítulos, 9 recortes oficiais, 2 clipes Motion, mapa, troca de imagem antes de 8 s) |
+| 05/11 | deu certo | Maiquel aprovou o ep03 (voz de IA/Biden) e elogiou a divisão em três atos: "Gostei muito que você separou por The Scam, The Case e The Rule (sacada genial)." **Vira padrão do canal:** todo episódio organizado e marcado em THE SCAM · THE CASE · THE RULE (marcador de ato na tela, cor do ato, cartão final com a linha dos atos) |
+| 05/11 | não deu | `doc_excerpt` com legenda: o papel de altura total ficava sob a legenda branca. Contornado com PNG de papel no `web_clip`; a sessão ec-lib corrigiu o modelo (papel termina acima da legenda). Rótulo numérico de uma 2ª cena no bloco conta de quando ela entra: usar 0.3 ou uma palavra |
+| 05/11 | não deu | Kokoro leu "League" como "leg" (testadas "Leeg"/"Leag"): frase reescrita sem a palavra; o nome fica só na tela |
+| 05/11 | deu certo | ep04 SIM swap (10:20) aprovado sem ajustes na 1ª versão: dois casos de épocas diferentes com a regra no meio, "o que ainda falha" = a própria regra sem data de cumprimento (eCFR), 3 clipes Motion, 10 recortes oficiais e 6 documentos em papel |
+| 05/11 | não deu | ep05: numa cena que entra depois do início do bloco (`at` > 0), o `until` numérico da ec_lib conta da entrada dela, não do bloco; papel e rótulos ficavam sob a cena seguinte. O `make_scenes.py` do ep05 converte `until - at` no fim; usar o mesmo nos próximos episódios |
+| 05/11 | deu certo | ep05 enviado e agendado só por CDP (porta 9334): descrição do kit tinha 5.996 caracteres e o YouTube aceita 5.000 (enxugar fontes antes de colar); tags viram etiqueta com Enter; "Import from latest video" trouxe playlist e inscrição 0,3 s antes do cartão (ajustado); data do agendamento não aceita digitação no campo, só clique no dia; hora pelo jeito do ep04; tudo conferido recarregando |
+| 05/11 | não deu | agendar Short pelo diálogo de upload: o horário digitado aparece no campo mas não grava se a lista de horários estiver aberta (o Enter escolhe o item destacado); os 3 do ep04 caíram às 00:00 ET. Funciona: focar o campo por script sem clicar, digitar, disparar input/change e tirar o foco; depois salvar e reabrir para conferir |
